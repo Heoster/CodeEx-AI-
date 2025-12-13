@@ -1,0 +1,155 @@
+{
+  "providers": {
+    "groq": {
+      "type": "groq",
+      "apiKeyEnvVar": "GROQ_API_KEY",
+      "baseUrl": "https://api.groq.com/openai/v1",
+      "enabled": true
+    },
+    "huggingface": {
+      "type": "huggingface",
+      "apiKeyEnvVar": "HUGGINGFACE_API_KEY",
+      "baseUrl": "https://router.huggingface.co/v1",
+      "enabled": true
+    },
+    "google": {
+      "type": "google",
+      "apiKeyEnvVar": "GOOGLE_API_KEY",
+      "baseUrl": "https://generativelanguage.googleapis.com/v1beta",
+      "enabled": true
+    }
+  },
+  "models": [
+    {
+      "id": "llama-3.1-8b-instant",
+      "name": "Llama 3.1 8B Instant",
+      "provider": "groq",
+      "modelId": "llama-3.1-8b-instant",
+      "category": "general",
+      "description": "Fast and efficient Llama model for general tasks",
+      "contextWindow": 131072,
+      "supportsStreaming": true,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "maxOutputTokens": 2048
+      },
+      "enabled": true
+    },
+    {
+      "id": "llama-3.1-8b-instruct-hf",
+      "name": "Llama 3.1 8B Instruct",
+      "provider": "huggingface",
+      "modelId": "meta-llama/Llama-3.1-8B-Instruct",
+      "category": "general",
+      "description": "Instruction-tuned Llama model via Hugging Face Router",
+      "contextWindow": 131072,
+      "supportsStreaming": false,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "maxOutputTokens": 2048
+      },
+      "enabled": true
+    },
+    {
+      "id": "deepseek-v3.2",
+      "name": "DeepSeek V3.2",
+      "provider": "huggingface",
+      "modelId": "deepseek-ai/DeepSeek-V3.2",
+      "category": "coding",
+      "description": "Advanced coding and reasoning model",
+      "contextWindow": 32768,
+      "supportsStreaming": false,
+      "defaultParams": {
+        "temperature": 0.5,
+        "topP": 0.9,
+        "maxOutputTokens": 2048
+      },
+      "enabled": true
+    },
+    {
+      "id": "rnj-1-instruct",
+      "name": "RNJ-1 Instruct",
+      "provider": "huggingface",
+      "modelId": "EssentialAI/rnj-1-instruct",
+      "category": "conversation",
+      "description": "Efficient conversational AI model",
+      "contextWindow": 8192,
+      "supportsStreaming": false,
+      "defaultParams": {
+        "temperature": 0.8,
+        "topP": 0.95,
+        "maxOutputTokens": 1024
+      },
+      "enabled": true
+    },
+    {
+      "id": "gpt-oss-20b",
+      "name": "GPT-OSS 20B",
+      "provider": "huggingface",
+      "modelId": "openai/gpt-oss-20b",
+      "category": "general",
+      "description": "Large open-source GPT model",
+      "contextWindow": 4096,
+      "supportsStreaming": false,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "maxOutputTokens": 1024
+      },
+      "enabled": true
+    },
+    {
+      "id": "gemini-2.5-flash",
+      "name": "Gemini 2.5 Flash",
+      "provider": "google",
+      "modelId": "gemini-2.5-flash",
+      "category": "multimodal",
+      "description": "Latest Gemini model with multimodal capabilities",
+      "contextWindow": 1048576,
+      "supportsStreaming": false,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "topK": 40,
+        "maxOutputTokens": 8192
+      },
+      "enabled": true
+    },
+    {
+      "id": "gemini-flash-latest",
+      "name": "Gemini Flash Latest",
+      "provider": "google",
+      "modelId": "gemini-flash-latest",
+      "category": "general",
+      "description": "Latest version of Gemini Flash model",
+      "contextWindow": 1048576,
+      "supportsStreaming": false,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "topK": 40,
+        "maxOutputTokens": 8192
+      },
+      "enabled": true
+    },
+    {
+      "id": "gemini-2.5-flash-lite",
+      "name": "Gemini 2.5 Flash Lite",
+      "provider": "google",
+      "modelId": "gemini-2.5-flash-lite",
+      "category": "conversation",
+      "description": "Lightweight version of Gemini 2.5 Flash",
+      "contextWindow": 1048576,
+      "supportsStreaming": false,
+      "defaultParams": {
+        "temperature": 0.8,
+        "topP": 0.95,
+        "topK": 40,
+        "maxOutputTokens": 4096
+      },
+      "enabled": true
+    }
+  ]
+}
