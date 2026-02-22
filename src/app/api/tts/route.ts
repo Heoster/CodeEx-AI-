@@ -9,11 +9,6 @@ import { NextRequest, NextResponse } from 'next/server';
 const PYTHON_TTS_SERVER = process.env.PYTHON_TTS_SERVER_URL || 'http://localhost:8765/tts';
 const USE_PYTHON_SERVER = process.env.USE_PYTHON_TTS === 'true';
 
-// Netlify function configuration - extend timeout to 26 seconds (max for background functions)
-export const config = {
-  maxDuration: 26,
-};
-
 export async function POST(request: NextRequest) {
   try {
     const { text, voice = 'en-US-AriaNeural', rate = '+0%', pitch = '+0Hz' } = await request.json();
