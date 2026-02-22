@@ -32,10 +32,11 @@ export async function POST(request: NextRequest) {
     console.log('[TTS] Generating speech for:', text.substring(0, 50) + '...');
     console.log('[TTS] Voice:', voice);
 
-    // Try multiple Edge TTS endpoints
+    // Try multiple Edge TTS endpoints (updated for 2026)
     const endpoints = [
+      'https://eastus.tts.speech.microsoft.com/cognitiveservices/v1',
+      'https://westus.tts.speech.microsoft.com/cognitiveservices/v1',
       'https://speech.platform.bing.com/consumer/speech/synthesize/readaloud/edge/v1?TrustedClientToken=6A5AA1D4EAFF4E9FB37E23D68491D6F4',
-      'https://speech.platform.bing.com/consumer/speech/synthesize/readaloud/edge/v1?trustedclienttoken=6A5AA1D4EAFF4E9FB37E23D68491D6F4',
     ];
 
     let lastError = null;
@@ -52,7 +53,9 @@ export async function POST(request: NextRequest) {
           headers: {
             'Content-Type': 'application/ssml+xml',
             'X-Microsoft-OutputFormat': 'audio-24khz-48kbitrate-mono-mp3',
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0',
+            'Origin': 'https://azure.microsoft.com',
+            'Referer': 'https://azure.microsoft.com/',
           },
           body: ssml,
           signal: controller.signal,

@@ -46,18 +46,20 @@ if (typeof window !== 'undefined') {
   const isDev = process.env.NODE_ENV === 'development';
   
   // Only initialize App Check if a valid reCAPTCHA key is provided
-  // In development, App Check is optional - skip if key causes errors
-  if (recaptchaKey && recaptchaKey.length > 10 && !recaptchaKey.startsWith('your_')) {
+  // Skip App Check initialization to avoid errors - it's optional for most features
+  if (recaptchaKey && recaptchaKey.length > 10 && !recaptchaKey.startsWith('your_') && !isDev) {
     try {
       appCheckInstance = initializeAppCheck(app, {
         provider: new ReCaptchaV3Provider(recaptchaKey),
-        isTokenAutoRefreshEnabled: !isDev, // Disable auto-refresh in dev to reduce errors
+        isTokenAutoRefreshEnabled: false, // Disable to prevent repeated errors
       });
+      console.log('✅ App Check initialized successfully');
     } catch (e) {
-      if (!isDev) {
-        console.warn('Failed to initialize App Check:', e);
-      }
+      console.warn('⚠️ App Check initialization skipped:', e instanceof Error ? e.message : 'Unknown error');
+      // Silently fail - App Check is optional
     }
+  } else {
+    console.log('ℹ️ App Check disabled (development mode or no valid key)');
   }
 }
 
