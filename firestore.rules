@@ -1,0 +1,113 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isValidString(value, minLen, maxLen) {
+      return value is string 
+        && value.size() >= minLen 
+        && value.size() <= maxLen;
+    }
+    
+    function isValidTimestamp(value) {
+      return value is timestamp;
+    }
+
+    // Users collection
+    match /users/{userId} {
+      // Users can read their own data
+      allow read: if isOwner(userId);
+      
+      // Users can create their own profile
+      allow create: if isOwner(userId)
+        && request.resource.data.keys().hasAll(['email', 'createdAt'])
+        && isValidString(request.resource.data.email, 3, 100)
+        && isValidTimestamp(request.resource.data.createdAt);
+      
+      // Users can update their own profile
+      allow update: if isOwner(userId)
+        && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['uid', 'createdAt']);
+      
+      // Users cannot delete their profile (use Firebase Auth)
+      allow delete: if false;
+    }
+
+    // Chats collection
+    match /chats/{chatId} {
+      // Users can only read their own chats
+      allow read: if isAuthenticated() 
+        && resource.data.userId == request.auth.uid;
+      
+      // Users can create chats
+      allow create: if isAuthenticated()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['userId', 'title', 'createdAt', 'updatedAt'])
+        && isValidString(request.resource.data.title, 1, 200)
+        && isValidTimestamp(request.resource.data.createdAt)
+        && isValidTimestamp(request.resource.data.updatedAt);
+      
+      // Users can update their own chats
+      allow update: if isAuthenticated()
+        && resource.data.userId == request.auth.uid
+        && request.resource.data.userId == request.auth.uid
+        && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['userId', 'createdAt']);
+      
+      // Users can delete their own chats
+      allow delete: if isAuthenticated()
+        && resource.data.userId == request.auth.uid;
+    }
+
+    // Messages subcollection
+    match /chats/{chatId}/messages/{messageId} {
+      // Users can read messages from their own chats
+      allow read: if isAuthenticated()
+        && get(/databases/$(database)/documents/chats/$(chatId)).data.userId == request.auth.uid;
+      
+      // Users can create messages in their own chats
+      allow create: if isAuthenticated()
+        && get(/databases/$(database)/documents/chats/$(chatId)).data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['role', 'content', 'createdAt'])
+        && request.resource.data.role in ['user', 'assistant']
+        && isValidString(request.resource.data.content, 1, 10000)
+        && isValidTimestamp(request.resource.data.createdAt);
+      
+      // Users can update messages in their own chats
+      allow update: if isAuthenticated()
+        && get(/databases/$(database)/documents/chats/$(chatId)).data.userId == request.auth.uid
+        && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'createdAt']);
+      
+      // Users can delete messages from their own chats
+      allow delete: if isAuthenticated()
+        && get(/databases/$(database)/documents/chats/$(chatId)).data.userId == request.auth.uid;
+    }
+
+    // Settings collection
+    match /settings/{userId} {
+      // Users can read their own settings
+      allow read: if isOwner(userId);
+      
+      // Users can create their own settings
+      allow create: if isOwner(userId);
+      
+      // Users can update their own settings
+      allow update: if isOwner(userId);
+      
+      // Users can delete their own settings
+      allow delete: if isOwner(userId);
+    }
+
+    // Deny all other access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

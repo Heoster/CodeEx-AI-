@@ -1,0 +1,227 @@
+{
+  "timestamp": "2025-12-13T10:58:58.057Z",
+  "totalTests": 22,
+  "successfulTests": 22,
+  "successRate": 100,
+  "serviceStats": {
+    "solve": {
+      "total": 6,
+      "success": 6
+    },
+    "summarize": {
+      "total": 4,
+      "success": 4
+    },
+    "search": {
+      "total": 4,
+      "success": 4
+    },
+    "image-solver": {
+      "total": 4,
+      "success": 4
+    },
+    "pdf-analyzer": {
+      "total": 4,
+      "success": 4
+    }
+  },
+  "modelStats": {
+    "llama-3.1-8b-instant": {
+      "total": 8,
+      "success": 8
+    },
+    "llama-3.1-8b-instruct-hf": {
+      "total": 7,
+      "success": 7
+    },
+    "gemini-2.5-flash": {
+      "total": 6,
+      "success": 6
+    }
+  },
+  "allResults": [
+    {
+      "service": "solve",
+      "testCase": "Math Problem",
+      "model": "llama-3.1-8b-instant",
+      "success": true,
+      "modelUsed": "llama-3.1-8b-instant",
+      "responseLength": 515
+    },
+    {
+      "service": "solve",
+      "testCase": "Math Problem",
+      "model": "llama-3.1-8b-instruct-hf",
+      "success": true,
+      "modelUsed": "llama-3.1-8b-instruct-hf",
+      "responseLength": 705
+    },
+    {
+      "service": "solve",
+      "testCase": "Coding Problem",
+      "model": "llama-3.1-8b-instant",
+      "success": true,
+      "modelUsed": "llama-3.1-8b-instant",
+      "responseLength": 1377
+    },
+    {
+      "service": "solve",
+      "testCase": "Coding Problem",
+      "model": "llama-3.1-8b-instruct-hf",
+      "success": true,
+      "modelUsed": "llama-3.1-8b-instruct-hf",
+      "responseLength": 1246
+    },
+    {
+      "service": "solve",
+      "testCase": "Logic Problem",
+      "model": "llama-3.1-8b-instant",
+      "success": true,
+      "modelUsed": "llama-3.1-8b-instant",
+      "responseLength": 1681
+    },
+    {
+      "service": "solve",
+      "testCase": "Logic Problem",
+      "model": "llama-3.1-8b-instruct-hf",
+      "success": true,
+      "modelUsed": "llama-3.1-8b-instruct-hf",
+      "responseLength": 1632
+    },
+    {
+      "service": "summarize",
+      "testCase": "Short Article",
+      "model": "llama-3.1-8b-instant",
+      "success": true,
+      "modelUsed": "llama-3.1-8b-instant",
+      "responseLength": 427
+    },
+    {
+      "service": "summarize",
+      "testCase": "Short Article",
+      "model": "llama-3.1-8b-instruct-hf",
+      "success": true,
+      "modelUsed": "llama-3.1-8b-instruct-hf",
+      "responseLength": 347
+    },
+    {
+      "service": "summarize",
+      "testCase": "Technical Content",
+      "model": "llama-3.1-8b-instant",
+      "success": true,
+      "modelUsed": "llama-3.1-8b-instant",
+      "responseLength": 830
+    },
+    {
+      "service": "summarize",
+      "testCase": "Technical Content",
+      "model": "llama-3.1-8b-instruct-hf",
+      "success": true,
+      "modelUsed": "llama-3.1-8b-instruct-hf",
+      "responseLength": 837
+    },
+    {
+      "service": "search",
+      "testCase": "Tech Query",
+      "model": "llama-3.1-8b-instant",
+      "success": true,
+      "modelUsed": "llama-3.1-8b-instant",
+      "responseLength": 1114,
+      "sourcesCount": 0
+    },
+    {
+      "service": "search",
+      "testCase": "Tech Query",
+      "model": "llama-3.1-8b-instruct-hf",
+      "success": true,
+      "modelUsed": "llama-3.1-8b-instruct-hf",
+      "responseLength": 950,
+      "sourcesCount": 0
+    },
+    {
+      "service": "search",
+      "testCase": "General Knowledge",
+      "model": "llama-3.1-8b-instant",
+      "success": true,
+      "modelUsed": "llama-3.1-8b-instant",
+      "responseLength": 1071,
+      "sourcesCount": 3
+    },
+    {
+      "service": "search",
+      "testCase": "General Knowledge",
+      "model": "llama-3.1-8b-instruct-hf",
+      "success": true,
+      "modelUsed": "llama-3.1-8b-instruct-hf",
+      "responseLength": 1147,
+      "sourcesCount": 3
+    },
+    {
+      "service": "image-solver",
+      "testCase": "Math Problem Image",
+      "model": "gemini-2.5-flash",
+      "success": true,
+      "modelUsed": "gemini-2.5-flash",
+      "responseLength": 236,
+      "recognized": true
+    },
+    {
+      "service": "image-solver",
+      "testCase": "Math Problem Image",
+      "model": "auto",
+      "success": true,
+      "modelUsed": "gemini-2.5-flash",
+      "responseLength": 281,
+      "recognized": true
+    },
+    {
+      "service": "image-solver",
+      "testCase": "General Image Analysis",
+      "model": "gemini-2.5-flash",
+      "success": true,
+      "modelUsed": "gemini-2.5-flash",
+      "responseLength": 181,
+      "recognized": true
+    },
+    {
+      "service": "image-solver",
+      "testCase": "General Image Analysis",
+      "model": "auto",
+      "success": true,
+      "modelUsed": "gemini-2.5-flash",
+      "responseLength": 219,
+      "recognized": true
+    },
+    {
+      "service": "pdf-analyzer",
+      "testCase": "PDF Analysis",
+      "model": "gemini-2.5-flash",
+      "success": true,
+      "modelUsed": "gemini-2.5-flash",
+      "responseLength": 555
+    },
+    {
+      "service": "pdf-analyzer",
+      "testCase": "PDF Analysis",
+      "model": "auto",
+      "success": true,
+      "modelUsed": "gemini-2.5-flash",
+      "responseLength": 726
+    },
+    {
+      "service": "pdf-analyzer",
+      "testCase": "PDF Summary",
+      "model": "gemini-2.5-flash",
+      "success": true,
+      "modelUsed": "llama-3.1-8b-instant",
+      "responseLength": 1606
+    },
+    {
+      "service": "pdf-analyzer",
+      "testCase": "PDF Summary",
+      "model": "auto",
+      "success": true,
+      "responseLength": 256
+    }
+  ]
+}

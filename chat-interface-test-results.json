@@ -1,0 +1,60 @@
+{
+  "timestamp": "2025-12-13T11:10:23.509Z",
+  "testMessage": "Hello! What is 15 + 27?",
+  "results": [
+    {
+      "model": "auto",
+      "success": true,
+      "responseTime": 893,
+      "response": "AI service is temporarily unavailable. Please try again in a moment or check the server logs for details."
+    },
+    {
+      "model": "llama-3.1-8b-instant",
+      "success": true,
+      "responseTime": 15,
+      "response": "AI service is temporarily unavailable. Please try again in a moment or check the server logs for details."
+    },
+    {
+      "model": "llama-3.1-8b-instruct-hf",
+      "success": true,
+      "responseTime": 17,
+      "response": "AI service is temporarily unavailable. Please try again in a moment or check the server logs for details."
+    },
+    {
+      "model": "deepseek-v3.2",
+      "success": true,
+      "responseTime": 16,
+      "response": "AI service is temporarily unavailable. Please try again in a moment or check the server logs for details."
+    },
+    {
+      "model": "rnj-1-instruct",
+      "success": true,
+      "responseTime": 18,
+      "response": "AI service is temporarily unavailable. Please try again in a moment or check the server logs for details."
+    },
+    {
+      "model": "gpt-oss-20b",
+      "success": true,
+      "responseTime": 58,
+      "response": "AI service is temporarily unavailable. Please try again in a moment or check the server logs for details."
+    },
+    {
+      "model": "gemini-2.5-flash",
+      "success": true,
+      "responseTime": 18,
+      "response": "AI service is temporarily unavailable. Please try again in a moment or check the server logs for details."
+    },
+    {
+      "model": "gemini-flash-latest",
+      "success": true,
+      "responseTime": 17,
+      "response": "AI service is temporarily unavailable. Please try again in a moment or check the server logs for details."
+    },
+    {
+      "model": "gemini-2.5-flash-lite",
+      "success": true,
+      "responseTime": 19,
+      "response": "AI service is temporarily unavailable. Please try again in a moment or check the server logs for details."
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clear Cache - CODEEX AI</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      text-align: center;
+    }
+    button {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    button:hover {
+      background: #2563eb;
+    }
+    .success {
+      color: #10b981;
+      margin-top: 20px;
+    }
+    .error {
+      color: #ef4444;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔧 Clear CODEEX AI Cache</h1>
+  <p>If you're experiencing issues with the app, click the button below to clear all cached data.</p>
+  
+  <button onclick="clearAllCaches()">Clear Cache & Reload</button>
+  <button onclick="window.location.href='/'">Go to Home</button>
+  
+  <div id="message"></div>
+
+  <script>
+    async function clearAllCaches() {
+      const messageEl = document.getElementById('message');
+      
+      try {
+        // Unregister all service workers
+        if ('serviceWorker' in navigator) {
+          const registrations = await navigator.serviceWorker.getRegistrations();
+          for (const registration of registrations) {
+            await registration.unregister();
+          }
+        }
+        
+        // Clear all caches
+        if ('caches' in window) {
+          const cacheNames = await caches.keys();
+          await Promise.all(
+            cacheNames.map(cacheName => caches.delete(cacheName))
+          );
+        }
+        
+        // Clear local storage
+        localStorage.clear();
+        sessionStorage.clear();
+        
+        messageEl.className = 'success';
+        messageEl.textContent = '✅ Cache cleared successfully! Reloading...';
+        
+        // Reload after 1 second
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 1000);
+        
+      } catch (error) {
+        messageEl.className = 'error';
+        messageEl.textContent = '❌ Error clearing cache: ' + error.message;
+      }
+    }
+  </script>
+</body>
+</html>

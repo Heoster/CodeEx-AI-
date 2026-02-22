@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edge TTS Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        select, button {
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        button {
+            background: #0070f3;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0051cc;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎤 Edge TTS Test</h1>
+        <p>Test the Microsoft Edge Text-to-Speech API integration</p>
+        
+        <div>
+            <label for="text"><strong>Text to speak:</strong></label>
+            <textarea id="text" placeholder="Enter text to convert to speech...">Hello! This is a test of the Edge Text-to-Speech system. It's working perfectly!</textarea>
+        </div>
+        
+        <div>
+            <label for="voice"><strong>Voice:</strong></label>
+            <select id="voice">
+                <option value="en-US-AriaNeural">Aria (Female, US)</option>
+                <option value="en-US-GuyNeural">Guy (Male, US)</option>
+                <option value="en-US-JennyNeural">Jenny (Female, US)</option>
+                <option value="en-US-RyanNeural">Ryan (Male, US)</option>
+                <option value="en-GB-SoniaNeural">Sonia (Female, UK)</option>
+                <option value="en-GB-RyanNeural">Ryan (Male, UK)</option>
+                <option value="en-IN-NeerjaNeural">Neerja (Female, India)</option>
+                <option value="en-IN-PrabhatNeural">Prabhat (Male, India)</option>
+            </select>
+        </div>
+        
+        <div>
+            <button id="testBtn" onclick="testTTS()">🔊 Test TTS</button>
+            <button id="stopBtn" onclick="stopAudio()" disabled>⏹️ Stop</button>
+        </div>
+        
+        <div id="status" class="status"></div>
+    </div>
+
+    <script>
+        let currentAudio = null;
+
+        function showStatus(message, type = 'info') {
+            const statusEl = document.getElementById('status');
+            statusEl.textContent = message;
+            statusEl.className = `status ${type}`;
+            statusEl.style.display = 'block';
+        }
+
+        function hideStatus() {
+            document.getElementById('status').style.display = 'none';
+        }
+
+        async function testTTS() {
+            const text = document.getElementById('text').value.trim();
+            const voice = document.getElementById('voice').value;
+            const testBtn = document.getElementById('testBtn');
+            const stopBtn = document.getElementById('stopBtn');
+
+            if (!text) {
+                showStatus('Please enter some text to speak', 'error');
+                return;
+            }
+
+            try {
+                testBtn.disabled = true;
+                showStatus('Generating speech...', 'info');
+
+                console.log('Sending TTS request:', { text, voice });
+
+                const response = await fetch('/api/tts', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        text: text,
+                        voice: voice,
+                    }),
+                });
+
+                console.log('Response status:', response.status);
+                console.log('Response headers:', Object.fromEntries(response.headers.entries()));
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(async () => {
+                        const text = await response.text();
+                        console.error('Error response text:', text);
+                        return { error: text };
+                    });
+                    console.error('Error data:', errorData);
+                    throw new Error(errorData.error || `HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const contentType = response.headers.get('content-type');
+                if (!contentType?.includes('audio')) {
+                    throw new Error('Invalid response - expected audio data');
+                }
+
+                const audioBlob = await response.blob();
+                
+                if (audioBlob.size === 0) {
+                    throw new Error('Empty audio data received');
+                }
+
+                showStatus(`✅ Speech generated successfully! (${(audioBlob.size / 1024).toFixed(2)} KB)`, 'success');
+
+                // Play audio
+                const audioUrl = URL.createObjectURL(audioBlob);
+                currentAudio = new Audio(audioUrl);
+                
+                currentAudio.onended = () => {
+                    URL.revokeObjectURL(audioUrl);
+                    currentAudio = null;
+                    testBtn.disabled = false;
+                    stopBtn.disabled = true;
+                    showStatus('Playback completed', 'success');
+                };
+                
+                currentAudio.onerror = (e) => {
+                    URL.revokeObjectURL(audioUrl);
+                    currentAudio = null;
+                    testBtn.disabled = false;
+                    stopBtn.disabled = true;
+                    showStatus('Audio playback error', 'error');
+                };
+
+                stopBtn.disabled = false;
+                await currentAudio.play();
+                showStatus('🔊 Playing audio...', 'info');
+
+            } catch (error) {
+                console.error('TTS Test Error:', error);
+                showStatus(`❌ Error: ${error.message}`, 'error');
+                testBtn.disabled = false;
+                stopBtn.disabled = true;
+            }
+        }
+
+        function stopAudio() {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                currentAudio = null;
+                document.getElementById('testBtn').disabled = false;
+                document.getElementById('stopBtn').disabled = true;
+                showStatus('Playback stopped', 'info');
+            }
+        }
+
+        // Enable Enter key to test
+        document.getElementById('text').addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                testTTS();
+            }
+        });
+    </script>
+</body>
+</html>

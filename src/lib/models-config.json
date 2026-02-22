@@ -1,0 +1,257 @@
+{
+  "providers": {
+    "groq": {
+      "type": "groq",
+      "apiKeyEnvVar": "GROQ_API_KEY",
+      "baseUrl": "https://api.groq.com/openai/v1",
+      "enabled": true
+    },
+    "huggingface": {
+      "type": "huggingface",
+      "apiKeyEnvVar": "HUGGINGFACE_API_KEY",
+      "baseUrl": "https://router.huggingface.co/v1",
+      "enabled": true
+    },
+    "google": {
+      "type": "google",
+      "apiKeyEnvVar": "GOOGLE_API_KEY",
+      "baseUrl": "https://generativelanguage.googleapis.com/v1beta",
+      "enabled": true
+    },
+    "cerebras": {
+      "type": "cerebras",
+      "apiKeyEnvVar": "CEREBRAS_API_KEY",
+      "baseUrl": "https://api.cerebras.ai/v1",
+      "enabled": true
+    }
+  },
+  "models": [
+    {
+      "id": "llama-3.1-8b-instant",
+      "name": "Llama 3.1 8B Instant",
+      "provider": "groq",
+      "modelId": "llama-3.1-8b-instant",
+      "category": "general",
+      "description": "Fast and efficient Llama model for general tasks",
+      "contextWindow": 131072,
+      "supportsStreaming": true,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "maxOutputTokens": 2048
+      },
+      "enabled": true
+    },
+    {
+      "id": "llama-3.1-8b-instruct-hf",
+      "name": "Llama 3.1 8B Instruct",
+      "provider": "huggingface",
+      "modelId": "meta-llama/Llama-3.1-8B-Instruct",
+      "category": "general",
+      "description": "Instruction-tuned Llama model via Hugging Face Router",
+      "contextWindow": 131072,
+      "supportsStreaming": false,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "maxOutputTokens": 2048
+      },
+      "enabled": true
+    },
+    {
+      "id": "deepseek-v3.2",
+      "name": "DeepSeek V3.2",
+      "provider": "huggingface",
+      "modelId": "deepseek-ai/DeepSeek-V3.2",
+      "category": "coding",
+      "description": "Advanced coding and reasoning model",
+      "contextWindow": 32768,
+      "supportsStreaming": false,
+      "defaultParams": {
+        "temperature": 0.5,
+        "topP": 0.9,
+        "maxOutputTokens": 2048
+      },
+      "enabled": true
+    },
+    {
+      "id": "rnj-1-instruct",
+      "name": "RNJ-1 Instruct",
+      "provider": "huggingface",
+      "modelId": "EssentialAI/rnj-1-instruct",
+      "category": "conversation",
+      "description": "Efficient conversational AI model",
+      "contextWindow": 8192,
+      "supportsStreaming": false,
+      "defaultParams": {
+        "temperature": 0.8,
+        "topP": 0.95,
+        "maxOutputTokens": 1024
+      },
+      "enabled": true
+    },
+    {
+      "id": "gpt-oss-20b",
+      "name": "GPT-OSS 20B",
+      "provider": "huggingface",
+      "modelId": "openai/gpt-oss-20b",
+      "category": "general",
+      "description": "Large open-source GPT model",
+      "contextWindow": 4096,
+      "supportsStreaming": false,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "maxOutputTokens": 1024
+      },
+      "enabled": true
+    },
+    {
+      "id": "gemini-2.5-flash",
+      "name": "Gemini 2.5 Flash",
+      "provider": "google",
+      "modelId": "gemini-2.5-flash",
+      "category": "multimodal",
+      "description": "Latest Gemini model with multimodal capabilities",
+      "contextWindow": 1048576,
+      "supportsStreaming": false,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "topK": 40,
+        "maxOutputTokens": 8192
+      },
+      "enabled": true
+    },
+    {
+      "id": "gemini-flash-latest",
+      "name": "Gemini Flash Latest",
+      "provider": "google",
+      "modelId": "gemini-flash-latest",
+      "category": "general",
+      "description": "Latest version of Gemini Flash model",
+      "contextWindow": 1048576,
+      "supportsStreaming": false,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "topK": 40,
+        "maxOutputTokens": 8192
+      },
+      "enabled": true
+    },
+    {
+      "id": "gemini-2.5-flash-lite",
+      "name": "Gemini 2.5 Flash Lite",
+      "provider": "google",
+      "modelId": "gemini-2.5-flash-lite",
+      "category": "conversation",
+      "description": "Lightweight version of Gemini 2.5 Flash",
+      "contextWindow": 1048576,
+      "supportsStreaming": false,
+      "defaultParams": {
+        "temperature": 0.8,
+        "topP": 0.95,
+        "topK": 40,
+        "maxOutputTokens": 4096
+      },
+      "enabled": true
+    },
+    {
+      "id": "cerebras-llama-3.1-8b",
+      "name": "Cerebras Llama 3.1 8B",
+      "provider": "cerebras",
+      "modelId": "llama3.1-8b",
+      "category": "general",
+      "description": "Ultra-fast Llama 3.1 8B on Cerebras hardware",
+      "contextWindow": 8192,
+      "supportsStreaming": true,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "maxOutputTokens": 2048
+      },
+      "enabled": true
+    },
+    {
+      "id": "cerebras-llama-3.3-70b",
+      "name": "Cerebras Llama 3.3 70B",
+      "provider": "cerebras",
+      "modelId": "llama3.3-70b",
+      "category": "general",
+      "description": "Powerful Llama 3.3 70B with blazing speed on Cerebras",
+      "contextWindow": 8192,
+      "supportsStreaming": true,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "maxOutputTokens": 4096
+      },
+      "enabled": true
+    },
+    {
+      "id": "cerebras-gpt-oss",
+      "name": "Cerebras GPT-OSS",
+      "provider": "cerebras",
+      "modelId": "gpt-oss",
+      "category": "coding",
+      "description": "Open-source GPT model optimized for coding on Cerebras",
+      "contextWindow": 4096,
+      "supportsStreaming": true,
+      "defaultParams": {
+        "temperature": 0.5,
+        "topP": 0.9,
+        "maxOutputTokens": 2048
+      },
+      "enabled": true
+    },
+    {
+      "id": "cerebras-qwen-3-235b",
+      "name": "Cerebras Qwen 3 235B Instruct",
+      "provider": "cerebras",
+      "modelId": "qwen3-235b-instruct",
+      "category": "general",
+      "description": "Massive 235B parameter Qwen model with exceptional capabilities",
+      "contextWindow": 32768,
+      "supportsStreaming": true,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "maxOutputTokens": 8192
+      },
+      "enabled": true
+    },
+    {
+      "id": "cerebras-qwen-3-32b",
+      "name": "Cerebras Qwen 3 32B",
+      "provider": "cerebras",
+      "modelId": "qwen3-32b",
+      "category": "conversation",
+      "description": "Efficient 32B Qwen model for conversations",
+      "contextWindow": 32768,
+      "supportsStreaming": true,
+      "defaultParams": {
+        "temperature": 0.8,
+        "topP": 0.95,
+        "maxOutputTokens": 4096
+      },
+      "enabled": true
+    },
+    {
+      "id": "cerebras-glm-4.7",
+      "name": "Cerebras Z.ai GLM 4.7",
+      "provider": "cerebras",
+      "modelId": "glm-4.7",
+      "category": "multimodal",
+      "description": "Advanced GLM model with multimodal understanding",
+      "contextWindow": 16384,
+      "supportsStreaming": true,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "maxOutputTokens": 4096
+      },
+      "enabled": true
+    }
+  ]
+}
