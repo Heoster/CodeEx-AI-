@@ -89,6 +89,10 @@ export const metadata: Metadata = {
   },
   verification: {
     google: 'RY6Rmrn0nrzaZO8QXaazCfjsnLoEBKT8-oJxBc_l_9U',
+    other: {
+      // Add your second Google verification code here
+      // 'google-site-verification': 'YOUR_SECOND_VERIFICATION_CODE',
+    },
   },
   alternates: {
     canonical: 'https://codeex-ai.netlify.app',
@@ -136,6 +140,8 @@ export default function RootLayout({
         <link rel="author" href={DEVELOPER_INFO.contact.github} />
         <link rel="me" href={DEVELOPER_INFO.contact.linkedin} />
         <link rel="me" href={DEVELOPER_INFO.contact.twitter} />
+        {/* Second Google Site Verification */}
+        <meta name="google-site-verification" content="BOhoSA2Bv_SY0gWI4wdYE6gPRxqXimqYLLMrYQxVN4k" />
       </head>
       <body className={`${manrope.variable} font-body antialiased`}>
         <ErrorBoundary>
