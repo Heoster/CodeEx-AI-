@@ -2,11 +2,7 @@
 
 import {initializeApp, getApps, getApp, type FirebaseApp} from 'firebase/app';
 import {GoogleAuthProvider} from 'firebase/auth';
-import {
-  initializeAppCheck,
-  ReCaptchaV3Provider,
-  AppCheck,
-} from 'firebase/app-check';
+import type {AppCheck} from 'firebase/app-check';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -38,30 +34,9 @@ const app: FirebaseApp = !getApps().length
   ? initializeApp(firebaseConfig)
   : getApp();
 
-// Initialize App Check
+// App Check is disabled - it's optional and was causing ReCAPTCHA errors
+// Firebase Security Rules provide sufficient protection
 let appCheckInstance: AppCheck | undefined;
-
-if (typeof window !== 'undefined') {
-  const recaptchaKey = process.env.NEXT_PUBLIC_RECAPTCHA_V3_SITE_KEY;
-  const isDev = process.env.NODE_ENV === 'development';
-  
-  // Only initialize App Check if a valid reCAPTCHA key is provided
-  // Skip App Check initialization to avoid errors - it's optional for most features
-  if (recaptchaKey && recaptchaKey.length > 10 && !recaptchaKey.startsWith('your_') && !isDev) {
-    try {
-      appCheckInstance = initializeAppCheck(app, {
-        provider: new ReCaptchaV3Provider(recaptchaKey),
-        isTokenAutoRefreshEnabled: false, // Disable to prevent repeated errors
-      });
-      console.log('✅ App Check initialized successfully');
-    } catch (e) {
-      console.warn('⚠️ App Check initialization skipped:', e instanceof Error ? e.message : 'Unknown error');
-      // Silently fail - App Check is optional
-    }
-  } else {
-    console.log('ℹ️ App Check disabled (development mode or no valid key)');
-  }
-}
 
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({
