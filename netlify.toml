@@ -2,7 +2,7 @@
 # Production-ready settings for Next.js PWA deployment
 
 [build]
-  command = "npm run build:netlify"
+  command = "npm run build"
   publish = ".next"
 
 # Function configuration
