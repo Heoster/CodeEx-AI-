@@ -29,7 +29,7 @@ if (typeof window === 'undefined') {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://codeex-ai.netlify.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.netlify.app'),
   title: defaultSEO.title,
   description: defaultSEO.description,
   keywords: defaultSEO.keywords,
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://codeex-ai.netlify.app',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.netlify.app',
     siteName: DEVELOPER_INFO.company.name,
     title: `${DEVELOPER_INFO.company.name} - Free AI Platform with 35+ Models | Built by ${DEVELOPER_INFO.age}-Year-Old ${DEVELOPER_INFO.alias}`,
     description: `Revolutionary free AI platform with 35+ models (Groq, Gemini, Cerebras, Hugging Face). Built by ${DEVELOPER_INFO.name}, ${DEVELOPER_INFO.age}-year-old visionary from ${DEVELOPER_INFO.location.city}, India. Chat, code, solve math, analyze PDFs - all free!`,
@@ -95,10 +95,10 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: 'https://codeex-ai.netlify.app',
+    canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.netlify.app',
     languages: {
-      'en-US': 'https://codeex-ai.netlify.app',
-      'en-IN': 'https://codeex-ai.netlify.app',
+      'en-US': process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.netlify.app',
+      'en-IN': process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.netlify.app',
     },
   },
   category: 'technology',
