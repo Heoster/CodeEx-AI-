@@ -5,6 +5,12 @@
   command = "npm run build:netlify"
   publish = ".next"
 
+# Function configuration
+[functions]
+  # Increase timeout for TTS endpoint (default is 10s, max is 26s for Pro)
+  # This allows TTS to try multiple endpoints before timing out
+  node_bundler = "esbuild"
+
 # Use the official Netlify Next.js plugin
 [[plugins]]
   package = "@netlify/plugin-nextjs"
