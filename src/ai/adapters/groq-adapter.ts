@@ -53,7 +53,7 @@ export class GroqAdapter extends BaseProviderAdapter {
     try {
       // Create AbortController for timeout
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+      const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout for Netlify
       
       const response = await fetch(GROQ_API_URL, {
         method: 'POST',

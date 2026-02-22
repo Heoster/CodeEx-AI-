@@ -104,7 +104,7 @@ export class GoogleAdapter extends BaseProviderAdapter {
       
       // Create AbortController for timeout
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+      const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout for Netlify
       
       const response = await fetch(apiUrl, {
         method: 'POST',
