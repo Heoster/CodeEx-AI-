@@ -1,0 +1,26 @@
+[Unit]
+Description=Edge TTS Production Server
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/codeex/python
+Environment="PATH=/var/www/codeex/python/venv/bin"
+EnvironmentFile=/var/www/codeex/python/.env.production
+ExecStart=/var/www/codeex/python/venv/bin/python edge_tts_server_production.py 8765
+Restart=always
+RestartSec=10
+StandardOutput=append:/var/log/edge-tts/access.log
+StandardError=append:/var/log/edge-tts/error.log
+
+# Security
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/codeex/python/cache /var/log/edge-tts
+
+[Install]
+WantedBy=multi-user.target

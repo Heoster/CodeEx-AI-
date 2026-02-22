@@ -140,3 +140,14 @@ Thumbs.db
 .svelte-kit
 
 # End of https://www.gitignore.io/api/node
+
+# Python TTS Server
+python/venv/
+python/cache/
+python/logs/
+python/*.log
+python/.env
+python/.env.local
+__pycache__/
+*.py[cod]
+*$py.class

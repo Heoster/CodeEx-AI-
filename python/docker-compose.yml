@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  edge-tts:
+    build: .
+    container_name: edge-tts-server
+    ports:
+      - "8765:8765"
+    environment:
+      - CACHE_ENABLED=true
+      - CACHE_MAX_SIZE_MB=500
+      - RATE_LIMIT_REQUESTS=100
+      - RATE_LIMIT_WINDOW=60
+      - MAX_TEXT_LENGTH=5000
+      - ALLOWED_ORIGINS=https://codeex-ai.netlify.app,https://codeex-ai.vercel.app
+      # - TTS_API_KEY=your_secret_key_here  # Uncomment to enable API key auth
+    volumes:
+      - ./cache:/app/cache
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8765/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
