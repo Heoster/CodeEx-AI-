@@ -51,6 +51,10 @@ export class GroqAdapter extends BaseProviderAdapter {
     const messages = this.buildMessages(prompt, systemPrompt, history);
     
     try {
+      // Create AbortController for timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+      
       const response = await fetch(GROQ_API_URL, {
         method: 'POST',
         headers: {
@@ -65,7 +69,10 @@ export class GroqAdapter extends BaseProviderAdapter {
           max_tokens: mergedParams.maxOutputTokens,
           stream: false,
         }),
+        signal: controller.signal,
       });
+      
+      clearTimeout(timeoutId);
       
       if (!response.ok) {
         const errorText = await response.text();
@@ -133,6 +140,26 @@ export class GroqAdapter extends BaseProviderAdapter {
     } catch (error) {
       if (error instanceof Error && error.name === 'AIServiceError') {
         throw error;
+      }
+      
+      // Handle AbortController timeout
+      if (error instanceof Error && error.name === 'AbortError') {
+        console.error(`Groq request timeout for ${model.id}`);
+        throw createUserFriendlyError(
+          new Error('Request timeout - the AI service took too long to respond'),
+          'groq',
+          model.id
+        );
+      }
+      
+      // Handle fetch failed errors (network issues, missing API key in production, etc.)
+      if (error instanceof Error && error.message.includes('fetch failed')) {
+        console.error(`Groq fetch failed for ${model.id}:`, error.message);
+        throw createUserFriendlyError(
+          new Error('Network error - unable to connect to AI service. Please check your API key configuration.'),
+          'groq',
+          model.id
+        );
       }
       
       // Log the actual error for debugging

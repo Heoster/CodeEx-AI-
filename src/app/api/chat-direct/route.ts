@@ -102,6 +102,15 @@ ${getTechnicalInstructions(settings.technicalLevel)}
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     
     // Provide helpful error messages
+    if (errorMessage.includes('fetch failed')) {
+      return NextResponse.json(
+        { 
+          error: 'Unable to connect to AI service. This usually means API keys are not configured in production. Please check your deployment environment variables.',
+          details: 'Visit /api/health to check configuration status.',
+        },
+        { status: 500 }
+      );
+    }
     if (errorMessage.includes('API key') || errorMessage.includes('GROQ_API_KEY')) {
       return NextResponse.json(
         { error: 'Groq API key is missing or invalid. Get a free key at https://console.groq.com/keys and add it to your .env.local file as GROQ_API_KEY' },
@@ -117,6 +126,15 @@ ${getTechnicalInstructions(settings.technicalLevel)}
     if (errorMessage.includes('All models failed')) {
       return NextResponse.json(
         { error: 'All AI models are currently unavailable. This may be due to high demand. Please try again in a few minutes.' },
+        { status: 500 }
+      );
+    }
+    if (errorMessage.includes('Network error') || errorMessage.includes('timeout')) {
+      return NextResponse.json(
+        { 
+          error: 'Network error connecting to AI service. Please check your API key configuration.',
+          details: 'Visit /api/health to check configuration status.',
+        },
         { status: 500 }
       );
     }

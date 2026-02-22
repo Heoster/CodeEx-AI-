@@ -102,13 +102,20 @@ export class GoogleAdapter extends BaseProviderAdapter {
       
       console.log(`Calling Google Gemini API: ${apiUrl}`);
       
+      // Create AbortController for timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+      
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(requestBody),
+        signal: controller.signal,
       });
+      
+      clearTimeout(timeoutId);
       
       if (!response.ok) {
         const errorText = await response.text();
@@ -182,6 +189,26 @@ export class GoogleAdapter extends BaseProviderAdapter {
     } catch (error) {
       if (error instanceof Error && error.name === 'AIServiceError') {
         throw error;
+      }
+      
+      // Handle AbortController timeout
+      if (error instanceof Error && error.name === 'AbortError') {
+        console.error(`Google request timeout for ${model.id}`);
+        throw createUserFriendlyError(
+          new Error('Request timeout - the AI service took too long to respond'),
+          'google',
+          model.id
+        );
+      }
+      
+      // Handle fetch failed errors (network issues, missing API key in production, etc.)
+      if (error instanceof Error && error.message.includes('fetch failed')) {
+        console.error(`Google fetch failed for ${model.id}:`, error.message);
+        throw createUserFriendlyError(
+          new Error('Network error - unable to connect to AI service. Please check your API key configuration.'),
+          'google',
+          model.id
+        );
       }
       
       // Log the actual error for debugging

@@ -55,6 +55,8 @@ function isCriticalFailure(error: unknown): boolean {
     'timeout',
     'ECONNREFUSED',
     'ETIMEDOUT',
+    'fetch failed',
+    'Network error',
     'Model.*is currently loading',
     'estimated_time',
   ];
@@ -267,8 +269,8 @@ export function getFriendlyErrorMessage(error: unknown): string {
     return 'The service is temporarily busy. Please try again in a moment.';
   }
   
-  if (errorMessage.includes('timeout') || errorMessage.includes('network')) {
-    return 'Network error. Please check your connection and try again.';
+  if (errorMessage.includes('timeout') || errorMessage.includes('network') || errorMessage.includes('fetch failed')) {
+    return 'Network error. Please check your internet connection and API key configuration.';
   }
   
   if (errorMessage.includes('All models failed')) {
