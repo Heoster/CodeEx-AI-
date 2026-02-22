@@ -37,7 +37,6 @@ class HybridTTS {
     // Try Edge TTS first if preferred and available
     if (preferEdge && edgeTTS.isAvailable()) {
       try {
-        console.log('[Hybrid TTS] Trying Edge TTS...');
         this.usingEdgeTTS = true;
         
         await edgeTTS.speak({
@@ -49,15 +48,13 @@ class HybridTTS {
           onStart: options.onStart,
           onEnd: options.onEnd,
           onError: async (error) => {
-            console.warn('[Hybrid TTS] Edge TTS failed, falling back to Browser TTS:', error);
-            // Fallback to browser TTS
+            // Silently fallback to browser TTS
             await this.useBrowserTTS(options);
           },
         });
         return;
       } catch (error) {
-        console.warn('[Hybrid TTS] Edge TTS error, falling back to Browser TTS:', error);
-        // Continue to fallback
+        // Silently continue to fallback
       }
     }
 
@@ -70,13 +67,11 @@ class HybridTTS {
    */
   private async useBrowserTTS(options: HybridTTSOptions): Promise<void> {
     if (!browserTTS.isAvailable()) {
-      const error = 'No TTS service available. Please use a modern browser.';
-      console.error('[Hybrid TTS]', error);
+      const error = 'TTS not available';
       options.onError?.(error);
       return;
     }
 
-    console.log('[Hybrid TTS] Using Browser TTS');
     this.usingEdgeTTS = false;
 
     browserTTS.speak({

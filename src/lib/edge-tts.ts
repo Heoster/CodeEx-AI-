@@ -106,8 +106,8 @@ export class EdgeTTS {
       });
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || `TTS API error: ${response.status} ${response.statusText}`);
+        // Silently fail and trigger error callback without console logging
+        throw new Error('TTS service temporarily unavailable');
       }
 
       const contentType = response.headers.get('content-type');
@@ -144,9 +144,8 @@ export class EdgeTTS {
       // Start playback
       this.currentSource.start(0);
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      console.error('Edge TTS error:', errorMessage);
-      options.onError?.(errorMessage);
+      // Silently fail - TTS is optional, don't spam console
+      options.onError?.('TTS temporarily unavailable');
       this.cleanup();
     }
   }
