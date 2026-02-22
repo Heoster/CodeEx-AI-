@@ -1,10 +1,10 @@
-# CODEEX AI - Free AI Platform with 35+ Models
+# CODEEX - Free AI Chat with 35+ Models
 
 <div align="center">
 
-![CODEEX AI](./public/Multi-Chat.png)
+![CODEEX](./public/Multi-Chat.png)
 
-**Revolutionary AI platform built by a 16-year-old developer from India**
+**Free AI chat platform with Groq, Gemini, Cerebras, DeepSeek - No signup required**
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/heoster/codeex-ai)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -17,12 +17,12 @@
 
 ---
 
-## 🌟 About CODEEX AI
+## 🌟 About CODEEX
 
-CODEEX AI is a **100% free** AI platform featuring **35+ models** from leading providers (Groq, Google Gemini, Cerebras, Hugging Face). Built by **Heoster (Harsh)**, a 16-year-old developer from Khatauli, Uttar Pradesh, India, with a vision to **democratize AI education** and make advanced technology accessible to every student.
+CODEEX is a **100% free** AI chat platform featuring **35+ models** from leading providers: Groq (Llama 3.3 70B), Google Gemini 2.5, Cerebras (Qwen 3 235B), DeepSeek R1, and more. Chat, code, solve math, analyze PDFs - all without signup.
 
 ### 🎯 Mission
-> "Building the world's most comprehensive free AI platform to empower the next generation of innovators and creators."
+> "Making powerful AI accessible to everyone, everywhere, for free."
 
 ### 📊 Platform Stats
 - 🤖 **35+ AI Models** across 4 providers
