@@ -86,6 +86,10 @@ export class HuggingFaceAdapter extends BaseProviderAdapter {
       console.log(`Calling Hugging Face Router API: ${apiUrl}`);
       console.log(`Model: ${model.modelId}`);
       
+      // Create AbortController for timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout for Netlify
+      
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
