@@ -93,7 +93,10 @@ export class HuggingFaceAdapter extends BaseProviderAdapter {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(requestBody),
+        signal: controller.signal,
       });
+      
+      clearTimeout(timeoutId);
       
       if (!response.ok) {
         const errorText = await response.text();
@@ -176,6 +179,26 @@ export class HuggingFaceAdapter extends BaseProviderAdapter {
     } catch (error) {
       if (error instanceof Error && error.name === 'AIServiceError') {
         throw error;
+      }
+      
+      // Handle AbortController timeout
+      if (error instanceof Error && error.name === 'AbortError') {
+        console.error(`Hugging Face request timeout for ${model.id}`);
+        throw createUserFriendlyError(
+          new Error('Request timeout - the AI service took too long to respond'),
+          'huggingface',
+          model.id
+        );
+      }
+      
+      // Handle fetch failed errors
+      if (error instanceof Error && error.message.includes('fetch failed')) {
+        console.error(`Hugging Face fetch failed for ${model.id}:`, error.message);
+        throw createUserFriendlyError(
+          new Error('Network error - unable to connect to AI service. Please check your API key configuration.'),
+          'huggingface',
+          model.id
+        );
       }
       
       // Log the actual error for debugging
