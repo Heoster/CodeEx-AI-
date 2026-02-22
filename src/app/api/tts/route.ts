@@ -22,14 +22,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Text too long (max 5000 characters)' }, { status: 400 });
     }
 
-    console.log('[TTS] Generating speech for:', text.substring(0, 50) + '...');
-    console.log('[TTS] Voice:', voice);
+    // Removed console logs to reduce noise
 
     // Try Python server first if enabled
     if (USE_PYTHON_SERVER) {
       try {
-        console.log('[TTS] Using Python Edge TTS server:', PYTHON_TTS_SERVER);
-        
         const pythonResponse = await fetch(PYTHON_TTS_SERVER, {
           method: 'POST',
           headers: {
@@ -40,7 +37,6 @@ export async function POST(request: NextRequest) {
 
         if (pythonResponse.ok) {
           const audioBuffer = await pythonResponse.arrayBuffer();
-          console.log('[TTS] Python server success! Audio size:', audioBuffer.byteLength, 'bytes');
           
           return new NextResponse(audioBuffer, {
             headers: {
@@ -49,11 +45,9 @@ export async function POST(request: NextRequest) {
               'Cache-Control': 'public, max-age=3600',
             },
           });
-        } else {
-          console.warn('[TTS] Python server failed:', pythonResponse.status);
         }
       } catch (pythonError) {
-        console.warn('[TTS] Python server unavailable, falling back to direct API');
+        // Python server unavailable, fall through to direct API
       }
     }
 
@@ -61,15 +55,18 @@ export async function POST(request: NextRequest) {
     return await generateWithDirectAPI(text, voice, rate, pitch);
 
   } catch (error) {
-    console.error('[TTS] Fatal error:', error);
+    // Don't log TTS errors to avoid console spam
+    // TTS is an optional feature and should fail silently
     const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+    
+    // Return a more graceful error that won't spam the console
     return NextResponse.json(
       { 
-        error: errorMessage,
-        details: 'Failed to generate speech. The Edge TTS service may be temporarily unavailable.',
-        suggestion: 'Please try again in a moment or contact support if the issue persists.'
+        error: 'TTS_UNAVAILABLE',
+        message: 'Text-to-speech is temporarily unavailable',
+        fallback: 'browser',
       }, 
-      { status: 500 }
+      { status: 503 } // Use 503 instead of 500 to indicate service unavailable
     );
   }
 }
@@ -97,10 +94,8 @@ async function generateWithDirectAPI(text: string, voice: string, rate: string, 
   
   for (const endpoint of endpoints) {
     try {
-      console.log('[TTS] Trying endpoint:', endpoint.substring(0, 80) + '...');
-      
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000);
+      const timeoutId = setTimeout(() => controller.abort(), 15000); // Reduced to 15s
 
       const ttsResponse = await fetch(endpoint, {
         method: 'POST',
@@ -117,24 +112,17 @@ async function generateWithDirectAPI(text: string, voice: string, rate: string, 
 
       clearTimeout(timeoutId);
 
-      console.log('[TTS] Response status:', ttsResponse.status);
-
       if (!ttsResponse.ok) {
-        const errorText = await ttsResponse.text().catch(() => 'Unknown error');
-        console.error('[TTS] API error:', ttsResponse.status, errorText);
-        lastError = new Error(`Edge TTS API error: ${ttsResponse.status} ${ttsResponse.statusText}`);
+        lastError = new Error(`Edge TTS API error: ${ttsResponse.status}`);
         continue; // Try next endpoint
       }
 
       const audioBuffer = await ttsResponse.arrayBuffer();
 
       if (audioBuffer.byteLength === 0) {
-        console.error('[TTS] Empty audio response');
-        lastError = new Error('Empty audio response from Edge TTS');
+        lastError = new Error('Empty audio response');
         continue; // Try next endpoint
       }
-
-      console.log('[TTS] Success! Audio size:', audioBuffer.byteLength, 'bytes');
 
       return new NextResponse(audioBuffer, {
         headers: {
@@ -149,7 +137,6 @@ async function generateWithDirectAPI(text: string, voice: string, rate: string, 
       } else {
         lastError = fetchError;
       }
-      console.error('[TTS] Endpoint failed:', fetchError.message);
       continue; // Try next endpoint
     }
   }

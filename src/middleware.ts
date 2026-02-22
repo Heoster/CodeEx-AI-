@@ -2,64 +2,40 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 /**
- * Rate Limiting Middleware
- * Prevents API abuse by limiting requests per IP address
+ * Middleware for logging API errors and adding CORS headers
  */
-
-// Simple in-memory rate limiter (use Redis in production for multi-instance deployments)
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
-
-const RATE_LIMIT = 20; // requests per window
-const WINDOW_MS = 60000; // 1 minute
-
-// Cleanup old entries every 5 minutes
-setInterval(() => {
-  const now = Date.now();
-  for (const [ip, data] of rateLimitMap.entries()) {
-    if (now > data.resetTime) {
-      rateLimitMap.delete(ip);
-    }
-  }
-}, 5 * 60 * 1000);
-
 export function middleware(request: NextRequest) {
-  // Only rate limit AI API routes
-  if (!request.nextUrl.pathname.startsWith('/api/ai')) {
-    return NextResponse.next();
+  const { pathname } = request.nextUrl;
+
+  // Log API requests for debugging
+  if (pathname.startsWith('/api/')) {
+    console.log(`[${new Date().toISOString()}] ${request.method} ${pathname}`);
   }
 
-  const ip = request.ip || request.headers.get('x-forwarded-for') || 'anonymous';
-  const now = Date.now();
-  
-  const userLimit = rateLimitMap.get(ip);
-  
-  if (!userLimit || now > userLimit.resetTime) {
-    // Create new rate limit window
-    rateLimitMap.set(ip, { count: 1, resetTime: now + WINDOW_MS });
-    return NextResponse.next();
+  // Add CORS headers for API routes
+  if (pathname.startsWith('/api/')) {
+    const response = NextResponse.next();
+    
+    // Allow requests from your domains
+    const origin = request.headers.get('origin');
+    const allowedOrigins = [
+      'http://localhost:3000',
+      'https://codeex-ai.netlify.app',
+      'https://codeex-ai.vercel.app',
+    ];
+    
+    if (origin && allowedOrigins.includes(origin)) {
+      response.headers.set('Access-Control-Allow-Origin', origin);
+      response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+      response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    }
+    
+    return response;
   }
-  
-  if (userLimit.count >= RATE_LIMIT) {
-    // Rate limit exceeded
-    return NextResponse.json(
-      { 
-        error: 'Too many requests. Please try again later.',
-        retryAfter: Math.ceil((userLimit.resetTime - now) / 1000),
-      },
-      { 
-        status: 429,
-        headers: {
-          'Retry-After': String(Math.ceil((userLimit.resetTime - now) / 1000)),
-        },
-      }
-    );
-  }
-  
-  // Increment counter
-  userLimit.count++;
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: '/api/ai/:path*',
+  matcher: '/api/:path*',
 };
