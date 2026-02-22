@@ -1,0 +1,2 @@
+# Edge TTS Server Requirements
+edge-tts>=6.1.9
