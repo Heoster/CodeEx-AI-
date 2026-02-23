@@ -2,9 +2,61 @@ import { NextRequest, NextResponse } from 'next/server';
 import { generateWithSmartFallback } from '@/ai/smart-fallback';
 
 export async function POST(request: NextRequest) {
+  const startTime = Date.now();
+  
   try {
-    const body = await request.json();
+    // Validate request body
+    let body;
+    try {
+      body = await request.json();
+    } catch (parseError) {
+      return NextResponse.json(
+        { 
+          error: 'INVALID_REQUEST',
+          message: 'Invalid JSON in request body',
+          timestamp: new Date().toISOString(),
+        },
+        { status: 400 }
+      );
+    }
+
     const { message, history, settings } = body;
+
+    // Validate required fields
+    if (!message || typeof message !== 'string') {
+      return NextResponse.json(
+        { 
+          error: 'MISSING_MESSAGE',
+          message: 'Message field is required and must be a string',
+          timestamp: new Date().toISOString(),
+        },
+        { status: 400 }
+      );
+    }
+
+    if (message.trim().length === 0) {
+      return NextResponse.json(
+        { 
+          error: 'EMPTY_MESSAGE',
+          message: 'Message cannot be empty',
+          timestamp: new Date().toISOString(),
+        },
+        { status: 400 }
+      );
+    }
+
+    if (message.length > 10000) {
+      return NextResponse.json(
+        { 
+          error: 'MESSAGE_TOO_LONG',
+          message: 'Message exceeds maximum length of 10,000 characters',
+          currentLength: message.length,
+          maxLength: 10000,
+          timestamp: new Date().toISOString(),
+        },
+        { status: 400 }
+      );
+    }
 
     // Build system prompt based on settings
     const getToneInstructions = (tone: string) => {
@@ -90,58 +142,93 @@ ${getTechnicalInstructions(settings.technicalLevel)}
       },
     });
 
+    const responseTime = Date.now() - startTime;
+
     return NextResponse.json({
+      success: true,
       content: result.response.text,
       modelUsed: result.modelUsed,
       autoRouted: result.fallbackTriggered,
-      routingReasoning: result.fallbackTriggered ? 'Fallback triggered' : 'Direct model usage'
+      routingReasoning: result.fallbackTriggered ? 'Fallback triggered' : 'Direct model usage',
+      responseTime: `${responseTime}ms`,
+      timestamp: new Date().toISOString(),
     });
 
   } catch (error) {
-    console.error('Direct chat API error:', error);
+    const responseTime = Date.now() - startTime;
+    console.error('[Chat API] Error:', error);
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     
-    // Provide helpful error messages
-    if (errorMessage.includes('fetch failed')) {
-      return NextResponse.json(
-        { 
-          error: 'Unable to connect to AI service. This usually means API keys are not configured in production. Please check your deployment environment variables.',
-          details: 'Visit /api/health to check configuration status.',
-        },
-        { status: 500 }
-      );
+    // Categorize errors for better debugging
+    let errorCode = 'UNKNOWN_ERROR';
+    let statusCode = 500;
+    let userMessage = errorMessage;
+    let debugInfo: any = {
+      responseTime: `${responseTime}ms`,
+      timestamp: new Date().toISOString(),
+    };
+
+    // Network/Timeout errors
+    if (errorMessage.includes('fetch failed') || errorMessage.includes('Network error')) {
+      errorCode = 'NETWORK_ERROR';
+      statusCode = 503;
+      userMessage = 'Unable to connect to AI service. Please check your internet connection and try again.';
+      debugInfo.suggestion = 'Check if API keys are configured in production environment';
+      debugInfo.helpUrl = '/api/health';
     }
-    if (errorMessage.includes('API key') || errorMessage.includes('GROQ_API_KEY')) {
-      return NextResponse.json(
-        { error: 'Groq API key is missing or invalid. Get a free key at https://console.groq.com/keys and add it to your .env.local file as GROQ_API_KEY' },
-        { status: 500 }
-      );
+    // Timeout errors
+    else if (errorMessage.includes('timeout') || errorMessage.includes('AbortError')) {
+      errorCode = 'TIMEOUT_ERROR';
+      statusCode = 504;
+      userMessage = 'Request timed out. The AI service took too long to respond. Please try again.';
+      debugInfo.suggestion = 'Try with a shorter message or simpler query';
     }
-    if (errorMessage.includes('quota') || errorMessage.includes('rate')) {
-      return NextResponse.json(
-        { error: 'AI service is temporarily busy. Please try again in a moment.' },
-        { status: 500 }
-      );
+    // API Key errors
+    else if (errorMessage.includes('API key') || errorMessage.includes('Authentication failed')) {
+      errorCode = 'AUTH_ERROR';
+      statusCode = 401;
+      userMessage = 'Authentication failed. API key is missing or invalid.';
+      debugInfo.suggestion = 'Check environment variables in deployment settings';
+      debugInfo.requiredKeys = ['GROQ_API_KEY', 'GOOGLE_API_KEY', 'CEREBRAS_API_KEY', 'HUGGINGFACE_API_KEY'];
     }
-    if (errorMessage.includes('All models failed')) {
-      return NextResponse.json(
-        { error: 'All AI models are currently unavailable. This may be due to high demand. Please try again in a few minutes.' },
-        { status: 500 }
-      );
+    // Rate limit errors
+    else if (errorMessage.includes('rate') || errorMessage.includes('quota')) {
+      errorCode = 'RATE_LIMIT_ERROR';
+      statusCode = 429;
+      userMessage = 'Rate limit exceeded. Please wait a moment and try again.';
+      debugInfo.suggestion = 'Wait 60 seconds before retrying';
     }
-    if (errorMessage.includes('Network error') || errorMessage.includes('timeout')) {
-      return NextResponse.json(
-        { 
-          error: 'Network error connecting to AI service. Please check your API key configuration.',
-          details: 'Visit /api/health to check configuration status.',
-        },
-        { status: 500 }
-      );
+    // All models failed
+    else if (errorMessage.includes('All models failed')) {
+      errorCode = 'ALL_MODELS_FAILED';
+      statusCode = 503;
+      userMessage = 'All AI models are currently unavailable. Please try again in a few minutes.';
+      debugInfo.suggestion = 'Check /api/health to verify which providers are configured';
+      debugInfo.helpUrl = '/api/health';
+    }
+    // Model loading errors
+    else if (errorMessage.includes('Model is currently loading')) {
+      errorCode = 'MODEL_LOADING';
+      statusCode = 503;
+      userMessage = 'AI model is loading. This usually takes 20-30 seconds. Please try again in a moment.';
+      debugInfo.suggestion = 'Wait 30 seconds and retry';
+    }
+    // Context window errors
+    else if (errorMessage.includes('Context exceeds') || errorMessage.includes('too large')) {
+      errorCode = 'CONTEXT_TOO_LARGE';
+      statusCode = 413;
+      userMessage = 'Your conversation is too long. Please start a new conversation.';
+      debugInfo.suggestion = 'Clear chat history or start a new conversation';
     }
     
     return NextResponse.json(
-      { error: errorMessage },
-      { status: 500 }
+      { 
+        success: false,
+        error: errorCode,
+        message: userMessage,
+        debug: debugInfo,
+      },
+      { status: statusCode }
     );
   }
 }
