@@ -84,7 +84,26 @@ Added CORS headers and API routing:
 
 ## Testing
 
-### Local Testing
+### Automated Test Script
+Run the comprehensive test suite:
+
+```bash
+# Start dev server first
+npm run dev
+
+# In another terminal, run tests
+node test-chat-direct.js
+```
+
+This tests:
+- OPTIONS (CORS preflight)
+- GET (should return 405)
+- POST with valid data
+- POST with invalid data (validation)
+
+### Manual Testing
+
+#### Local Testing
 ```bash
 # Test OPTIONS (preflight)
 curl -X OPTIONS http://localhost:3000/api/chat-direct
@@ -98,7 +117,7 @@ curl -X POST http://localhost:3000/api/chat-direct \
   -d '{"message":"Hello","history":[],"settings":{"tone":"friendly","technicalLevel":"intermediate"}}'
 ```
 
-### Production Testing
+#### Production Testing
 After deployment:
 
 ```bash
