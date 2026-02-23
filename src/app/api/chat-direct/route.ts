@@ -1,6 +1,50 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateWithSmartFallback } from '@/ai/smart-fallback';
 
+// CORS headers for all responses
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  'Access-Control-Max-Age': '86400',
+};
+
+// Handle OPTIONS preflight requests
+export async function OPTIONS(request: NextRequest) {
+  return NextResponse.json(
+    { message: 'OK' },
+    { 
+      status: 200,
+      headers: corsHeaders,
+    }
+  );
+}
+
+// Handle GET requests with helpful error
+export async function GET(request: NextRequest) {
+  return NextResponse.json(
+    {
+      error: 'METHOD_NOT_ALLOWED',
+      message: 'This endpoint only accepts POST requests',
+      usage: {
+        method: 'POST',
+        endpoint: '/api/chat-direct',
+        contentType: 'application/json',
+        body: {
+          message: 'string (required)',
+          history: 'array (optional)',
+          settings: 'object (optional)',
+        },
+      },
+      documentation: '/documentation/api-reference',
+    },
+    { 
+      status: 405,
+      headers: corsHeaders,
+    }
+  );
+}
+
 export async function POST(request: NextRequest) {
   const startTime = Date.now();
   
@@ -16,7 +60,10 @@ export async function POST(request: NextRequest) {
           message: 'Invalid JSON in request body',
           timestamp: new Date().toISOString(),
         },
-        { status: 400 }
+        { 
+          status: 400,
+          headers: corsHeaders,
+        }
       );
     }
 
@@ -30,7 +77,10 @@ export async function POST(request: NextRequest) {
           message: 'Message field is required and must be a string',
           timestamp: new Date().toISOString(),
         },
-        { status: 400 }
+        { 
+          status: 400,
+          headers: corsHeaders,
+        }
       );
     }
 
@@ -41,7 +91,10 @@ export async function POST(request: NextRequest) {
           message: 'Message cannot be empty',
           timestamp: new Date().toISOString(),
         },
-        { status: 400 }
+        { 
+          status: 400,
+          headers: corsHeaders,
+        }
       );
     }
 
@@ -54,7 +107,10 @@ export async function POST(request: NextRequest) {
           maxLength: 10000,
           timestamp: new Date().toISOString(),
         },
-        { status: 400 }
+        { 
+          status: 400,
+          headers: corsHeaders,
+        }
       );
     }
 
@@ -115,8 +171,8 @@ ${getTechnicalInstructions(settings.technicalLevel)}
 - Vision: Democratize AI education in India and make advanced technology accessible to every student
 - Built with 26+ AI models, serving 100+ countries with 99.9% uptime
 - Friends & Testers
-A group of friends who help test and provide feedback: VIDHAn, AVINEEt, vansh
-AAYUSH, VARUN, pankaj, MASUM, SACHINpardhuman, shivansh, Vaibhav, Kartik, Harsh`;
+A group of friends who help test and provide feedback: VIDHAN, AVINEET, vansh
+AAYUSH, VARUN, pankaj, MASUM, SACHIN, pardhuman, shivansh, Vaibhav, Kartik, Harsh`;
 
     // Convert history to the format expected by smart fallback
     const convertedHistory = history.map((msg: any) => ({
@@ -155,6 +211,8 @@ AAYUSH, VARUN, pankaj, MASUM, SACHINpardhuman, shivansh, Vaibhav, Kartik, Harsh`
       routingReasoning: result.fallbackTriggered ? 'Fallback triggered' : 'Direct model usage',
       responseTime: `${responseTime}ms`,
       timestamp: new Date().toISOString(),
+    }, {
+      headers: corsHeaders,
     });
 
   } catch (error) {
@@ -231,7 +289,10 @@ AAYUSH, VARUN, pankaj, MASUM, SACHINpardhuman, shivansh, Vaibhav, Kartik, Harsh`
         message: userMessage,
         debug: debugInfo,
       },
-      { status: statusCode }
+      { 
+        status: statusCode,
+        headers: corsHeaders,
+      }
     );
   }
 }
