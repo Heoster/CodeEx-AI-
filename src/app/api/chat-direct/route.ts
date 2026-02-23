@@ -113,7 +113,10 @@ ${getTechnicalInstructions(settings.technicalLevel)}
 - Founder of CODEEX AI startup, currently studying Class 11th PCM at Maples Academy
 - Contact: the.heoster@mail.com | LinkedIn: codeex-heoster-4b60b8399 | GitHub: @heoster
 - Vision: Democratize AI education in India and make advanced technology accessible to every student
-- Built with 26+ AI models, serving 100+ countries with 99.9% uptime`;
+- Built with 26+ AI models, serving 100+ countries with 99.9% uptime
+- Friends & Testers
+A group of friends who help test and provide feedback: VIDHAn, AVINEEt, vansh
+AAYUSH, VARUN, pankaj, MASUM, SACHINpardhuman, shivansh, Vaibhav, Kartik, Harsh`;
 
     // Convert history to the format expected by smart fallback
     const convertedHistory = history.map((msg: any) => ({

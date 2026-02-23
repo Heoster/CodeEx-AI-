@@ -123,7 +123,7 @@ function validateContextWindow(
 async function tryGenerateWithModel(
   model: ModelConfig,
   request: Omit<GenerateRequest, 'model'>,
-  maxRetries: number = 2
+  maxRetries: number = 0
 ): Promise<GenerateResponse> {
   const adapter = getAdapter(model.provider);
   
@@ -172,6 +172,8 @@ export async function generateWithSmartFallback(
   const registry = getModelRegistry();
   const attempts: FallbackAttempt[] = [];
   let fallbackTriggered = false;
+  const startTime = Date.now();
+  const MAX_TOTAL_TIME = 9000; // 9 seconds total for Netlify (leave 1s buffer)
   
   // Determine which models to try
   let modelsToTry: ModelConfig[] = [];
@@ -201,9 +203,18 @@ export async function generateWithSmartFallback(
     throw new Error('No models available. Please check your GROQ_API_KEY configuration at https://console.groq.com/keys');
   }
   
+  // Limit to 2 models maximum for Netlify timeout constraints
+  const maxModelsToTry = Math.min(modelsToTry.length, 2);
+  
   // Try each model in sequence
-  for (let i = 0; i < modelsToTry.length; i++) {
+  for (let i = 0; i < maxModelsToTry; i++) {
     const model = modelsToTry[i];
+    
+    // Check if we're approaching timeout
+    const elapsed = Date.now() - startTime;
+    if (elapsed > MAX_TOTAL_TIME) {
+      throw new Error('Request timeout - exceeded maximum processing time');
+    }
     
     try {
       console.log(`Attempting generation with ${model.name} (${model.id})...`);
@@ -229,14 +240,14 @@ export async function generateWithSmartFallback(
       console.error(`Failed to generate with ${model.name}:`, errorMessage);
       
       // If this was a critical failure and we have more models, trigger fallback
-      if (isCriticalFailure(error) && i < modelsToTry.length - 1) {
+      if (isCriticalFailure(error) && i < maxModelsToTry - 1) {
         fallbackTriggered = true;
         console.log(`Critical failure detected, falling back to next model...`);
         continue;
       }
       
       // If this is the last model, throw the error
-      if (i === modelsToTry.length - 1) {
+      if (i === maxModelsToTry - 1) {
         throw new Error(
           `All models failed. Last error: ${errorMessage}. ` +
           `Attempted models: ${attempts.map(a => a.modelId).join(', ')}`
