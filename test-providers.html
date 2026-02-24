@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provider Availability Test</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        button {
+            background: #0070f3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        button:hover {
+            background: #0051cc;
+        }
+        .provider {
+            margin: 15px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+        .provider h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .status.available {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status.unavailable {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .status.configured {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        .status.placeholder {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .status.missing {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .models {
+            margin-top: 20px;
+        }
+        .model {
+            padding: 8px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border-left: 3px solid #0070f3;
+            border-radius: 4px;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Provider Availability Test</h1>
+        <button onclick="checkProviders()">Check Providers</button>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        async function checkProviders() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<p>Loading...</p>';
+
+            try {
+                const response = await fetch('/api/debug/providers');
+                const data = await response.json();
+
+                if (data.error) {
+                    resultsDiv.innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
+                    return;
+                }
+
+                let html = '<h2>Provider Status</h2>';
+                
+                for (const [name, info] of Object.entries(data.providers)) {
+                    const availableClass = info.available ? 'available' : 'unavailable';
+                    const availableText = info.available ? '✓ Available' : '✗ Unavailable';
+                    
+                    let apiKeyClass = '';
+                    let apiKeyText = '';
+                    if (info.apiKey === 'CONFIGURED') {
+                        apiKeyClass = 'configured';
+                        apiKeyText = '✓ Configured';
+                    } else if (info.apiKey === 'PLACEHOLDER') {
+                        apiKeyClass = 'placeholder';
+                        apiKeyText = '⚠ Placeholder';
+                    } else {
+                        apiKeyClass = 'missing';
+                        apiKeyText = '✗ Missing';
+                    }
+                    
+                    html += `
+                        <div class="provider">
+                            <h3>${name.toUpperCase()}</h3>
+                            <div>
+                                <span class="status ${availableClass}">${availableText}</span>
+                                <span class="status ${apiKeyClass}">${apiKeyText}</span>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                html += `<div class="models">
+                    <h2>Available Models (${data.totalAvailable})</h2>`;
+                
+                if (data.availableModels.length === 0) {
+                    html += '<p style="color: red;">⚠ No models available! Please configure at least one API key.</p>';
+                } else {
+                    data.availableModels.forEach(model => {
+                        html += `
+                            <div class="model">
+                                <strong>${model.name}</strong> (${model.id})
+                                <br>
+                                <small>Provider: ${model.provider} | Category: ${model.category}</small>
+                            </div>
+                        `;
+                    });
+                }
+                
+                html += '</div>';
+                
+                html += '<h2>Raw Response</h2><pre>' + JSON.stringify(data, null, 2) + '</pre>';
+
+                resultsDiv.innerHTML = html;
+            } catch (error) {
+                resultsDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        }
+
+        // Auto-run on page load
+        window.addEventListener('load', checkProviders);
+    </script>
+</body>
+</html>

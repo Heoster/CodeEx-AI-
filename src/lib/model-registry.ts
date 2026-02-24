@@ -30,7 +30,14 @@ function checkProviderApiKey(provider: ProviderConfig): boolean {
   }
   
   const apiKey = process.env[provider.apiKeyEnvVar];
-  return !!apiKey && apiKey.length > 0;
+  
+  // Check if API key exists, has length, and is not a placeholder
+  const isValid = !!apiKey && 
+                  apiKey.length > 0 && 
+                  !apiKey.includes('your_') && 
+                  !apiKey.includes('_here');
+  
+  return isValid;
 }
 
 /**
