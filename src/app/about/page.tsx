@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     type: 'profile',
     images: [
       {
-        url: 'https://2024wallepals.netlify.app/assets/friends/harsh.png',
+        url: '/harsh.png',
         width: 400,
         height: 400,
         alt: 'Heoster - Founder of CODEEX',
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: 'summary',
     title: 'About Heoster - 16-Year-Old Founder of CODEEX',
     description: `16-year-old developer from India who built CODEEX - free AI platform with ${DEVELOPER_INFO.projectStats.modelsIntegrated}+ models`,
-    images: ['https://2024wallepals.netlify.app/assets/friends/harsh.png'],
+    images: '/public/harsh.png',
   },
   alternates: {
     canonical: '/about',
