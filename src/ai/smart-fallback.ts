@@ -180,8 +180,17 @@ export async function generateWithSmartFallback(
   
   if (request.preferredModelId) {
     const preferredModel = registry.getModel(request.preferredModelId);
-    if (preferredModel && registry.isModelAvailable(request.preferredModelId)) {
-      modelsToTry.push(preferredModel);
+    if (preferredModel) {
+      const isAvailable = registry.isModelAvailable(request.preferredModelId);
+      console.log(`[Smart Fallback] Preferred model ${request.preferredModelId}: found=${!!preferredModel}, available=${isAvailable}`);
+      
+      if (isAvailable) {
+        modelsToTry.push(preferredModel);
+      } else {
+        console.warn(`[Smart Fallback] Preferred model ${request.preferredModelId} is not available. Provider ${preferredModel.provider} may not be configured.`);
+      }
+    } else {
+      console.warn(`[Smart Fallback] Preferred model ${request.preferredModelId} not found in registry`);
     }
   }
   

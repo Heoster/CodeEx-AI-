@@ -114,6 +114,9 @@ ${getTechnicalInstructions(input.settings.technicalLevel)}
     let preferredModelId: string | undefined;
     if (input.settings.model && input.settings.model !== 'auto') {
       preferredModelId = input.settings.model;
+      console.log(`[Actions] User selected model: ${preferredModelId}`);
+    } else {
+      console.log('[Actions] Using auto model selection');
     }
 
     // Use smart fallback system directly (server-side)
@@ -130,6 +133,8 @@ ${getTechnicalInstructions(input.settings.technicalLevel)}
         maxOutputTokens: 4096,
       },
     });
+    
+    console.log(`[Actions] Response generated with model: ${result.modelUsed}, fallback triggered: ${result.fallbackTriggered}`);
     
     return {
       content: result.response.text,
