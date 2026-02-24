@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeEx AI Personality Feature Test</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1 {
+      color: white;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .panel {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .panel h2 {
+      color: #667eea;
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #333;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+      font-family: inherit;
+    }
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      width: 100%;
+      margin-top: 10px;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+    button:active {
+      transform: translateY(0);
+    }
+    .response {
+      background: #f8f9fa;
+      border-left: 4px solid #667eea;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+      white-space: pre-wrap;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .profile-info {
+      background: #f0f4ff;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+    .profile-info h3 {
+      color: #667eea;
+      margin-bottom: 10px;
+      font-size: 1rem;
+    }
+    .profile-info p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+    .memory-item {
+      background: white;
+      padding: 10px;
+      border-radius: 6px;
+      margin: 8px 0;
+      border-left: 3px solid #764ba2;
+    }
+    .loading {
+      text-align: center;
+      color: #667eea;
+      font-weight: 600;
+      padding: 20px;
+    }
+    .error {
+      background: #fee;
+      border-left: 4px solid #f44;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+      color: #c00;
+    }
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧠 CodeEx AI Personality Feature</h1>
+    
+    <div class="grid">
+      <!-- Chat Panel -->
+      <div class="panel">
+        <h2>💬 Chat with AI</h2>
+        <div class="form-group">
+          <label>User ID</label>
+          <input type="text" id="userId" value="test-user-123" placeholder="Enter your user ID">
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea id="message" placeholder="Type your message here...">I prefer TypeScript over JavaScript for large projects</textarea>
+        </div>
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="enablePersonality" checked>
+            Enable Personality Feature
+          </label>
+        </div>
+        <button onclick="sendMessage()">Send Message</button>
+        <div id="chatResponse"></div>
+      </div>
+
+      <!-- Profile Management -->
+      <div class="panel">
+        <h2>👤 Profile Management</h2>
+        <div class="form-group">
+          <label>Communication Style</label>
+          <select id="commStyle">
+            <option value="direct">Direct</option>
+            <option value="detailed">Detailed</option>
+            <option value="casual">Casual</option>
+            <option value="technical" selected>Technical</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Response Length</label>
+          <select id="responseLength">
+            <option value="concise" selected>Concise</option>
+            <option value="balanced">Balanced</option>
+            <option value="detailed">Detailed</option>
+          </select>
+        </div>
+        <button onclick="updateProfile()">Update Profile</button>
+        <button onclick="getProfile()">Get Profile</button>
+        <button onclick="clearMemories()">Clear Memories</button>
+        <div id="profileResponse"></div>
+      </div>
+    </div>
+
+    <!-- Test Scenarios -->
+    <div class="panel">
+      <h2>🧪 Test Scenarios</h2>
+      <p style="margin-bottom: 15px;">Click to test different communication styles:</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+        <button onclick="testScenario('direct')">Direct Style</button>
+        <button onclick="testScenario('detailed')">Detailed Style</button>
+        <button onclick="testScenario('casual')">Casual Style</button>
+        <button onclick="testScenario('technical')">Technical Style</button>
+        <button onclick="testScenario('memory')">Test Memory</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = window.location.origin;
+
+    async function sendMessage() {
+      const userId = document.getElementById('userId').value;
+      const message = document.getElementById('message').value;
+      const enablePersonality = document.getElementById('enablePersonality').checked;
+      const responseDiv = document.getElementById('chatResponse');
+
+      if (!userId || !message) {
+        responseDiv.innerHTML = '<div class="error">Please enter both User ID and Message</div>';
+        return;
+      }
+
+      responseDiv.innerHTML = '<div class="loading">Sending message...</div>';
+
+      try {
+        const response = await fetch(`${API_BASE}/api/chat-direct-personality`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message,
+            userId,
+            enablePersonality,
+            history: [],
+            settings: {
+              model: 'auto',
+              tone: 'helpful',
+              technicalLevel: 'intermediate',
+              enableSpeech: false,
+              voice: 'Algenib'
+            }
+          })
+        });
+
+        const data = await response.json();
+        
+        if (data.success) {
+          responseDiv.innerHTML = `
+            <div class="response">
+              <strong>AI Response:</strong>\n${data.content}\n\n
+              <strong>Model:</strong> ${data.modelUsed}\n
+              <strong>Time:</strong> ${data.responseTime}
+            </div>
+          `;
+        } else {
+          responseDiv.innerHTML = `<div class="error">${data.message || 'Error occurred'}</div>`;
+        }
+      } catch (error) {
+        responseDiv.innerHTML = `<div class="error">Network error: ${error.message}</div>`;
+      }
+    }
+
+    async function updateProfile() {
+      const userId = document.getElementById('userId').value;
+      const communicationStyle = document.getElementById('commStyle').value;
+      const responseLength = document.getElementById('responseLength').value;
+      const responseDiv = document.getElementById('profileResponse');
+
+      responseDiv.innerHTML = '<div class="loading">Updating profile...</div>';
+
+      try {
+        const response = await fetch(`${API_BASE}/api/profile`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userId,
+            communicationStyle,
+            preferences: {
+              responseLength,
+              codeExamples: true,
+              explanationStyle: 'moderate'
+            }
+          })
+        });
+
+        const data = await response.json();
+        
+        if (data.success) {
+          responseDiv.innerHTML = `
+            <div class="profile-info">
+              <h3>✅ Profile Updated</h3>
+              <p><strong>Style:</strong> ${data.profile.communicationStyle}</p>
+              <p><strong>Response Length:</strong> ${data.profile.preferences?.responseLength}</p>
+            </div>
+          `;
+        } else {
+          responseDiv.innerHTML = `<div class="error">${data.error}</div>`;
+        }
+      } catch (error) {
+        responseDiv.innerHTML = `<div class="error">Network error: ${error.message}</div>`;
+      }
+    }
+
+    async function getProfile() {
+      const userId = document.getElementById('userId').value;
+      const responseDiv = document.getElementById('profileResponse');
+
+      responseDiv.innerHTML = '<div class="loading">Loading profile...</div>';
+
+      try {
+        const response = await fetch(`${API_BASE}/api/profile?userId=${userId}`);
+        const data = await response.json();
+        
+        if (data.profile) {
+          const memories = data.profile.memories || [];
+          const memoriesHtml = memories.length > 0 
+            ? memories.map(m => `<div class="memory-item">${m.content} <small>(${m.category})</small></div>`).join('')
+            : '<p>No memories yet</p>';
+
+          responseDiv.innerHTML = `
+            <div class="profile-info">
+              <h3>👤 User Profile</h3>
+              <p><strong>User ID:</strong> ${data.profile.userId}</p>
+              <p><strong>Style:</strong> ${data.profile.communicationStyle || 'Not set'}</p>
+              <p><strong>Memories:</strong> ${memories.length}</p>
+              ${memoriesHtml}
+            </div>
+          `;
+        } else {
+          responseDiv.innerHTML = `<div class="error">${data.error}</div>`;
+        }
+      } catch (error) {
+        responseDiv.innerHTML = `<div class="error">Network error: ${error.message}</div>`;
+      }
+    }
+
+    async function clearMemories() {
+      const userId = document.getElementById('userId').value;
+      const responseDiv = document.getElementById('profileResponse');
+
+      if (!confirm('Are you sure you want to clear all memories?')) return;
+
+      responseDiv.innerHTML = '<div class="loading">Clearing memories...</div>';
+
+      try {
+        const response = await fetch(`${API_BASE}/api/profile?userId=${userId}&action=clearMemories`, {
+          method: 'DELETE'
+        });
+
+        const data = await response.json();
+        
+        if (data.success) {
+          responseDiv.innerHTML = '<div class="profile-info"><h3>✅ Memories Cleared</h3></div>';
+        } else {
+          responseDiv.innerHTML = `<div class="error">${data.error}</div>`;
+        }
+      } catch (error) {
+        responseDiv.innerHTML = `<div class="error">Network error: ${error.message}</div>`;
+      }
+    }
+
+    function testScenario(type) {
+      const scenarios = {
+        direct: 'Fix this bug',
+        detailed: 'Can you explain how async/await works in JavaScript?',
+        casual: 'Hey, what\'s the best way to learn React?',
+        technical: 'Explain the difference between TCP and UDP protocols',
+        memory: 'What programming language do I prefer?'
+      };
+
+      document.getElementById('message').value = scenarios[type];
+    }
+  </script>
+</body>
+</html>

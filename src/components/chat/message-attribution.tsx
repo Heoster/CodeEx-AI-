@@ -58,20 +58,22 @@ export function MessageAttribution({
     <TooltipProvider delayDuration={200}>
       <Tooltip>
         <TooltipTrigger asChild>
-          <div className="flex items-center gap-1.5 text-xs text-muted-foreground mt-2 pt-2 border-t border-border/50">
-            <Icon className={cn('h-3 w-3', config.color)} />
-            <span>{displayName}</span>
+          <div className="flex items-center gap-2 text-xs">
+            <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-background/50 border border-border/50">
+              <Icon className={cn('h-3.5 w-3.5', config.color)} />
+              <span className="font-medium text-foreground">{displayName}</span>
+            </div>
             {autoRouted && (
-              <span className="flex items-center gap-0.5 text-muted-foreground/70">
-                <Zap className="h-3 w-3" />
-                <span>auto</span>
-              </span>
+              <div className="flex items-center gap-1 px-2 py-1 rounded-md bg-primary/10 border border-primary/20">
+                <Zap className="h-3 w-3 text-primary" />
+                <span className="text-primary font-medium">Auto-routed</span>
+              </div>
             )}
           </div>
         </TooltipTrigger>
-        <TooltipContent side="bottom" className="max-w-[250px]">
-          <div className="space-y-1">
-            <p className="font-medium">{displayName}</p>
+        <TooltipContent side="bottom" className="max-w-[280px]">
+          <div className="space-y-1.5">
+            <p className="font-semibold text-sm">{displayName}</p>
             <p className="text-xs text-muted-foreground">
               Category: {config.label}
             </p>

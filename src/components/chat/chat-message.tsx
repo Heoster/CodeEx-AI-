@@ -195,7 +195,7 @@ export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
             </div>
 
             {isAssistant && (
-              <div className="mt-2">
+              <div className="mt-3 pt-2 border-t border-border/50">
                 <MessageAttribution
                   modelUsed={message.modelUsed}
                   modelCategory={message.modelCategory}

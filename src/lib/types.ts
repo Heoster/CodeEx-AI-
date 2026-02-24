@@ -47,6 +47,28 @@ export type Settings = {
   voice: Voice;
 };
 
+// User profile for personality feature
+export type UserProfile = {
+  userId: string;
+  communicationStyle?: 'direct' | 'detailed' | 'casual' | 'technical';
+  preferences?: {
+    responseLength?: 'concise' | 'balanced' | 'detailed';
+    codeExamples?: boolean;
+    explanationStyle?: 'simple' | 'moderate' | 'advanced';
+  };
+  memories?: UserMemory[];
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type UserMemory = {
+  id: string;
+  content: string;
+  category: 'preference' | 'fact' | 'context' | 'skill';
+  timestamp: string;
+  relevance: number; // 0-1 score for memory importance
+};
+
 // Types for Genkit flows
 export interface ProcessUserMessageInput {
   message: string;

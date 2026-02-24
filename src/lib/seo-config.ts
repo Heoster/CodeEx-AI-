@@ -436,9 +436,16 @@ export const structuredData = {
 // Analytics tracking helper
 export function trackPageView(pathname: string, title?: string) {
   if (typeof window !== 'undefined' && (window as any).gtag) {
-    (window as any).gtag('config', 'G-XXXXXXXXXX', {
+    (window as any).gtag('config', 'G-YH87NZPSKB', {
       page_path: pathname,
       page_title: title,
     });
+  }
+}
+
+// Track custom events
+export function trackEvent(eventName: string, eventParams?: Record<string, any>) {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    (window as any).gtag('event', eventName, eventParams);
   }
 }

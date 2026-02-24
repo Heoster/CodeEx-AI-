@@ -16,6 +16,7 @@ import { StructuredData } from '@/components/seo/structured-data';
 import { defaultSEO } from '@/lib/seo-config';
 import { DEVELOPER_INFO } from '@/lib/developer-info';
 import { ErrorBoundary } from '@/components/error-boundary';
+import { Analytics } from '@/components/analytics';
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -132,6 +133,21 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Google Analytics */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-YH87NZPSKB"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-YH87NZPSKB');
+            `,
+          }}
+        />
         <StructuredData type="organization" />
         <StructuredData type="person" />
         <StructuredData type="softwareApplication" />
@@ -152,6 +168,7 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
+              <Analytics />
               <LoadingManager />
               <PageTransition>
                 {children}
