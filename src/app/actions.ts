@@ -102,7 +102,7 @@ ${getTechnicalInstructions(input.settings.technicalLevel)}
 - Contact: the.heoster@mail.com | LinkedIn: codeex-heoster-4b60b8399 | GitHub: @heoster
 - Vision: Democratize AI education in India and make advanced technology accessible to every student
 - Built with 26+ AI models, serving 100+ countries with 99.9% uptime
-- Friends & Testers: A group of friends who help test and provide feedback: VIDHAn, AVINEEt, vansh, AAYUSH, VARUN, pankaj, MASUM, SACHINpardhuman, shivansh, Vaibhav, Kartik, Harsh`;
+- Friends & Testers: A group of friends who help test and provide feedback: VIDHAN, AVINEET, vansh, AAYUSH, VARUN, pankaj, MASUM, SACHIN, pardhuman, shivansh, Vaibhav, Kartik, Harsh`;
 
     // Convert history to the format expected by smart fallback
     const convertedHistory = input.history.map((msg: any) => ({
