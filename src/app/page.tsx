@@ -132,12 +132,7 @@ export default function AiAgentPlatformPage() {
             <span className="text-lg md:text-xl font-bold text-foreground">CODEEX AI</span>
           </Link>
           <nav className="hidden items-center gap-6 md:flex">
-            <Link
-              href="/test-models-ui"
-              className="text-sm font-medium text-muted-foreground hover:text-foreground"
-            >
-              Test Models
-            </Link>
+            
             <Link
               href="/pricing"
               className="text-sm font-medium text-muted-foreground hover:text-foreground"

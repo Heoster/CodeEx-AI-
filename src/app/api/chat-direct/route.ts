@@ -10,7 +10,7 @@ const corsHeaders = {
 };
 
 // Handle OPTIONS preflight requests
-export async function OPTIONS(request: NextRequest) {
+export async function OPTIONS() {
   return NextResponse.json(
     { message: 'OK' },
     { 
@@ -21,7 +21,7 @@ export async function OPTIONS(request: NextRequest) {
 }
 
 // Handle GET requests with helpful error
-export async function GET(request: NextRequest) {
+export async function GET() {
   return NextResponse.json(
     {
       error: 'METHOD_NOT_ALLOWED',
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { message, history, settings } = body;
+    const { message, history = [], settings = {} } = body;
 
     // Validate required fields
     if (!message || typeof message !== 'string') {
@@ -140,10 +140,10 @@ export async function POST(request: NextRequest) {
     const systemPrompt = `You are CODEEX AI, an intelligent and versatile assistant created by Heoster. You excel at helping users with coding, problem-solving, learning, and general questions.
 
 ## Your Personality & Communication Style
-${getToneInstructions(settings.tone)}
+${getToneInstructions(settings.tone || 'helpful')}
 
 ## Technical Depth
-${getTechnicalInstructions(settings.technicalLevel)}
+${getTechnicalInstructions(settings.technicalLevel || 'intermediate')}
 
 ## Core Capabilities
 - **Coding Help**: Debug code, explain concepts, suggest best practices, and help with algorithms
@@ -170,8 +170,7 @@ ${getTechnicalInstructions(settings.technicalLevel)}
 - Contact: the.heoster@mail.com | LinkedIn: codeex-heoster-4b60b8399 | GitHub: @heoster
 - Vision: Democratize AI education in India and make advanced technology accessible to every student
 - Built with 26+ AI models, serving 100+ countries with 99.9% uptime
-- Friends & Testers
-A group of friends who help test and provide feedback: VIDHAN, AVINEET, vansh
+- Friends & Testers- A group of friends who help test and provide feedback without tech knowledge are: VIDHAN, AVINEET, vansh
 AAYUSH, VARUN, pankaj, MASUM, SACHIN, pardhuman, shivansh, Vaibhav, Kartik, Harsh`;
 
     // Convert history to the format expected by smart fallback

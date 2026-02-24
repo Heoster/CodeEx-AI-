@@ -78,15 +78,25 @@ export function ChatPanel({
       });
 
       let assistantContent = '';
+      let modelUsed: string | undefined;
+      let autoRouted: boolean | undefined;
+      
       if (!response) {
         assistantContent = 'Sorry, I encountered an error processing your request. Please try again.';
       } else if ('error' in response) {
         assistantContent = response.error;
       } else {
         assistantContent = response.content;
+        modelUsed = response.modelUsed;
+        autoRouted = response.autoRouted;
       }
 
-      addMessage(chat.id, {role: 'assistant', content: assistantContent});
+      addMessage(chat.id, {
+        role: 'assistant', 
+        content: assistantContent,
+        modelUsed,
+        autoRouted,
+      });
       setIsLoadingFromAI(false);
 
       if (settingsRef.current.enableSpeech && assistantContent) {
@@ -185,14 +195,24 @@ export function ChatPanel({
         });
 
         let assistantContent = '';
+        let modelUsed: string | undefined;
+        let autoRouted: boolean | undefined;
+        
         if (typeof response === 'string') {
           assistantContent = response;
         } else if (response && typeof response === 'object' && 'content' in response) {
           assistantContent = response.content;
+          if ('modelUsed' in response) modelUsed = response.modelUsed;
+          if ('autoRouted' in response) autoRouted = response.autoRouted;
         }
 
         // Replace the old message with the new one
-        addMessage(chat.id, {role: 'assistant', content: assistantContent});
+        addMessage(chat.id, {
+          role: 'assistant', 
+          content: assistantContent,
+          modelUsed,
+          autoRouted,
+        });
       } catch (error) {
         console.error('Failed to regenerate message:', error);
       } finally {
