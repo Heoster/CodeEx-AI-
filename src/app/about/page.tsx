@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: 'summary',
     title: 'About Heoster - 16-Year-Old Founder of CODEEX',
     description: `16-year-old developer from India who built CODEEX - free AI platform with ${DEVELOPER_INFO.projectStats.modelsIntegrated}+ models`,
-    images: '/public/harsh.png',
+    images: ['/harsh.png'],
   },
   alternates: {
     canonical: '/about',
@@ -105,7 +105,7 @@ export default function AboutUsPage() {
             },
             email: DEVELOPER_INFO.contact.email,
             url: 'https://codeex-ai.netlify.app',
-            image: 'https://2024wallepals.netlify.app/assets/friends/harsh.png',
+            image: '/harsh.png',
             description: `${DEVELOPER_INFO.name} is a ${DEVELOPER_INFO.age}-year-old developer and founder of CODEEX. Currently studying ${DEVELOPER_INFO.education.class} ${DEVELOPER_INFO.education.stream} at ${DEVELOPER_INFO.education.school}, he has built a free AI platform with ${DEVELOPER_INFO.projectStats.modelsIntegrated}+ models, reaching ${DEVELOPER_INFO.projectStats.countriesReached} countries with ${DEVELOPER_INFO.projectStats.dailyUsers} daily users.`,
             knowsAbout: DEVELOPER_INFO.skills.concat(DEVELOPER_INFO.aiTechnologies),
             knowsLanguage: ['English', 'Hindi'],
@@ -126,7 +126,7 @@ export default function AboutUsPage() {
           <div className="flex flex-col items-center space-y-6 text-center">
             <div className="relative h-40 w-40 overflow-hidden rounded-full border-4 border-primary shadow-xl">
               <Image
-                src="https://2024wallepals.netlify.app/assets/friends/harsh.png"
+                src="/harsh.png"
                 width={160}
                 height={160}
                 alt="Heoster (Harsh) - Founder of CODEEX"
