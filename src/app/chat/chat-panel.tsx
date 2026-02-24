@@ -44,6 +44,9 @@ export function ChatPanel({
       if (isLoading || !user) return;
       setIsLoadingFromAI(true);
 
+      console.log('[ChatPanel] Current settings:', settingsRef.current);
+      console.log('[ChatPanel] Selected model:', settingsRef.current.model);
+
       const isNewChat = messages.length <= 1;
       const newTitle = isNewChat
         ? messageContent.substring(0, 30) +

@@ -43,6 +43,7 @@ import {useAuth} from '@/hooks/use-auth';
 import {getAuth, signOut} from 'firebase/auth';
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {useChatHistory} from '@/hooks/use-chat-history';
+import {useLocalStorage} from '@/hooks/use-local-storage';
 import { InstallPWAButton } from '../install-pwa-button';
 
 const defaultSettings: Settings = {
@@ -69,7 +70,11 @@ export function ChatLayout() {
     exportChat,
   } = useChatHistory();
 
-  const [settings, setSettings] = useState<Settings>(defaultSettings);
+  // Persist settings to localStorage
+  const [settings, setSettings] = useLocalStorage<Settings>(
+    user?.uid ? `${user.uid}_settings` : 'guest_settings',
+    defaultSettings
+  );
   const [isClearHistoryAlertOpen, setIsClearHistoryAlertOpen] = useState(false);
   const auth = getAuth();
 

@@ -95,9 +95,10 @@ export function SettingsDialog({
                     </Button>
                     <MobileModelSelector
                       value={settings.model}
-                      onValueChange={(value) =>
-                        onSettingsChange({...settings, model: value as 'auto' | Model})
-                      }
+                      onValueChange={(value) => {
+                        console.log('[Settings] Model changed to:', value);
+                        onSettingsChange({...settings, model: value as 'auto' | Model});
+                      }}
                       isOpen={isMobileModelSelectorOpen}
                       onClose={() => setIsMobileModelSelectorOpen(false)}
                     />
@@ -105,9 +106,10 @@ export function SettingsDialog({
                 ) : (
                   <ModelSelector
                     value={settings.model}
-                    onValueChange={(value: 'auto' | Model) =>
-                      onSettingsChange({...settings, model: value})
-                    }
+                    onValueChange={(value: 'auto' | Model) => {
+                      console.log('[Settings] Model changed to:', value);
+                      onSettingsChange({...settings, model: value});
+                    }}
                   />
                 )}
               </CardContent>
