@@ -154,3 +154,6 @@ __pycache__/
 
 # Local Storage Uploads
 public/uploads/
+
+# Firebase project-specific config (contains project ID)
+.firebaserc

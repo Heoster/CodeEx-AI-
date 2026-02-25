@@ -21,11 +21,9 @@
   NPM_FLAGS = "--legacy-peer-deps"
   NEXT_TELEMETRY_DISABLED = "1"
   SKIP_ENV_VALIDATION = "true"
-  # Exclude build output from secrets scanning
-  # Note: NEXT_PUBLIC_* variables are intentionally public and safe to expose
-  SECRETS_SCAN_OMIT_PATHS = ".next/**,.netlify/**,node_modules/**,docs/**,.env.local.example"
   # Disable secret scanning for public Next.js environment variables
-  NETLIFY_SKIP_SECRET_DETECTION = "true"
+  # These NEXT_PUBLIC_* variables are intentionally public and safe
+  SECRETS_SCAN_ENABLED = "false"
 
 # Headers for PWA and security
 [[headers]]

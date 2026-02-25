@@ -80,7 +80,7 @@ export async function sendWelcomeEmail(email: string, displayName: string): Prom
   }
 
   try {
-    // EmailJS template parameters for template_d5lwx7b
+    // EmailJS template parameters
     const templateParams = {
       to_name: displayName,        // User's name
       email: email,                // User's email
@@ -88,10 +88,10 @@ export async function sendWelcomeEmail(email: string, displayName: string): Prom
     };
 
     const response = await emailjs.send(
-      SERVICE_ID!,           // service_ofrm4uh
-      WELCOME_TEMPLATE_ID!,  // template_d5lwx7b
+      SERVICE_ID!,
+      WELCOME_TEMPLATE_ID!,
       templateParams,
-      USER_ID!               // KQ4SuGIRjGlskKKVC
+      USER_ID!
     );
     
     if (process.env.NODE_ENV === 'development') {
