@@ -1,7 +1,7 @@
 'use client';
 
 import {useState, useEffect, useRef} from 'react';
-import {User, Copy, Check, RefreshCw} from 'lucide-react';
+import {User, Copy, Check, RefreshCw, Volume2, VolumeX} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {type Message} from '@/lib/types';
@@ -27,6 +27,8 @@ export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
   const [copied, setCopied] = useState(false);
   const [copiedCode, setCopiedCode] = useState<{[key: string]: boolean}>({});
   const [isRegenerating, setIsRegenerating] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     setIsMounted(true);
@@ -56,6 +58,67 @@ export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
       } finally {
         setIsRegenerating(false);
       }
+    }
+  };
+
+  const handleSpeak = async () => {
+    if (isSpeaking) {
+      // Stop speaking
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+      setIsSpeaking(false);
+      return;
+    }
+
+    try {
+      setIsSpeaking(true);
+
+      // Call TTS API
+      const response = await fetch('/api/tts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: message.content,
+          voice: 'alloy',
+          speed: 1.0,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('TTS failed');
+      }
+
+      const data = await response.json();
+      
+      // Convert base64 to audio
+      const audioBlob = new Blob(
+        [Uint8Array.from(atob(data.audio), c => c.charCodeAt(0))],
+        { type: 'audio/mp3' }
+      );
+      const audioUrl = URL.createObjectURL(audioBlob);
+
+      // Play audio
+      const audio = new Audio(audioUrl);
+      audioRef.current = audio;
+      
+      audio.onended = () => {
+        setIsSpeaking(false);
+        URL.revokeObjectURL(audioUrl);
+      };
+
+      audio.onerror = () => {
+        setIsSpeaking(false);
+        URL.revokeObjectURL(audioUrl);
+      };
+
+      await audio.play();
+    } catch (error) {
+      console.error('TTS error:', error);
+      setIsSpeaking(false);
     }
   };
 
@@ -244,6 +307,27 @@ export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
 
             {isAssistant && (
               <>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-7 w-7"
+                      onClick={handleSpeak}
+                      disabled={isSpeaking}
+                    >
+                      {isSpeaking ? (
+                        <VolumeX className="h-3.5 w-3.5 text-primary animate-pulse" />
+                      ) : (
+                        <Volume2 className="h-3.5 w-3.5" />
+                      )}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{isSpeaking ? 'Stop speaking' : 'Speak message'}</p>
+                  </TooltipContent>
+                </Tooltip>
+
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
