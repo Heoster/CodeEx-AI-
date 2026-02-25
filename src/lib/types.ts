@@ -79,6 +79,7 @@ export interface ProcessUserMessageInput {
     content: string;
   }>;
   settings: Settings;
+  userId?: string; // Optional user ID for memory system integration
 }
 
 export interface TextToSpeechInput {

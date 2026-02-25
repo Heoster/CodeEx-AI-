@@ -13,11 +13,11 @@ service firebase.storage {
     }
     
     function isValidImageSize() {
-      return request.resource.size < 5 * 1024 * 1024; // 5MB
+      return request.resource.size < 20 * 1024 * 1024; // 20MB
     }
     
     function isValidFileSize() {
-      return request.resource.size < 10 * 1024 * 1024; // 10MB
+      return request.resource.size < 20 * 1024 * 1024; // 20MB
     }
     
     function isImage() {
@@ -26,6 +26,14 @@ service firebase.storage {
     
     function isPDF() {
       return request.resource.contentType == 'application/pdf';
+    }
+    
+    function isVideo() {
+      return request.resource.contentType.matches('video/.*');
+    }
+    
+    function isAudio() {
+      return request.resource.contentType.matches('audio/.*');
     }
 
     // User profile images
@@ -42,6 +50,42 @@ service firebase.storage {
       allow write: if isOwner(userId) 
         && isValidFileSize() 
         && (isImage() || isPDF());
+      allow delete: if isOwner(userId);
+    }
+    
+    // SOHAM: User uploaded images (camera/file picker)
+    match /user-image/{userId}/{fileName} {
+      allow read: if isOwner(userId);
+      allow write: if isOwner(userId) 
+        && isValidImageSize() 
+        && isImage();
+      allow delete: if isOwner(userId);
+    }
+    
+    // SOHAM: Generated images (from AI)
+    match /generated-image/{userId}/{fileName} {
+      allow read: if isOwner(userId);
+      allow write: if isOwner(userId) 
+        && isValidImageSize() 
+        && isImage();
+      allow delete: if isOwner(userId);
+    }
+    
+    // SOHAM: Generated videos (from AI)
+    match /generated-video/{userId}/{fileName} {
+      allow read: if isOwner(userId);
+      allow write: if isOwner(userId) 
+        && isValidFileSize() 
+        && isVideo();
+      allow delete: if isOwner(userId);
+    }
+    
+    // SOHAM: Audio files (recordings, TTS)
+    match /audio/{userId}/{fileName} {
+      allow read: if isOwner(userId);
+      allow write: if isOwner(userId) 
+        && isValidFileSize() 
+        && isAudio();
       allow delete: if isOwner(userId);
     }
 

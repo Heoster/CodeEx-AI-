@@ -132,10 +132,17 @@ export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
               !isAssistant && 'prose-invert'
             )}>
               <ReactMarkdown 
-                remarkPlugins={[remarkGfm]} 
+                remarkPlugins={[remarkGfm]}
                 components={{
                   a: ({node, ...props}) => (
                     <a {...props} target="_blank" rel="noopener noreferrer" />
+                  ),
+                  img: ({node, ...props}) => (
+                    <img 
+                      {...props} 
+                      className="max-w-full h-auto rounded-lg my-4"
+                      loading="lazy"
+                    />
                   ),
                   code: ({node, inline, className, children, ...props}: any) => {
                     const match = /language-(\w+)/.exec(className || '');

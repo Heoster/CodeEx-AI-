@@ -9,7 +9,7 @@ import { z } from 'zod';
 export type ModelCategory = 'general' | 'coding' | 'math' | 'conversation' | 'multimodal';
 
 // Provider types - Only working providers
-export type ProviderType = 'groq' | 'huggingface' | 'google' | 'cerebras';
+export type ProviderType = 'groq' | 'huggingface' | 'google' | 'cerebras' | 'elevenlabs';
 
 // Model parameters interface
 export interface ModelParams {
@@ -50,7 +50,7 @@ export interface ModelsConfigStore {
 // Zod schemas for validation
 export const ModelCategorySchema = z.enum(['general', 'coding', 'math', 'conversation', 'multimodal']);
 
-export const ProviderTypeSchema = z.enum(['groq', 'huggingface', 'google', 'cerebras']);
+export const ProviderTypeSchema = z.enum(['groq', 'huggingface', 'google', 'cerebras', 'elevenlabs']);
 
 export const ModelParamsSchema = z.object({
   temperature: z.number().min(0).max(2),

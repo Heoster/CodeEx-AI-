@@ -151,3 +151,6 @@ python/.env.local
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Local Storage Uploads
+public/uploads/

@@ -102,6 +102,21 @@ export function ChatPanel({
       });
       setIsLoadingFromAI(false);
 
+      // STEP 7: Extract and store memories asynchronously (don't wait)
+      if (user?.uid && assistantContent) {
+        fetch('/api/extract-memories', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userMessage: messageContent,
+            assistantResponse: assistantContent,
+            userId: user.uid,
+          }),
+        }).catch(error => {
+          console.error('[Memory Extraction] Failed:', error);
+        });
+      }
+
       if (settingsRef.current.enableSpeech && assistantContent) {
         setIsSpeaking(true);
         
@@ -135,13 +150,13 @@ export function ChatPanel({
         const selectedVoice = voiceMap[settingsRef.current.voice] || settingsRef.current.voice || 'en-US-AriaNeural';
         
         // Use Hybrid TTS with automatic fallback
+        // Chain: Groq PlayAI → ElevenLabs → Edge TTS → Browser TTS
         hybridTTS.speak({
           text: filteredText,
           voice: selectedVoice,
           rate: 1.0,
           pitch: 1.0,
           volume: 1.0,
-          preferEdgeTTS: true, // Try Edge TTS first, fallback to browser TTS
           onStart: () => {
             console.log('[Chat] TTS started');
           },
@@ -271,7 +286,7 @@ export function ChatPanel({
             </div>
           </div>
         )}
-        <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
+        <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} userId={user?.uid} />
         <div className="px-2 pt-2 text-center text-xs text-muted-foreground">
           <p>
             Try commands like{' '}

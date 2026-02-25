@@ -105,6 +105,40 @@ service cloud.firestore {
       allow delete: if isOwner(userId);
     }
 
+    // Memories collection
+    match /memories/{memoryId} {
+      // Users can read their own memories
+      allow read: if isAuthenticated()
+        && resource.data.userId == request.auth.uid;
+      
+      // Users can create their own memories
+      allow create: if isAuthenticated()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.keys().hasAll(['userId', 'content', 'embedding', 'metadata', 'createdAt', 'lastAccessed', 'accessCount'])
+        && isValidString(request.resource.data.content, 1, 5000)
+        && request.resource.data.embedding is list
+        && request.resource.data.metadata.keys().hasAll(['category', 'importance', 'tags'])
+        && request.resource.data.metadata.category in ['PREFERENCE', 'FACT', 'CONTEXT', 'SKILL', 'CONVERSATION']
+        && request.resource.data.metadata.importance is number
+        && request.resource.data.metadata.importance >= 0
+        && request.resource.data.metadata.importance <= 1
+        && request.resource.data.metadata.tags is list
+        && isValidTimestamp(request.resource.data.createdAt)
+        && isValidTimestamp(request.resource.data.lastAccessed)
+        && request.resource.data.accessCount is int
+        && request.resource.data.accessCount >= 0;
+      
+      // Users can update their own memories
+      allow update: if isAuthenticated()
+        && resource.data.userId == request.auth.uid
+        && request.resource.data.userId == request.auth.uid
+        && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['userId', 'createdAt']);
+      
+      // Users can delete their own memories
+      allow delete: if isAuthenticated()
+        && resource.data.userId == request.auth.uid;
+    }
+
     // Deny all other access
     match /{document=**} {
       allow read, write: if false;

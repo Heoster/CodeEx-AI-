@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from '@/hooks/use-auth';
-import { getAuth, updateProfile, updateEmail, updatePassword, deleteUser, signOut } from 'firebase/auth';
+import { getAuth, updateProfile, updateEmail, updatePassword, deleteUser, signOut, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -58,6 +58,9 @@ export default function UserManagementPage() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [deleteConfirmation, setDeleteConfirmation] = useState('');
+  const [showReauthDialog, setShowReauthDialog] = useState(false);
+  const [reauthPassword, setReauthPassword] = useState('');
+  const [pendingAction, setPendingAction] = useState<'email' | 'password' | null>(null);
 
   if (!user) {
     return (
@@ -83,6 +86,34 @@ export default function UserManagementPage() {
   }
 
   const auth = getAuth();
+
+  // Re-authenticate user
+  const handleReauthenticate = async () => {
+    if (!reauthPassword) {
+      toast.error('Please enter your current password');
+      return false;
+    }
+
+    if (!auth.currentUser || !auth.currentUser.email) {
+      toast.error('User not found');
+      return false;
+    }
+
+    setLoading(true);
+    try {
+      const credential = EmailAuthProvider.credential(auth.currentUser.email, reauthPassword);
+      await reauthenticateWithCredential(auth.currentUser, credential);
+      setReauthPassword('');
+      setShowReauthDialog(false);
+      return true;
+    } catch (err: any) {
+      console.error('Re-authentication failed', err);
+      toast.error('Incorrect password. Please try again.');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Update Display Name
   const handleUpdateDisplayName = async () => {
@@ -112,6 +143,29 @@ export default function UserManagementPage() {
       return;
     }
 
+    if (email === user?.email) {
+      toast.error('New email is the same as current email');
+      return;
+    }
+
+    // Check if user signed in with password provider
+    const hasPasswordProvider = auth.currentUser?.providerData.some(
+      provider => provider.providerId === 'password'
+    );
+
+    if (!hasPasswordProvider) {
+      toast.error('Email change is only available for email/password accounts');
+      return;
+    }
+
+    setPendingAction('email');
+    setShowReauthDialog(true);
+  };
+
+  const executeEmailUpdate = async () => {
+    const reauthSuccess = await handleReauthenticate();
+    if (!reauthSuccess) return;
+
     setLoading(true);
     try {
       if (auth.currentUser) {
@@ -120,13 +174,10 @@ export default function UserManagementPage() {
       }
     } catch (err: any) {
       console.error('Failed to update email', err);
-      if (err.code === 'auth/requires-recent-login') {
-        toast.error('Please sign out and sign in again to update your email');
-      } else {
-        toast.error(err.message || 'Failed to update email');
-      }
+      toast.error(err.message || 'Failed to update email');
     } finally {
       setLoading(false);
+      setPendingAction(null);
     }
   };
 
@@ -142,6 +193,24 @@ export default function UserManagementPage() {
       return;
     }
 
+    // Check if user signed in with password provider
+    const hasPasswordProvider = auth.currentUser?.providerData.some(
+      provider => provider.providerId === 'password'
+    );
+
+    if (!hasPasswordProvider) {
+      toast.error('Password change is only available for email/password accounts');
+      return;
+    }
+
+    setPendingAction('password');
+    setShowReauthDialog(true);
+  };
+
+  const executePasswordUpdate = async () => {
+    const reauthSuccess = await handleReauthenticate();
+    if (!reauthSuccess) return;
+
     setLoading(true);
     try {
       if (auth.currentUser) {
@@ -153,13 +222,10 @@ export default function UserManagementPage() {
       }
     } catch (err: any) {
       console.error('Failed to update password', err);
-      if (err.code === 'auth/requires-recent-login') {
-        toast.error('Please sign out and sign in again to update your password');
-      } else {
-        toast.error(err.message || 'Failed to update password');
-      }
+      toast.error(err.message || 'Failed to update password');
     } finally {
       setLoading(false);
+      setPendingAction(null);
     }
   };
 
@@ -859,6 +925,75 @@ export default function UserManagementPage() {
           </Tabs>
         </main>
       </div>
+
+      {/* Re-authentication Dialog */}
+      <Dialog open={showReauthDialog} onOpenChange={setShowReauthDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Lock className="h-5 w-5" />
+              Verify Your Identity
+            </DialogTitle>
+            <DialogDescription>
+              For security reasons, please enter your current password to continue.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="reauthPassword">Current Password</Label>
+              <Input
+                id="reauthPassword"
+                type="password"
+                value={reauthPassword}
+                onChange={(e) => setReauthPassword(e.target.value)}
+                placeholder="Enter your current password"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    if (pendingAction === 'email') {
+                      executeEmailUpdate();
+                    } else if (pendingAction === 'password') {
+                      executePasswordUpdate();
+                    }
+                  }
+                }}
+              />
+            </div>
+
+            <Alert>
+              <Shield className="h-4 w-4" />
+              <AlertDescription>
+                This verification helps protect your account from unauthorized changes.
+              </AlertDescription>
+            </Alert>
+          </div>
+
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setShowReauthDialog(false);
+                setReauthPassword('');
+                setPendingAction(null);
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={() => {
+                if (pendingAction === 'email') {
+                  executeEmailUpdate();
+                } else if (pendingAction === 'password') {
+                  executePasswordUpdate();
+                }
+              }}
+              disabled={loading || !reauthPassword}
+            >
+              {loading ? 'Verifying...' : 'Verify and Continue'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

@@ -1,9 +1,10 @@
 /**
  * Hybrid TTS System
- * Tries Edge TTS first, falls back to Browser TTS if it fails
+ * Fallback chain: Groq PlayAI → ElevenLabs → Edge TTS → Browser TTS
  */
 
-import { edgeTTS, EdgeTTSOptions } from './edge-tts';
+import { getUnifiedVoiceService } from './unified-voice-service';
+import { edgeTTS } from './edge-tts';
 import { browserTTS } from './browser-tts';
 
 export interface HybridTTSOptions {
@@ -15,51 +16,98 @@ export interface HybridTTSOptions {
   onStart?: () => void;
   onEnd?: () => void;
   onError?: (error: string) => void;
-  preferEdgeTTS?: boolean; // Default true
+  preferEdgeTTS?: boolean; // Deprecated, now uses Groq PlayAI first
 }
 
 class HybridTTS {
-  private usingEdgeTTS: boolean = false;
+  private audioElement: HTMLAudioElement | null = null;
+  private voiceService = getUnifiedVoiceService();
 
   /**
    * Check if any TTS is available
    */
   isAvailable(): boolean {
-    return edgeTTS.isAvailable() || browserTTS.isAvailable();
+    return true; // Always available with fallback chain
   }
 
   /**
    * Speak text using the best available TTS
+   * Chain: Groq PlayAI → ElevenLabs → Edge TTS → Browser TTS
    */
   async speak(options: HybridTTSOptions): Promise<void> {
-    const preferEdge = options.preferEdgeTTS !== false;
+    options.onStart?.();
 
-    // Try Edge TTS first if preferred and available
-    if (preferEdge && edgeTTS.isAvailable()) {
+    try {
+      // Try Groq PlayAI or ElevenLabs (handled by unified service)
+      const result = await this.voiceService.textToSpeech(options.text, {
+        voice: options.voice,
+        speed: options.rate,
+        pitch: options.pitch,
+      });
+
+      if (result.provider !== 'browser' && result.audio.byteLength > 0) {
+        // Play audio from Groq or ElevenLabs
+        await this.playAudio(result.audio, options);
+        return;
+      }
+    } catch (error) {
+      console.warn('[Hybrid TTS] API TTS failed, trying Edge TTS:', error);
+    }
+
+    // Try Edge TTS
+    if (edgeTTS.isAvailable()) {
       try {
-        this.usingEdgeTTS = true;
-        
         await edgeTTS.speak({
           text: options.text,
           voice: options.voice,
           rate: options.rate,
           pitch: options.pitch,
           volume: options.volume,
-          onStart: options.onStart,
+          onStart: () => {}, // Already called
           onEnd: options.onEnd,
           onError: async (error) => {
-            // Silently fallback to browser TTS
+            // Fallback to browser TTS
             await this.useBrowserTTS(options);
           },
         });
         return;
       } catch (error) {
-        // Silently continue to fallback
+        console.warn('[Hybrid TTS] Edge TTS failed, using browser TTS:', error);
       }
     }
 
-    // Use Browser TTS as fallback or primary
+    // Final fallback: Browser TTS
     await this.useBrowserTTS(options);
+  }
+
+  /**
+   * Play audio from ArrayBuffer
+   */
+  private async playAudio(audioData: ArrayBuffer, options: HybridTTSOptions): Promise<void> {
+    return new Promise((resolve, reject) => {
+      try {
+        const blob = new Blob([audioData], { type: 'audio/mpeg' });
+        const url = URL.createObjectURL(blob);
+
+        this.audioElement = new Audio(url);
+        this.audioElement.volume = options.volume || 1.0;
+
+        this.audioElement.onended = () => {
+          URL.revokeObjectURL(url);
+          options.onEnd?.();
+          resolve();
+        };
+
+        this.audioElement.onerror = (error) => {
+          URL.revokeObjectURL(url);
+          reject(error);
+        };
+
+        this.audioElement.play();
+      } catch (error) {
+        reject(error);
+      }
+    });
   }
 
   /**
@@ -72,15 +120,13 @@ class HybridTTS {
       return;
     }
 
-    this.usingEdgeTTS = false;
-
     browserTTS.speak({
       text: options.text,
       voice: options.voice,
       rate: options.rate,
       pitch: options.pitch,
       volume: options.volume,
-      onStart: options.onStart,
+      onStart: () => {}, // Already called
       onEnd: options.onEnd,
       onError: options.onError,
     });
@@ -90,25 +136,36 @@ class HybridTTS {
    * Cancel ongoing speech
    */
   cancel(): void {
-    if (this.usingEdgeTTS) {
-      edgeTTS.cancel();
-    } else {
-      browserTTS.cancel();
+    if (this.audioElement) {
+      this.audioElement.pause();
+      this.audioElement = null;
     }
+    edgeTTS.cancel();
+    browserTTS.cancel();
   }
 
   /**
    * Check if speech is currently playing
    */
   isSpeaking(): boolean {
-    return edgeTTS.isSpeaking() || browserTTS.isSpeaking();
+    return !!this.audioElement || edgeTTS.isSpeaking() || browserTTS.isSpeaking();
   }
 
   /**
-   * Get available voices from both systems
+   * Get available voices from all systems
    */
-  getVoices(): Array<{id: string; name: string; source: 'edge' | 'browser'}> {
-    const voices: Array<{id: string; name: string; source: 'edge' | 'browser'}> = [];
+  getVoices(): Array<{id: string; name: string; source: 'groq' | 'elevenlabs' | 'edge' | 'browser'}> {
+    const voices: Array<{id: string; name: string; source: 'groq' | 'elevenlabs' | 'edge' | 'browser'}> = [];
+
+    // Add Groq PlayAI voices
+    voices.push(
+      { id: 'alloy', name: 'Alloy (Groq PlayAI)', source: 'groq' },
+      { id: 'echo', name: 'Echo (Groq PlayAI)', source: 'groq' },
+      { id: 'fable', name: 'Fable (Groq PlayAI)', source: 'groq' },
+      { id: 'onyx', name: 'Onyx (Groq PlayAI)', source: 'groq' },
+      { id: 'nova', name: 'Nova (Groq PlayAI)', source: 'groq' },
+      { id: 'shimmer', name: 'Shimmer (Groq PlayAI)', source: 'groq' }
+    );
 
     // Add Edge TTS voices
     if (edgeTTS.isAvailable()) {

@@ -43,104 +43,29 @@ export async function generateResponse(
   input: ProcessUserMessageInput
 ): Promise<{content: string; modelUsed?: string; autoRouted?: boolean; routingReasoning?: string} | {error: string}> {
   try {
-    // Import smart fallback directly for server-side use
-    const { generateWithSmartFallback } = await import('@/ai/smart-fallback');
+    // Use the new processUserMessage flow which includes:
+    // - Image generation (SOHAM pipeline)
+    // - Video generation (Veo 3.1)
+    // - Web search (You.com)
+    // - Memory system integration
+    // - Auto-routing with smart fallback
+    const response = await processUserMessage(input);
     
-    // Build system prompt based on settings
-    const getToneInstructions = (tone: string) => {
-      switch (tone) {
-        case 'formal':
-          return 'Use professional language, proper grammar, and a respectful tone. Avoid contractions and casual expressions.';
-        case 'casual':
-          return 'Be friendly and conversational. Use simple language, contractions are fine, and feel free to use appropriate emojis occasionally.';
-        default:
-          return 'Be warm, approachable, and supportive. Balance professionalism with friendliness.';
-      }
-    };
-
-    const getTechnicalInstructions = (level: string) => {
-      switch (level) {
-        case 'beginner':
-          return 'Explain concepts in simple terms. Avoid jargon, use analogies, and break down complex ideas into easy steps. Assume no prior knowledge.';
-        case 'expert':
-          return 'Use technical terminology freely. Provide in-depth explanations, include advanced concepts, and assume strong foundational knowledge.';
-        default:
-          return 'Balance technical accuracy with accessibility. Define specialized terms when first used and provide moderate detail.';
-      }
-    };
-
-    const systemPrompt = `You are CODEEX AI, an intelligent and versatile assistant created by Heoster. You excel at helping users with coding, problem-solving, learning, and general questions.
-
-## Your Personality & Communication Style
-${getToneInstructions(input.settings.tone)}
-
-## Technical Depth
-${getTechnicalInstructions(input.settings.technicalLevel)}
-
-## Core Capabilities
-- **Coding Help**: Debug code, explain concepts, suggest best practices, and help with algorithms
-- **Problem Solving**: Break down complex problems, provide step-by-step solutions
-- **Learning**: Explain topics clearly, provide examples, and adapt to the user's level
-- **General Knowledge**: Answer questions accurately and cite limitations when uncertain
-
-## Response Guidelines
-1. **Be Accurate**: If unsure, say so. Don't make up information.
-2. **Be Concise**: Get to the point, but provide enough detail to be helpful. Avoid phrases like "as we discussed", "as mentioned before", or "previously said".
-3. **Use Formatting**: Use markdown for code blocks, lists, and emphasis when helpful.
-4. **Stay Focused**: Address the user's actual question directly without referencing past exchanges.
-5. **Be Proactive**: Anticipate follow-up questions and address them when relevant.
-
-## Special Instructions
-- For code: Always specify the language in code blocks, explain key parts, and mention potential edge cases.
-- For math: Show your work step-by-step when solving problems.
-- For errors: Explain what went wrong and how to fix it.
-- Provide fresh, direct answers without referencing previous messages unless absolutely necessary for context.
-
-## About CODEEX AI
-- Created by Heoster (Harsh), a 16-year-old developer from Khatauli, Uttar Pradesh, India
-- Founder of CODEEX AI startup, currently studying Class 11th PCM at Maples Academy
-- Contact: the.heoster@mail.com | LinkedIn: codeex-heoster-4b60b8399 | GitHub: @heoster
-- Vision: Democratize AI education in India and make advanced technology accessible to every student
-- Built with 26+ AI models, serving 100+ countries with 99.9% uptime
-- Friends & Testers: A group of friends who help test and provide feedback: VIDHAN, AVINEET, vansh, AAYUSH, VARUN, pankaj, MASUM, SACHIN, pardhuman, shivansh, Vaibhav, Kartik, Harsh. They don't have any tech skill but have a big HEART`;
-
-    // Convert history to the format expected by smart fallback
-    const convertedHistory = input.history.map((msg: any) => ({
-      role: (msg.role === 'assistant' ? 'model' : 'user') as 'model' | 'user',
-      content: msg.content
-    }));
-
-    // Determine preferred model
-    let preferredModelId: string | undefined;
-    if (input.settings.model && input.settings.model !== 'auto') {
-      preferredModelId = input.settings.model;
-      console.log(`[Actions] User selected model: ${preferredModelId}`);
-    } else {
-      console.log('[Actions] Using auto model selection');
+    if (!response || typeof response !== 'object') {
+      throw new Error('Invalid response from processUserMessage');
     }
-
-    // Use smart fallback system directly (server-side)
-    const result = await generateWithSmartFallback({
-      prompt: input.message,
-      systemPrompt,
-      history: convertedHistory,
-      preferredModelId,
-      category: 'general',
-      params: {
-        temperature: 0.7,
-        topP: 0.9,
-        topK: 40,
-        maxOutputTokens: 4096,
-      },
-    });
     
-    console.log(`[Actions] Response generated with model: ${result.modelUsed}, fallback triggered: ${result.fallbackTriggered}`);
+    // Check if it's an error response
+    if ('error' in response) {
+      return {error: response.error as string};
+    }
     
+    // Return the response with all metadata
     return {
-      content: result.response.text,
-      modelUsed: result.modelUsed,
-      autoRouted: result.fallbackTriggered,
-      routingReasoning: result.fallbackTriggered ? 'Fallback triggered' : 'Direct model usage',
+      content: response.answer,
+      modelUsed: response.modelUsed,
+      autoRouted: response.autoRouted,
+      routingReasoning: response.routingReasoning,
     };
   } catch (error) {
     console.error('generateResponse error:', error);

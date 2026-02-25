@@ -93,56 +93,9 @@ export class EdgeTTS {
 
       options.onStart?.();
 
-      // Call our API endpoint to generate speech
-      const response = await fetch('/api/tts', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          text: options.text,
-          voice,
-          rate,
-          pitch,
-        }),
-      });
-
-      if (!response.ok) {
-        // Silently fail and trigger error callback without console logging
-        throw new Error('TTS service temporarily unavailable');
-      }
-
-      const contentType = response.headers.get('content-type');
-      if (!contentType?.includes('audio')) {
-        throw new Error('Invalid response from TTS API - expected audio data');
-      }
-
-      const audioData = await response.arrayBuffer();
-      
-      if (audioData.byteLength === 0) {
-        throw new Error('Empty audio data received from TTS API');
-      }
-
-      // Decode audio data
-      const audioBuffer = await this.audioContext.decodeAudioData(audioData);
-
-      // Create and configure audio source
-      this.currentSource = this.audioContext.createBufferSource();
-      this.currentSource.buffer = audioBuffer;
-      
-      // Apply volume with gain node
-      this.currentGainNode = this.audioContext.createGain();
-      this.currentGainNode.gain.value = Math.max(0, Math.min(1, options.volume ?? 1.0));
-      
-      this.currentSource.connect(this.currentGainNode);
-      this.currentGainNode.connect(this.audioContext.destination);
-
-      // Set up event handlers
-      this.currentSource.onended = () => {
-        options.onEnd?.();
-        this.cleanup();
-      };
-
-      // Start playback
-      this.currentSource.start(0);
+      // Edge TTS is now handled by Python server or browser fallback
+      // This is a legacy path - should use hybrid-tts.ts instead
+      throw new Error('Edge TTS API endpoint removed - use hybrid-tts.ts');
     } catch (error) {
       // Silently fail - TTS is optional, don't spam console
       options.onError?.('TTS temporarily unavailable');

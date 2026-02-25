@@ -22,6 +22,7 @@ const GenerateAnswerFromContextInputSchema = z.object({
   model: z.string().optional(),
   tone: z.enum(['helpful', 'formal', 'casual']).optional(),
   technicalLevel: z.enum(['beginner', 'intermediate', 'expert']).optional(),
+  userId: z.string().optional().describe('User ID for memory retrieval'),
 });
 export type GenerateAnswerFromContextInput = z.infer<
   typeof GenerateAnswerFromContextInputSchema
@@ -70,7 +71,7 @@ const generateAnswerFromContextFlow = ai.defineFlow(
     outputSchema: GenerateAnswerFromContextOutputSchema,
   },
   async (input: z.infer<typeof GenerateAnswerFromContextInputSchema>) => {
-    const {messages, tone = 'helpful', technicalLevel = 'intermediate', model} = input;
+    const {messages, tone = 'helpful', technicalLevel = 'intermediate', model, userId} = input;
 
     const systemInstruction = `You are CODEEX AI, an intelligent and versatile assistant created by Heoster. You excel at helping users with coding, problem-solving, learning, and general questions.
 
@@ -152,6 +153,43 @@ ${getTechnicalInstructions(technicalLevel)}
       // Extract the text from the last message content
       const promptText = lastMessage.content;
 
+      // ============================================================================
+      // Memory System Integration (Requirements 7.7, 7.12, 12.7)
+      // ============================================================================
+      let enhancedPrompt = promptText;
+      
+      // Check if memory system is enabled and userId is provided
+      const { env } = await import('@/lib/env-config');
+      
+      if (env.features.enableMemorySystem && userId) {
+        try {
+          // Import memory system service
+          const { getMemorySystemService } = await import('@/lib/memory-system-service');
+          const memoryService = getMemorySystemService();
+          
+          // Search for relevant memories
+          const memoryResults = await memoryService.searchMemories({
+            userId,
+            queryText: promptText,
+            topK: 5, // Retrieve top 5 most relevant memories
+            minSimilarity: 0.7, // Only include memories with >70% similarity
+          });
+          
+          // Inject memories into prompt if any were found
+          if (memoryResults.length > 0) {
+            enhancedPrompt = memoryService.injectMemoriesIntoPrompt(promptText, memoryResults);
+            console.log(`[Memory System] Injected ${memoryResults.length} relevant memories for user ${userId}`);
+          } else {
+            console.log(`[Memory System] No relevant memories found for user ${userId}`);
+          }
+        } catch (memoryError) {
+          // Requirement 7.12: Handle memory system failures gracefully
+          // Requirement 12.7: Continue without memory injection on failure
+          console.warn('[Memory System] Failed to retrieve memories, continuing without memory context:', memoryError);
+          // Continue with original prompt - don't fail the entire request
+        }
+      }
+
       // Use our smart fallback system with Groq models
       const { generateWithSmartFallback } = await import('../smart-fallback');
       
@@ -171,7 +209,7 @@ ${getTechnicalInstructions(technicalLevel)}
       }
 
       const result = await generateWithSmartFallback({
-        prompt: promptText,
+        prompt: enhancedPrompt, // Use enhanced prompt with memory context
         systemPrompt: systemInstruction,
         history,
         preferredModelId,

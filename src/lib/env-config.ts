@@ -97,6 +97,14 @@ export const env = {
     elevenlabs: process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY || '',
     recaptcha: process.env.NEXT_PUBLIC_RECAPTCHA_V3_SITE_KEY || '',
   },
+
+  // Feature flags (Requirements 19.1, 19.2, 19.3, 19.4)
+  features: {
+    enableSafetyGuard: process.env.ENABLE_SAFETY_GUARD !== 'false', // Default: true
+    enableMemorySystem: process.env.ENABLE_MEMORY_SYSTEM === 'true', // Default: false
+    enableVideoGeneration: process.env.ENABLE_VIDEO_GENERATION === 'true', // Default: false
+    enableComputerUse: process.env.ENABLE_COMPUTER_USE === 'true', // Default: false
+  },
 } as const;
 
 // Helper functions

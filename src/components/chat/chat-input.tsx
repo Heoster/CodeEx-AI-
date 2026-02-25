@@ -5,7 +5,7 @@ import {zodResolver} from '@hookform/resolvers/zod';
 import {z} from 'zod';
 import {Textarea} from '@/components/ui/textarea';
 import {Button} from '@/components/ui/button';
-import {Send, Mic} from 'lucide-react';
+import {Send, Mic, Image as ImageIcon, Camera, Paperclip} from 'lucide-react';
 import {
   Form,
   FormControl,
@@ -15,6 +15,9 @@ import {
 } from '@/components/ui/form';
 import {useEffect, useRef, useState} from 'react';
 import {cn} from '@/lib/utils';
+import {ImageUpload} from './image-upload';
+import {CameraCapture} from './camera-capture';
+import {AudioRecorder} from './audio-recorder';
 
 const chatSchema = z.object({
   message: z.string().min(1, 'Message cannot be empty.'),
@@ -25,9 +28,10 @@ type ChatFormValues = z.infer<typeof chatSchema>;
 interface ChatInputProps {
   onSendMessage: (message: string) => void;
   isLoading: boolean;
+  userId?: string; // Add userId prop
 }
 
-export function ChatInput({onSendMessage, isLoading}: ChatInputProps) {
+export function ChatInput({onSendMessage, isLoading, userId = 'anonymous'}: ChatInputProps) {
   const form = useForm<ChatFormValues>({
     resolver: zodResolver(chatSchema),
     defaultValues: {
@@ -37,6 +41,9 @@ export function ChatInput({onSendMessage, isLoading}: ChatInputProps) {
 
   const [isVoiceChatActive, setIsVoiceChatActive] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [showImageUpload, setShowImageUpload] = useState(false);
+  const [showCamera, setShowCamera] = useState(false);
+  const [showAudioRecorder, setShowAudioRecorder] = useState(false);
   const recognitionRef = useRef<any>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
 
@@ -145,6 +152,21 @@ export function ChatInput({onSendMessage, isLoading}: ChatInputProps) {
     setIsVoiceChatActive(prev => !prev);
   };
 
+  const handleImageUpload = (url: string, path: string) => {
+    onSendMessage(`[Image uploaded: ${url}] What's in this image?`);
+    setShowImageUpload(false);
+  };
+
+  const handleCameraCapture = (url: string, path: string) => {
+    onSendMessage(`[Image captured: ${url}] What's in this image?`);
+    setShowCamera(false);
+  };
+
+  const handleAudioTranscription = (text: string) => {
+    onSendMessage(text);
+    setShowAudioRecorder(false);
+  };
+
   const onSubmit: SubmitHandler<ChatFormValues> = data => {
     onSendMessage(data.message);
     form.reset();
@@ -158,70 +180,159 @@ export function ChatInput({onSendMessage, isLoading}: ChatInputProps) {
   };
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="relative flex w-full items-start gap-2"
-      >
-        <FormField
-          control={form.control}
-          name="message"
-          render={({field}) => (
-            <FormItem className="flex-1">
-              <FormControl>
-                <div className="relative">
-                  <Textarea
-                    placeholder={
-                      isVoiceChatActive
-                        ? 'Voice chat is active...'
-                        : 'Ask me anything...'
-                    }
-                    rows={1}
-                    className={cn(
-                      'max-h-36 resize-none pr-24 text-sm md:text-base py-3 md:py-4 pl-4 rounded-2xl',
-                      'border-2 focus-visible:ring-2 focus-visible:ring-primary/20',
-                      'transition-all duration-200',
-                      isVoiceChatActive && 'border-destructive'
-                    )}
-                    onKeyDown={handleKeyDown}
-                    disabled={isLoading || isVoiceChatActive}
-                    {...field}
-                  />
-                  <div className="absolute right-2 top-2 flex gap-1">
-                    <Button
-                      type="button"
-                      size="icon"
-                      variant={isVoiceChatActive ? 'destructive' : 'ghost'}
+    <>
+      {/* Image Upload Modal */}
+      {showImageUpload && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-background rounded-lg p-6 max-w-md w-full">
+            <h3 className="text-lg font-semibold mb-4">Upload Image</h3>
+            <ImageUpload
+              userId={userId}
+              onImageUploaded={handleImageUpload}
+              onCancel={() => setShowImageUpload(false)}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Camera Capture Modal */}
+      {showCamera && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-background rounded-lg p-6 max-w-md w-full">
+            <h3 className="text-lg font-semibold mb-4">Take Photo</h3>
+            <CameraCapture
+              userId={userId}
+              onImageCaptured={handleCameraCapture}
+              onCancel={() => setShowCamera(false)}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Audio Recorder Modal */}
+      {showAudioRecorder && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-background rounded-lg p-6 max-w-md w-full">
+            <h3 className="text-lg font-semibold mb-4">Record Audio</h3>
+            <AudioRecorder
+              onTranscribed={handleAudioTranscription}
+              onCancel={() => setShowAudioRecorder(false)}
+            />
+          </div>
+        </div>
+      )}
+
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="relative flex w-full items-start gap-2"
+        >
+          <FormField
+            control={form.control}
+            name="message"
+            render={({field}) => (
+              <FormItem className="flex-1">
+                <FormControl>
+                  <div className="relative">
+                    <Textarea
+                      placeholder={
+                        isVoiceChatActive
+                          ? 'Voice chat is active...'
+                          : 'Ask me anything...'
+                      }
+                      rows={1}
                       className={cn(
-                        'h-9 w-9 rounded-xl transition-all',
-                        isListening && 'animate-pulse scale-110'
+                        'max-h-36 resize-none pr-40 text-sm md:text-base py-3 md:py-4 pl-4 rounded-2xl',
+                        'border-2 focus-visible:ring-2 focus-visible:ring-primary/20',
+                        'transition-all duration-200',
+                        isVoiceChatActive && 'border-destructive'
                       )}
-                      disabled={!recognitionRef.current}
-                      onClick={handleVoiceButtonClick}
-                      aria-pressed={isVoiceChatActive}
-                    >
-                      <Mic className="h-4 w-4" />
-                      <span className="sr-only">
-                        {isVoiceChatActive ? 'Stop voice chat' : 'Start voice chat'}
-                      </span>
-                    </Button>
-                    <Button
-                      type="submit"
-                      size="icon"
-                      className="h-9 w-9 rounded-xl shadow-sm"
-                      disabled={isLoading || !form.formState.isValid || isVoiceChatActive}
-                    >
-                      <Send className="h-4 w-4" />
-                      <span className="sr-only">Send</span>
-                    </Button>
+                      onKeyDown={handleKeyDown}
+                      disabled={isLoading || isVoiceChatActive}
+                      {...field}
+                    />
+                    <div className="absolute right-2 top-2 flex gap-1">
+                      {/* Image Upload Button */}
+                      <Button
+                        type="button"
+                        size="icon"
+                        variant="ghost"
+                        className="h-9 w-9 rounded-xl transition-all"
+                        disabled={isLoading || isVoiceChatActive}
+                        onClick={() => setShowImageUpload(true)}
+                        title="Upload image"
+                      >
+                        <ImageIcon className="h-4 w-4" />
+                        <span className="sr-only">Upload image</span>
+                      </Button>
+
+                      {/* Camera Button */}
+                      <Button
+                        type="button"
+                        size="icon"
+                        variant="ghost"
+                        className="h-9 w-9 rounded-xl transition-all"
+                        disabled={isLoading || isVoiceChatActive}
+                        onClick={() => setShowCamera(true)}
+                        title="Take photo"
+                      >
+                        <Camera className="h-4 w-4" />
+                        <span className="sr-only">Take photo</span>
+                      </Button>
+
+                      {/* Audio Recorder Button */}
+                      <Button
+                        type="button"
+                        size="icon"
+                        variant="ghost"
+                        className="h-9 w-9 rounded-xl transition-all"
+                        disabled={isLoading || isVoiceChatActive}
+                        onClick={() => setShowAudioRecorder(true)}
+                        title="Record audio"
+                      >
+                        <Paperclip className="h-4 w-4" />
+                        <span className="sr-only">Record audio</span>
+                      </Button>
+
+                      {/* Voice Chat Button */}
+                      <Button
+                        type="button"
+                        size="icon"
+                        variant={isVoiceChatActive ? 'destructive' : 'ghost'}
+                        className={cn(
+                          'h-9 w-9 rounded-xl transition-all',
+                          isListening && 'animate-pulse scale-110'
+                        )}
+                        disabled={!recognitionRef.current}
+                        onClick={handleVoiceButtonClick}
+                        aria-pressed={isVoiceChatActive}
+                        title={isVoiceChatActive ? 'Stop voice chat' : 'Start voice chat'}
+                      >
+                        <Mic className="h-4 w-4" />
+                        <span className="sr-only">
+                          {isVoiceChatActive ? 'Stop voice chat' : 'Start voice chat'}
+                        </span>
+                      </Button>
+
+                      {/* Send Button */}
+                      <Button
+                        type="submit"
+                        size="icon"
+                        className="h-9 w-9 rounded-xl shadow-sm"
+                        disabled={isLoading || !form.formState.isValid || isVoiceChatActive}
+                      >
+                        <Send className="h-4 w-4" />
+                        <span className="sr-only">Send</span>
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </form>
-    </Form>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </form>
+      </Form>
+    </>
   );
 }

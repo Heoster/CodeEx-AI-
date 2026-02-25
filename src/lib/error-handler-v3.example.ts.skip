@@ -1,0 +1,392 @@
+/**
+ * Error Handler V3 - Usage Examples
+ * CODEEX V3.3 Multi-Model AI Router
+ * 
+ * Demonstrates how to use the error handler in various scenarios.
+ */
+
+import { handleError, getErrorStatistics, type ErrorContext } from './error-handler-v3';
+import type { ExtendedModelConfig } from './model-registry-v3';
+import type { GenerateRequest, GenerateResponse } from '@/ai/adapters/types';
+
+// ============================================================================
+// Example 1: Basic Error Handling in API Route
+// ============================================================================
+
+export async function handleChatRequest(
+  request: GenerateRequest,
+  model: ExtendedModelConfig
+): Promise<GenerateResponse> {
+  const requestId = `req_${Date.now()}`;
+  
+  try {
+    // Attempt to generate response
+    const response = await model.generate(request);
+    return response;
+    
+  } catch (error) {
+    // Handle error with full context
+    const { classified, recovery, userMessage } = handleError(error, {
+      requestId,
+      modelId: model.id,
+      provider: model.provider,
+      attemptNumber: 1
+    });
+
+    // Log for debugging
+    console.log('Error handled:', {
+      category: classified.category,
+      severity: classified.severity,
+      recovery: recovery.action
+    });
+
+    // Return user-friendly error
+    throw new Error(userMessage);
+  }
+}
+
+// ============================================================================
+// Example 2: Error Handling with Fallback Chain
+// ============================================================================
+
+export async function executeWithFallback(
+  request: GenerateRequest,
+  fallbackChain: ExtendedModelConfig[]
+): Promise<GenerateResponse> {
+  const requestId = `req_${Date.now()}`;
+  let lastError: Error | undefined;
+
+  for (let i = 0; i < fallbackChain.length; i++) {
+    const model = fallbackChain[i];
+    const attemptNumber = i + 1;
+
+    try {
+      console.log(`Attempt ${attemptNumber}: ${model.id}`);
+      const response = await model.generate(request);
+      return response;
+
+    } catch (error) {
+      const { classified, recovery, userMessage } = handleError(error, {
+        requestId,
+        modelId: model.id,
+        provider: model.provider,
+        attemptNumber
+      });
+
+      lastError = new Error(userMessage);
+
+      // Check if we should continue to next model
+      if (recovery.action === 'FALLBACK' && i < fallbackChain.length - 1) {
+        console.log(`Falling back to next model...`);
+        continue;
+      }
+
+      // Check if we should retry with delay
+      if (recovery.action === 'RETRY' && recovery.delayMs) {
+        console.log(`Retrying after ${recovery.delayMs}ms...`);
+        await sleep(recovery.delayMs);
+        continue;
+      }
+
+      // For REJECT or DEGRADE, stop immediately
+      if (recovery.action === 'REJECT') {
+        throw lastError;
+      }
+    }
+  }
+
+  // All models failed
+  throw lastError || new Error('All models failed');
+}
+
+// ============================================================================
+// Example 3: Error Handling with Retry Logic
+// ============================================================================
+
+export async function executeWithRetry(
+  request: GenerateRequest,
+  model: ExtendedModelConfig,
+  maxRetries: number = 3
+): Promise<GenerateResponse> {
+  const requestId = `req_${Date.now()}`;
+  let currentTimeout = 4000; // Start with 4s timeout
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      console.log(`Attempt ${attempt}/${maxRetries} with timeout ${currentTimeout}ms`);
+      
+      const response = await model.generate(request, { timeout: currentTimeout });
+      return response;
+
+    } catch (error) {
+      const { classified, recovery, userMessage } = handleError(error, {
+        requestId,
+        modelId: model.id,
+        provider: model.provider,
+        attemptNumber: attempt
+      });
+
+      // If not retryable or last attempt, throw
+      if (!classified.shouldRetry || attempt === maxRetries) {
+        throw new Error(userMessage);
+      }
+
+      // Increase timeout for next attempt
+      if (classified.category === 'TIMEOUT') {
+        currentTimeout = Math.min(currentTimeout * 1.5, 10000);
+      }
+
+      // Wait before retry
+      const delay = recovery.delayMs || 1000;
+      console.log(`Waiting ${delay}ms before retry...`);
+      await sleep(delay);
+    }
+  }
+
+  throw new Error('Max retries exceeded');
+}
+
+// ============================================================================
+// Example 4: Error Statistics Monitoring
+// ============================================================================
+
+export function monitorErrorRates(
+  modelId: string,
+  totalRequests: number
+): {
+  errorRate: number;
+  shouldAlert: boolean;
+  recentErrors: any[];
+} {
+  const stats = getErrorStatistics();
+
+  // Calculate error rate
+  const errorRate = stats.getModelErrorRate(modelId, totalRequests);
+
+  // Check if alerting is needed (5% threshold)
+  const shouldAlert = stats.shouldAlert(modelId, totalRequests, 0.05);
+
+  // Get recent errors for analysis
+  const recentErrors = stats.getRecentErrors(10);
+
+  return {
+    errorRate,
+    shouldAlert,
+    recentErrors
+  };
+}
+
+// ============================================================================
+// Example 5: Error Handling in Streaming Response
+// ============================================================================
+
+export async function* handleStreamingRequest(
+  request: GenerateRequest,
+  model: ExtendedModelConfig
+): AsyncGenerator<string, void, unknown> {
+  const requestId = `req_${Date.now()}`;
+
+  try {
+    // Start streaming
+    const stream = await model.generateStream(request);
+
+    for await (const chunk of stream) {
+      yield chunk;
+    }
+
+  } catch (error) {
+    const { classified, userMessage } = handleError(error, {
+      requestId,
+      modelId: model.id,
+      provider: model.provider
+    });
+
+    // Yield error message as final chunk
+    yield `\n\nError: ${userMessage}`;
+  }
+}
+
+// ============================================================================
+// Example 6: Error Handling with Memory System Degradation
+// ============================================================================
+
+export async function executeWithMemory(
+  request: GenerateRequest,
+  model: ExtendedModelConfig,
+  memoryService: any
+): Promise<GenerateResponse> {
+  const requestId = `req_${Date.now()}`;
+  let memories: any[] = [];
+
+  // Try to fetch memories
+  try {
+    memories = await memoryService.searchMemories(request.userId, request.message);
+  } catch (error) {
+    const { classified, recovery } = handleError(error, {
+      requestId,
+      modelId: model.id
+    });
+
+    // If memory system error, degrade gracefully
+    if (recovery.action === 'DEGRADE') {
+      console.log('Continuing without memory injection');
+      memories = [];
+    } else {
+      throw error;
+    }
+  }
+
+  // Inject memories into request
+  const enhancedRequest = {
+    ...request,
+    context: [...(request.context || []), ...memories]
+  };
+
+  // Generate response
+  return await model.generate(enhancedRequest);
+}
+
+// ============================================================================
+// Example 7: Error Handling with Provider Switching
+// ============================================================================
+
+export async function executeWithProviderSwitch(
+  request: GenerateRequest,
+  primaryModel: ExtendedModelConfig,
+  alternativeProviderModels: ExtendedModelConfig[]
+): Promise<GenerateResponse> {
+  const requestId = `req_${Date.now()}`;
+
+  try {
+    // Try primary model
+    return await primaryModel.generate(request);
+
+  } catch (error) {
+    const { classified, recovery } = handleError(error, {
+      requestId,
+      modelId: primaryModel.id,
+      provider: primaryModel.provider
+    });
+
+    // If rate limit or auth error, switch provider
+    if (classified.category === 'RATE_LIMIT' || classified.category === 'AUTH_ERROR') {
+      console.log(`Switching from ${primaryModel.provider} to alternative provider`);
+
+      // Try alternative providers
+      for (const altModel of alternativeProviderModels) {
+        if (altModel.provider !== primaryModel.provider) {
+          try {
+            return await altModel.generate(request);
+          } catch (altError) {
+            console.log(`Alternative provider ${altModel.provider} also failed`);
+          }
+        }
+      }
+    }
+
+    throw error;
+  }
+}
+
+// ============================================================================
+// Example 8: Comprehensive Error Dashboard
+// ============================================================================
+
+export function getErrorDashboard(): {
+  summary: any;
+  topErrors: any[];
+  modelHealth: Record<string, { errorRate: number; status: string }>;
+  providerHealth: Record<string, number>;
+} {
+  const stats = getErrorStatistics();
+  const summary = stats.getSummary();
+  const recentErrors = stats.getRecentErrors(50);
+
+  // Calculate model health
+  const modelHealth: Record<string, { errorRate: number; status: string }> = {};
+  for (const [modelId, errorCount] of Object.entries(summary.byModel)) {
+    const totalRequests = 100; // This should come from actual request tracking
+    const errorRate = stats.getModelErrorRate(modelId, totalRequests);
+    
+    modelHealth[modelId] = {
+      errorRate,
+      status: errorRate > 0.05 ? 'UNHEALTHY' : errorRate > 0.02 ? 'DEGRADED' : 'HEALTHY'
+    };
+  }
+
+  // Calculate provider health
+  const providerHealth: Record<string, number> = {};
+  for (const [provider, errorCount] of Object.entries(summary.byProvider)) {
+    const totalRequests = 100; // This should come from actual request tracking
+    providerHealth[provider] = (errorCount as number) / totalRequests;
+  }
+
+  return {
+    summary,
+    topErrors: recentErrors.slice(0, 10),
+    modelHealth,
+    providerHealth
+  };
+}
+
+// ============================================================================
+// Utility Functions
+// ============================================================================
+
+function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// ============================================================================
+// Example 9: Error Handling in Next.js API Route
+// ============================================================================
+
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    const { message, userId } = body;
+
+    // Process request with error handling
+    const response = await handleChatRequest(
+      { message, userId },
+      { id: 'gemini-2.5-pro', provider: 'google' } as any
+    );
+
+    return Response.json({ success: true, data: response });
+
+  } catch (error) {
+    // Error is already handled and has user-friendly message
+    return Response.json(
+      { success: false, error: error.message },
+      { status: 500 }
+    );
+  }
+}
+
+// ============================================================================
+// Example 10: Periodic Error Rate Monitoring
+// ============================================================================
+
+export function startErrorMonitoring(intervalMs: number = 60000) {
+  setInterval(() => {
+    const stats = getErrorStatistics();
+    const summary = stats.getSummary();
+
+    console.log('=== Error Monitoring Report ===');
+    console.log('Total errors:', summary.totalErrors);
+    console.log('By category:', summary.byCategory);
+    console.log('By model:', summary.byModel);
+    console.log('By provider:', summary.byProvider);
+
+    // Check for alerts
+    for (const [modelId, errorCount] of Object.entries(summary.byModel)) {
+      const totalRequests = 100; // This should come from actual request tracking
+      if (stats.shouldAlert(modelId, totalRequests, 0.05)) {
+        console.warn(`⚠️ ALERT: Model ${modelId} error rate exceeds 5%`);
+        // Send alert to monitoring system
+      }
+    }
+
+    console.log('==============================\n');
+  }, intervalMs);
+}

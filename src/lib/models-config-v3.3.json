@@ -1,0 +1,639 @@
+{
+  "providers": {
+    "groq": {
+      "type": "groq",
+      "apiKeyEnvVar": "GROQ_API_KEY",
+      "baseUrl": "https://api.groq.com/openai/v1",
+      "enabled": true,
+      "rateLimit": {
+        "requestsPerMinute": 30,
+        "requestsPerDay": 14400
+      }
+    },
+    "cerebras": {
+      "type": "cerebras",
+      "apiKeyEnvVar": "CEREBRAS_API_KEY",
+      "baseUrl": "https://api.cerebras.ai/v1",
+      "enabled": true,
+      "rateLimit": {
+        "requestsPerMinute": 100,
+        "requestsPerDay": 50000
+      }
+    },
+    "google": {
+      "type": "google",
+      "apiKeyEnvVar": "GOOGLE_API_KEY",
+      "baseUrl": "https://generativelanguage.googleapis.com/v1beta",
+      "enabled": true,
+      "rateLimit": {
+        "requestsPerMinute": 15,
+        "requestsPerDay": 1500
+      }
+    },
+    "huggingface": {
+      "type": "huggingface",
+      "apiKeyEnvVar": "HUGGINGFACE_API_KEY",
+      "baseUrl": "https://router.huggingface.co/v1",
+      "enabled": true,
+      "rateLimit": {
+        "requestsPerMinute": 60,
+        "requestsPerDay": 10000
+      }
+    },
+    "elevenlabs": {
+      "type": "elevenlabs",
+      "apiKeyEnvVar": "ELEVENLABS_API_KEY",
+      "baseUrl": "https://api.elevenlabs.io/v1",
+      "enabled": true,
+      "rateLimit": {
+        "requestsPerMinute": 10,
+        "requestsPerDay": 1000
+      }
+    }
+  },
+  "models": [
+    {
+      "id": "groq-llama-guard-4-12b",
+      "name": "Llama Guard 4 12B",
+      "provider": "groq",
+      "modelId": "meta-llama/llama-guard-4-12b",
+      "category": "general",
+      "description": "Safety checking model for input/output validation",
+      "contextWindow": 8192,
+      "supportsStreaming": false,
+      "maxOutputTokens": 2048,
+      "lifecycle": {
+        "status": "ACTIVE"
+      },
+      "capabilities": [
+        {
+          "type": "TEXT"
+        }
+      ],
+      "rateLimit": {
+        "requestsPerMinute": 30,
+        "requestsPerDay": 14400
+      },
+      "priority": 100,
+      "defaultParams": {
+        "temperature": 0.1,
+        "topP": 0.9,
+        "maxOutputTokens": 512
+      },
+      "enabled": true
+    },
+    {
+      "id": "groq-llama-3.2-3b",
+      "name": "Llama 3.2 3B",
+      "provider": "groq",
+      "modelId": "llama-3.2-3b-preview",
+      "category": "general",
+      "description": "Task classification model for intelligent routing",
+      "contextWindow": 8192,
+      "supportsStreaming": true,
+      "maxOutputTokens": 2048,
+      "lifecycle": {
+        "status": "ACTIVE"
+      },
+      "capabilities": [
+        {
+          "type": "TEXT"
+        }
+      ],
+      "rateLimit": {
+        "requestsPerMinute": 30,
+        "requestsPerDay": 14400
+      },
+      "priority": 90,
+      "defaultParams": {
+        "temperature": 0.5,
+        "topP": 0.9,
+        "maxOutputTokens": 1024
+      },
+      "enabled": true
+    },
+    {
+      "id": "groq-whisper-v3-turbo",
+      "name": "Whisper V3 Turbo",
+      "provider": "groq",
+      "modelId": "whisper-large-v3-turbo",
+      "category": "multimodal",
+      "description": "Audio transcription model",
+      "contextWindow": 0,
+      "supportsStreaming": false,
+      "maxOutputTokens": 0,
+      "lifecycle": {
+        "status": "ACTIVE"
+      },
+      "capabilities": [
+        {
+          "type": "AUDIO_IN",
+          "supportedFormats": ["mp3", "wav", "m4a", "webm"]
+        }
+      ],
+      "rateLimit": {
+        "requestsPerMinute": 30,
+        "requestsPerDay": 14400
+      },
+      "priority": 95,
+      "defaultParams": {
+        "temperature": 0,
+        "topP": 1,
+        "maxOutputTokens": 0
+      },
+      "enabled": true
+    },
+    {
+      "id": "groq-playai-tts",
+      "name": "PlayAI TTS",
+      "provider": "groq",
+      "modelId": "playai-tts-1.0",
+      "category": "multimodal",
+      "description": "Text-to-speech synthesis model",
+      "contextWindow": 4096,
+      "supportsStreaming": true,
+      "maxOutputTokens": 0,
+      "lifecycle": {
+        "status": "ACTIVE"
+      },
+      "capabilities": [
+        {
+          "type": "AUDIO_OUT",
+          "supportedFormats": ["mp3", "wav"]
+        }
+      ],
+      "rateLimit": {
+        "requestsPerMinute": 30,
+        "requestsPerDay": 14400
+      },
+      "priority": 85,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "maxOutputTokens": 0
+      },
+      "enabled": true
+    },
+    {
+      "id": "groq-mistral-saba-24b",
+      "name": "Mistral Saba 24B",
+      "provider": "groq",
+      "modelId": "mistral-saba-24b",
+      "category": "general",
+      "description": "Multilingual model for translation and non-English tasks",
+      "contextWindow": 32768,
+      "supportsStreaming": true,
+      "maxOutputTokens": 8192,
+      "lifecycle": {
+        "status": "ACTIVE"
+      },
+      "capabilities": [
+        {
+          "type": "TEXT"
+        }
+      ],
+      "rateLimit": {
+        "requestsPerMinute": 30,
+        "requestsPerDay": 14400
+      },
+      "priority": 80,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "maxOutputTokens": 4096
+      },
+      "enabled": true
+    },
+    {
+      "id": "cerebras-llama-4-scout-17b",
+      "name": "Cerebras Llama 4 Scout 17B",
+      "provider": "cerebras",
+      "modelId": "llama-4-scout-17b",
+      "category": "general",
+      "description": "Fast model for simple queries and basic tasks",
+      "contextWindow": 8192,
+      "supportsStreaming": true,
+      "maxOutputTokens": 4096,
+      "lifecycle": {
+        "status": "ACTIVE"
+      },
+      "capabilities": [
+        {
+          "type": "TEXT"
+        }
+      ],
+      "rateLimit": {
+        "requestsPerMinute": 100,
+        "requestsPerDay": 50000
+      },
+      "priority": 95,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "maxOutputTokens": 2048
+      },
+      "enabled": true
+    },
+    {
+      "id": "cerebras-llama-3.3-70b",
+      "name": "Cerebras Llama 3.3 70B",
+      "provider": "cerebras",
+      "modelId": "llama3.3-70b",
+      "category": "general",
+      "description": "Powerful model for medium complexity tasks",
+      "contextWindow": 8192,
+      "supportsStreaming": true,
+      "maxOutputTokens": 8192,
+      "lifecycle": {
+        "status": "ACTIVE"
+      },
+      "capabilities": [
+        {
+          "type": "TEXT"
+        }
+      ],
+      "rateLimit": {
+        "requestsPerMinute": 100,
+        "requestsPerDay": 50000
+      },
+      "priority": 90,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "maxOutputTokens": 4096
+      },
+      "enabled": true
+    },
+    {
+      "id": "cerebras-gpt-oss-120b",
+      "name": "Cerebras GPT-OSS 120B",
+      "provider": "cerebras",
+      "modelId": "gpt-oss-120b",
+      "category": "coding",
+      "description": "Large model for complex reasoning and coding tasks",
+      "contextWindow": 16384,
+      "supportsStreaming": true,
+      "maxOutputTokens": 8192,
+      "lifecycle": {
+        "status": "ACTIVE"
+      },
+      "capabilities": [
+        {
+          "type": "TEXT"
+        }
+      ],
+      "rateLimit": {
+        "requestsPerMinute": 100,
+        "requestsPerDay": 50000
+      },
+      "priority": 95,
+      "defaultParams": {
+        "temperature": 0.5,
+        "topP": 0.9,
+        "maxOutputTokens": 4096
+      },
+      "enabled": true
+    },
+    {
+      "id": "cerebras-deepseek-v3-0324",
+      "name": "Cerebras DeepSeek V3 0324",
+      "provider": "cerebras",
+      "modelId": "deepseek-v3-0324",
+      "category": "coding",
+      "description": "Specialized coding model with advanced capabilities",
+      "contextWindow": 32768,
+      "supportsStreaming": true,
+      "maxOutputTokens": 8192,
+      "lifecycle": {
+        "status": "ACTIVE"
+      },
+      "capabilities": [
+        {
+          "type": "TEXT"
+        }
+      ],
+      "rateLimit": {
+        "requestsPerMinute": 100,
+        "requestsPerDay": 50000
+      },
+      "priority": 100,
+      "defaultParams": {
+        "temperature": 0.3,
+        "topP": 0.9,
+        "maxOutputTokens": 4096
+      },
+      "enabled": true
+    },
+    {
+      "id": "gemini-2.5-flash",
+      "name": "Gemini 2.5 Flash",
+      "provider": "google",
+      "modelId": "gemini-2.5-flash",
+      "category": "multimodal",
+      "description": "Fast multimodal model with 1M token context window",
+      "contextWindow": 1048576,
+      "supportsStreaming": false,
+      "maxOutputTokens": 8192,
+      "lifecycle": {
+        "status": "ACTIVE"
+      },
+      "capabilities": [
+        {
+          "type": "TEXT"
+        },
+        {
+          "type": "VISION",
+          "supportedFormats": ["png", "jpg", "webp", "heic", "heif"]
+        }
+      ],
+      "rateLimit": {
+        "requestsPerMinute": 15,
+        "requestsPerDay": 1500
+      },
+      "priority": 90,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "topK": 40,
+        "maxOutputTokens": 8192
+      },
+      "enabled": true
+    },
+    {
+      "id": "gemini-2.5-pro",
+      "name": "Gemini 2.5 Pro",
+      "provider": "google",
+      "modelId": "gemini-2.5-pro",
+      "category": "multimodal",
+      "description": "Advanced multimodal model with superior reasoning",
+      "contextWindow": 1048576,
+      "supportsStreaming": false,
+      "maxOutputTokens": 8192,
+      "lifecycle": {
+        "status": "ACTIVE"
+      },
+      "capabilities": [
+        {
+          "type": "TEXT"
+        },
+        {
+          "type": "VISION",
+          "supportedFormats": ["png", "jpg", "webp", "heic", "heif"]
+        }
+      ],
+      "rateLimit": {
+        "requestsPerMinute": 15,
+        "requestsPerDay": 1500
+      },
+      "priority": 95,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "topK": 40,
+        "maxOutputTokens": 8192
+      },
+      "enabled": true
+    },
+    {
+      "id": "gemini-3-pro-preview",
+      "name": "Gemini 3 Pro Preview",
+      "provider": "google",
+      "modelId": "gemini-3-pro-preview",
+      "category": "multimodal",
+      "description": "Next-gen model with computer use and agentic capabilities",
+      "contextWindow": 2097152,
+      "supportsStreaming": false,
+      "maxOutputTokens": 8192,
+      "lifecycle": {
+        "status": "ACTIVE"
+      },
+      "capabilities": [
+        {
+          "type": "TEXT"
+        },
+        {
+          "type": "VISION",
+          "supportedFormats": ["png", "jpg", "webp"]
+        },
+        {
+          "type": "COMPUTER_USE"
+        }
+      ],
+      "rateLimit": {
+        "requestsPerMinute": 15,
+        "requestsPerDay": 1500
+      },
+      "priority": 100,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "topK": 40,
+        "maxOutputTokens": 8192
+      },
+      "enabled": true
+    },
+    {
+      "id": "gemini-2.5-flash-native-audio",
+      "name": "Gemini 2.5 Flash Native Audio",
+      "provider": "google",
+      "modelId": "gemini-2.5-flash-native-audio-preview-12-2025",
+      "category": "multimodal",
+      "description": "Multimodal model with native audio input/output",
+      "contextWindow": 1048576,
+      "supportsStreaming": true,
+      "maxOutputTokens": 8192,
+      "lifecycle": {
+        "status": "ACTIVE"
+      },
+      "capabilities": [
+        {
+          "type": "TEXT"
+        },
+        {
+          "type": "AUDIO_IN",
+          "supportedFormats": ["mp3", "wav", "aac", "flac"]
+        },
+        {
+          "type": "AUDIO_OUT",
+          "supportedFormats": ["mp3", "wav"]
+        }
+      ],
+      "rateLimit": {
+        "requestsPerMinute": 15,
+        "requestsPerDay": 1500
+      },
+      "priority": 90,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "topK": 40,
+        "maxOutputTokens": 8192
+      },
+      "enabled": true
+    },
+    {
+      "id": "gemini-embedding-001",
+      "name": "Gemini Embedding 001",
+      "provider": "google",
+      "modelId": "gemini-embedding-001",
+      "category": "general",
+      "description": "Embedding model for vector-based memory system",
+      "contextWindow": 2048,
+      "supportsStreaming": false,
+      "maxOutputTokens": 0,
+      "lifecycle": {
+        "status": "ACTIVE"
+      },
+      "capabilities": [
+        {
+          "type": "TEXT"
+        }
+      ],
+      "rateLimit": {
+        "requestsPerMinute": 15,
+        "requestsPerDay": 1500
+      },
+      "priority": 100,
+      "defaultParams": {
+        "temperature": 0,
+        "topP": 1,
+        "maxOutputTokens": 0
+      },
+      "enabled": true
+    },
+    {
+      "id": "imagen-4.0",
+      "name": "Imagen 4.0",
+      "provider": "google",
+      "modelId": "imagen-4.0",
+      "category": "multimodal",
+      "description": "Advanced image generation model",
+      "contextWindow": 2048,
+      "supportsStreaming": false,
+      "maxOutputTokens": 0,
+      "lifecycle": {
+        "status": "ACTIVE"
+      },
+      "capabilities": [
+        {
+          "type": "IMAGE_GEN",
+          "supportedFormats": ["png", "jpg"]
+        }
+      ],
+      "rateLimit": {
+        "requestsPerMinute": 15,
+        "requestsPerDay": 1500
+      },
+      "priority": 95,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "maxOutputTokens": 0
+      },
+      "enabled": true
+    },
+    {
+      "id": "veo-3.1",
+      "name": "Veo 3.1",
+      "provider": "google",
+      "modelId": "veo-3.1",
+      "category": "multimodal",
+      "description": "Video generation model",
+      "contextWindow": 2048,
+      "supportsStreaming": false,
+      "maxOutputTokens": 0,
+      "lifecycle": {
+        "status": "ACTIVE"
+      },
+      "capabilities": [
+        {
+          "type": "VIDEO_GEN",
+          "supportedFormats": ["mp4", "webm"]
+        }
+      ],
+      "rateLimit": {
+        "requestsPerMinute": 5,
+        "requestsPerDay": 100
+      },
+      "priority": 100,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "maxOutputTokens": 0
+      },
+      "enabled": true
+    },
+    {
+      "id": "gemini-1.5-flash",
+      "name": "Gemini 1.5 Flash (DEPRECATED)",
+      "provider": "google",
+      "modelId": "gemini-1.5-flash",
+      "category": "multimodal",
+      "description": "Deprecated - Use gemini-2.5-flash instead",
+      "contextWindow": 1048576,
+      "supportsStreaming": false,
+      "maxOutputTokens": 8192,
+      "lifecycle": {
+        "status": "DEAD",
+        "deprecationDate": "2025-02-15",
+        "replacementModelId": "gemini-2.5-flash"
+      },
+      "capabilities": [
+        {
+          "type": "TEXT"
+        },
+        {
+          "type": "VISION"
+        }
+      ],
+      "rateLimit": {
+        "requestsPerMinute": 0,
+        "requestsPerDay": 0
+      },
+      "priority": 0,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "topK": 40,
+        "maxOutputTokens": 8192
+      },
+      "enabled": false
+    },
+    {
+      "id": "gemini-1.5-pro",
+      "name": "Gemini 1.5 Pro (DEPRECATED)",
+      "provider": "google",
+      "modelId": "gemini-1.5-pro",
+      "category": "multimodal",
+      "description": "Deprecated - Use gemini-2.5-pro instead",
+      "contextWindow": 2097152,
+      "supportsStreaming": false,
+      "maxOutputTokens": 8192,
+      "lifecycle": {
+        "status": "DEAD",
+        "deprecationDate": "2025-02-15",
+        "replacementModelId": "gemini-2.5-pro"
+      },
+      "capabilities": [
+        {
+          "type": "TEXT"
+        },
+        {
+          "type": "VISION"
+        }
+      ],
+      "rateLimit": {
+        "requestsPerMinute": 0,
+        "requestsPerDay": 0
+      },
+      "priority": 0,
+      "defaultParams": {
+        "temperature": 0.7,
+        "topP": 0.9,
+        "topK": 40,
+        "maxOutputTokens": 8192
+      },
+      "enabled": false
+    }
+  ]
+}

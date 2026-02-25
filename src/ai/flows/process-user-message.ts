@@ -18,6 +18,9 @@ import {searchTheWeb} from './web-search';
 import {enhancedSolve} from './enhanced-solve';
 import {enhancedSummarize} from './enhanced-summarize';
 import {enhancedSearch} from './enhanced-search';
+import {generateImageSOHAM} from './generate-image-soham';
+import {generateVideoVeo} from './generate-video-veo';
+import {searchWebYou} from './search-web-you';
 import {getAutoRouter} from '@/ai/auto-router';
 import {getCommandRouter} from '@/ai/command-router';
 
@@ -40,6 +43,7 @@ const ProcessUserMessageInputSchema = z.object({
     enableSpeech: z.boolean(),
     voice: z.enum(['Algenib', 'Enceladus', 'Achernar', 'Heka']),
   }),
+  userId: z.string().optional().describe('User ID for memory system integration'),
 });
 
 const ProcessUserMessageOutputSchema = z.object({
@@ -75,12 +79,138 @@ const processUserMessageFlow = ai.defineFlow(
     outputSchema: ProcessUserMessageOutputSchema,
   },
   async (args: z.infer<typeof ProcessUserMessageInputSchema>) => {
-    const {message, history, settings} = args;
+    const {message, history, settings, userId} = args;
     const isAutoMode = settings.model === 'auto';
     const autoRouter = getAutoRouter();
     const commandRouter = getCommandRouter();
     
-    // Check for special commands first
+    // Note: Memory system is already integrated in generate-answer-from-context.ts
+    // It automatically recalls and injects memories when userId is provided
+    
+    // ============================================================================
+    // STEP 1: Check for IMAGE_GEN requests
+    // ============================================================================
+    const imageGenPatterns = [
+      /generate.*image/i,
+      /create.*image/i,
+      /draw.*image/i,
+      /make.*picture/i,
+      /paint/i,
+      /illustrate/i,
+    ];
+    
+    if (imageGenPatterns.some(pattern => pattern.test(message))) {
+      console.log('[Process] Detected IMAGE_GEN request');
+      
+      // Extract prompt (remove command words)
+      const prompt = message
+        .replace(/^(generate|create|draw|make|paint|illustrate)\s+(an?\s+)?(image|picture|illustration)\s+(of\s+)?/i, '')
+        .trim();
+      
+      if (prompt) {
+        try {
+          const result = await generateImageSOHAM({
+            prompt,
+            userId: userId || 'anonymous',
+            style: message.includes('realistic') ? 'realistic' :
+                   message.includes('anime') ? 'anime' :
+                   message.includes('sketch') ? 'sketch' :
+                   message.includes('artistic') ? 'artistic' : undefined,
+          });
+          
+          return {
+            answer: result.answer,
+            modelUsed: `${result.provider}/${result.model}`,
+            autoRouted: true,
+            routingReasoning: 'Detected image generation request - routed to SOHAM pipeline',
+          };
+        } catch (error) {
+          console.error('[Process] IMAGE_GEN failed:', error);
+        }
+      }
+    }
+    
+    // ============================================================================
+    // STEP 2: Check for VIDEO_GEN requests
+    // ============================================================================
+    const videoGenPatterns = [
+      /generate.*video/i,
+      /create.*video/i,
+      /make.*video/i,
+      /video.*of/i,
+    ];
+    
+    if (videoGenPatterns.some(pattern => pattern.test(message))) {
+      console.log('[Process] Detected VIDEO_GEN request');
+      
+      // Extract prompt
+      const prompt = message
+        .replace(/^(generate|create|make)\s+(a\s+)?video\s+(of\s+)?/i, '')
+        .trim();
+      
+      if (prompt) {
+        try {
+          const result = await generateVideoVeo({
+            prompt,
+            userId: userId || 'anonymous',
+            duration: 5, // Default 5 seconds
+          });
+          
+          return {
+            answer: result.answer,
+            modelUsed: result.model,
+            autoRouted: true,
+            routingReasoning: 'Detected video generation request - routed to Veo 3.1',
+          };
+        } catch (error) {
+          console.error('[Process] VIDEO_GEN failed:', error);
+        }
+      }
+    }
+    
+    // ============================================================================
+    // STEP 3: Check for WEB_SEARCH requests
+    // ============================================================================
+    const webSearchPatterns = [
+      /search\s+(for|the\s+web|online)/i,
+      /look\s+up/i,
+      /find\s+(information|info)\s+about/i,
+      /what\s+is\s+the\s+latest/i,
+      /current\s+(news|events)/i,
+      /web\s+search/i,
+    ];
+    
+    if (webSearchPatterns.some(pattern => pattern.test(message))) {
+      console.log('[Process] Detected WEB_SEARCH request');
+      
+      // Extract query
+      const query = message
+        .replace(/^(search|look\s+up|find\s+(information|info)\s+about|web\s+search)\s+/i, '')
+        .replace(/\s+(for|about|on)\s+the\s+web$/i, '')
+        .trim();
+      
+      if (query) {
+        try {
+          const result = await searchWebYou({
+            query,
+            numResults: 10,
+          });
+          
+          return {
+            answer: result.answer,
+            modelUsed: 'you.com/web-agent-lite',
+            autoRouted: true,
+            routingReasoning: 'Detected web search request - routed to You.com',
+          };
+        } catch (error) {
+          console.error('[Process] WEB_SEARCH failed:', error);
+        }
+      }
+    }
+    
+    // ============================================================================
+    // STEP 4: Check for special commands
+    // ============================================================================
     const commandResult = commandRouter.routeCommand(message, settings.model, isAutoMode);
     
     if (commandResult) {
@@ -189,7 +319,11 @@ const processUserMessageFlow = ai.defineFlow(
       tone: settings.tone,
       technicalLevel: settings.technicalLevel,
       model: modelId,
+      userId, // Pass userId for memory system integration (handled internally)
     });
+
+    // Note: Memory extraction and storage should be implemented in a separate
+    // post-conversation hook or background job to avoid blocking the response
 
     return {
       answer,

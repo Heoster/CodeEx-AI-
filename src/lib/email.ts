@@ -80,16 +80,22 @@ export async function sendWelcomeEmail(email: string, displayName: string): Prom
   }
 
   try {
-    const response = await emailjs.send(SERVICE_ID!, WELCOME_TEMPLATE_ID!, {
-      to_email: email,
-      to_name: displayName,
-      app_url: APP_URL,
-      app_name: 'CODEEX AI',
-      support_email: 'codeex.care@gmail.com',
-    }, USER_ID!);
+    // EmailJS template parameters for template_d5lwx7b
+    const templateParams = {
+      to_name: displayName,        // User's name
+      email: email,                // User's email
+      app_url: APP_URL,            // App URL
+    };
+
+    const response = await emailjs.send(
+      SERVICE_ID!,           // service_ofrm4uh
+      WELCOME_TEMPLATE_ID!,  // template_d5lwx7b
+      templateParams,
+      USER_ID!               // KQ4SuGIRjGlskKKVC
+    );
     
     if (process.env.NODE_ENV === 'development') {
-      console.log('Welcome email sent successfully');
+      console.log('Welcome email sent successfully to:', email);
     }
     return { success: true, response };
   } catch (error) {
