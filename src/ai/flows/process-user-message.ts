@@ -23,6 +23,7 @@ import {generateVideoVeo} from './generate-video-veo';
 import {searchWebYou} from './search-web-you';
 import {getAutoRouter} from '@/ai/auto-router';
 import {getCommandRouter} from '@/ai/command-router';
+import {getIntentDetector} from '@/lib/intent-detector';
 
 // Extended schema to support all model IDs
 const ProcessUserMessageInputSchema = z.object({
@@ -83,133 +84,93 @@ const processUserMessageFlow = ai.defineFlow(
     const isAutoMode = settings.model === 'auto';
     const autoRouter = getAutoRouter();
     const commandRouter = getCommandRouter();
+    const intentDetector = getIntentDetector();
     
     // Note: Memory system is already integrated in generate-answer-from-context.ts
     // It automatically recalls and injects memories when userId is provided
     
     // ============================================================================
-    // STEP 1: Check for IMAGE_GEN requests
+    // STEP 1: INTELLIGENT INTENT DETECTION
     // ============================================================================
-    const imageGenPatterns = [
-      /generate.*image/i,
-      /create.*image/i,
-      /draw.*image/i,
-      /make.*picture/i,
-      /paint/i,
-      /illustrate/i,
-    ];
+    const intentResult = intentDetector.detect(message);
+    console.log(`[Process] Intent detected: ${intentResult.intent} (confidence: ${intentResult.confidence})`);
     
-    if (imageGenPatterns.some(pattern => pattern.test(message))) {
-      console.log('[Process] Detected IMAGE_GEN request');
+    // ============================================================================
+    // STEP 2: Handle IMAGE_GENERATION intent
+    // ============================================================================
+    if (intentResult.intent === 'IMAGE_GENERATION' && intentResult.confidence > 0.7) {
+      console.log('[Process] Routing to IMAGE_GENERATION:', intentResult.extractedQuery);
       
-      // Extract prompt (remove command words)
-      const prompt = message
-        .replace(/^(generate|create|draw|make|paint|illustrate)\s+(an?\s+)?(image|picture|illustration)\s+(of\s+)?/i, '')
-        .trim();
-      
-      if (prompt) {
-        try {
-          const result = await generateImageSOHAM({
-            prompt,
-            userId: userId || 'anonymous',
-            style: message.includes('realistic') ? 'realistic' :
-                   message.includes('anime') ? 'anime' :
-                   message.includes('sketch') ? 'sketch' :
-                   message.includes('artistic') ? 'artistic' : undefined,
-          });
-          
-          return {
-            answer: result.answer,
-            modelUsed: `${result.provider}/${result.model}`,
-            autoRouted: true,
-            routingReasoning: 'Detected image generation request - routed to SOHAM pipeline',
-          };
-        } catch (error) {
-          console.error('[Process] IMAGE_GEN failed:', error);
-        }
+      try {
+        const result = await generateImageSOHAM({
+          prompt: intentResult.extractedQuery,
+          userId: userId || 'anonymous',
+          style: message.includes('realistic') ? 'realistic' :
+                 message.includes('anime') ? 'anime' :
+                 message.includes('sketch') ? 'sketch' :
+                 message.includes('artistic') ? 'artistic' : undefined,
+        });
+        
+        return {
+          answer: result.answer,
+          modelUsed: `${result.provider}/${result.model}`,
+          autoRouted: true,
+          routingReasoning: `${intentResult.reasoning} - routed to SOHAM pipeline`,
+        };
+      } catch (error) {
+        console.error('[Process] IMAGE_GENERATION failed:', error);
       }
     }
     
     // ============================================================================
-    // STEP 2: Check for VIDEO_GEN requests
+    // STEP 3: Handle VIDEO_GENERATION intent
     // ============================================================================
-    const videoGenPatterns = [
-      /generate.*video/i,
-      /create.*video/i,
-      /make.*video/i,
-      /video.*of/i,
-    ];
-    
-    if (videoGenPatterns.some(pattern => pattern.test(message))) {
-      console.log('[Process] Detected VIDEO_GEN request');
+    if (intentResult.intent === 'VIDEO_GENERATION' && intentResult.confidence > 0.7) {
+      console.log('[Process] Routing to VIDEO_GENERATION:', intentResult.extractedQuery);
       
-      // Extract prompt
-      const prompt = message
-        .replace(/^(generate|create|make)\s+(a\s+)?video\s+(of\s+)?/i, '')
-        .trim();
-      
-      if (prompt) {
-        try {
-          const result = await generateVideoVeo({
-            prompt,
-            userId: userId || 'anonymous',
-            duration: 5, // Default 5 seconds
-          });
-          
-          return {
-            answer: result.answer,
-            modelUsed: result.model,
-            autoRouted: true,
-            routingReasoning: 'Detected video generation request - routed to Veo 3.1',
-          };
-        } catch (error) {
-          console.error('[Process] VIDEO_GEN failed:', error);
-        }
+      try {
+        const result = await generateVideoVeo({
+          prompt: intentResult.extractedQuery,
+          userId: userId || 'anonymous',
+          duration: 5, // Default 5 seconds
+        });
+        
+        return {
+          answer: result.answer,
+          modelUsed: result.model,
+          autoRouted: true,
+          routingReasoning: `${intentResult.reasoning} - routed to Veo 3.1`,
+        };
+      } catch (error) {
+        console.error('[Process] VIDEO_GENERATION failed:', error);
       }
     }
     
     // ============================================================================
-    // STEP 3: Check for WEB_SEARCH requests
+    // STEP 4: Handle WEB_SEARCH intent
     // ============================================================================
-    const webSearchPatterns = [
-      /search\s+(for|the\s+web|online)/i,
-      /look\s+up/i,
-      /find\s+(information|info)\s+about/i,
-      /what\s+is\s+the\s+latest/i,
-      /current\s+(news|events)/i,
-      /web\s+search/i,
-    ];
-    
-    if (webSearchPatterns.some(pattern => pattern.test(message))) {
-      console.log('[Process] Detected WEB_SEARCH request');
+    if (intentResult.intent === 'WEB_SEARCH' && intentResult.confidence > 0.7) {
+      console.log('[Process] Routing to WEB_SEARCH:', intentResult.extractedQuery);
       
-      // Extract query
-      const query = message
-        .replace(/^(search|look\s+up|find\s+(information|info)\s+about|web\s+search)\s+/i, '')
-        .replace(/\s+(for|about|on)\s+the\s+web$/i, '')
-        .trim();
-      
-      if (query) {
-        try {
-          const result = await searchWebYou({
-            query,
-            numResults: 10,
-          });
-          
-          return {
-            answer: result.answer,
-            modelUsed: 'you.com/web-agent-lite',
-            autoRouted: true,
-            routingReasoning: 'Detected web search request - routed to You.com',
-          };
-        } catch (error) {
-          console.error('[Process] WEB_SEARCH failed:', error);
-        }
+      try {
+        const result = await searchWebYou({
+          query: intentResult.extractedQuery,
+          numResults: 10,
+        });
+        
+        return {
+          answer: result.answer,
+          modelUsed: 'you.com/web-agent-lite',
+          autoRouted: true,
+          routingReasoning: `${intentResult.reasoning} - routed to You.com`,
+        };
+      } catch (error) {
+        console.error('[Process] WEB_SEARCH failed:', error);
       }
     }
     
     // ============================================================================
-    // STEP 4: Check for special commands
+    // STEP 5: Check for special commands
     // ============================================================================
     const commandResult = commandRouter.routeCommand(message, settings.model, isAutoMode);
     
