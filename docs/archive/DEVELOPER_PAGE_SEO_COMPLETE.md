@@ -29,7 +29,7 @@ About Heoster - 16-Year-Old Founder of CODEEX | Young Developer from India
 
 #### Meta Description
 ```
-Meet Heoster (Harsh), 16-year-old founder and developer of CODEEX. Built a free AI platform with 35+ models from Khatauli, India. Class 11 student at Maples Academy. 50,000+ lines of code, 1000+ daily users, 100+ countries. Contact: the.heoster@mail.com
+Meet Heoster (Harsh), 16-year-old founder and developer of CODEEX. Built a free AI platform with 35+ models from Khatauli, India. Class 11 student at Maples Academy. 50,000+ lines of code, 1000+ daily users, 100+ countries. Contact: codeex@email.com
 ```
 
 **Key Elements**:
@@ -58,7 +58,7 @@ keywords: [
   'young developer success story',
   'CODEEX founder',
   'AI platform founder India',
-  'the.heoster@mail.com',
+  'codeex@email.com',
   'Heoster GitHub',
   'Heoster LinkedIn',
 ]
@@ -95,7 +95,7 @@ Added comprehensive Person schema with:
     "@type": "EducationalOrganization",
     "name": "Maples Academy"
   },
-  "email": "the.heoster@mail.com",
+  "email": "codeex@email.com",
   "url": "https://codeex-ai.netlify.app",
   "image": "https://2024wallepals.netlify.app/assets/friends/harsh.png",
   "description": "16-year-old developer and founder of CODEEX...",
@@ -203,7 +203,7 @@ All 10 achievements listed with numbered badges:
 
 #### Contact Section
 Prominent contact buttons:
-- Email: the.heoster@mail.com
+- Email: codeex@email.com
 - GitHub: @Heoster
 - LinkedIn: /in/heoster
 - Twitter: @heoster_
@@ -249,7 +249,7 @@ Updated sitemap.ts:
 - ✅ "35+ models developer"
 
 ### Contact-Based
-- ✅ "the.heoster@mail.com"
+- ✅ "codeex@email.com"
 - ✅ "Heoster GitHub"
 - ✅ "Heoster LinkedIn"
 - ✅ "contact Heoster"

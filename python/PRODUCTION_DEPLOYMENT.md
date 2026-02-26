@@ -678,7 +678,7 @@ For issues or questions:
 - Check logs: `sudo journalctl -u edge-tts -f`
 - Test health: `curl http://localhost:8765/health`
 - View stats: `curl http://localhost:8765/stats`
-- Email: the.heoster@mail.com
+- Email: codeex@email.com
 
 ---
 

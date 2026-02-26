@@ -33,7 +33,7 @@ export const DEVELOPER_INFO = {
 
   // Contact & Social
   contact: {
-    email: "the.heoster@mail.com",
+    email: "codeex@email.com",
     linkedin: "https://in.linkedin.com/in/codeex-heoster-4b60b8399",
     linkedinVanity: "codeex-heoster-4b60b8399",
     github: "https://github.com/heoster",

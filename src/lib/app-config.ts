@@ -53,7 +53,7 @@ export const APP_CONFIG = {
     name: 'Heoster (Harsh)',
     age: 16,
     location: 'Khatauli, Uttar Pradesh, India',
-    email: 'the.heoster@mail.com',
+    email: 'codeex@email.com',
     github: 'https://github.com/heoster',
     linkedin: 'https://in.linkedin.com/in/codeex-heoster-4b60b8399',
     twitter: 'https://twitter.com/The_Heoster_',

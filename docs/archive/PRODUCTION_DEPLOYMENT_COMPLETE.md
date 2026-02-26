@@ -341,7 +341,7 @@ Node version: 18.x or higher
 - 99.9% uptime
 
 ### Contact
-- 📧 Email: the.heoster@mail.com
+- 📧 Email: codeex@email.com
 - 💼 LinkedIn: codeex-heoster-4b60b8399
 - 🐙 GitHub: @heoster
 - 🐦 Twitter: @The_Heoster_

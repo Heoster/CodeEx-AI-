@@ -297,7 +297,7 @@ netlify deploy --prod
 ### For Users
 - Documentation: `/docs`
 - FAQ: `/documentation/faq`
-- Contact: `the.heoster@mail.com`
+- Contact: `codeex@email.com`
 - GitHub Issues: Bug reports
 
 ### For Developers

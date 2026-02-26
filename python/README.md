@@ -279,4 +279,4 @@ MIT License - Free to use for personal and commercial projects
 For issues or questions:
 - Check [edge-tts documentation](https://github.com/rany2/edge-tts)
 - Open an issue on GitHub
-- Contact: the.heoster@mail.com
+- Contact: codeex@email.com

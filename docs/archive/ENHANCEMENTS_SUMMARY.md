@@ -229,7 +229,7 @@ Both enhancements improve user experience and platform visibility without impact
 ## Support
 
 For questions or issues:
-- Email: the.heoster@mail.com
+- Email: codeex@email.com
 - GitHub: @heoster
 - Documentation: /documentation
 

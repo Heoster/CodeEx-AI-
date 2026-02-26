@@ -130,4 +130,4 @@ If one deployment fails:
 
 **Last Updated**: February 22, 2026  
 **Maintained By**: Heoster (Harsh)  
-**Contact**: the.heoster@mail.com
+**Contact**: codeex@email.com

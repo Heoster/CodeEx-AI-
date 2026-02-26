@@ -235,7 +235,7 @@ Having issues on Android?
 
 1. **Check this guide** for common solutions
 2. **Clear app data** and reinstall
-3. **Contact support**: the.heoster@mail.com
+3. **Contact support**: codeex@email.com
 4. **Report bugs** on GitHub
 
 ---

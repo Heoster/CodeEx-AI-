@@ -449,8 +449,8 @@ export default function PrivacyPage() {
 
               <p className="mt-4">
                 To exercise these rights, please contact us at{' '}
-                <a href="mailto:the.heoster@mail.com" className="text-primary hover:underline">
-                  the.heoster@mail.com
+                <a href="mailto:codeex@email.com" className="text-primary hover:underline">
+                  codeex@email.com
                 </a>
               </p>
             </CardContent>
@@ -511,8 +511,8 @@ export default function PrivacyPage() {
               </p>
               <p>
                 Parents or guardians who believe their child has provided personal information to us can contact us at{' '}
-                <a href="mailto:the.heoster@mail.com" className="text-primary hover:underline">
-                  the.heoster@mail.com
+                <a href="mailto:codeex@email.com" className="text-primary hover:underline">
+                  codeex@email.com
                 </a>
               </p>
             </CardContent>
@@ -583,8 +583,8 @@ export default function PrivacyPage() {
               <div className="space-y-2 mt-4">
                 <p><strong>Developer:</strong> Heoster (Harsh)</p>
                 <p><strong>Email:</strong>{' '}
-                  <a href="mailto:the.heoster@mail.com" className="text-primary hover:underline">
-                    the.heoster@mail.com
+                  <a href="mailto:codeex@email.com" className="text-primary hover:underline">
+                    codeex@email.com
                   </a>
                 </p>
                 <p><strong>Location:</strong> Khatauli, Uttar Pradesh, India</p>

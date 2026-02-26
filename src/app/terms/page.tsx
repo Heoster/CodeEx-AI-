@@ -357,7 +357,7 @@ export default function TermsPage() {
                 If you have any questions about these Terms of Service, please contact us:
               </p>
               <div className="space-y-2">
-                <p><strong>Email:</strong> the.heoster@mail.com</p>
+                <p><strong>Email:</strong> codeex@email.com</p>
                 <p><strong>Developer:</strong> Heoster (Harsh)</p>
                 <p><strong>Location:</strong> Khatauli, Uttar Pradesh, India</p>
               </div>

@@ -394,7 +394,7 @@ When offline, you can:
 ## Support
 
 For help and support:
-- Email: the.heoster@mail.com
+- Email: codeex@email.com
 - GitHub Issues: Report bugs and request features
 - In-app Contact: Use the Contact page
 

@@ -487,7 +487,7 @@ CodeEx uses an intelligent routing system that automatically selects the best AI
 ### About Heoster (Harsh)
 - **Age:** 16 years old
 - **Location:** Khatauli, Uttar Pradesh, India
-- **Email:** the.heoster@mail.com
+- **Email:** codeex@email.com
 - **GitHub:** github.com/heoster
 - **Mission:** Democratize AI access for everyone
 

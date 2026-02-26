@@ -74,7 +74,7 @@ export default function CareersPage() {
             <p className="mx-auto max-w-xl text-muted-foreground">
               We&apos;re always looking for talented individuals. If you believe you&apos;d be a great fit for our team, send your resume and a cover letter to our hiring team.
             </p>
-             <a href="mailto:the.heoster@mail.com">
+             <a href="mailto:codeex@email.com">
                 <Button variant="secondary" className="mt-2">
                   Contact Us
                 </Button>

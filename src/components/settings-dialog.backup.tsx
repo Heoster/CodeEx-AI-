@@ -193,10 +193,10 @@ export function SettingsDialog({
             <p className="text-sm text-muted-foreground">
               For support or inquiries, please email us at{' '}
               <a
-                href="mailto:the.heoster@mail.com"
+                href="mailto:codeex@email.com"
                 className="font-medium text-primary underline-offset-4 hover:underline"
               >
-                the.heoster@mail.com
+                codeex@email.com
               </a>
               .
             </p>

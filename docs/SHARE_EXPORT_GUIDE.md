@@ -273,7 +273,7 @@ This helps others discover the platform while giving credit where it's due.
 ## Feedback
 
 Found a bug or have a suggestion?
-- Email: the.heoster@mail.com
+- Email: codeex@email.com
 - GitHub: @heoster
 - Twitter: @The_Heoster_
 

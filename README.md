@@ -513,7 +513,7 @@ We welcome contributions! Here's how:
 - 99.9% uptime maintained
 
 ### Connect
-- 📧 Email: [the.heoster@mail.com](mailto:the.heoster@mail.com)
+- 📧 Email: [codeex@email.com](mailto:codeex@email.com)
 - 💼 LinkedIn: [codeex-heoster](https://in.linkedin.com/in/codeex-heoster-4b60b8399)
 - 🐙 GitHub: [@heoster](https://github.com/heoster)
 - 🐦 Twitter: [@The_Heoster_](https://twitter.com/The_Heoster_)
@@ -573,7 +573,7 @@ npm run build
 - 📖 Check [Documentation](./docs)
 - 🐛 Report [Issues](https://github.com/heoster/codeex-ai/issues)
 - 💬 Join [Discussions](https://github.com/heoster/codeex-ai/discussions)
-- 📧 Email: [the.heoster@mail.com](mailto:the.heoster@mail.com)
+- 📧 Email: [codeex@email.com](mailto:codeex@email.com)
 
 ---
 

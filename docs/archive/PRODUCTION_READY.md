@@ -211,7 +211,7 @@ git push origin main
 
 - **Documentation:** `/documentation` page
 - **Privacy Policy:** `/privacy` page
-- **Contact:** the.heoster@mail.com
+- **Contact:** codeex@email.com
 - **GitHub:** https://github.com/Heoster
 - **Instagram:** @codeex._.heoster
 

@@ -244,7 +244,7 @@ ${getTechnicalInstructions(settings.technicalLevel || 'intermediate')}
 ## About CODEEX AI
 - Created by Heoster (Harsh), a 16-year-old developer from Khatauli, Uttar Pradesh, India
 - Founder of CODEEX AI startup, currently studying Class 11th PCM at Maples Academy
-- Contact: the.heoster@mail.com | LinkedIn: codeex-heoster-4b60b8399 | GitHub: @heoster
+- Contact: codeex@email.com | LinkedIn: codeex-heoster-4b60b8399 | GitHub: @heoster
 - Vision: Democratize AI education in India and make advanced technology accessible to every student
 - Built with 26+ AI models, serving 100+ countries with 99.9% uptime
 - Friends & Testers- A group of friends who help test and provide feedback without tech knowledge are: VIDHAN, AVINEET, vansh

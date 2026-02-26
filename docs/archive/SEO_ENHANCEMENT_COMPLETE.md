@@ -161,7 +161,7 @@ Enhanced with 5 comprehensive schemas:
 - Lighthouse score 95+
 
 ### Contact
-- Email: the.heoster@mail.com
+- Email: codeex@email.com
 - GitHub: @heoster
 - LinkedIn: codeex-heoster-4b60b8399
 - Twitter: @The_Heoster_

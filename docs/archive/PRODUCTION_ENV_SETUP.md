@@ -311,7 +311,7 @@ If you're still having issues:
 5. Check browser console for client-side errors
 
 **Contact:**
-- Email: the.heoster@mail.com
+- Email: codeex@email.com
 - GitHub: @Heoster
 
 ---

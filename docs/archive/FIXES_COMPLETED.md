@@ -71,7 +71,7 @@ The AI now knows about:
 - **Location**: Khatauli, Uttar Pradesh, India
 - **Education**: Class 11th PCM at Maples Academy
 - **Company**: CODEEX AI (Founder & Lead Developer)
-- **Contact**: the.heoster@mail.com
+- **Contact**: codeex@email.com
 - **Social**: 
   - LinkedIn: codeex-heoster-4b60b8399
   - GitHub: @heoster

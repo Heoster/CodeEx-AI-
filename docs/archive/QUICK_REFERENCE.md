@@ -95,4 +95,4 @@ export const metadata = generatePageMetadata({
 
 ## Support
 
-Questions? Contact: the.heoster@mail.com
+Questions? Contact: codeex@email.com

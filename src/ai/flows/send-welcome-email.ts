@@ -27,7 +27,7 @@ const sendWelcomeEmailFlow = ai.defineFlow(
   },
   async (input: z.infer<typeof WelcomeEmailInputSchema>) => {
     const {email, displayName} = input;
-    const fromEmail = 'the.heoster@mail.com';
+    const fromEmail = 'codeex@email.com';
     const emailSubject = 'Welcome to CODEEX AI! 🎉';
 
     const emailBody = `<div style="text-align: center; margin-bottom: 1rem;">

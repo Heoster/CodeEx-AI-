@@ -8,7 +8,7 @@ import { Mail, Github, Linkedin, Twitter, MapPin, GraduationCap, Code2, Award, U
 
 export const metadata: Metadata = {
   title: 'About Heoster - 16-Year-Old Founder of CODEEX | Young Developer from India',
-  description: `Meet Heoster (Harsh), 16-year-old founder and developer of CODEEX. Built a free AI platform with ${DEVELOPER_INFO.projectStats.modelsIntegrated}+ models from Khatauli, India. Class 11 student at Maples Academy. ${DEVELOPER_INFO.projectStats.linesOfCode} lines of code, ${DEVELOPER_INFO.projectStats.dailyUsers} daily users, ${DEVELOPER_INFO.projectStats.countriesReached} countries. Contact: the.heoster@mail.com`,
+  description: `Meet Heoster (Harsh), 16-year-old founder and developer of CODEEX. Built a free AI platform with ${DEVELOPER_INFO.projectStats.modelsIntegrated}+ models from Khatauli, India. Class 11 student at Maples Academy. ${DEVELOPER_INFO.projectStats.linesOfCode} lines of code, ${DEVELOPER_INFO.projectStats.dailyUsers} daily users, ${DEVELOPER_INFO.projectStats.countriesReached} countries. Contact: codeex@email.com`,
   keywords: [
     'Heoster',
     'Heoster CODEEX',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     'young developer success story',
     'CODEEX founder',
     'AI platform founder India',
-    'the.heoster@mail.com',
+    'codeex@email.com',
     'Heoster GitHub',
     'Heoster LinkedIn',
   ],
