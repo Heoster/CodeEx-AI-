@@ -46,7 +46,6 @@ export async function generateResponse(
     // Use the new processUserMessage flow which includes:
     // - Image generation (SOHAM pipeline)
     // - Video generation (Veo 3.1)
-    // - Web search (You.com)
     // - Memory system integration
     // - Auto-routing with smart fallback
     const response = await processUserMessage(input);

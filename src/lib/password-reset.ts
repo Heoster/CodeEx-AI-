@@ -21,8 +21,12 @@ export async function sendPasswordReset(email: string): Promise<{
     const auth = getAuth(app);
     
     // Send password reset email
+    const redirectUrl = process.env.NEXT_PUBLIC_APP_URL || 
+                       process.env.NEXT_PUBLIC_SITE_URL || 
+                       'http://localhost:3000';
+    
     await sendPasswordResetEmail(auth, email, {
-      url: `${process.env.NEXT_PUBLIC_APP_URL ||'https://codeex-ai.netlify.app','http://localhost:3000'}/login`,
+      url: `${redirectUrl}/login`,
       handleCodeInApp: true,
     });
 

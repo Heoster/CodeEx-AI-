@@ -35,7 +35,7 @@ Automatically detects when users want to search the web.
 
 **Confidence Threshold:** 70%
 
-**Routes to:** You.com Web Search API
+**Routes to:** Conversational response (no web search provider configured)
 
 ---
 

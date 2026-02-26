@@ -20,7 +20,6 @@ import {enhancedSummarize} from './enhanced-summarize';
 import {enhancedSearch} from './enhanced-search';
 import {generateImageSOHAM} from './generate-image-soham';
 import {generateVideoVeo} from './generate-video-veo';
-import {searchWebYou} from './search-web-you';
 import {getAutoRouter} from '@/ai/auto-router';
 import {getCommandRouter} from '@/ai/command-router';
 import {getIntentDetector} from '@/lib/intent-detector';
@@ -150,23 +149,9 @@ const processUserMessageFlow = ai.defineFlow(
     // STEP 4: Handle WEB_SEARCH intent
     // ============================================================================
     if (intentResult.intent === 'WEB_SEARCH' && intentResult.confidence > 0.7) {
-      console.log('[Process] Routing to WEB_SEARCH:', intentResult.extractedQuery);
-      
-      try {
-        const result = await searchWebYou({
-          query: intentResult.extractedQuery,
-          numResults: 10,
-        });
-        
-        return {
-          answer: result.answer,
-          modelUsed: 'you.com/web-agent-lite',
-          autoRouted: true,
-          routingReasoning: `${intentResult.reasoning} - routed to You.com`,
-        };
-      } catch (error) {
-        console.error('[Process] WEB_SEARCH failed:', error);
-      }
+      console.log('[Process] WEB_SEARCH intent detected but no search provider configured');
+      console.log('[Process] Falling back to conversational response');
+      // Fall through to default conversational response
     }
     
     // ============================================================================

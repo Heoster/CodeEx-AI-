@@ -190,25 +190,6 @@ async function testHuggingFaceAPI() {
 }
 
 /**
- * Test You.com API Key
- */
-async function testYouAPI() {
-  const key = process.env.YOU_API_KEY;
-  if (!key) {
-    results.skipped.push('You.com API (YOU_API_KEY not set)');
-    return;
-  }
-
-  try {
-    // You.com API might require specific endpoint or format
-    // Marking as passed if key is present (actual validation happens at runtime)
-    results.passed.push('You.com API (YOU_API_KEY) ✓ (Key present, validation at runtime)');
-  } catch (error) {
-    results.failed.push(`You.com API (YOU_API_KEY) - Error: ${error.message}`);
-  }
-}
-
-/**
  * Test OpenRouter API Key
  */
 async function testOpenRouterAPI() {
@@ -344,7 +325,6 @@ async function main() {
     testGroqAPI(),
     testCerebrasAPI(),
     testHuggingFaceAPI(),
-    testYouAPI(),
     testOpenRouterAPI(),
     testElevenLabsAPI(),
     testResendAPI(),

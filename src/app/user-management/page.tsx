@@ -71,8 +71,8 @@ export default function UserManagementPage() {
     {
       icon: Search,
       title: 'Web Search',
-      description: 'You.com integration for real-time web search',
-      status: 'active',
+      description: 'Real-time web search (coming soon)',
+      status: 'planned',
       link: '/chat'
     },
     {
