@@ -43,7 +43,7 @@ CodeEx uses an intelligent routing system that automatically selects the best AI
 
 **AI Integration:**
 - Groq API (llama-3.3-70b, mixtral-8x7b, gemma-2-9b)
-- Google Gemini (gemini-1.5-flash, gemini-1.5-pro)
+- Google Gemini (gemini-1.5-flash, gemini-2.5-pro)
 - Cerebras (llama3.1-8b, gpt-oss-120b)
 - HuggingFace (FLUX.1-schnell for images)
 
@@ -213,7 +213,7 @@ CodeEx uses an intelligent routing system that automatically selects the best AI
 ### 1. Multi-Model AI Chat
 **35+ Models Available:**
 - Groq: llama-3.3-70b, mixtral-8x7b, gemma-2-9b, llama-3.1-8b
-- Google: gemini-1.5-flash, gemini-1.5-pro, gemini-2.0-flash
+- Google: gemini-1.5-flash, gemini-2.5-pro, gemini-2.0-flash
 - Cerebras: llama3.1-8b, gpt-oss-120b
 - HuggingFace: Various open-source models
 
@@ -491,12 +491,30 @@ CodeEx uses an intelligent routing system that automatically selects the best AI
 - **GitHub:** github.com/heoster
 - **Mission:** Democratize AI access for everyone
 
+### Friends & Testers
+A dedicated group of friends who help test and provide valuable feedback:
+- **Vidhan** - Early tester and feedback provider
+- **Avineet** - User experience tester
+- **Vansh** - Feature testing and suggestions
+- **Aayush** - Platform testing and feedback
+- **Varun** - Real-world usage testing
+- **Pankaj** - Feature validation
+- **Masum** - User perspective testing
+- **Sachin** - Functionality testing
+- **Pardhuman** - Platform feedback
+- **Shivansh** - Feature exploration
+- **Vaibhav** - User testing
+- **Kartik** - Platform validation
+
+These friends provide crucial non-technical user perspectives, helping ensure CodeEx is accessible and user-friendly for everyone, regardless of technical background.
+
 ### Tech Philosophy
 - **Open Source:** All code publicly available
 - **Free Forever:** Core features always free
 - **Privacy First:** Minimal data collection
 - **User Focused:** Built for real needs
 - **Community Driven:** Open to contributions
+- **Tested by Real Users:** Friends provide authentic feedback
 
 ---
 

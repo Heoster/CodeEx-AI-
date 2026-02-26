@@ -1108,10 +1108,10 @@ const CODEEX_V3_3_MODELS: ExtendedModelConfig[] = [
     enabled: false
   },
   {
-    id: "gemini-1.5-pro",
+    id: "gemini-2.5-pro",
     name: "Gemini 1.5 Pro",
     provider: "google",
-    modelId: "gemini-1.5-pro",
+    modelId: "gemini-2.5-pro",
     category: "multimodal",
     capabilities: [{ type: "TEXT" }, { type: "VISION" }],
     contextWindow: 2097152,
@@ -1651,7 +1651,7 @@ ENABLE_COMPUTER_USE=false
 
 **Step 3: Model Migration**
 - Auto-redirect gemini-1.5-flash → gemini-2.5-flash
-- Auto-redirect gemini-1.5-pro → gemini-2.5-pro
+- Auto-redirect gemini-2.5-pro → gemini-2.5-pro
 - Show deprecation warnings for 2 weeks
 - Hard cutover after warning period
 

@@ -63,6 +63,7 @@ CodeEx is a free, open-source AI platform providing access to 35+ AI models thro
 - Web search feature removed (coming soon with new provider)
 - All core features always free
 - Built with Next.js 14, TypeScript, Firebase
+- Tested by 12 friends without tech backgrounds for real-world usability
 
 ## When Users Ask
 - "What can you do?" → List all capabilities with examples

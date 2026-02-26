@@ -46,7 +46,7 @@
 
 **Deprecated Models (2)**:
 1. `gemini-1.5-flash` → Replaced by `gemini-2.5-flash`
-2. `gemini-1.5-pro` → Replaced by `gemini-2.5-pro`
+2. `gemini-2.5-pro` → Replaced by `gemini-2.5-pro`
 
 **Rate Limits**:
 - Standard models: 15 RPM, 1,500 RPD
@@ -95,7 +95,7 @@
 
 **DEAD Models**: 2 models with automatic replacement
 - `gemini-1.5-flash` → `gemini-2.5-flash` (Deprecated: 2025-02-15)
-- `gemini-1.5-pro` → `gemini-2.5-pro` (Deprecated: 2025-02-15)
+- `gemini-2.5-pro` → `gemini-2.5-pro` (Deprecated: 2025-02-15)
 
 ### Rate Limit Configuration
 

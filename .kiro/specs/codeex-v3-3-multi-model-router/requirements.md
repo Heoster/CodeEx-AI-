@@ -468,7 +468,7 @@ CODEEX V3.3 is a comprehensive $0 multimodal AI agent that intelligently routes 
 
 1. THE System SHALL maintain backward compatibility with V3.2 model IDs
 2. WHEN gemini-1.5-flash is requested, THE System SHALL automatically redirect to gemini-2.5-flash
-3. WHEN gemini-1.5-pro is requested, THE System SHALL automatically redirect to gemini-2.5-pro
+3. WHEN gemini-2.5-pro is requested, THE System SHALL automatically redirect to gemini-2.5-pro
 4. THE System SHALL support gradual rollout behind a feature flag
 5. THE System SHALL log deprecation warnings for V3.2 model usage
 6. THE System SHALL support both V3.2 and V3.3 message formats

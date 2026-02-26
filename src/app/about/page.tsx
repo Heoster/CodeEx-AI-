@@ -299,6 +299,28 @@ export default function AboutUsPage() {
             </div>
           </div>
 
+          {/* Friends & Testers */}
+          <div className="space-y-6 rounded-lg border bg-card p-8">
+            <div className="flex items-center gap-3 mb-4">
+              <Users className="h-6 w-6 text-primary" />
+              <h3 className="text-2xl font-semibold">Friends & Testers</h3>
+            </div>
+            <p className="text-muted-foreground mb-4">
+              A huge thanks to my amazing friends who help test CodeEx and provide valuable feedback from a non-technical user perspective. Their insights ensure the platform is accessible and user-friendly for everyone:
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              {['Vidhan', 'Avineet', 'Vansh', 'Aayush', 'Varun', 'Pankaj', 'Masum', 'Sachin', 'Pardhuman', 'Shivansh', 'Vaibhav', 'Kartik'].map((name) => (
+                <div key={name} className="flex items-center gap-2 rounded-lg border bg-background/50 px-4 py-2">
+                  <div className="h-2 w-2 rounded-full bg-primary"></div>
+                  <span className="text-sm font-medium">{name}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-sm text-muted-foreground mt-4 italic">
+              These friends represent real users without technical backgrounds, helping make CodeEx truly accessible to everyone.
+            </p>
+          </div>
+
           {/* Contact Section */}
           <div className="space-y-6 rounded-lg border-2 border-primary bg-gradient-to-br from-primary/10 to-primary/5 p-8 text-center">
             <h2 className="text-3xl font-bold tracking-tight">Get in Touch</h2>

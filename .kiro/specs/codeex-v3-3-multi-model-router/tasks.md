@@ -27,7 +27,7 @@ This implementation plan converts the CODEEX V3.3 Multi-Model AI Router design i
     - Add all Groq models (Llama Guard 4, Llama 3.2 3B, Whisper V3, PlayAI TTS, Mistral Saba 24B)
     - Add all Cerebras models (Llama 4 Scout 17B, Llama 3.3 70B, GPT-OSS 120B, DeepSeek V3)
     - Add all Google models (Gemini 2.5 Flash/Pro, Gemini 3 Pro Preview, Gemini Native Audio, Imagen 4.0, Veo 3.1, gemini-embedding-001)
-    - Mark deprecated models as DEAD (gemini-1.5-flash, gemini-1.5-pro)
+    - Mark deprecated models as DEAD (gemini-1.5-flash, gemini-2.5-pro)
     - Configure rate limits per provider
     - _Requirements: 1.1, 1.10, 14.1-14.9_
   
