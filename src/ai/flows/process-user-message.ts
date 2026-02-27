@@ -41,7 +41,7 @@ const ProcessUserMessageInputSchema = z.object({
     tone: z.enum(['helpful', 'formal', 'casual']),
     technicalLevel: z.enum(['beginner', 'intermediate', 'expert']),
     enableSpeech: z.boolean(),
-    voice: z.enum(['Algenib', 'Enceladus', 'Achernar', 'Heka']),
+    voice: z.enum(['troy', 'diana', 'hannah', 'autumn', 'austin', 'daniel']), // Orpheus voices
   }),
   userId: z.string().optional().describe('User ID for memory system integration'),
 });
