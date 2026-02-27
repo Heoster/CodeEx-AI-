@@ -3,7 +3,8 @@
 
 [build]
   command = "npm run build"
-  publish = ".next"
+  # Do NOT set publish directory when using @netlify/plugin-nextjs
+  # The plugin handles deployment automatically
 
 # Function configuration
 [functions]
