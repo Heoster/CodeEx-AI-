@@ -14,6 +14,10 @@
 # Use the official Netlify Next.js plugin
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+  
+  [plugins.inputs]
+    # Disable caching to force fresh build
+    distDir = ".next"
 
 # Environment variables for build
 [build.environment]
@@ -24,6 +28,9 @@
   # Disable secret scanning for public Next.js environment variables
   # These NEXT_PUBLIC_* variables are intentionally public and safe
   SECRETS_SCAN_ENABLED = "false"
+  # Force fresh build - disable all caching
+  NETLIFY_USE_YARN = "false"
+  NETLIFY_USE_PNPM = "false"
 
 # Headers for PWA and security
 [[headers]]
