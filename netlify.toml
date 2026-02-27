@@ -14,10 +14,6 @@
 # Use the official Netlify Next.js plugin
 [[plugins]]
   package = "@netlify/plugin-nextjs"
-  
-  [plugins.inputs]
-    # Disable caching to force fresh build
-    distDir = ".next"
 
 # Environment variables for build
 [build.environment]
