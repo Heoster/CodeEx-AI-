@@ -1,8 +1,8 @@
 
 const withPWA = require('@ducanh2912/next-pwa').default({
   dest: 'public',
-  cacheOnFrontEndNav: true,
-  aggressiveFrontEndNavCaching: true,
+  cacheOnFrontEndNav: false,
+  aggressiveFrontEndNavCaching: false,
   reloadOnOnline: true,
   swcMinify: true,
   disable: process.env.NODE_ENV === 'development',
@@ -15,6 +15,7 @@ const withPWA = require('@ducanh2912/next-pwa').default({
     disableDevLogs: true,
     skipWaiting: true,
     clientsClaim: true,
+    cleanupOutdatedCaches: true,
     runtimeCaching: [
       {
         urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,
@@ -51,7 +52,7 @@ const withPWA = require('@ducanh2912/next-pwa').default({
       },
       {
         urlPattern: /\/_next\/static.+\.js$/i,
-        handler: 'CacheFirst',
+        handler: 'StaleWhileRevalidate',
         options: {
           cacheName: 'next-static-js',
           expiration: {
