@@ -67,7 +67,8 @@ describe('ContextChunkerService - Chunk Processing', () => {
       // Mock execute function
       const mockExecute = vi.fn().mockResolvedValue({
         text: 'Mock response',
-        model: 'test-model'
+        model: 'test-model',
+        modelUsed: 'test-model'
       } as GenerateResponse);
 
       // Mock fallback chain
@@ -138,7 +139,8 @@ describe('ContextChunkerService - Chunk Processing', () => {
         .mockRejectedValueOnce(new Error('Rate limit exceeded'))
         .mockResolvedValueOnce({
           text: 'Success response',
-          model: 'fallback-model'
+          model: 'fallback-model',
+          modelUsed: 'fallback-model'
         } as GenerateResponse);
 
       // Mock fallback chain with two models
@@ -225,7 +227,8 @@ describe('ContextChunkerService - Chunk Processing', () => {
         .mockRejectedValueOnce(new Error('Chunk 1 failed'))
         .mockResolvedValueOnce({
           text: 'Chunk 2 success',
-          model: 'test-model'
+          model: 'test-model',
+          modelUsed: 'test-model'
         } as GenerateResponse);
 
       const mockFallbackChain: ExtendedModelConfig[] = [
@@ -292,7 +295,8 @@ describe('ContextChunkerService - Chunk Processing', () => {
         await new Promise(resolve => setTimeout(resolve, 50));
         return {
           text: 'Response',
-          model: 'test-model'
+          model: 'test-model',
+          modelUsed: 'test-model'
         } as GenerateResponse;
       });
 
@@ -364,7 +368,8 @@ describe('ContextChunkerService - Chunk Processing', () => {
         }
         return {
           text: 'Success',
-          model: 'test-model'
+          model: 'test-model',
+          modelUsed: 'test-model'
         } as GenerateResponse;
       });
 

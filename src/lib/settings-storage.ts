@@ -19,7 +19,7 @@ export const DEFAULT_SETTINGS: Settings = {
   tone: 'helpful',
   technicalLevel: 'intermediate',
   enableSpeech: false,
-  voice: 'Algenib',
+  voice: 'troy', // Updated to Orpheus voice
 };
 
 // Valid model IDs for validation (from models-config.json)
@@ -96,8 +96,8 @@ function validateSettings(settings: unknown): settings is Settings {
     return false;
   }
   
-  // Validate voice
-  if (!['Algenib', 'Enceladus', 'Achernar', 'Heka'].includes(s.voice as string)) {
+  // Validate voice - Orpheus voices
+  if (!['troy', 'diana', 'hannah', 'autumn', 'austin', 'daniel'].includes(s.voice as string)) {
     return false;
   }
   
