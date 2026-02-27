@@ -17,6 +17,7 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "verify-env": "node scripts/verify-env.js",
+    "check-deploy": "node scripts/check-deployment-ready.js",
     "test:local": "npm run verify-env && npm run dev",
     "test:api": "node scripts/test-api-routes.js",
     "test:tts": "node scripts/test-groq-tts.js",
