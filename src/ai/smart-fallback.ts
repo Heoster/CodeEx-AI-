@@ -68,18 +68,37 @@ function isCriticalFailure(error: unknown): boolean {
 
 /**
  * Get fallback models for a given category
- * Returns models in order of preference (most capable first)
+ * Returns models in order of preference:
+ * 1. Groq models (fastest, primary)
+ * 2. Cerebras models (fast fallback)
+ * 3. Google Gemini models (reliable fallback)
+ * 4. HuggingFace models (final fallback)
  */
 function getFallbackModels(category: ModelCategory): ModelConfig[] {
   const registry = getModelRegistry();
+  const allModels = registry.getAvailableModels();
+  
+  // Define provider priority order
+  const providerPriority = ['groq', 'cerebras', 'google', 'huggingface'];
+  
+  // Get models for the requested category
   const categoryModels = registry.getModelsByCategory(category);
   
   if (categoryModels.length > 0) {
-    return categoryModels;
+    // Sort by provider priority
+    return categoryModels.sort((a, b) => {
+      const aPriority = providerPriority.indexOf(a.provider);
+      const bPriority = providerPriority.indexOf(b.provider);
+      return aPriority - bPriority;
+    });
   }
   
-  // If no models in category, return all available models
-  return registry.getAvailableModels();
+  // If no models in category, return all available models sorted by provider priority
+  return allModels.sort((a, b) => {
+    const aPriority = providerPriority.indexOf(a.provider);
+    const bPriority = providerPriority.indexOf(b.provider);
+    return aPriority - bPriority;
+  });
 }
 
 /**
@@ -212,8 +231,9 @@ export async function generateWithSmartFallback(
     throw new Error('No models available. Please check your GROQ_API_KEY configuration at https://console.groq.com/keys');
   }
   
-  // Limit to 2 models maximum for Netlify timeout constraints
-  const maxModelsToTry = Math.min(modelsToTry.length, 2);
+  // Limit to 3 models maximum for better fallback coverage
+  // Groq → Cerebras → Google Gemini
+  const maxModelsToTry = Math.min(modelsToTry.length, 3);
   
   // Try each model in sequence
   for (let i = 0; i < maxModelsToTry; i++) {
@@ -294,7 +314,7 @@ export function getFriendlyErrorMessage(error: unknown): string {
   }
   
   if (errorMessage.includes('All models failed')) {
-    return 'AI service is currently unavailable. Please check your Groq API key and try again in a few minutes.';
+    return 'All AI providers (Groq, Cerebras, Google Gemini) are currently unavailable. Please check your API keys and try again in a few minutes.';
   }
   
   return 'An unexpected error occurred. Please try again.';

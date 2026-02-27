@@ -45,7 +45,7 @@ CodeEx is a free, open-source AI platform providing access to 35+ AI models thro
 
 ## Key Pages
 - /chat - Main chat interface
-- /user-management - Feature dashboard
+- /account - Feature dashboard
 - /account-settings - Profile and security
 - /models - List of all 35+ models
 - /documentation - Comprehensive guides

@@ -238,7 +238,7 @@ export default function AccountSettingsPage() {
 
       <div className="min-h-screen bg-background">
         <PageHeader
-          backLink="/user-management"
+          backLink="/account"
           backText="Back to User Management"
           title="Account Settings"
         />

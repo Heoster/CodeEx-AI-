@@ -600,7 +600,7 @@ export default function PrivacyPage() {
                     Terms of Service
                   </Button>
                 </Link>
-                <Link href="/user-management">
+                <Link href="/account">
                   <Button variant="outline" size="sm">
                     Manage Your Data
                   </Button>

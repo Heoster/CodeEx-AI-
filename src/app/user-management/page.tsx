@@ -118,7 +118,7 @@ export default function UserManagementPage() {
         title="User Management | CODEEX AI"
         description="Manage your CODEEX AI account, view features, and access settings"
         keywords={['user management', 'account', 'AI features']}
-        canonical="/user-management"
+        canonical="/account"
       />
 
       <div className="min-h-screen bg-background">
