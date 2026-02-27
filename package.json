@@ -19,6 +19,9 @@
     "verify-env": "node scripts/verify-env.js",
     "test:local": "npm run verify-env && npm run dev",
     "test:api": "node scripts/test-api-routes.js",
+    "test:tts": "node scripts/test-groq-tts.js",
+    "test:tts:save": "node scripts/test-groq-tts.js --save",
+    "test:tts:quick": "node scripts/test-groq-tts.js --quick --save",
     "clear-cache": "pwsh -File scripts/clear-cache.ps1"
   },
   "dependencies": {
