@@ -10,7 +10,9 @@
 - [x] Auto-scroll on message send
 - [x] Unified account page created
 - [x] Fallback chain implemented (Groq → Cerebras → Google → HuggingFace)
-- [x] Code pushed to GitHub (commits: b3d10af, 9a2cebe, 86a7dba, 03f07df)
+- [x] **Fixed Groq TTS client-side issue** (now uses API route instead of direct service)
+- [x] TypeScript compilation errors resolved
+- [x] Code pushed to GitHub (commits: 2f98933, a0be37f)
 - [x] Netlify build successful
 - [x] JavaScript chunks loading correctly
 - [x] API routes accessible
@@ -139,6 +141,7 @@ Or use Netlify UI: **Deploys** → **Trigger deploy** → **Deploy site**
 - `FALLBACK_CHAIN_IMPLEMENTATION.md` - Fallback system documentation
 - `ACCOUNT_PAGE_IMPLEMENTATION.md` - Account page details
 - `GROQ_ORPHEUS_TTS_COMPLETE.md` - TTS implementation details
+- `GROQ_TTS_CLIENT_FIX.md` - Client-side TTS fix documentation
 - `VOCAL_DIRECTIONS_GUIDE.md` - Vocal directions usage
 
 ## Support Resources
