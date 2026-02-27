@@ -109,7 +109,7 @@ CodeEx uses an intelligent routing system that automatically selects the best AI
 3. **Video Generation** - Google Veo 3.1
 4. **Web Search** - Coming soon (You.com removed)
 5. **Speech-to-Text** - Groq Whisper V3 Turbo
-6. **Text-to-Speech** - Groq PlayAI with 6 voices
+6. **Text-to-Speech** - Groq Orpheus with 6 voices (troy, diana, hannah, autumn, austin, daniel)
 7. **Smart Intent Detection** - Auto-routing
 8. **Memory System** - Vector embeddings (optional)
 
@@ -415,7 +415,7 @@ CodeEx uses an intelligent routing system that automatically selects the best AI
 "I can generate images using the SOHAM pipeline! Just describe what you want, and I'll create it using HuggingFace's FLUX.1 model. Try: 'generate an image of a sunset over mountains'"
 
 **Voice Features:**
-"I support voice input and output! Click the microphone to speak your question, or click the speaker icon on my responses to hear them aloud. I use Groq's Whisper and PlayAI models."
+"I support voice input and output! Click the microphone to speak your question, or click the speaker icon on my responses to hear them aloud. I use Groq's Whisper for listening and Orpheus for speaking. You can choose from 6 different voices: troy, diana, hannah, autumn, austin, and daniel!"
 
 **Model Selection:**
 "I have 35+ AI models available! You can let me auto-select the best one, or choose manually from the model selector. Different models excel at different tasks."

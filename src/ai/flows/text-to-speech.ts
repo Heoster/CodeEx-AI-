@@ -1,8 +1,8 @@
 /**
- * @fileOverview A flow for converting text to speech using Groq PlayAI TTS.
+ * @fileOverview A flow for converting text to speech using Groq Orpheus TTS.
  * This provides high-quality, natural-sounding voices via Groq's TTS API.
  * 
- * Fallback chain: Groq PlayAI → ElevenLabs → Edge TTS → Browser TTS
+ * Fallback chain: Groq Orpheus → ElevenLabs → Browser TTS
  *
  * - textToSpeech - Returns a success marker (real synthesis happens via API)
  * - TextToSpeechInput - The input type for the textToSpeech function.
@@ -25,7 +25,7 @@ export type TextToSpeechOutput = z.infer<typeof TextToSpeechOutputSchema>;
 
 /**
  * Server-side marker function. The actual text-to-speech happens via
- * the /api/tts endpoint using Groq PlayAI TTS with fallback chain.
+ * the /api/tts endpoint using Groq Orpheus TTS with fallback chain.
  */
 export async function textToSpeech(
   input: TextToSpeechInput

@@ -150,7 +150,7 @@ export function ChatPanel({
         const selectedVoice = voiceMap[settingsRef.current.voice] || settingsRef.current.voice || 'en-US-AriaNeural';
         
         // Use Hybrid TTS with automatic fallback
-        // Chain: Groq PlayAI → ElevenLabs → Edge TTS → Browser TTS
+        // Chain: Groq Orpheus → ElevenLabs → Browser TTS
         hybridTTS.speak({
           text: filteredText,
           voice: selectedVoice,

@@ -3,7 +3,7 @@
  * Handles both STT and TTS with intelligent fallback chains
  * 
  * STT Chain: Groq Whisper → Browser Web Speech API
- * TTS Chain: Groq PlayAI → ElevenLabs → Browser TTS
+ * TTS Chain: Groq Orpheus → ElevenLabs → Browser TTS
  */
 
 import { getGroqSTTService, type STTResult, type STTOptions } from './groq-stt-service';
@@ -42,12 +42,12 @@ export class UnifiedVoiceService {
 
   /**
    * Text-to-Speech with fallback chain
-   * Primary: Groq PlayAI TTS
+   * Primary: Groq Orpheus TTS
    * Fallback 1: ElevenLabs
    * Fallback 2: Browser TTS
    */
   async textToSpeech(text: string, options?: TTSOptions): Promise<TTSResult> {
-    // Try Groq PlayAI first
+    // Try Groq Orpheus first
     if (this.groqTTS.isAvailable()) {
       try {
         return await this.groqTTS.generateSpeech(text, options);
@@ -78,18 +78,20 @@ export class UnifiedVoiceService {
    * ElevenLabs TTS (fallback)
    */
   private async elevenLabsTTS(text: string, options?: TTSOptions): Promise<TTSResult> {
-    // Map Edge TTS voice names to ElevenLabs voice IDs
+    // Map Orpheus voice names to ElevenLabs voice IDs
     const voiceMap: Record<string, string> = {
-      'en-US-AriaNeural': 'EXAVITQu4vr4xnSDxMaL', // Bella
-      'en-US-GuyNeural': '21m00Tcm4TlvDq8ikWAM', // Rachel
-      'en-US-JennyNeural': 'EXAVITQu4vr4xnSDxMaL', // Bella
-      'en-IN-NeerjaNeural': 'EXAVITQu4vr4xnSDxMaL', // Bella
+      'troy': 'pNInz6obpgDQGcFmaJgB', // Adam
+      'diana': 'EXAVITQu4vr4xnSDxMaL', // Bella
+      'hannah': '21m00Tcm4TlvDq8ikWAM', // Rachel
+      'autumn': 'EXAVITQu4vr4xnSDxMaL', // Bella
+      'austin': 'pNInz6obpgDQGcFmaJgB', // Adam
+      'daniel': 'pNInz6obpgDQGcFmaJgB', // Adam
     };
 
-    // Get ElevenLabs voice ID (default to Bella if not mapped)
+    // Get ElevenLabs voice ID (default to Adam if not mapped)
     const voiceId = options?.voice && voiceMap[options.voice] 
       ? voiceMap[options.voice] 
-      : 'EXAVITQu4vr4xnSDxMaL';
+      : 'pNInz6obpgDQGcFmaJgB';
 
     const response = await fetch(
       `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`,

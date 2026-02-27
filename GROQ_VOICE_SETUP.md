@@ -4,7 +4,7 @@
 
 Your application is fully configured with Groq's voice services:
 - **STT (Speech-to-Text)**: Groq Whisper Large V3 Turbo & V3
-- **TTS (Text-to-Speech)**: Groq PlayAI TTS 1.0
+- **TTS (Text-to-Speech)**: Groq Orpheus TTS (Canopy Labs)
 
 Both services are integrated with intelligent fallback chains for maximum reliability.
 
@@ -20,8 +20,8 @@ User Audio → Groq Whisper V3 Turbo → Groq Whisper V3 → Browser Web Speech 
 
 ### Text-to-Speech (TTS) Chain
 ```
-Text → Groq PlayAI TTS → ElevenLabs → Edge TTS → Browser TTS
-       (Primary)         (Fallback 1) (Fallback 2) (Final Fallback)
+Text → Groq Orpheus TTS → ElevenLabs → Browser TTS
+       (Primary)          (Fallback 1)  (Final Fallback)
 ```
 
 ---
@@ -50,7 +50,7 @@ NEXT_PUBLIC_ELEVENLABS_API_KEY=your_elevenlabs_key_here
 **Free Tier:**
 - 14,400 requests per day
 - Whisper V3 Turbo: ~30 requests/minute
-- PlayAI TTS: ~30 requests/minute
+- Orpheus TTS: ~30 requests/minute
 
 ---
 
@@ -88,18 +88,19 @@ console.log(result.duration); // Processing time in ms
 ### 2. Groq TTS Service (`src/lib/groq-tts-service.ts`)
 
 **Features:**
-- PlayAI TTS 1.0 model
-- Multiple voice options
-- Speed control
-- High-quality audio output
+- Orpheus TTS model from Canopy Labs
+- Multiple voice options (Greek mythology themed)
+- Speed control (0.25x to 4.0x)
+- Vocal direction support ([cheerful], [serious], [whisper])
+- High-quality WAV audio output
 
 **Voices Available:**
-- `alloy` - Neutral, balanced
-- `echo` - Male, clear
-- `fable` - British accent
-- `onyx` - Deep, authoritative
-- `nova` - Warm, friendly
-- `shimmer` - Soft, gentle
+- `troy` - Balanced, clear voice (default)
+- `diana` - Professional, authoritative
+- `hannah` - Warm, expressive
+- `autumn` - Soft, gentle
+- `austin` - Energetic, bright
+- `daniel` - Deep, commanding
 
 **Usage:**
 ```typescript
@@ -107,13 +108,22 @@ import { getGroqTTSService } from '@/lib/groq-tts-service';
 
 const ttsService = getGroqTTSService();
 const result = await ttsService.generateSpeech('Hello, world!', {
-  voice: 'alloy',
+  voice: 'troy',
   speed: 1.0
 });
 
-// result.audio is an ArrayBuffer containing MP3 audio
-const audioBlob = new Blob([result.audio], { type: 'audio/mp3' });
+// result.audio is an ArrayBuffer containing WAV audio
+const audioBlob = new Blob([result.audio], { type: 'audio/wav' });
 const audioUrl = URL.createObjectURL(audioBlob);
+```
+
+**Vocal Directions:**
+Add emotional cues directly in text:
+```typescript
+const result = await ttsService.generateSpeech(
+  '[cheerful] Welcome! [serious] This is important.',
+  { voice: 'troy' }
+);
 ```
 
 ---
@@ -139,7 +149,7 @@ const sttResult = await voiceService.speechToText(audioFile, {
 
 // Text-to-Speech
 const ttsResult = await voiceService.textToSpeech('Hello!', {
-  voice: 'alloy',
+  voice: 'troy',
   speed: 1.0
 });
 
@@ -185,6 +195,36 @@ const data = await response.json();
 }
 ```
 
+### 2. Text-to-Speech (`/api/tts`)
+
+**Method:** POST
+
+**Request:**
+```typescript
+const response = await fetch('/api/tts', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    text: 'Hello, world!',
+    voice: 'troy',
+    speed: 1.0
+  })
+});
+
+const data = await response.json();
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "audio": "base64_encoded_wav_data",
+  "provider": "groq",
+  "model": "canopylabs/orpheus-v1-english",
+  "contentType": "audio/wav"
+}
+```
+
 **Supported Formats:**
 - audio/webm
 - audio/mp3
@@ -216,16 +256,28 @@ curl -X POST http://localhost:3000/api/transcribe \
 1. **Using the Chat Interface:**
    - Enable "Enable Speech" in settings
    - Send a message
-   - AI response will be spoken using Groq PlayAI TTS
+   - AI response will be spoken using Groq Orpheus TTS
 
 2. **Using Code:**
 ```typescript
 const voiceService = getUnifiedVoiceService();
 const result = await voiceService.textToSpeech('Test message');
 const audio = new Audio(URL.createObjectURL(
-  new Blob([result.audio], { type: 'audio/mp3' })
+  new Blob([result.audio], { type: 'audio/wav' })
 ));
 audio.play();
+```
+
+3. **Using Test Script:**
+```bash
+# Run all tests
+npm run test:tts
+
+# Save audio files
+npm run test:tts:save
+
+# Quick test
+npm run test:tts:quick
 ```
 
 ---
@@ -244,11 +296,13 @@ audio.play();
 - **Accuracy:** 98%+ for clear audio
 - **Best for:** High-accuracy requirements, complex audio
 
-### PlayAI TTS 1.0
+### Orpheus TTS (Canopy Labs)
 - **Speed:** ~1-2s for 100 words
 - **Quality:** High-quality, natural-sounding
-- **Voices:** 6 different voices
-- **Best for:** Natural conversation, accessibility
+- **Voices:** 6 Greek mythology themed voices
+- **Format:** WAV audio
+- **Features:** Vocal direction support
+- **Best for:** Natural conversation, accessibility, expressive speech
 
 ---
 
@@ -271,19 +325,17 @@ audio.play();
 
 ### TTS Fallback Chain
 
-1. **Groq PlayAI TTS** (Primary)
+1. **Groq Orpheus TTS** (Primary)
    - Best quality
+   - Greek mythology voices
+   - Vocal direction support
    - If fails → ElevenLabs
 
 2. **ElevenLabs** (Fallback 1)
    - Requires separate API key
-   - If fails → Edge TTS
-
-3. **Edge TTS** (Fallback 2)
-   - Free, no API key
    - If fails → Browser
 
-4. **Browser TTS** (Final Fallback)
+3. **Browser TTS** (Final Fallback)
    - Client-side only
    - Always available
 
@@ -402,8 +454,13 @@ All services log to console:
    curl https://api.groq.com/openai/v1/audio/speech \
      -H "Authorization: Bearer $GROQ_API_KEY" \
      -H "Content-Type: application/json" \
-     -d '{"model":"playai-tts-1.0","input":"Hello","voice":"alloy"}' \
-     --output speech.mp3
+     -d '{"model":"canopylabs/orpheus-v1-english","input":"Hello","voice":"troy","response_format":"wav"}' \
+     --output speech.wav
+   ```
+
+5. **Run Test Script:**
+   ```bash
+   npm run test:tts
    ```
 
 ---
@@ -415,12 +472,13 @@ All services log to console:
 All Groq voice services are integrated and working:
 - ✅ Groq Whisper V3 Turbo STT
 - ✅ Groq Whisper V3 STT (fallback)
-- ✅ Groq PlayAI TTS 1.0
+- ✅ Groq Orpheus TTS (Canopy Labs)
 - ✅ Unified Voice Service
 - ✅ API Endpoints
 - ✅ Fallback Chains
 - ✅ Error Handling
 - ✅ Chat Integration
+- ✅ Test Suite
 
 ---
 

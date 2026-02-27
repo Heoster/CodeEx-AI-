@@ -229,12 +229,17 @@ export function SettingsDialog({
                       <SelectValue placeholder="Select voice" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Algenib">Algenib (Female)</SelectItem>
-                      <SelectItem value="Achernar">Achernar (Female)</SelectItem>
-                      <SelectItem value="Enceladus">Enceladus (Male)</SelectItem>
-                      <SelectItem value="Heka">Heka (Male)</SelectItem>
+                      <SelectItem value="troy">Troy (Balanced)</SelectItem>
+                      <SelectItem value="diana">Diana (Professional)</SelectItem>
+                      <SelectItem value="hannah">Hannah (Warm)</SelectItem>
+                      <SelectItem value="autumn">Autumn (Gentle)</SelectItem>
+                      <SelectItem value="austin">Austin (Energetic)</SelectItem>
+                      <SelectItem value="daniel">Daniel (Commanding)</SelectItem>
                     </SelectContent>
                   </Select>
+                  <p className="text-xs text-muted-foreground">
+                    Powered by Groq Orpheus TTS
+                  </p>
                 </div>
               </CardContent>
             </Card>

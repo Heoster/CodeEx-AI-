@@ -51,7 +51,7 @@ const defaultSettings: Settings = {
   tone: 'helpful',
   technicalLevel: 'intermediate',
   enableSpeech: true,
-  voice: 'Algenib',
+  voice: 'troy',
 };
 
 export function ChatLayout() {
@@ -77,6 +77,14 @@ export function ChatLayout() {
   );
   const [isClearHistoryAlertOpen, setIsClearHistoryAlertOpen] = useState(false);
   const auth = getAuth();
+
+  // Auto-create new chat when user logs in or app restarts
+  useEffect(() => {
+    if (user && chats.length === 0) {
+      console.log('[ChatLayout] Auto-creating new chat for user');
+      createNewChat();
+    }
+  }, [user, chats.length, createNewChat]);
 
   const handleSignOut = async () => {
     await signOut(auth);
@@ -171,9 +179,9 @@ export function ChatLayout() {
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild className="h-9">
-                  <Link href="/user-management" className="gap-3">
+                  <Link href="/account" className="gap-3">
                     <User className="h-4 w-4" />
-                    <span>User Management</span>
+                    <span>Account</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

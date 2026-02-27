@@ -1,6 +1,6 @@
 /**
  * Text-to-Speech API
- * Uses Groq PlayAI TTS with fallback chain
+ * Uses Groq Orpheus TTS with fallback chain
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
     // Use unified voice service with fallback chain
     const voiceService = getUnifiedVoiceService();
     const result = await voiceService.textToSpeech(text, {
-      voice: voice || 'alloy',
+      voice: voice || 'troy', // Default to troy for Orpheus
       speed: speed || 1.0,
     });
 
@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
       audio: base64Audio,
       provider: result.provider,
       model: result.model,
-      contentType: 'audio/mp3',
+      contentType: 'audio/wav', // Orpheus uses WAV format
     });
   } catch (error) {
     console.error('TTS error:', error);
@@ -70,15 +70,15 @@ export async function GET(request: NextRequest) {
   try {
     const voiceService = getUnifiedVoiceService();
     const result = await voiceService.textToSpeech(text, {
-      voice: voice || 'alloy',
+      voice: voice || 'troy',
       speed: 1.0,
     });
 
     // Return audio directly
     return new NextResponse(result.audio, {
       headers: {
-        'Content-Type': 'audio/mp3',
-        'Content-Disposition': 'inline; filename="speech.mp3"',
+        'Content-Type': 'audio/wav',
+        'Content-Disposition': 'inline; filename="speech.wav"',
       },
     });
   } catch (error) {

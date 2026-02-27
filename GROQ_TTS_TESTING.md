@@ -1,8 +1,8 @@
-# Groq PlayAI TTS Testing Guide
+# Groq Orpheus TTS Testing Guide
 
 ## Overview
 
-This guide explains how to test the Groq PlayAI Text-to-Speech (TTS) service used in CodeEx AI.
+This guide explains how to test the Groq Orpheus Text-to-Speech (TTS) service from Canopy Labs used in CodeEx AI.
 
 ## Prerequisites
 
@@ -21,9 +21,9 @@ npm run test:tts:quick
 ```
 
 This will:
-- Test the `alloy` voice
+- Test the `troy` voice (default)
 - Generate a short audio sample
-- Save the MP3 file to `test-output/`
+- Save the WAV file to `test-output/`
 - Show performance metrics
 
 ### 2. Full Test Suite
@@ -35,10 +35,10 @@ npm run test:tts
 ```
 
 This tests:
-- All 6 voices (alloy, echo, fable, onyx, nova, shimmer)
+- All 6 voices (troy, diana, hannah, autumn, austin, daniel)
 - Different speeds (0.5x, 1.0x, 1.5x)
 - Long text handling
-- Special characters
+- Vocal directions ([cheerful], [serious], etc.)
 
 ### 3. Full Test with Audio Files
 
@@ -55,12 +55,12 @@ Audio files will be saved to `test-output/` directory.
 The test suite includes 10 comprehensive test cases:
 
 ### Voice Tests
-1. **Alloy Voice** - Default, balanced voice
-2. **Echo Voice** - Clear, professional voice
-3. **Fable Voice** - Storytelling voice
-4. **Onyx Voice** - Deep, authoritative voice
-5. **Nova Voice** - Energetic voice
-6. **Shimmer Voice** - Soft, gentle voice
+1. **Troy Voice** - Default, balanced voice
+2. **Diana Voice** - Professional, authoritative voice
+3. **Hannah Voice** - Warm, expressive voice
+4. **Autumn Voice** - Soft, gentle voice
+5. **Austin Voice** - Energetic, bright voice
+6. **Daniel Voice** - Deep, commanding voice
 
 ### Speed Tests
 7. **Slow Speed (0.5x)** - Half speed for clarity
@@ -68,7 +68,7 @@ The test suite includes 10 comprehensive test cases:
 
 ### Content Tests
 9. **Long Text** - Tests extended content handling
-10. **Special Characters** - Tests numbers and punctuation
+10. **Vocal Directions** - Tests emotional cues like [cheerful], [serious]
 
 ## Command Options
 
@@ -123,15 +123,15 @@ The test script provides detailed console output:
 
 ```
 ╔════════════════════════════════════════════════╗
-║   Groq PlayAI TTS Testing Suite               ║
+║   Groq Orpheus TTS Testing Suite              ║
 ╚════════════════════════════════════════════════╝
 
 ✓ API Key found
 Running 10 tests...
 
-Testing: Basic Test - Alloy Voice
-  Text: "Hello! This is a test of Groq PlayAI text to speech."
-  Voice: alloy
+Testing: Basic Test - Troy Voice
+  Text: "Hello! This is a test of Groq Orpheus text to speech."
+  Voice: troy
   Speed: 1.0x
   ✓ Success
   Duration: 1234ms
@@ -152,12 +152,12 @@ Performance Metrics:
   Average Audio Size: 42.50 KB
 
 Voice Comparison:
-  alloy: 4 tests, 1150ms avg, 40.25 KB avg
-  echo: 1 tests, 1200ms avg, 43.00 KB avg
-  fable: 1 tests, 1250ms avg, 44.50 KB avg
-  onyx: 1 tests, 1180ms avg, 41.75 KB avg
-  nova: 1 tests, 1220ms avg, 42.80 KB avg
-  shimmer: 1 tests, 1190ms avg, 42.20 KB avg
+  troy: 4 tests, 1150ms avg, 40.25 KB avg
+  diana: 1 tests, 1200ms avg, 43.00 KB avg
+  hannah: 1 tests, 1250ms avg, 44.50 KB avg
+  autumn: 1 tests, 1180ms avg, 41.75 KB avg
+  austin: 1 tests, 1220ms avg, 42.80 KB avg
+  daniel: 1 tests, 1190ms avg, 42.20 KB avg
 
 ═══════════════════════════════════════════════
 ```
@@ -168,45 +168,45 @@ When using `--save` flag, audio files are saved to `test-output/`:
 
 ```
 test-output/
-├── groq-tts-alloy-1.0x-1234567890.mp3
-├── groq-tts-echo-1.0x-1234567891.mp3
-├── groq-tts-fable-1.0x-1234567892.mp3
+├── groq-orpheus-troy-1.0x-1234567890.wav
+├── groq-orpheus-diana-1.0x-1234567891.wav
+├── groq-orpheus-hannah-1.0x-1234567892.wav
 └── ...
 ```
 
-File naming format: `groq-tts-{voice}-{speed}x-{timestamp}.mp3`
+File naming format: `groq-orpheus-{voice}-{speed}x-{timestamp}.wav`
 
 ## Voice Characteristics
 
-### Alloy (Default)
+### Troy (Default)
 - **Best for:** General purpose, balanced
-- **Tone:** Neutral, clear
+- **Tone:** Clear, neutral
 - **Use case:** Default voice for most content
 
-### Echo
+### Diana
 - **Best for:** Professional content
-- **Tone:** Clear, authoritative
+- **Tone:** Authoritative, confident
 - **Use case:** Business, educational content
 
-### Fable
-- **Best for:** Storytelling
+### Hannah
+- **Best for:** Warm communication
 - **Tone:** Expressive, engaging
-- **Use case:** Stories, narratives
+- **Use case:** Stories, friendly content
 
-### Onyx
-- **Best for:** Serious content
-- **Tone:** Deep, authoritative
-- **Use case:** News, formal announcements
+### Autumn
+- **Best for:** Gentle content
+- **Tone:** Soft, soothing
+- **Use case:** Meditation, calm content
 
-### Nova
+### Austin
 - **Best for:** Energetic content
 - **Tone:** Bright, enthusiastic
 - **Use case:** Marketing, upbeat content
 
-### Shimmer
-- **Best for:** Gentle content
-- **Tone:** Soft, soothing
-- **Use case:** Meditation, calm content
+### Daniel
+- **Best for:** Commanding presence
+- **Tone:** Deep, powerful
+- **Use case:** Announcements, serious content
 
 ## Speed Settings
 
@@ -214,6 +214,21 @@ File naming format: `groq-tts-{voice}-{speed}x-{timestamp}.mp3`
 - **Default:** 1.0x (normal)
 - **Maximum:** 4.0x (very fast)
 - **Recommended:** 0.5x - 1.5x for best quality
+
+## Vocal Directions
+
+Orpheus supports emotional cues directly in text:
+
+```typescript
+const text = '[cheerful] Welcome to CodeEx! [serious] This is important.';
+```
+
+Available directions:
+- `[cheerful]` - Happy, upbeat tone
+- `[serious]` - Formal, grave tone
+- `[whisper]` - Quiet, intimate tone
+- `[excited]` - Energetic, enthusiastic tone
+- `[sad]` - Melancholic tone
 
 ## Troubleshooting
 
@@ -227,6 +242,14 @@ File naming format: `groq-tts-{voice}-{speed}x-{timestamp}.mp3`
 ```env
 GROQ_API_KEY=gsk_your_api_key_here
 ```
+
+### Model Not Found Error
+
+```
+✗ Failed: API Error 404: model not found
+```
+
+**Solution:** Ensure you're using the correct model name: `canopylabs/orpheus-v1-english`
 
 ### API Error 401
 
@@ -261,8 +284,9 @@ Based on typical test results:
 | Average Generation Time | 1.0 - 1.5 seconds |
 | Average Audio Size | 40 - 50 KB |
 | Supported Text Length | Up to 4096 characters |
-| Voices Available | 6 |
+| Voices Available | 6 (troy, diana, hannah, autumn, austin, daniel) |
 | Speed Range | 0.25x - 4.0x |
+| Audio Format | WAV |
 
 ## Integration with CodeEx
 
@@ -281,19 +305,37 @@ curl -X POST http://localhost:3000/api/tts \
   -H "Content-Type: application/json" \
   -d '{
     "text": "Hello, this is a test",
-    "voice": "alloy",
+    "voice": "troy",
     "speed": 1.0
   }'
+```
+
+## Direct Groq API Testing
+
+Test the Groq API directly:
+
+```bash
+curl https://api.groq.com/openai/v1/audio/speech \
+  -H "Authorization: Bearer $GROQ_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "canopylabs/orpheus-v1-english",
+    "input": "Hello from Orpheus!",
+    "voice": "troy",
+    "response_format": "wav"
+  }' \
+  --output test.wav
 ```
 
 ## Best Practices
 
 1. **Test Before Deployment** - Always test TTS before deploying
 2. **Monitor Performance** - Track generation times and audio quality
-3. **Use Appropriate Voices** - Match voice to content type
+3. **Use Appropriate Voices** - Match voice to content type (Zeus for authority, Artemis for calm)
 4. **Optimize Speed** - Use 1.0x for best quality
 5. **Handle Errors** - Implement fallback chains
 6. **Cache Audio** - Consider caching for repeated phrases
+7. **Use Vocal Directions** - Add emotional cues for better expression
 
 ## Rate Limits
 
@@ -306,9 +348,10 @@ Groq API rate limits (free tier):
 
 1. Run the quick test to verify setup
 2. Test all voices to choose favorites
-3. Integrate into your application
-4. Monitor usage and performance
-5. Implement caching if needed
+3. Experiment with vocal directions
+4. Integrate into your application
+5. Monitor usage and performance
+6. Implement caching if needed
 
 ## Support
 
@@ -319,6 +362,8 @@ For issues or questions:
 
 ---
 
+**Model:** canopylabs/orpheus-v1-english  
+**Provider:** Canopy Labs via Groq  
 **Last Updated:** 2024  
 **Version:** 2.0.0  
 **Status:** Production Ready ✅

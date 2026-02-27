@@ -23,10 +23,22 @@ export function ChatMessages({
 }: ChatMessagesProps) {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
+  const prevMessagesLengthRef = useRef(messages.length);
 
   useEffect(() => {
+    // Auto-scroll when new messages are added or loading state changes
     if (viewportRef.current) {
-      viewportRef.current.scrollTop = viewportRef.current.scrollHeight;
+      const shouldScroll = messages.length > prevMessagesLengthRef.current || isLoading;
+      
+      if (shouldScroll) {
+        // Smooth scroll to bottom
+        viewportRef.current.scrollTo({
+          top: viewportRef.current.scrollHeight,
+          behavior: 'smooth'
+        });
+      }
+      
+      prevMessagesLengthRef.current = messages.length;
     }
   }, [messages, isLoading]);
 

@@ -192,7 +192,7 @@ We're privacy-first and GDPR compliant!`,
 1. **Voice Input:** Click the microphone button (🎤) to speak your question
 2. **Voice Output:** Click the speaker icon (🔊) on my responses to hear them
 
-I use Groq's Whisper for understanding speech and PlayAI for speaking. You can choose from 6 different voices in the settings!`,
+I use Groq's Whisper for understanding speech and Orpheus for speaking. You can choose from 6 different voices (troy, diana, hannah, autumn, austin, daniel) in the settings!`,
 
   howToGenerateImage: `I can generate images for you! Just describe what you want to see. For example:
 - "Generate an image of a futuristic city at night"

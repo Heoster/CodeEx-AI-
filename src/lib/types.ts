@@ -33,7 +33,7 @@ export type ModelId =
 // Alias for backward compatibility
 export type Model = ModelId;
 
-export type Voice = 'Algenib' | 'Enceladus' | 'Achernar' | 'Heka';
+export type Voice = 'troy' | 'diana' | 'hannah' | 'autumn' | 'austin' | 'daniel';
 
 // Model category type
 export type ModelCategory = 'general' | 'coding' | 'math' | 'conversation' | 'multimodal';

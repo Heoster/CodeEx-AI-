@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
- * Groq PlayAI TTS Testing Script
- * Tests the Groq Text-to-Speech service with various voices and options
+ * Groq Orpheus TTS Testing Script
+ * Tests the Groq Orpheus TTS service with various voices and options
  */
 
 require('dotenv').config({ path: '.env.local' });
@@ -19,67 +19,71 @@ const colors = {
 
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 const BASE_URL = 'https://api.groq.com/openai/v1/audio/speech';
+const MODEL = 'canopylabs/orpheus-v1-english'; // Groq uses Orpheus TTS
+
+// Available voices for Orpheus English
+const AVAILABLE_VOICES = ['autumn', 'diana', 'hannah', 'austin', 'daniel', 'troy'];
 
 // Test configurations
 const TEST_CASES = [
   {
-    name: 'Basic Test - Alloy Voice',
-    text: 'Hello! This is a test of Groq PlayAI text to speech.',
-    voice: 'alloy',
+    name: 'Basic Test - Troy Voice',
+    text: 'Hello! This is a test of Groq Orpheus text to speech.',
+    voice: 'troy',
     speed: 1.0,
   },
   {
-    name: 'Echo Voice',
-    text: 'Testing the echo voice with Groq PlayAI.',
-    voice: 'echo',
+    name: 'Diana Voice',
+    text: 'Testing the Diana voice with Groq Orpheus.',
+    voice: 'diana',
     speed: 1.0,
   },
   {
-    name: 'Fable Voice',
-    text: 'Once upon a time, in a land far away.',
-    voice: 'fable',
+    name: 'Hannah Voice',
+    text: 'This is the Hannah voice speaking clearly.',
+    voice: 'hannah',
     speed: 1.0,
   },
   {
-    name: 'Onyx Voice',
-    text: 'This is the onyx voice speaking.',
-    voice: 'onyx',
+    name: 'Autumn Voice',
+    text: 'Autumn voice test with Groq Orpheus.',
+    voice: 'autumn',
     speed: 1.0,
   },
   {
-    name: 'Nova Voice',
-    text: 'Nova voice test with Groq PlayAI.',
-    voice: 'nova',
+    name: 'Austin Voice',
+    text: 'Austin voice test for text to speech.',
+    voice: 'austin',
     speed: 1.0,
   },
   {
-    name: 'Shimmer Voice',
-    text: 'Shimmer voice test for text to speech.',
-    voice: 'shimmer',
+    name: 'Daniel Voice',
+    text: 'Daniel voice test with expressive speech.',
+    voice: 'daniel',
     speed: 1.0,
   },
   {
     name: 'Speed Test - Slow (0.5x)',
     text: 'This is a slow speed test.',
-    voice: 'alloy',
+    voice: 'troy',
     speed: 0.5,
   },
   {
     name: 'Speed Test - Fast (1.5x)',
     text: 'This is a fast speed test.',
-    voice: 'alloy',
+    voice: 'troy',
     speed: 1.5,
   },
   {
     name: 'Long Text Test',
-    text: 'This is a longer text to test how Groq PlayAI handles extended content. It includes multiple sentences and should demonstrate the quality of the text to speech synthesis over a longer duration.',
-    voice: 'alloy',
+    text: 'This is a longer text to test how Groq Orpheus handles extended content. It includes multiple sentences and should demonstrate the quality of the text to speech synthesis over a longer duration.',
+    voice: 'troy',
     speed: 1.0,
   },
   {
-    name: 'Special Characters Test',
-    text: 'Testing numbers: 1, 2, 3. Punctuation: Hello! How are you? Great.',
-    voice: 'alloy',
+    name: 'Vocal Directions Test',
+    text: '[cheerful] Welcome to Groq Orpheus! [serious] This demonstrates vocal direction support.',
+    voice: 'troy',
     speed: 1.0,
   },
 ];
@@ -105,11 +109,11 @@ async function testGroqTTS(testCase, saveAudio = false) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'playai-tts-1.0',
+        model: MODEL,
         input: text,
         voice: voice,
         speed: speed,
-        response_format: 'mp3',
+        response_format: 'wav', // Orpheus uses WAV format
       }),
     });
 
@@ -134,7 +138,7 @@ async function testGroqTTS(testCase, saveAudio = false) {
         fs.mkdirSync(outputDir, { recursive: true });
       }
 
-      const filename = `groq-tts-${voice}-${speed}x-${Date.now()}.mp3`;
+      const filename = `groq-orpheus-${voice}-${speed}x-${Date.now()}.wav`;
       const filepath = path.join(outputDir, filename);
       fs.writeFileSync(filepath, Buffer.from(audioBuffer));
       console.log(`  ${colors.blue}Saved: ${filename}${colors.reset}`);
@@ -165,7 +169,7 @@ async function testGroqTTS(testCase, saveAudio = false) {
  */
 async function runAllTests() {
   console.log(`${colors.cyan}╔════════════════════════════════════════════════╗${colors.reset}`);
-  console.log(`${colors.cyan}║   Groq PlayAI TTS Testing Suite               ║${colors.reset}`);
+  console.log(`${colors.cyan}║   Groq Orpheus TTS Testing Suite              ║${colors.reset}`);
   console.log(`${colors.cyan}╚════════════════════════════════════════════════╝${colors.reset}`);
 
   // Check API key
@@ -259,8 +263,8 @@ async function quickTest() {
 
   const result = await testGroqTTS({
     name: 'Quick Test',
-    text: 'Hello! This is a quick test of Groq PlayAI text to speech.',
-    voice: 'alloy',
+    text: 'Hello! This is a quick test of Groq Orpheus text to speech.',
+    voice: 'troy',
     speed: 1.0,
   }, true);
 
@@ -279,7 +283,7 @@ const args = process.argv.slice(2);
 
 if (args.includes('--help') || args.includes('-h')) {
   console.log(`
-${colors.cyan}Groq PlayAI TTS Testing Script${colors.reset}
+${colors.cyan}Groq Orpheus TTS Testing Script${colors.reset}
 
 Usage:
   node scripts/test-groq-tts.js [options]
@@ -294,15 +298,19 @@ Examples:
   node scripts/test-groq-tts.js --save
   node scripts/test-groq-tts.js --quick --save
 
+Model: canopylabs/orpheus-v1-english
+
 Available Voices:
-  - alloy (default)
-  - echo
-  - fable
-  - onyx
-  - nova
-  - shimmer
+  - troy (default) - Balanced, clear voice
+  - diana - Professional, authoritative
+  - hannah - Warm, expressive
+  - autumn - Soft, gentle
+  - austin - Energetic, bright
+  - daniel - Deep, commanding
 
 Speed Range: 0.25 to 4.0 (default: 1.0)
+
+Vocal Directions: Use [cheerful], [serious], [whisper], etc. in text
   `);
   process.exit(0);
 }

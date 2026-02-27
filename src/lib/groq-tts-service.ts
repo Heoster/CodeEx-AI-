@@ -1,7 +1,7 @@
 /**
- * Groq PlayAI TTS Service
- * Primary TTS using Groq's PlayAI TTS model
- * Fallback chain: Groq PlayAI → ElevenLabs → Browser TTS
+ * Groq Orpheus TTS Service
+ * Primary TTS using Groq's Orpheus TTS model from Canopy Labs
+ * Fallback chain: Groq Orpheus → ElevenLabs → Browser TTS
  */
 
 export interface TTSOptions {
@@ -17,19 +17,20 @@ export interface TTSResult {
 }
 
 /**
- * Groq PlayAI TTS Service
+ * Groq Orpheus TTS Service
  */
 export class GroqTTSService {
   private readonly baseUrl = 'https://api.groq.com/openai/v1/audio/speech';
+  private readonly model = 'canopylabs/orpheus-v1-english';
   
   /**
-   * Generate speech using Groq PlayAI TTS
+   * Generate speech using Groq Orpheus TTS
    */
   async generateSpeech(text: string, options?: TTSOptions): Promise<TTSResult> {
-    const { voice = 'alloy', speed = 1.0 } = options || {};
+    const { voice = 'troy', speed = 1.0 } = options || {};
 
     try {
-      console.log('[Groq TTS] Generating speech with PlayAI...');
+      console.log('[Groq TTS] Generating speech with Orpheus...');
 
       const response = await fetch(this.baseUrl, {
         method: 'POST',
@@ -38,11 +39,11 @@ export class GroqTTSService {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          model: 'playai-tts-1.0',
+          model: this.model,
           input: text,
           voice: voice,
           speed: speed,
-          response_format: 'mp3',
+          response_format: 'wav',
         }),
       });
 
@@ -57,7 +58,7 @@ export class GroqTTSService {
       return {
         audio,
         provider: 'groq',
-        model: 'playai-tts-1.0',
+        model: this.model,
       };
     } catch (error) {
       console.error('[Groq TTS] Failed:', error);
