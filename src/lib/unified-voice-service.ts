@@ -47,13 +47,21 @@ export class UnifiedVoiceService {
    * Fallback 2: Browser TTS
    */
   async textToSpeech(text: string, options?: TTSOptions): Promise<TTSResult> {
+    console.log('[Unified Voice] TTS request:', { text: text.substring(0, 50), options });
+    
     // Try Groq Orpheus first
-    if (this.groqTTS.isAvailable()) {
+    const groqAvailable = this.groqTTS.isAvailable();
+    console.log('[Unified Voice] Groq TTS available:', groqAvailable);
+    
+    if (groqAvailable) {
       try {
+        console.log('[Unified Voice] Attempting Groq TTS...');
         return await this.groqTTS.generateSpeech(text, options);
       } catch (error) {
         console.warn('[Unified Voice] Groq TTS failed, trying ElevenLabs:', error);
       }
+    } else {
+      console.log('[Unified Voice] Groq TTS not available, skipping to fallback');
     }
 
     // Try ElevenLabs

@@ -70,7 +70,12 @@ export class GroqTTSService {
    * Check if Groq TTS is available
    */
   isAvailable(): boolean {
-    return !!process.env.GROQ_API_KEY;
+    const available = !!process.env.GROQ_API_KEY;
+    console.log('[Groq TTS] isAvailable check:', {
+      hasKey: available,
+      keyPrefix: process.env.GROQ_API_KEY?.substring(0, 10),
+    });
+    return available;
   }
 }
 

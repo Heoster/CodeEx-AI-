@@ -1,9 +1,8 @@
 /**
  * Hybrid TTS System
- * Fallback chain: Groq PlayAI → ElevenLabs → Edge TTS → Browser TTS
+ * Fallback chain: Groq Orpheus → Edge TTS → Browser TTS
  */
 
-import { getUnifiedVoiceService } from './unified-voice-service';
 import { edgeTTS } from './edge-tts';
 import { browserTTS } from './browser-tts';
 
@@ -16,12 +15,11 @@ export interface HybridTTSOptions {
   onStart?: () => void;
   onEnd?: () => void;
   onError?: (error: string) => void;
-  preferEdgeTTS?: boolean; // Deprecated, now uses Groq PlayAI first
+  preferEdgeTTS?: boolean; // Deprecated, now uses Groq Orpheus first
 }
 
 class HybridTTS {
   private audioElement: HTMLAudioElement | null = null;
-  private voiceService = getUnifiedVoiceService();
 
   /**
    * Check if any TTS is available
@@ -32,26 +30,44 @@ class HybridTTS {
 
   /**
    * Speak text using the best available TTS
-   * Chain: Groq PlayAI → ElevenLabs → Edge TTS → Browser TTS
+   * Chain: Groq Orpheus → Edge TTS → Browser TTS
    */
   async speak(options: HybridTTSOptions): Promise<void> {
     options.onStart?.();
 
     try {
-      // Try Groq PlayAI or ElevenLabs (handled by unified service)
-      const result = await this.voiceService.textToSpeech(options.text, {
-        voice: options.voice,
-        speed: options.rate,
-        pitch: options.pitch,
+      // Try Groq Orpheus via API route (server-side)
+      console.log('[Hybrid TTS] Calling /api/tts with voice:', options.voice);
+      const response = await fetch('/api/tts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: options.text,
+          voice: options.voice || 'troy',
+          speed: options.rate || 1.0,
+        }),
       });
 
-      if (result.provider !== 'browser' && result.audio.byteLength > 0) {
-        // Play audio from Groq or ElevenLabs
-        await this.playAudio(result.audio, options);
-        return;
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success && data.audio) {
+          console.log('[Hybrid TTS] Groq TTS successful, provider:', data.provider);
+          // Convert base64 to ArrayBuffer
+          const binaryString = atob(data.audio);
+          const bytes = new Uint8Array(binaryString.length);
+          for (let i = 0; i < binaryString.length; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+          }
+          await this.playAudio(bytes.buffer, options, data.contentType || 'audio/wav');
+          return;
+        }
       }
+      
+      console.warn('[Hybrid TTS] API TTS failed, trying Edge TTS');
     } catch (error) {
-      console.warn('[Hybrid TTS] API TTS failed, trying Edge TTS:', error);
+      console.warn('[Hybrid TTS] API TTS error, trying Edge TTS:', error);
     }
 
     // Try Edge TTS
@@ -83,10 +99,10 @@ class HybridTTS {
   /**
    * Play audio from ArrayBuffer
    */
-  private async playAudio(audioData: ArrayBuffer, options: HybridTTSOptions): Promise<void> {
+  private async playAudio(audioData: ArrayBuffer, options: HybridTTSOptions, contentType: string = 'audio/wav'): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        const blob = new Blob([audioData], { type: 'audio/mpeg' });
+        const blob = new Blob([audioData], { type: contentType });
         const url = URL.createObjectURL(blob);
 
         this.audioElement = new Audio(url);
@@ -157,14 +173,14 @@ class HybridTTS {
   getVoices(): Array<{id: string; name: string; source: 'groq' | 'elevenlabs' | 'edge' | 'browser'}> {
     const voices: Array<{id: string; name: string; source: 'groq' | 'elevenlabs' | 'edge' | 'browser'}> = [];
 
-    // Add Groq PlayAI voices
+    // Add Groq Orpheus voices
     voices.push(
-      { id: 'alloy', name: 'Alloy (Groq PlayAI)', source: 'groq' },
-      { id: 'echo', name: 'Echo (Groq PlayAI)', source: 'groq' },
-      { id: 'fable', name: 'Fable (Groq PlayAI)', source: 'groq' },
-      { id: 'onyx', name: 'Onyx (Groq PlayAI)', source: 'groq' },
-      { id: 'nova', name: 'Nova (Groq PlayAI)', source: 'groq' },
-      { id: 'shimmer', name: 'Shimmer (Groq PlayAI)', source: 'groq' }
+      { id: 'troy', name: 'Troy (Groq Orpheus)', source: 'groq' },
+      { id: 'diana', name: 'Diana (Groq Orpheus)', source: 'groq' },
+      { id: 'hannah', name: 'Hannah (Groq Orpheus)', source: 'groq' },
+      { id: 'autumn', name: 'Autumn (Groq Orpheus)', source: 'groq' },
+      { id: 'austin', name: 'Austin (Groq Orpheus)', source: 'groq' },
+      { id: 'daniel', name: 'Daniel (Groq Orpheus)', source: 'groq' }
     );
 
     // Add Edge TTS voices
