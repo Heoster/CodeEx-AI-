@@ -1,1 +1,3 @@
-# Force clean build
+# Force clean build - Updated 2026-02-27 14:30
+# Build ID: 3a09764
+# This forces Netlify to clear cache and rebuild from scratch
