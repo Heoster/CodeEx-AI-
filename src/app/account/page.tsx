@@ -54,7 +54,7 @@ const defaultSettings: Settings = {
   model: 'auto',
   tone: 'helpful',
   technicalLevel: 'intermediate',
-  enableSpeech: true,
+  enableSpeech: false,
   voice: 'troy',
 };
 
