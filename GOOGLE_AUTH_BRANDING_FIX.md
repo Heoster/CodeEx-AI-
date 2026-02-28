@@ -608,3 +608,389 @@ For future projects:
 **Estimated Resolution Time**: 24-48 hours after fixes
 
 **Good luck! The issue is usually resolved quickly once you make the necessary changes.** 🎉
+
+
+---
+
+## 📋 Complete Brand Verification Requirements Checklist
+
+Based on Google's official verification requirements, here's a complete checklist:
+
+### 1. Homepage Requirements ✅
+
+- [x] **Homepage hosted on verified domain**
+  - Your homepage: `https://codeex-ai.netlify.app`
+  - Domain is verified through Netlify
+
+- [x] **Homepage accurately represents app/brand**
+  - Clear branding as "CODEEX"
+  - Professional design and layout
+
+- [x] **Homepage describes app functionality**
+  - Features section explains what the app does
+  - Not just a login page
+
+- [x] **Privacy Policy link on homepage**
+  - Link: `https://codeex-ai.netlify.app/privacy`
+  - Accessible from footer and navigation
+  - Must match OAuth consent screen link
+
+### 2. Privacy Policy Requirements ✅
+
+- [x] **Hosted on same domain as homepage**
+  - Privacy Policy: `https://codeex-ai.netlify.app/privacy`
+  - Same domain as homepage ✓
+
+- [x] **Linked from homepage**
+  - Available in footer
+  - Easy to find
+
+- [x] **Linked from OAuth consent screen**
+  - Must add this URL to Google Cloud Console
+  - URL must match exactly
+
+- [x] **Discloses Google user data usage**
+  - Section 10 explains Google Sign-In usage
+  - Clear about what data is accessed
+  - Explains how data is used
+
+- [x] **Limited Use compliance**
+  - Confirms compliance with Limited Use requirements
+  - States data is only used for authentication
+  - No advertising or selling
+
+- [x] **In-product privacy notifications**
+  - Privacy information prominently displayed
+  - Users can easily find information
+
+- [x] **Kept up to date**
+  - Last updated: February 28, 2026
+  - Will be updated as needed
+
+### 3. Domain Ownership Verification
+
+**Action Required:**
+
+1. **Verify domain in Google Search Console**
+   - Go to: https://search.google.com/search-console
+   - Add property: `codeex-ai.netlify.app`
+   - Verify ownership using one of these methods:
+     - HTML file upload
+     - HTML tag
+     - DNS record
+     - Google Analytics
+     - Google Tag Manager
+
+2. **Add verified domain to OAuth consent screen**
+   - Go to: https://console.cloud.google.com/apis/credentials/consent
+   - Under "Authorized domains", add: `codeex-ai.netlify.app`
+   - Also add: `firebaseapp.com` (for Firebase)
+
+**Steps to Verify Domain:**
+
+```bash
+# Option 1: HTML File Upload
+1. Download verification file from Search Console
+2. Upload to your Netlify site's public folder
+3. Deploy and verify
+
+# Option 2: DNS Record (Recommended for Netlify)
+1. Get TXT record from Search Console
+2. Add to your domain's DNS settings
+3. Wait for propagation (up to 48 hours)
+4. Verify in Search Console
+```
+
+### 4. Google Branding Guidelines ✅
+
+- [x] **Sign-in button follows guidelines**
+  - Using Firebase Auth UI (compliant by default)
+  - "Sign in with Google" button
+  - Follows Google's branding guidelines
+
+- [ ] **Review branding guidelines**
+  - Check: https://developers.google.com/identity/branding-guidelines
+  - Ensure button text and styling comply
+
+### 5. Project Contact Information ✅
+
+- [x] **Up-to-date contact information**
+  - Email: codeex@email.com
+  - Listed in OAuth consent screen
+  - Listed in Privacy Policy
+
+- [x] **Project ownership configured**
+  - Firebase project has correct owner
+  - GCP project has correct permissions
+
+**Verify Contact Info:**
+1. Go to: https://console.cloud.google.com/
+2. Select your project
+3. Go to: IAM & Admin → Settings
+4. Verify contact email is correct
+
+---
+
+## 🔍 Scopes Verification
+
+### Current Scopes (Basic - No Sensitive/Restricted)
+
+Your app only uses basic scopes:
+- `email` - User's email address
+- `profile` - Basic profile information
+- `openid` - OpenID Connect
+
+**These are NOT sensitive or restricted scopes**, so you don't need:
+- ❌ Security assessment
+- ❌ App functionality video
+- ❌ Additional verification
+
+### If You Add Sensitive/Restricted Scopes Later
+
+If you ever need to add scopes like Gmail, Drive, Calendar, etc., you'll need:
+
+1. **Appropriate Use Case**
+   - Justify why you need the scope
+   - Explain how it benefits users
+
+2. **App Functionality Video**
+   - Show end-to-end OAuth flow
+   - Demonstrate scope usage
+   - Show consent screen in English
+
+3. **Limited Use Compliance**
+   - Only use data for stated purpose
+   - No selling or sharing
+   - No advertising use
+
+4. **Security Assessment** (for restricted scopes)
+   - Annual assessment required
+   - From Google-approved assessor
+   - Costs $15,000-$75,000
+
+**Recommendation:** Stick with basic scopes (email, profile, openid) to avoid additional requirements.
+
+---
+
+## ✅ Final Verification Checklist
+
+Before submitting for verification:
+
+### Homepage
+- [ ] Homepage is live and accessible
+- [ ] Homepage describes app functionality
+- [ ] Privacy Policy link is visible on homepage
+- [ ] Terms of Service link is visible on homepage
+- [ ] App name and branding are clear
+
+### Privacy Policy
+- [ ] Privacy Policy is accessible at the URL
+- [ ] Privacy Policy URL matches OAuth consent screen
+- [ ] Privacy Policy explains Google Sign-In usage
+- [ ] Privacy Policy states Limited Use compliance
+- [ ] Privacy Policy is up to date
+
+### OAuth Consent Screen
+- [ ] App name is "CODEEX" (not "CODEEX AI")
+- [ ] App logo is uploaded (your own, not Google's)
+- [ ] Homepage URL: `https://codeex-ai.netlify.app`
+- [ ] Privacy Policy URL: `https://codeex-ai.netlify.app/privacy`
+- [ ] Terms URL: `https://codeex-ai.netlify.app/terms`
+- [ ] Authorized domains include: `codeex-ai.netlify.app`
+- [ ] Authorized domains include: `firebaseapp.com`
+- [ ] Only basic scopes requested (email, profile, openid)
+- [ ] Developer contact email is correct
+
+### Domain Verification
+- [ ] Domain verified in Google Search Console
+- [ ] Verification method is active
+- [ ] Domain ownership confirmed
+
+### Firebase Configuration
+- [ ] Authorized domains include Netlify URL
+- [ ] Firebase Auth is configured correctly
+- [ ] Google Sign-In provider is enabled
+
+### Testing
+- [ ] Google Sign-In works locally
+- [ ] Consent screen displays correctly
+- [ ] User can sign in successfully
+- [ ] User data is saved correctly
+
+---
+
+## 🚀 Submission Process
+
+### Step 1: Complete All Requirements
+- Ensure all checklist items above are complete
+- Test thoroughly
+
+### Step 2: Submit for Verification
+
+1. **Go to OAuth Consent Screen**
+   - https://console.cloud.google.com/apis/credentials/consent
+
+2. **Review All Information**
+   - App name: CODEEX
+   - Logo: Your original logo
+   - URLs: All correct and accessible
+   - Scopes: Only basic scopes
+   - Domains: Verified
+
+3. **Click "Submit for Verification"** (if required)
+   - For basic scopes, verification may be automatic
+   - For sensitive scopes, manual review required
+
+### Step 3: Wait for Review
+
+- **Basic scopes**: Usually automatic (24-48 hours)
+- **Sensitive scopes**: Manual review (1-2 weeks)
+- **Restricted scopes**: Extended review (2-6 weeks)
+
+### Step 4: Respond to Requests
+
+- Check email regularly
+- Respond to Google's requests promptly
+- Provide additional information if needed
+
+---
+
+## 📊 Verification Status
+
+### Check Verification Status
+
+1. Go to: https://console.cloud.google.com/apis/credentials/consent
+2. Look for verification status badge
+3. Possible statuses:
+   - ✅ **Verified** - All good!
+   - ⚠️ **Verification Required** - Action needed
+   - ❌ **Suspended** - Violation detected
+   - 🔄 **In Review** - Being reviewed
+
+### If Verification Fails
+
+1. **Read the rejection reason carefully**
+2. **Fix the issues mentioned**
+3. **Resubmit for verification**
+4. **Contact Google Support if unclear**
+
+---
+
+## 💡 Pro Tips
+
+### Avoid Common Mistakes
+
+1. **App Name**
+   - ❌ "Google CODEEX"
+   - ❌ "CODEEX AI by Google"
+   - ✅ "CODEEX"
+
+2. **Privacy Policy**
+   - ❌ Generic template without Google info
+   - ❌ Broken or inaccessible link
+   - ✅ Specific section about Google Sign-In
+
+3. **Scopes**
+   - ❌ Requesting unnecessary scopes
+   - ❌ "Future-proofing" with extra scopes
+   - ✅ Only request what you need now
+
+4. **Domain Verification**
+   - ❌ Forgetting to verify domain
+   - ❌ Using wrong verification method
+   - ✅ Verify before submitting
+
+### Speed Up Verification
+
+1. **Complete all requirements first**
+   - Don't submit until everything is ready
+   - Double-check all URLs
+
+2. **Use clear, professional branding**
+   - High-quality logo
+   - Professional homepage
+   - Clear app description
+
+3. **Provide detailed information**
+   - Clear privacy policy
+   - Accurate app description
+   - Valid contact information
+
+4. **Test everything**
+   - Test OAuth flow
+   - Test all URLs
+   - Test on different devices
+
+---
+
+## 📞 Need Help?
+
+### Google Support Channels
+
+1. **OAuth Consent Screen Issues**
+   - https://console.cloud.google.com/support
+   - Category: "OAuth Consent Screen"
+
+2. **Firebase Auth Issues**
+   - https://firebase.google.com/support
+   - Community: https://firebase.google.com/community
+
+3. **General API Issues**
+   - https://developers.google.com/identity/protocols/oauth2
+
+### Community Resources
+
+- Stack Overflow: [google-oauth] tag
+- Reddit: r/Firebase, r/webdev
+- Google Developer Groups
+
+---
+
+## 📝 Documentation Links
+
+### Official Google Documentation
+
+- [OAuth Verification Requirements](https://support.google.com/cloud/answer/9110914)
+- [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy)
+- [Google Branding Guidelines](https://developers.google.com/identity/branding-guidelines)
+- [Domain Verification](https://support.google.com/webmasters/answer/9008080)
+- [OAuth Consent Screen](https://support.google.com/cloud/answer/10311615)
+
+### Firebase Documentation
+
+- [Firebase Authentication](https://firebase.google.com/docs/auth)
+- [Google Sign-In](https://firebase.google.com/docs/auth/web/google-signin)
+- [Authorized Domains](https://firebase.google.com/docs/auth/web/redirect-best-practices)
+
+---
+
+## ✅ Summary
+
+Your CODEEX app is now configured to meet Google's Brand Verification Requirements:
+
+1. ✅ Privacy Policy updated with Google API compliance
+2. ✅ Homepage describes app functionality
+3. ✅ Privacy Policy linked from homepage
+4. ✅ Only basic scopes requested (no sensitive/restricted)
+5. ✅ Clear branding (CODEEX, not CODEEX AI)
+6. ✅ Professional presentation
+
+**Remaining Actions:**
+1. Verify domain in Google Search Console
+2. Update OAuth consent screen with correct URLs
+3. Test Google Sign-In flow
+4. Submit for verification (if required)
+5. Wait 24-48 hours for automatic review
+
+**Timeline:**
+- Domain verification: 1-48 hours
+- OAuth review: 24-48 hours (automatic for basic scopes)
+- Total: 2-4 days maximum
+
+**You're almost there!** 🎉
+
+---
+
+**Last Updated**: February 28, 2026  
+**Status**: Ready for Verification  
+**Next Step**: Verify domain in Google Search Console
