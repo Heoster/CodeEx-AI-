@@ -7,7 +7,7 @@ const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
 const CONTACT_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
 const WELCOME_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_WELCOME_TEMPLATE_ID;
 const USER_ID = process.env.NEXT_PUBLIC_EMAILJS_USER_ID;
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://codeex-ai.netlify.app';
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://codeex-ai.vercel.app';
 
 export interface ContactEmailParams {
   user_name: string;

@@ -29,13 +29,13 @@ interface SocialShareProps {
 }
 
 export function SocialShare({
-  url = typeof window !== 'undefined' ? window.location.href : 'https://codeex-ai.netlify.app',
+  url = typeof window !== 'undefined' ? window.location.href : 'https://codeex-ai.vercel.app',
   title = '🚀 CODEEX AI - Free AI Chat with 21+ Models | ChatGPT Alternative',
   description = '✨ Try CODEEX AI - the best free AI assistant! Features: AI Chat, Code Generator, Image Creator, Math Solver, PDF Analyzer, Voice AI (Jarvis Mode). No signup needed! 🎯',
   hashtags = ['AI', 'ChatGPT', 'FreeAI', 'CodeGenerator', 'AIChat', 'ArtificialIntelligence', 'Coding', 'Programming', 'Tech', 'AITools'],
   via = 'codeexai',
   className = '',
-  image = 'https://codeex-ai.netlify.app/images/og-image.png'
+  image = 'https://codeex-ai.vercel.app/images/og-image.png'
 }: SocialShareProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);

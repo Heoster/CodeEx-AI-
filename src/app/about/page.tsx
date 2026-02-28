@@ -104,7 +104,7 @@ export default function AboutUsPage() {
               name: DEVELOPER_INFO.education.school,
             },
             email: DEVELOPER_INFO.contact.email,
-            url: 'https://codeex-ai.netlify.app',
+            url: 'https://codeex-ai.vercel.app',
             image: '/harsh.png',
             description: `${DEVELOPER_INFO.name} is a ${DEVELOPER_INFO.age}-year-old developer and founder of CODEEX. Currently studying ${DEVELOPER_INFO.education.class} ${DEVELOPER_INFO.education.stream} at ${DEVELOPER_INFO.education.school}, he has built a free AI platform with ${DEVELOPER_INFO.projectStats.modelsIntegrated}+ models, reaching ${DEVELOPER_INFO.projectStats.countriesReached} countries with ${DEVELOPER_INFO.projectStats.dailyUsers} daily users.`,
             knowsAbout: DEVELOPER_INFO.skills.concat(DEVELOPER_INFO.aiTechnologies),

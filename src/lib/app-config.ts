@@ -5,10 +5,10 @@
 
 export const APP_CONFIG = {
   // Base URLs
-  BASE_URL: process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.netlify.app',
+  BASE_URL: process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app',
   API_BASE_URL: process.env.NEXT_PUBLIC_SITE_URL 
     ? `${process.env.NEXT_PUBLIC_SITE_URL}/api`
-    : 'https://codeex-ai.netlify.app/api',
+    : 'https://codeex-ai.vercel.app/api',
 
   // Feature Routes
   FEATURES: {
@@ -38,9 +38,9 @@ export const APP_CONFIG = {
 
   // Share URLs (for embedding)
   SHARE_URLS: {
-    chat: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.netlify.app'}/chat`,
-    smartNotes: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.netlify.app'}/smart-notes`,
-    mathSolver: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.netlify.app'}/math-solver`,
+    chat: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app'}/chat`,
+    smartNotes: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app'}/smart-notes`,
+    mathSolver: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app'}/math-solver`,
   },
 
   // App Metadata

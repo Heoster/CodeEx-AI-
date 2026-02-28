@@ -35,7 +35,7 @@ export function SEOHead({
   noindex = false,
   nofollow = false
 }: SEOHeadProps) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.netlify.app';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app';
   
   // Merge with defaults
   const seoTitle = templateTitle 

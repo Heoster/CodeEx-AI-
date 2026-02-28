@@ -12,7 +12,7 @@ services:
       - RATE_LIMIT_REQUESTS=100
       - RATE_LIMIT_WINDOW=60
       - MAX_TEXT_LENGTH=5000
-      - ALLOWED_ORIGINS=https://codeex-ai.netlify.app,https://codeex-ai.vercel.app
+      - ALLOWED_ORIGINS=https://codeex-ai.vercel.app,https://codeex-ai.vercel.app
       # - TTS_API_KEY=your_secret_key_here  # Uncomment to enable API key auth
     volumes:
       - ./cache:/app/cache

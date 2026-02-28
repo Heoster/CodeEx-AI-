@@ -20,7 +20,7 @@ export function middleware(request: NextRequest) {
     const origin = request.headers.get('origin');
     const allowedOrigins = [
       'http://localhost:3000',
-      'https://codeex-ai.netlify.app',
+      'https://codeex-ai.vercel.app',
       'https://codeex-ai.vercel.app',
     ];
     

@@ -5,7 +5,7 @@ import { MetadataRoute } from 'next';
  * Lists all public pages for search engines
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.netlify.app';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app';
   const currentDate = new Date().toISOString();
 
   return [

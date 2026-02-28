@@ -182,14 +182,14 @@ export function AISearchOptimization({
       ].join(', '),
       mainEntityOfPage: {
         '@type': 'WebPage',
-        '@id': typeof window !== 'undefined' ? window.location.href : 'https://codeex-ai.netlify.app'
+        '@id': typeof window !== 'undefined' ? window.location.href : 'https://codeex-ai.vercel.app'
       },
       publisher: {
         '@type': 'Organization',
         name: 'CODEEX AI',
         logo: {
           '@type': 'ImageObject',
-          url: 'https://codeex-ai.netlify.app/images/logo.png'
+          url: 'https://codeex-ai.vercel.app/images/logo.png'
         }
       },
       datePublished: '2024-01-01',

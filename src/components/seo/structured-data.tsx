@@ -57,7 +57,7 @@ export function StructuredData({ type, data }: StructuredDataProps) {
           name: 'CODEEX AI',
           logo: {
             '@type': 'ImageObject',
-            url: 'https://codeex-ai.netlify.app/images/logo.png'
+            url: 'https://codeex-ai.vercel.app/images/logo.png'
           }
         },
         datePublished: data?.publishedTime,

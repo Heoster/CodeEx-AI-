@@ -101,7 +101,7 @@ export default function APIDocsPage() {
             </CardHeader>
             <CardContent>
               <div className="bg-muted p-3 rounded-lg font-mono text-sm">
-                https://codeex-ai.netlify.app/api/v1
+                https://codeex-ai.vercel.app/api/v1
               </div>
               <p className="text-sm text-muted-foreground mt-2">
                 All API requests should be made to this base URL with the appropriate endpoint.
@@ -241,7 +241,7 @@ export default function APIDocsPage() {
           <CodeExampleCard
             title="JavaScript/Node.js"
             language="javascript"
-            code={`const response = await fetch('https://codeex-ai.netlify.app/api/v1/chat/completions', {
+            code={`const response = await fetch('https://codeex-ai.vercel.app/api/v1/chat/completions', {
   method: 'POST',
   headers: {
     'Authorization': 'Bearer YOUR_API_KEY',
@@ -265,7 +265,7 @@ console.log(data.data.content);`}
             language="python"
             code={`import requests
 
-url = "https://codeex-ai.netlify.app/api/v1/chat/completions"
+url = "https://codeex-ai.vercel.app/api/v1/chat/completions"
 headers = {
     "Authorization": "Bearer YOUR_API_KEY",
     "Content-Type": "application/json"
@@ -286,7 +286,7 @@ print(result["data"]["content"])`}
           <CodeExampleCard
             title="cURL"
             language="bash"
-            code={`curl -X POST https://codeex-ai.netlify.app/api/v1/chat/completions \\
+            code={`curl -X POST https://codeex-ai.vercel.app/api/v1/chat/completions \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{

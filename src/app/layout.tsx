@@ -30,7 +30,7 @@ if (typeof window === 'undefined') {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.netlify.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app'),
   title: defaultSEO.title,
   description: defaultSEO.description,
   keywords: defaultSEO.keywords,
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.netlify.app',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app',
     siteName: 'CODEEX',
     title: 'CODEEX - Free AI Chat with 35+ Models | Groq, Gemini, Cerebras, DeepSeek',
     description: `Free AI chat with 35+ models including Groq Llama 3.3 70B, Google Gemini 2.5, Cerebras Qwen 3 235B, DeepSeek R1. Chat, code, solve math, analyze PDFs. No signup required. 100% free forever.`,
@@ -96,10 +96,10 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.netlify.app',
+    canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app',
     languages: {
-      'en-US': process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.netlify.app',
-      'en-IN': process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.netlify.app',
+      'en-US': process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app',
+      'en-IN': process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app',
     },
   },
   category: 'technology',

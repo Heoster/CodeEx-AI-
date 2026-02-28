@@ -166,7 +166,7 @@ if (allChecks) {
   console.log('4. Copy ALL variables from your .env.local file');
   console.log('5. Add them to Netlify (see NETLIFY_ENV_SETUP.md for details)');
   console.log('6. Trigger new deployment');
-  console.log('7. Test at: https://codeex-ai.netlify.app');
+  console.log('7. Test at: https://codeex-ai.vercel.app');
   console.log('\n📖 See NETLIFY_ENV_SETUP.md for detailed instructions');
 } else {
   console.log('❌ Some checks failed!');

@@ -91,7 +91,7 @@ export default function InstallationPage() {
                   {
                     step: 1,
                     title: "Open CodeEx AI in Chrome",
-                    description: "Navigate to codeex-ai.netlify.app in your Chrome browser",
+                    description: "Navigate to codeex-ai.vercel.app in your Chrome browser",
                     tip: "Make sure you're using the latest version of Chrome"
                   },
                   {
@@ -200,7 +200,7 @@ export default function InstallationPage() {
                   {
                     step: 1,
                     title: "Open Safari",
-                    description: "Navigate to codeex-ai.netlify.app in Safari browser",
+                    description: "Navigate to codeex-ai.vercel.app in Safari browser",
                     tip: "Other browsers like Chrome won't work for PWA installation on iOS"
                   },
                   {
@@ -263,7 +263,7 @@ export default function InstallationPage() {
               <div className="space-y-3">
                 <h4 className="font-semibold">Automatic Prompt</h4>
                 <ol className="space-y-2 text-sm text-muted-foreground">
-                  <li>1. Visit codeex-ai.netlify.app in Chrome/Edge</li>
+                  <li>1. Visit codeex-ai.vercel.app in Chrome/Edge</li>
                   <li>2. Look for the install icon in the address bar</li>
                   <li>3. Click the install button</li>
                   <li>4. Confirm installation</li>
@@ -317,7 +317,7 @@ export default function InstallationPage() {
               problem="Installed app won't open?"
               solutions={[
                 "Try uninstalling and reinstalling the app",
-                "Clear browser data for codeex-ai.netlify.app",
+                "Clear browser data for codeex-ai.vercel.app",
                 "Check your internet connection",
                 "Restart your device"
               ]}

@@ -44,25 +44,25 @@ export default function DocsHomePage() {
             <div className="text-left">
               <span className="font-medium">Main App:</span>
               <code className="ml-2 px-2 py-1 bg-background rounded text-xs">
-                https://codeex-ai.netlify.app
+                https://codeex-ai.vercel.app
               </code>
             </div>
             <div className="text-left">
               <span className="font-medium">Chat Interface:</span>
               <code className="ml-2 px-2 py-1 bg-background rounded text-xs">
-                https://codeex-ai.netlify.app/chat
+                https://codeex-ai.vercel.app/chat
               </code>
             </div>
             <div className="text-left">
               <span className="font-medium">Smart Notes Pro:</span>
               <code className="ml-2 px-2 py-1 bg-background rounded text-xs">
-                https://codeex-ai.netlify.app/smart-notes
+                https://codeex-ai.vercel.app/smart-notes
               </code>
             </div>
             <div className="text-left">
               <span className="font-medium">Math Solver:</span>
               <code className="ml-2 px-2 py-1 bg-background rounded text-xs">
-                https://codeex-ai.netlify.app/visual-math
+                https://codeex-ai.vercel.app/visual-math
               </code>
             </div>
           </div>
