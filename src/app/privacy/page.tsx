@@ -6,8 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | CODEEX AI',
-  description: 'Privacy Policy and Data Protection practices for CODEEX AI platform',
+  title: 'Privacy Policy | CODEEX',
+  description: 'Privacy Policy and Data Protection practices for CODEEX platform - Compliant with Google API Services User Data Policy',
 };
 
 export default function PrivacyPage() {
@@ -29,7 +29,7 @@ export default function PrivacyPage() {
             </div>
             <div>
               <h1 className="text-4xl font-bold">Privacy Policy</h1>
-              <p className="text-muted-foreground mt-1">Last updated: February 21, 2026</p>
+              <p className="text-muted-foreground mt-1">Last updated: February 28, 2026</p>
             </div>
           </div>
 
@@ -57,9 +57,10 @@ export default function PrivacyPage() {
               <a href="#retention" className="text-sm text-primary hover:underline">7. Data Retention</a>
               <a href="#rights" className="text-sm text-primary hover:underline">8. Your Rights</a>
               <a href="#cookies" className="text-sm text-primary hover:underline">9. Cookies & Tracking</a>
-              <a href="#children" className="text-sm text-primary hover:underline">10. Children's Privacy</a>
-              <a href="#international" className="text-sm text-primary hover:underline">11. International Users</a>
-              <a href="#changes" className="text-sm text-primary hover:underline">12. Policy Changes</a>
+              <a href="#google-api" className="text-sm text-primary hover:underline">10. Google API Services & User Data</a>
+              <a href="#children" className="text-sm text-primary hover:underline">11. Children's Privacy</a>
+              <a href="#international" className="text-sm text-primary hover:underline">12. International Users</a>
+              <a href="#changes" className="text-sm text-primary hover:underline">13. Policy Changes</a>
             </div>
           </CardContent>
         </Card>
@@ -494,7 +495,157 @@ export default function PrivacyPage() {
             </CardContent>
           </Card>
 
-          {/* Section 10 */}
+          {/* Section 10 - Google API Services */}
+          <Card id="google-api">
+            <CardHeader>
+              <div className="flex items-center gap-2">
+                <Shield className="h-5 w-5 text-primary" />
+                <CardTitle>10. Google API Services & User Data Policy</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4 text-sm">
+              <Alert className="mb-4">
+                <Bell className="h-4 w-4" />
+                <AlertDescription>
+                  CODEEX uses Google API Services, including Google Sign-In for authentication. This section explains how we handle Google user data in compliance with{' '}
+                  <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                    Google API Services User Data Policy
+                  </a>.
+                </AlertDescription>
+              </Alert>
+
+              <div>
+                <h4 className="font-semibold mb-2">What Google Data We Access</h4>
+                <p>When you sign in with Google, we request access to:</p>
+                <ul className="list-disc list-inside space-y-1 ml-4 mt-2">
+                  <li><strong>Email address</strong> - To create and identify your account</li>
+                  <li><strong>Basic profile information</strong> - Your name and profile picture (optional)</li>
+                  <li><strong>OpenID</strong> - To authenticate your identity</li>
+                </ul>
+                <p className="mt-2 text-muted-foreground">
+                  We do NOT access your Gmail, Google Drive, Calendar, Contacts, or any other Google services beyond basic authentication.
+                </p>
+              </div>
+
+              <div>
+                <h4 className="font-semibold mb-2">How We Use Google User Data</h4>
+                <p>We use Google user data exclusively for:</p>
+                <ul className="list-disc list-inside space-y-1 ml-4 mt-2">
+                  <li><strong>Authentication</strong> - To verify your identity and create your CODEEX account</li>
+                  <li><strong>Account Management</strong> - To maintain your user profile and preferences</li>
+                  <li><strong>Communication</strong> - To send you important account-related notifications (with your consent)</li>
+                </ul>
+                <p className="mt-2 font-semibold text-primary">
+                  We do NOT use Google user data for advertising, analytics, or any purpose beyond authentication and account management.
+                </p>
+              </div>
+
+              <div>
+                <h4 className="font-semibold mb-2">Limited Use Requirements</h4>
+                <p>CODEEX's use of information received from Google APIs adheres to the{' '}
+                  <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                    Google API Services User Data Policy
+                  </a>, including the Limited Use requirements:</p>
+                <ul className="list-disc list-inside space-y-1 ml-4 mt-2">
+                  <li>We only use Google user data to provide and improve user-facing features</li>
+                  <li>We do NOT transfer Google user data to third parties (except as required for authentication)</li>
+                  <li>We do NOT use Google user data for serving advertisements</li>
+                  <li>We do NOT allow humans to read Google user data (except for security purposes or with explicit user consent)</li>
+                  <li>We do NOT use Google user data to determine creditworthiness or for lending purposes</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="font-semibold mb-2">Data Storage & Security</h4>
+                <p>Google user data is:</p>
+                <ul className="list-disc list-inside space-y-1 ml-4 mt-2">
+                  <li><strong>Encrypted in transit</strong> - All data transmission uses HTTPS/TLS encryption</li>
+                  <li><strong>Encrypted at rest</strong> - Stored securely in Firebase with encryption</li>
+                  <li><strong>Access-controlled</strong> - Only authorized systems can access user data</li>
+                  <li><strong>Regularly audited</strong> - We conduct security reviews and updates</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="font-semibold mb-2">Data Retention</h4>
+                <p>We retain Google user data only as long as necessary:</p>
+                <ul className="list-disc list-inside space-y-1 ml-4 mt-2">
+                  <li>Your email and profile information are stored while your account is active</li>
+                  <li>You can delete your account at any time through Account Settings</li>
+                  <li>Upon account deletion, your Google user data is permanently removed within 30 days</li>
+                  <li>Some data may be retained longer if required by law or for security purposes</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="font-semibold mb-2">No Data Selling or Sharing</h4>
+                <p className="font-semibold text-primary">
+                  We do NOT sell, rent, or share your Google user data with third parties for their marketing or advertising purposes.
+                </p>
+                <p className="mt-2">
+                  Google user data is only shared with:
+                </p>
+                <ul className="list-disc list-inside space-y-1 ml-4 mt-2">
+                  <li><strong>Firebase/Google Cloud</strong> - For authentication and secure storage (Google's own services)</li>
+                  <li><strong>You</strong> - You can access and export your data at any time</li>
+                  <li><strong>Legal authorities</strong> - Only if required by law</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="font-semibold mb-2">Your Control Over Google Data</h4>
+                <p>You have full control over your Google user data:</p>
+                <ul className="list-disc list-inside space-y-1 ml-4 mt-2">
+                  <li><strong>Revoke Access</strong> - You can revoke CODEEX's access to your Google account at any time through{' '}
+                    <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                      Google Account Permissions
+                    </a>
+                  </li>
+                  <li><strong>Delete Account</strong> - Delete your CODEEX account and all associated data through Account Settings</li>
+                  <li><strong>Export Data</strong> - Export your data using our data export features</li>
+                  <li><strong>Update Information</strong> - Update your profile information at any time</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="font-semibold mb-2">Independent Service</h4>
+                <p className="font-semibold">
+                  CODEEX is an independent service and is NOT affiliated with, endorsed by, or sponsored by Google.
+                </p>
+                <p className="mt-2">
+                  We use Google Sign-In solely as an authentication method for user convenience. Your use of Google Sign-In is also subject to{' '}
+                  <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                    Google's Privacy Policy
+                  </a>{' '}
+                  and{' '}
+                  <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                    Google's Terms of Service
+                  </a>.
+                </p>
+              </div>
+
+              <div>
+                <h4 className="font-semibold mb-2">Compliance & Transparency</h4>
+                <p>CODEEX is committed to:</p>
+                <ul className="list-disc list-inside space-y-1 ml-4 mt-2">
+                  <li>Full compliance with Google API Services User Data Policy</li>
+                  <li>Transparent communication about data usage</li>
+                  <li>Regular security assessments and updates</li>
+                  <li>Prompt notification of any policy changes</li>
+                  <li>Respect for user privacy and data rights</li>
+                </ul>
+              </div>
+
+              <Alert className="mt-4 bg-primary/5 border-primary/20">
+                <Shield className="h-4 w-4" />
+                <AlertDescription>
+                  <strong>Summary:</strong> We use Google Sign-In only for authentication. We access only your email and basic profile. We do NOT access Gmail, Drive, or other Google services. We do NOT sell or share your Google data. You can revoke access or delete your account anytime.
+                </AlertDescription>
+              </Alert>
+            </CardContent>
+          </Card>
+
+          {/* Section 11 */}
           <Card id="children">
             <CardHeader>
               <CardTitle>10. Children's Privacy</CardTitle>
@@ -518,10 +669,10 @@ export default function PrivacyPage() {
             </CardContent>
           </Card>
 
-          {/* Section 11 */}
+          {/* Section 12 */}
           <Card id="international">
             <CardHeader>
-              <CardTitle>11. International Users</CardTitle>
+              <CardTitle>12. International Users</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
               <p>
@@ -545,10 +696,10 @@ export default function PrivacyPage() {
             </CardContent>
           </Card>
 
-          {/* Section 12 */}
+          {/* Section 13 */}
           <Card id="changes">
             <CardHeader>
-              <CardTitle>12. Changes to This Privacy Policy</CardTitle>
+              <CardTitle>13. Changes to This Privacy Policy</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
               <p>
@@ -574,7 +725,7 @@ export default function PrivacyPage() {
           {/* Contact Section */}
           <Card>
             <CardHeader>
-              <CardTitle>13. Contact Us</CardTitle>
+              <CardTitle>14. Contact Us</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
               <p>
@@ -630,9 +781,15 @@ export default function PrivacyPage() {
 
         {/* Footer */}
         <div className="mt-12 pt-8 border-t text-center text-sm text-muted-foreground">
-          <p>© 2026 CODEEX AI. All rights reserved.</p>
+          <p>© 2026 CODEEX. All rights reserved.</p>
           <p className="mt-2">
-            This Privacy Policy is effective as of February 21, 2026 and will remain in effect except with respect to any changes in its provisions in the future.
+            This Privacy Policy is effective as of February 28, 2026 and will remain in effect except with respect to any changes in its provisions in the future.
+          </p>
+          <p className="mt-2">
+            This policy complies with{' '}
+            <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+              Google API Services User Data Policy
+            </a>.
           </p>
         </div>
       </div>
