@@ -1,0 +1,94 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Testing
+coverage
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+__tests__
+__mocks__
+
+# Next.js
+.next/
+out/
+
+# Production
+build
+dist
+
+# Misc
+.DS_Store
+*.pem
+.env*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel
+.vercel
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Python (Edge TTS server - not needed for Vercel)
+python/
+*.pyc
+__pycache__
+
+# Documentation
+docs/archive/
+*.md
+!README.md
+
+# Netlify specific
+.netlify/
+netlify.toml
+scripts/netlify-build.js
+
+# Firebase (keep only necessary files)
+.firebaserc
+firebase.json
+apphosting.yaml
+
+# Git
+.git/
+.github/
+
+# Kiro
+.kiro/
+
+# IDX
+.idx/
+
+# Scripts
+scripts/
+!scripts/verify-env.js
+
+# Cleanup
+cleanup-docs.ps1
+cleanup-docs.sh
+
+# Amazon Q
+.amazonq/
