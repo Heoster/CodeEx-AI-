@@ -102,25 +102,63 @@ class HybridTTS {
   private async playAudio(audioData: ArrayBuffer, options: HybridTTSOptions, contentType: string = 'audio/wav'): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
+        // Clean up previous audio element if exists
+        if (this.audioElement) {
+          this.audioElement.pause();
+          this.audioElement.src = '';
+          this.audioElement = null;
+        }
+
         const blob = new Blob([audioData], { type: contentType });
         const url = URL.createObjectURL(blob);
 
-        this.audioElement = new Audio(url);
+        this.audioElement = new Audio();
+        this.audioElement.preload = 'auto';
         this.audioElement.volume = options.volume || 1.0;
 
+        // Set up event listeners before setting src
         this.audioElement.onended = () => {
           URL.revokeObjectURL(url);
+          if (this.audioElement) {
+            this.audioElement.src = '';
+          }
           options.onEnd?.();
           resolve();
         };
 
-        this.audioElement.onerror = (error) => {
+        this.audioElement.onerror = (event) => {
+          console.error('[Hybrid TTS] Audio playback error:', event);
           URL.revokeObjectURL(url);
-          reject(error);
+          if (this.audioElement) {
+            this.audioElement.src = '';
+          }
+          // Don't reject, fall back to browser TTS
+          this.useBrowserTTS(options).then(resolve).catch(reject);
         };
 
-        this.audioElement.play();
+        this.audioElement.oncanplaythrough = () => {
+          console.log('[Hybrid TTS] Audio ready to play');
+        };
+
+        // Set src and load
+        this.audioElement.src = url;
+        this.audioElement.load();
+
+        // Play with error handling
+        const playPromise = this.audioElement.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((error) => {
+            console.error('[Hybrid TTS] Play error:', error);
+            URL.revokeObjectURL(url);
+            if (this.audioElement) {
+              this.audioElement.src = '';
+            }
+            // Fall back to browser TTS
+            this.useBrowserTTS(options).then(resolve).catch(reject);
+          });
+        }
       } catch (error) {
+        console.error('[Hybrid TTS] Setup error:', error);
         reject(error);
       }
     });
@@ -153,8 +191,13 @@ class HybridTTS {
    */
   cancel(): void {
     if (this.audioElement) {
-      this.audioElement.pause();
-      this.audioElement = null;
+      try {
+        this.audioElement.pause();
+        this.audioElement.src = '';
+        this.audioElement = null;
+      } catch (error) {
+        console.error('[Hybrid TTS] Cancel error:', error);
+      }
     }
     edgeTTS.cancel();
     browserTTS.cancel();
