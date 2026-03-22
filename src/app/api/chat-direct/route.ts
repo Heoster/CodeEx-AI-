@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { generateWithSmartFallback } from '@/ai/smart-fallback';
 import { getSafetyGuardService } from '@/lib/safety-guard-service';
 import { getTaskClassifierService } from '@/lib/task-classifier-service';
+import { buildSohamPromptContext, persistSohamMemory } from '@/lib/soham-agent-orchestrator';
 
 // CORS headers for all responses
 const corsHeaders = {
@@ -69,7 +70,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { message, history = [], settings = {} } = body;
+    const { message, history = [], settings = {}, userId } = body;
 
     // Validate required fields
     if (!message || typeof message !== 'string') {
@@ -214,7 +215,7 @@ export async function POST(request: NextRequest) {
       }
     };
 
-    const systemPrompt = `You are CODEEX AI, an intelligent and versatile assistant created by Heoster. You excel at helping users with coding, problem-solving, learning, and general questions.
+    const systemPrompt = `You are SOHAM, an intelligent and versatile assistant created by Heoster. SOHAM stands for Self Organising Hyper Adaptive Machine, inspired by a Sanskrit word. You excel at helping users with coding, problem-solving, learning, and general questions.
 
 ## Your Personality & Communication Style
 ${getToneInstructions(settings.tone || 'helpful')}
@@ -234,6 +235,8 @@ ${getTechnicalInstructions(settings.technicalLevel || 'intermediate')}
 3. **Use Formatting**: Use markdown for code blocks, lists, and emphasis when helpful.
 4. **Stay Focused**: Address the user's actual question directly without referencing past exchanges.
 5. **Be Proactive**: Anticipate follow-up questions and address them when relevant.
+6. **Use Tool Context**: If tool/context blocks are present, prioritize them for grounded answers.
+7. **Think Internally, Answer Clearly**: Perform internal reasoning but return only final concise output.
 
 ## Special Instructions
 - For code: Always specify the language in code blocks, explain key parts, and mention potential edge cases.
@@ -241,9 +244,9 @@ ${getTechnicalInstructions(settings.technicalLevel || 'intermediate')}
 - For errors: Explain what went wrong and how to fix it.
 - Provide fresh, direct answers without referencing previous messages unless absolutely necessary for context.
 
-## About CODEEX AI
+## About SOHAM
 - Created by Heoster (Harsh), a 16-year-old developer from Khatauli, Uttar Pradesh, India
-- Founder of CODEEX AI startup, currently studying Class 11th PCM at Maples Academy
+- Built and operated by CODEEX-AI, the company behind SOHAM
 - Contact: codeex@email.com | LinkedIn: codeex-heoster-4b60b8399 | GitHub: @heoster
 - Vision: Democratize AI education in India and make advanced technology accessible to every student
 - Built with 26+ AI models, serving 100+ countries with 99.9% uptime
@@ -256,6 +259,13 @@ AAYUSH, VARUN, pankaj, MASUM, SACHIN, pardhuman, shivansh, Vaibhav, Kartik, Hars
       content: msg.content
     }));
 
+    // Build tool + memory augmented prompt context
+    const agentContext = await buildSohamPromptContext({
+      message,
+      history: convertedHistory,
+      userId,
+    });
+
     // Determine preferred model
     let preferredModelId: string | undefined;
     if (settings.model && settings.model !== 'auto') {
@@ -264,7 +274,7 @@ AAYUSH, VARUN, pankaj, MASUM, SACHIN, pardhuman, shivansh, Vaibhav, Kartik, Hars
 
     // Use smart fallback system directly
     const result = await generateWithSmartFallback({
-      prompt: message,
+      prompt: agentContext.prompt,
       systemPrompt,
       history: convertedHistory,
       preferredModelId,
@@ -318,6 +328,22 @@ AAYUSH, VARUN, pankaj, MASUM, SACHIN, pardhuman, shivansh, Vaibhav, Kartik, Hars
 
     const responseTime = Date.now() - startTime;
 
+    // Persist cross-device memory/history without failing the request path
+    try {
+      await persistSohamMemory({
+        userId,
+        userMessage: message,
+        assistantMessage: result.response.text,
+        metadata: {
+          toolsUsed: agentContext.toolsUsed.map(t => t.tool),
+          modelUsed: result.modelUsed,
+          classification: classification.category,
+        },
+      });
+    } catch (memoryPersistError) {
+      console.warn('[Memory Persist] Non-blocking failure:', memoryPersistError);
+    }
+
     return NextResponse.json({
       success: true,
       content: result.response.text,
@@ -331,6 +357,9 @@ AAYUSH, VARUN, pankaj, MASUM, SACHIN, pardhuman, shivansh, Vaibhav, Kartik, Hars
         reasoning: classification.reasoning,
       },
       safetyChecked: safetyGuard.isEnabled(),
+      toolsUsed: agentContext.toolsUsed,
+      ragContextCount: agentContext.ragContextCount,
+      crossDeviceHistoryCount: agentContext.crossDeviceHistoryCount,
       responseTime: `${responseTime}ms`,
       timestamp: new Date().toISOString(),
     }, {

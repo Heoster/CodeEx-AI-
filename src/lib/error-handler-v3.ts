@@ -1,6 +1,6 @@
 /**
  * Error Handler V3
- * CODEEX V3.3 Multi-Model AI Router
+ * SOHAM V3.3 Multi-Model AI Router
  * 
  * Enhanced error handling and recovery for the multi-model router system.
  * Handles model unavailable errors, rate limits, authentication failures, timeouts,

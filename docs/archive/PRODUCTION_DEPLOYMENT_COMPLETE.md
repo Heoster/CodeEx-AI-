@@ -393,7 +393,7 @@ Node version: 18.x or higher
 
 ## 🎉 Conclusion
 
-**CODEEX AI is 100% PRODUCTION READY!**
+**SOHAM is 100% PRODUCTION READY!**
 
 All features are implemented, tested, and optimized. The platform is secure, performant, and ready to serve users worldwide. Documentation is comprehensive, and the codebase is maintainable.
 
@@ -419,6 +419,6 @@ The application is fully prepared for production deployment on Netlify or any ot
 
 [Deploy to Netlify](https://app.netlify.com/start) • [View Documentation](./README.md) • [Report Issues](https://github.com/heoster/codeex-ai/issues)
 
-© 2024-2026 CODEEX AI. Made in 🇮🇳 India.
+© 2024-2026 SOHAM. Made in 🇮🇳 India.
 
 </div>

@@ -5,7 +5,7 @@
 
 import type { Settings, ModelId } from './types';
 
-const SETTINGS_KEY = 'codeex-settings';
+const SETTINGS_KEY = 'SOHAM-settings';
 const SETTINGS_VERSION = 2; // Increment when schema changes
 
 interface StoredSettings extends Settings {

@@ -216,4 +216,4 @@ Netlify will auto-deploy.
 
 ## Total Time: ~10 minutes
 
-That's it! You're ready to develop and deploy CODEEX AI. 🎉
+That's it! You're ready to develop and deploy SOHAM. 🎉

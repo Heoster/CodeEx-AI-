@@ -1,4 +1,4 @@
-# CODEEX AI - Deployment Guide
+# SOHAM - Deployment Guide
 
 ## Netlify Deployment (Recommended)
 

@@ -208,6 +208,8 @@ export class ModelRegistry {
         return 'Google';
       case 'cerebras':
         return 'Cerebras';
+      case 'openrouter':
+        return 'OpenRouter';
       default:
         return providerType;
     }

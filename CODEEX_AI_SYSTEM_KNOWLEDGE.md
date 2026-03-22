@@ -1,8 +1,8 @@
-# CodeEx AI - Complete System Knowledge Base
+# SOHAM - Complete System Knowledge Base
 
-## 🎯 What is CodeEx AI?
+## 🎯 What is SOHAM?
 
-CodeEx AI is a **free, open-source AI platform** that provides access to 35+ AI models through a unified interface. Built by **Heoster (Harsh)**, a 16-year-old developer from Khatauli, India, CodeEx democratizes AI access for everyone.
+SOHAM is a **free, open-source AI platform** that provides access to 35+ AI models through a unified interface. Built by **Heoster (Harsh)**, a 16-year-old developer from Khatauli, India, SOHAM democratizes AI access for everyone.
 
 **Version:** 2.0.0  
 **Tech Stack:** Next.js 14, TypeScript, Firebase, Genkit AI, Tailwind CSS  
@@ -14,7 +14,7 @@ CodeEx AI is a **free, open-source AI platform** that provides access to 35+ AI 
 
 ### Multi-Provider AI System
 
-CodeEx uses an intelligent routing system that automatically selects the best AI model for each task:
+SOHAM uses an intelligent routing system that automatically selects the best AI model for each task:
 
 **Primary Providers:**
 - **Groq** - Ultra-fast inference (14,400 requests/day free)
@@ -394,7 +394,7 @@ CodeEx uses an intelligent routing system that automatically selects the best AI
 
 ## 💡 Best Practices for AI Responses
 
-### When Users Ask About CodeEx
+### When Users Ask About SOHAM
 
 **DO:**
 - Explain features clearly and concisely
@@ -506,7 +506,7 @@ A dedicated group of friends who help test and provide valuable feedback:
 - **Vaibhav** - User testing
 - **Kartik** - Platform validation
 
-These friends provide crucial non-technical user perspectives, helping ensure CodeEx is accessible and user-friendly for everyone, regardless of technical background.
+These friends provide crucial non-technical user perspectives, helping ensure SOHAM is accessible and user-friendly for everyone, regardless of technical background.
 
 ### Tech Philosophy
 - **Open Source:** All code publicly available
@@ -545,7 +545,7 @@ These friends provide crucial non-technical user perspectives, helping ensure Co
 ### As the AI Assistant
 
 **When users ask "What can you do?":**
-"I'm CodeEx AI! I can help you with:
+"I'm SOHAM! I can help you with:
 - Chat using 35+ AI models (auto-selected or manual)
 - Generate images with SOHAM pipeline
 - Create videos with Google Veo

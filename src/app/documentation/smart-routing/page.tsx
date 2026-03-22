@@ -31,7 +31,7 @@ export default function SmartRoutingPage() {
           Intelligent Model Selection
         </h1>
         <p className="text-xl text-muted-foreground">
-          CodeEx AI automatically analyzes your queries and routes them to the most appropriate AI model for optimal results.
+          SOHAM automatically analyzes your queries and routes them to the most appropriate AI model for optimal results.
         </p>
       </div>
 

@@ -1,4 +1,4 @@
-# CODEEX AI - Complete Feature Documentation
+# SOHAM - Complete Feature Documentation
 
 ## Table of Contents
 1. [Multi-Model AI System](#multi-model-ai-system)
@@ -16,7 +16,7 @@
 
 ## Multi-Model AI System
 
-CODEEX AI supports 14+ AI models from multiple providers, giving you the flexibility to choose the best model for your task.
+SOHAM supports 14+ AI models from multiple providers, giving you the flexibility to choose the best model for your task.
 
 ### Available Models
 
@@ -64,7 +64,7 @@ CODEEX AI supports 14+ AI models from multiple providers, giving you the flexibi
 
 ## Smart Auto-Routing
 
-When you select "Auto" mode, CODEEX AI automatically analyzes your query and routes it to the most appropriate model.
+When you select "Auto" mode, SOHAM automatically analyzes your query and routes it to the most appropriate model.
 
 ### How It Works
 
@@ -180,7 +180,7 @@ Summarize long text or articles.
 
 ## Web Search
 
-CODEEX AI can search the web for current information.
+SOHAM can search the web for current information.
 
 ### Search Providers
 
@@ -297,7 +297,7 @@ Upload PDF documents and ask questions about their content.
 
 ## Mobile Features
 
-CODEEX AI is optimized for mobile devices, especially Android.
+SOHAM is optimized for mobile devices, especially Android.
 
 ### Installation (Android)
 

@@ -1,5 +1,5 @@
 /**
- * SEO Configuration for CODEEX AI
+ * SEO Configuration for SOHAM
  * Centralized SEO settings and structured data
  * Enhanced with comprehensive developer information and high-level optimization
  */
@@ -25,17 +25,17 @@ export interface SEOConfig {
 
 export const defaultSEO: SEOConfig = {
   title: {
-    default: 'CODEEX - Free AI Chat with 35+ Models | Groq, Gemini, Cerebras, DeepSeek',
-    template: '%s | CODEEX'
+    default: 'SOHAM - Free AI Chat with 35+ Models | Groq, Gemini, Cerebras, DeepSeek',
+    template: '%s | SOHAM'
   },
-  description: `CODEEX: Free AI chat platform with 35+ models including Groq Llama 3.3 70B, Google Gemini 2.5, Cerebras Qwen 3 235B, DeepSeek R1. Chat, code, solve math, analyze PDFs, web search. No signup required. Built by ${DEVELOPER_INFO.name}, ${DEVELOPER_INFO.age}-year-old developer from India. 100% free forever.`,
+  description: `SOHAM: Free AI chat platform with 35+ models including Groq Llama 3.3 70B, Google Gemini 2.5, Cerebras Qwen 3 235B, DeepSeek R1. Chat, code, solve math, analyze PDFs, web search. No signup required. Built by ${DEVELOPER_INFO.name}, ${DEVELOPER_INFO.age}-year-old developer from India. 100% free forever.`,
   keywords: [
     // Core Brand - PRIMARY KEYWORDS
-    'CODEEX',
-    'CodeEx',
-    'codeex ai',
-    'codeex chat',
-    'codeex free ai',
+    'SOHAM',
+    'SOHAM',
+    'SOHAM',
+    'SOHAM chat',
+    'SOHAM free ai',
     'code ex',
     'codex ai',
     
@@ -99,49 +99,49 @@ export const defaultSEO: SEOConfig = {
 // Page-specific SEO configurations
 export const pageSEO = {
   home: {
-    title: `CODEEX - Free AI Chat with 35+ Models | Groq, Gemini, Cerebras`,
-    description: `CODEEX: Free AI chat with 35+ models including Groq Llama 3.3 70B, Google Gemini 2.5, Cerebras Qwen 3 235B, DeepSeek R1. Chat, code, solve math, analyze PDFs, web search. No signup. 100% free forever.`,
-    keywords: ['CODEEX', 'free ai chat', 'groq llama 3.3', 'gemini 2.5', 'cerebras qwen', 'deepseek', 'free chatgpt alternative', 'ai chat no signup'],
+    title: `SOHAM - Free AI Chat with 35+ Models | Groq, Gemini, Cerebras`,
+    description: `SOHAM: Free AI chat with 35+ models including Groq Llama 3.3 70B, Google Gemini 2.5, Cerebras Qwen 3 235B, DeepSeek R1. Chat, code, solve math, analyze PDFs, web search. No signup. 100% free forever.`,
+    keywords: ['SOHAM', 'free ai chat', 'groq llama 3.3', 'gemini 2.5', 'cerebras qwen', 'deepseek', 'free chatgpt alternative', 'ai chat no signup'],
   },
   chat: {
-    title: 'AI Chat - 35+ Models Free | CODEEX',
+    title: 'AI Chat - 35+ Models Free | SOHAM',
     description: `Chat with 35+ AI models free: Groq Llama 3.3 70B, Google Gemini 2.5, Cerebras Qwen 3 235B, DeepSeek R1, GPT-OSS. Instant answers, code help, problem-solving. No signup required.`,
-    keywords: ['ai chat', 'free chatbot', 'groq', 'gemini', 'cerebras', 'llama 3.3', 'qwen 3 235b', 'deepseek', 'CODEEX chat'],
+    keywords: ['ai chat', 'free chatbot', 'groq', 'gemini', 'cerebras', 'llama 3.3', 'qwen 3 235b', 'deepseek', 'SOHAM chat'],
   },
   features: {
-    title: 'Features - 35+ AI Models, Voice, PDF Analysis | CODEEX',
-    description: `CODEEX features: 35+ AI models (Groq, Gemini, Cerebras), code assistance, math solving, PDF analysis (5MB), web search, voice synthesis, image solver. All free, no signup.`,
-    keywords: ['ai features', 'coding help', 'math solver', 'pdf analyzer', 'voice ai', 'web search ai', 'CODEEX features'],
+    title: 'Features - 35+ AI Models, Voice, PDF Analysis | SOHAM',
+    description: `SOHAM features: 35+ AI models (Groq, Gemini, Cerebras), code assistance, math solving, PDF analysis (5MB), web search, voice synthesis, image solver. All free, no signup.`,
+    keywords: ['ai features', 'coding help', 'math solver', 'pdf analyzer', 'voice ai', 'web search ai', 'SOHAM features'],
   },
   documentation: {
-    title: 'Documentation - Complete Guide to 35+ AI Models | CODEEX',
-    description: `Complete guide to CODEEX platform. Learn about 35+ models (Groq Llama, Gemini, Cerebras Qwen, DeepSeek), API integration, model selection, and advanced features.`,
-    keywords: ['ai documentation', 'api docs', 'user guide', 'tutorial', 'model guide', 'CODEEX docs'],
+    title: 'Documentation - Complete Guide to 35+ AI Models | SOHAM',
+    description: `Complete guide to SOHAM platform. Learn about 35+ models (Groq Llama, Gemini, Cerebras Qwen, DeepSeek), API integration, model selection, and advanced features.`,
+    keywords: ['ai documentation', 'api docs', 'user guide', 'tutorial', 'model guide', 'SOHAM docs'],
   },
   about: {
-    title: `About - Meet ${DEVELOPER_INFO.name}, ${DEVELOPER_INFO.age}-Year-Old Founder | CODEEX`,
-    description: `Meet ${DEVELOPER_INFO.name} (${DEVELOPER_INFO.realName}), ${DEVELOPER_INFO.age}-year-old founder of CODEEX from ${DEVELOPER_INFO.location.city}, India. Built 35+ model AI platform with 50,000+ lines of code to democratize AI education.`,
-    keywords: ['Heoster', 'CODEEX founder', '16 year old developer', 'indian developer', 'ai startup founder'],
+    title: `About - Meet ${DEVELOPER_INFO.name}, ${DEVELOPER_INFO.age}-Year-Old Founder | SOHAM`,
+    description: `Meet ${DEVELOPER_INFO.name} (${DEVELOPER_INFO.realName}), ${DEVELOPER_INFO.age}-year-old founder of CODEEX-AI and creator of SOHAM from ${DEVELOPER_INFO.location.city}, India. Built a 35+ model AI platform with 50,000+ lines of code to democratize AI education.`,
+    keywords: ['Heoster', 'SOHAM founder', '16 year old developer', 'indian developer', 'ai startup founder'],
   },
   contact: {
-    title: `Contact - Get in Touch with CODEEX Team`,
-    description: `Contact CODEEX team. Email: ${DEVELOPER_INFO.contact.email} | Connect on LinkedIn, GitHub, Twitter. Based in ${DEVELOPER_INFO.location.city}, India.`,
-    keywords: ['contact', 'support', 'feedback', 'CODEEX contact'],
+    title: `Contact - Get in Touch with SOHAM Team`,
+    description: `Contact SOHAM team. Email: ${DEVELOPER_INFO.contact.email} | Connect on LinkedIn, GitHub, Twitter. Based in ${DEVELOPER_INFO.location.city}, India.`,
+    keywords: ['contact', 'support', 'feedback', 'SOHAM contact'],
   },
   privacy: {
-    title: 'Privacy Policy - Your Data is Safe | CODEEX',
-    description: `CODEEX privacy policy. Learn how we protect your data, respect privacy, and ensure security. GDPR, CCPA compliant. No data selling. Privacy-first AI platform.`,
-    keywords: ['privacy policy', 'data protection', 'security', 'GDPR', 'CCPA', 'CODEEX privacy'],
+    title: 'Privacy Policy - Your Data is Safe | SOHAM',
+    description: `SOHAM privacy policy. Learn how we protect your data, respect privacy, and ensure security. GDPR, CCPA compliant. No data selling. Privacy-first AI platform.`,
+    keywords: ['privacy policy', 'data protection', 'security', 'GDPR', 'CCPA', 'SOHAM privacy'],
   },
   terms: {
-    title: 'Terms of Service - Usage Guidelines | CODEEX',
-    description: `CODEEX Terms of Service. Understand usage guidelines, acceptable use policy, user rights, and platform rules. Free forever commitment.`,
-    keywords: ['terms of service', 'usage guidelines', 'user agreement', 'CODEEX terms'],
+    title: 'Terms of Service - Usage Guidelines | SOHAM',
+    description: `SOHAM Terms of Service. Understand usage guidelines, acceptable use policy, user rights, and platform rules. Free forever commitment.`,
+    keywords: ['terms of service', 'usage guidelines', 'user agreement', 'SOHAM terms'],
   },
   models: {
-    title: '35+ AI Models - Groq, Gemini, Cerebras | CODEEX',
-    description: `Explore 35+ AI models on CODEEX: Groq (Llama 3.3 70B, Mixtral 8x7B), Google Gemini 2.5, Cerebras (Qwen 3 235B, GLM 4.7), DeepSeek R1. Compare performance. All free.`,
-    keywords: ['ai models', 'groq models', 'gemini', 'cerebras', 'llama 3.3', 'qwen 3 235b', 'deepseek', 'CODEEX models'],
+    title: '35+ AI Models - Groq, Gemini, Cerebras | SOHAM',
+    description: `Explore 35+ AI models on SOHAM: Groq (Llama 3.3 70B, Mixtral 8x7B), Google Gemini 2.5, Cerebras (Qwen 3 235B, GLM 4.7), DeepSeek R1. Compare performance. All free.`,
+    keywords: ['ai models', 'groq models', 'gemini', 'cerebras', 'llama 3.3', 'qwen 3 235b', 'deepseek', 'SOHAM models'],
   },
 };
 
@@ -150,10 +150,10 @@ export const structuredData = {
   organization: {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'CODEEX',
-    alternateName: ['CodeEx', 'CODEEX AI'],
+    name: 'CODEEX-AI',
+    alternateName: ['SOHAM', 'CodeEx-AI'],
     url: 'https://codeex-ai.vercel.app',
-    logo: 'https://codeex-ai.vercel.app/favicon.ico',
+    logo: 'https://codeex-ai.vercel.app/FINALSOHAM.png',
     description: `Free AI chat platform with 35+ models including Groq, Gemini, Cerebras. Chat, code, solve math, analyze PDFs. No signup required.`,
     foundingDate: DEVELOPER_INFO.company.founded,
     foundingLocation: {
@@ -245,7 +245,7 @@ export const structuredData = {
     },
     email: DEVELOPER_INFO.contact.email,
     url: 'https://codeex-ai.vercel.app',
-    image: 'https://codeex-ai.vercel.app/favicon.ico',
+    image: 'https://codeex-ai.vercel.app/FINALSOHAM.png',
     description: `${DEVELOPER_INFO.name} is a ${DEVELOPER_INFO.age}-year-old visionary developer and founder of ${DEVELOPER_INFO.company.name}. Currently studying ${DEVELOPER_INFO.education.class} ${DEVELOPER_INFO.education.stream} at ${DEVELOPER_INFO.education.school}, he has built a revolutionary AI platform with 35+ models, reaching 100+ countries with 1000+ daily users.`,
     knowsAbout: DEVELOPER_INFO.skills.concat(DEVELOPER_INFO.aiTechnologies),
     knowsLanguage: ['English', 'Hindi'],
@@ -264,8 +264,8 @@ export const structuredData = {
   softwareApplication: {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: 'CODEEX',
-    alternateName: ['CodeEx', 'CODEEX AI'],
+    name: 'SOHAM',
+    alternateName: ['SOHAM', 'SOHAM'],
     applicationCategory: 'ProductivityApplication',
     applicationSubCategory: 'Artificial Intelligence Platform',
     operatingSystem: 'Web Browser, iOS, Android, Windows, macOS, Linux',
@@ -325,8 +325,8 @@ export const structuredData = {
   website: {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'CODEEX',
-    alternateName: ['CodeEx', 'CODEEX AI', 'CodeEx AI'],
+    name: 'SOHAM',
+    alternateName: ['SOHAM', 'SOHAM', 'SOHAM'],
     url: 'https://codeex-ai.vercel.app',
     description: `Free AI chat with 35+ models: Groq, Gemini, Cerebras, DeepSeek. No signup required.`,
     inLanguage: ['en', 'hi'],
@@ -347,26 +347,26 @@ export const structuredData = {
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'Who created CODEEX AI?',
+        name: 'Who created SOHAM?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `CODEEX AI was created by ${DEVELOPER_INFO.name} (also known as ${DEVELOPER_INFO.realName}), a ${DEVELOPER_INFO.age}-year-old visionary developer from ${DEVELOPER_INFO.location.city}, ${DEVELOPER_INFO.location.state}, India. He is currently studying ${DEVELOPER_INFO.education.class} ${DEVELOPER_INFO.education.stream} at ${DEVELOPER_INFO.education.school}. He founded ${DEVELOPER_INFO.company.name} in ${DEVELOPER_INFO.company.founded} as an AI startup to democratize AI education and make advanced technology accessible to every student.`,
+          text: `SOHAM was created by ${DEVELOPER_INFO.name} (also known as ${DEVELOPER_INFO.realName}), a ${DEVELOPER_INFO.age}-year-old visionary developer from ${DEVELOPER_INFO.location.city}, ${DEVELOPER_INFO.location.state}, India. He is currently studying ${DEVELOPER_INFO.education.class} ${DEVELOPER_INFO.education.stream} at ${DEVELOPER_INFO.education.school}. He founded ${DEVELOPER_INFO.company.name} in ${DEVELOPER_INFO.company.founded} as an AI startup to democratize AI education and make advanced technology accessible to every student.`,
         },
       },
       {
         '@type': 'Question',
-        name: 'Is CODEEX AI free to use?',
+        name: 'Is SOHAM free to use?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `Yes! CODEEX AI is completely free to use forever. We provide access to 35+ AI models at no cost, making advanced AI technology accessible to everyone. ${DEVELOPER_INFO.name}'s mission is: "${DEVELOPER_INFO.mission}"`,
+          text: `Yes! SOHAM is completely free to use forever. We provide access to 35+ AI models at no cost, making advanced AI technology accessible to everyone. ${DEVELOPER_INFO.name}'s mission is: "${DEVELOPER_INFO.mission}"`,
         },
       },
       {
         '@type': 'Question',
-        name: 'What AI models does CODEEX AI support?',
+        name: 'What AI models does SOHAM support?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'CODEEX AI supports 35+ AI models including Groq (Llama 3.1 8B, Llama 3.3 70B, Mixtral 8x7B, Gemma 2 9B), Google Gemini 2.5, Cerebras (Qwen 3 235B Instruct, Qwen 3 32B, GLM 4.7), Hugging Face (DeepSeek R1, GPT-OSS, RNJ-1), and more. You can switch between models or use smart auto-routing.',
+          text: 'SOHAM supports 35+ AI models including Groq (Llama 3.1 8B, Llama 3.3 70B, Mixtral 8x7B, Gemma 2 9B), Google Gemini 2.5, Cerebras (Qwen 3 235B Instruct, Qwen 3 32B, GLM 4.7), Hugging Face (DeepSeek R1, GPT-OSS, RNJ-1), and more. You can switch between models or use smart auto-routing.',
         },
       },
       {
@@ -379,18 +379,18 @@ export const structuredData = {
       },
       {
         '@type': 'Question',
-        name: 'What makes CODEEX AI unique?',
+        name: 'What makes SOHAM unique?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `CODEEX AI is unique because it's built by a ${DEVELOPER_INFO.age}-year-old student developer who has integrated 35+ AI models into one platform. It features ${DEVELOPER_INFO.projectStats.linesOfCode} lines of code, ${DEVELOPER_INFO.projectStats.components} components, ${DEVELOPER_INFO.projectStats.uptime} uptime, and reaches ${DEVELOPER_INFO.projectStats.countriesReached} countries with ${DEVELOPER_INFO.projectStats.dailyUsers} daily users. It's completely free, privacy-first, and built with the vision to democratize AI education.`,
+          text: `SOHAM is unique because it's built by a ${DEVELOPER_INFO.age}-year-old student developer who has integrated 35+ AI models into one platform. It features ${DEVELOPER_INFO.projectStats.linesOfCode} lines of code, ${DEVELOPER_INFO.projectStats.components} components, ${DEVELOPER_INFO.projectStats.uptime} uptime, and reaches ${DEVELOPER_INFO.projectStats.countriesReached} countries with ${DEVELOPER_INFO.projectStats.dailyUsers} daily users. It's completely free, privacy-first, and built with the vision to democratize AI education.`,
         },
       },
       {
         '@type': 'Question',
-        name: 'What features does CODEEX AI offer?',
+        name: 'What features does SOHAM offer?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'CODEEX AI offers: 35+ AI models, real-time chat with streaming, code assistance and debugging, math problem solving with steps, PDF analysis (5MB), web search with citations, voice synthesis (Edge TTS), image equation solver, smart notes, smart auto-routing, mobile PWA, offline support, share & export (TXT, MD, PDF), and more. All features are 100% free.',
+          text: 'SOHAM offers: 35+ AI models, real-time chat with streaming, code assistance and debugging, math problem solving with steps, PDF analysis (5MB), web search with citations, voice synthesis (Edge TTS), image equation solver, smart notes, smart auto-routing, mobile PWA, offline support, share & export (TXT, MD, PDF), and more. All features are 100% free.',
         },
       },
     ],

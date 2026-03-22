@@ -176,7 +176,7 @@ export default function ModelsPage() {
             <span className="block gradient-text">for Every Task</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            CODEEX AI provides access to multiple specialized AI models from leading providers.
+            SOHAM provides access to multiple specialized AI models from leading providers.
             Our smart auto-routing system automatically selects the best model for your query.
           </p>
         </div>

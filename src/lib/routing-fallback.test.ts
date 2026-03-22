@@ -1,6 +1,6 @@
 /**
  * Routing and Fallback Integration Tests
- * CODEEX V3.3 Multi-Model AI Router - Checkpoint 6
+ * SOHAM V3.3 Multi-Model AI Router - Checkpoint 6
  * 
  * Tests verify:
  * - Routing logic works correctly for all 11 task categories

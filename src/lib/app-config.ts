@@ -44,8 +44,8 @@ export const APP_CONFIG = {
   },
 
   // App Metadata
-  APP_NAME: 'CODEEX AI',
-  APP_DESCRIPTION: 'Free AI platform with 35+ models for coding, math, research & more',
+  APP_NAME: 'SOHAM',
+  APP_DESCRIPTION: 'SOHAM (Self Organising Hyper Adaptive Machine) by CODEEX-AI',
   APP_VERSION: '2.0.0',
   
   // Developer Info

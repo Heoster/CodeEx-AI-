@@ -1,8 +1,8 @@
-# 🎉 CodeEx AI - Deployment Package Complete!
+# 🎉 SOHAM - Deployment Package Complete!
 
 ## ✅ Your Vercel-Ready Version is Complete
 
-CodeEx AI is now fully configured and ready for deployment on Vercel with zero additional configuration needed!
+SOHAM is now fully configured and ready for deployment on Vercel with zero additional configuration needed!
 
 ---
 
@@ -75,7 +75,7 @@ CodeEx AI is now fully configured and ready for deployment on Vercel with zero a
 https://vercel.com/new
 
 # 2. Import your GitHub repository
-Select: CodeEx-AI-
+Select: CODEEX-AI-
 
 # 3. Add environment variables
 Copy from .env.local and paste into Vercel
@@ -435,7 +435,7 @@ git push origin main
 
 ## 🎉 Congratulations!
 
-Your CodeEx AI is now **100% ready** for Vercel deployment!
+Your SOHAM is now **100% ready** for Vercel deployment!
 
 ### What You've Achieved
 - ✅ Complete Vercel configuration
@@ -495,4 +495,4 @@ Your journey to production starts now. Follow the quick start guide and you'll b
 
 ---
 
-*Made with ❤️ by the CodeEx AI team*
+*Made with ❤️ by the SOHAM team*

@@ -1,6 +1,6 @@
 /**
  * Intelligent Router Service
- * CODEEX V3.3 Multi-Model AI Router
+ * SOHAM V3.3 Multi-Model AI Router
  * 
  * Core routing engine that maps classified tasks to optimal models with automatic fallback handling.
  * Implements routing logic based on task category, builds fallback chains, tracks statistics,
@@ -106,6 +106,7 @@ const PROVIDER_BASE_LATENCY: Record<ProviderType, number> = {
   groq: 500,        // Very fast
   cerebras: 600,    // Very fast
   google: 1200,     // Moderate
+  openrouter: 1300, // Moderate
   huggingface: 2000, // Slower
   elevenlabs: 1500  // Moderate
 };
@@ -167,7 +168,7 @@ export class IntelligentRouterService {
     }
 
     // Initialize provider counters
-    const providers: ProviderType[] = ['groq', 'cerebras', 'google', 'huggingface', 'elevenlabs'];
+    const providers: ProviderType[] = ['groq', 'cerebras', 'google', 'openrouter', 'huggingface', 'elevenlabs'];
     for (const provider of providers) {
       this.statistics.providerDistribution[provider] = 0;
     }
@@ -910,7 +911,7 @@ export class IntelligentRouterService {
       this.statistics.routingsByCategory[category] = 0;
     }
 
-    const providers: ProviderType[] = ['groq', 'cerebras', 'google', 'huggingface', 'elevenlabs'];
+    const providers: ProviderType[] = ['groq', 'cerebras', 'google', 'openrouter', 'huggingface', 'elevenlabs'];
     for (const provider of providers) {
       this.statistics.providerDistribution[provider] = 0;
     }

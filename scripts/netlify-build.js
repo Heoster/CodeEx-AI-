@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Netlify Build Script for CODEEX AI
+ * Netlify Build Script for SOHAM
  * Handles pre-build optimizations and environment setup
  */
 
@@ -9,7 +9,7 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-console.log('🚀 Starting Netlify build for CODEEX AI...');
+console.log('🚀 Starting Netlify build for SOHAM...');
 
 // Check if required environment variables are set
 const requiredEnvVars = [

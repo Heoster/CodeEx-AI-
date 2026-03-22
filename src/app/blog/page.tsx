@@ -49,7 +49,7 @@ export default function BlogPage() {
         <div className="mb-12 space-y-4 text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Insights & Updates</h2>
             <p className="text-lg text-muted-foreground">
-              Explore articles, tutorials, and news from the CODEEX AI team.
+              Explore articles, tutorials, and news from the SOHAM team.
             </p>
         </div>
         

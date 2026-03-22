@@ -24,7 +24,7 @@ if (fs.existsSync(envPath)) {
   });
 }
 
-console.log('\n🔍 CODEEX AI - Environment Variables Check\n');
+console.log('\n🔍 SOHAM - Environment Variables Check\n');
 console.log('='.repeat(60));
 
 // Required variables

@@ -30,10 +30,10 @@ export default function APIDocsPage() {
           <span className="font-medium">API Documentation</span>
         </div>
         <h1 className="text-4xl font-bold tracking-tight">
-          CODEEX AI API
+          SOHAM API
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Integrate CODEEX AI's powerful multi-model capabilities into your applications. 
+          Integrate SOHAM's powerful multi-model capabilities into your applications. 
           RESTful API with comprehensive AI services and real-time responses.
         </p>
       </div>
@@ -369,7 +369,7 @@ print(result["data"]["content"])`}
             name="JavaScript SDK"
             description="Official Node.js and browser SDK"
             status="Available"
-            installCommand="npm install @codeex/ai-sdk"
+            installCommand="npm install @SOHAM/ai-sdk"
           />
           <SDKCard
             name="Python SDK"
@@ -381,13 +381,13 @@ print(result["data"]["content"])`}
             name="Go SDK"
             description="Official Go module"
             status="Beta"
-            installCommand="go get github.com/codeex/ai-go"
+            installCommand="go get github.com/SOHAM/ai-go"
           />
           <SDKCard
             name="PHP SDK"
             description="Community-maintained library"
             status="Community"
-            installCommand="composer require codeex/ai-php"
+            installCommand="composer require SOHAM/ai-php"
           />
         </div>
       </div>
@@ -395,7 +395,7 @@ print(result["data"]["content"])`}
       {/* CTA Section */}
       <div className="rounded-xl border bg-gradient-to-br from-indigo-50 via-indigo-25 to-background p-8 text-center">
         <Code className="h-12 w-12 text-indigo-600 mx-auto mb-4" />
-        <h2 className="text-2xl font-bold mb-3">Ready to Build with CODEEX AI?</h2>
+        <h2 className="text-2xl font-bold mb-3">Ready to Build with SOHAM?</h2>
         <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
           Get your API key and start integrating powerful AI capabilities into your applications.
         </p>

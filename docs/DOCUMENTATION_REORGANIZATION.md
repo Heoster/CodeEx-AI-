@@ -60,7 +60,7 @@ root/
 ## 📱 Mobile & PWA Features
 
 ### Progressive Web App (PWA)
-CODEEX AI is a fully-featured Progressive Web App with enterprise-grade support:
+SOHAM is a fully-featured Progressive Web App with enterprise-grade support:
 
 **Installation**:
 - 📱 **iPhone/iPad**: Open in Safari → Share → "Add to Home Screen"

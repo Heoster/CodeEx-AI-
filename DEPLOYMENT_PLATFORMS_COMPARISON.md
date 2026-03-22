@@ -1,7 +1,7 @@
-# CodeEx AI - Deployment Platforms Comparison
+# SOHAM - Deployment Platforms Comparison
 
 ## Overview
-CodeEx AI can be deployed on multiple platforms. Here's a detailed comparison to help you choose.
+SOHAM can be deployed on multiple platforms. Here's a detailed comparison to help you choose.
 
 ---
 
@@ -32,7 +32,7 @@ CodeEx AI can be deployed on multiple platforms. Here's a detailed comparison to
 
 ### 🥇 Vercel (Recommended)
 
-**Best For**: Next.js applications (CodeEx AI is built with Next.js)
+**Best For**: Next.js applications (SOHAM is built with Next.js)
 
 **Pros:**
 - ✅ Created by Next.js team (Vercel = Next.js)
@@ -55,7 +55,7 @@ CodeEx AI can be deployed on multiple platforms. Here's a detailed comparison to
 
 **Setup Time**: 5 minutes
 
-**Recommendation**: ⭐⭐⭐⭐⭐ Best choice for CodeEx AI
+**Recommendation**: ⭐⭐⭐⭐⭐ Best choice for SOHAM
 
 ---
 
@@ -171,7 +171,7 @@ CodeEx AI can be deployed on multiple platforms. Here's a detailed comparison to
 
 ## Use Case Recommendations
 
-### 🎯 For CodeEx AI Specifically
+### 🎯 For SOHAM Specifically
 
 **Choose Vercel if:**
 - ✅ You want the easiest setup (5 minutes)
@@ -221,7 +221,7 @@ CodeEx AI can be deployed on multiple platforms. Here's a detailed comparison to
 
 ## Performance Benchmarks
 
-### Build Time (CodeEx AI)
+### Build Time (SOHAM)
 - Vercel: ~2-3 minutes ⚡
 - Netlify: ~2-3 minutes ⚡
 - Firebase: ~3-5 minutes ⚠️
@@ -242,7 +242,7 @@ CodeEx AI can be deployed on multiple platforms. Here's a detailed comparison to
 
 ### 🏆 Winner: Vercel
 
-**Why Vercel for CodeEx AI:**
+**Why Vercel for SOHAM:**
 1. **Native Next.js Support**: Built by the Next.js team
 2. **Zero Configuration**: Works out of the box
 3. **Best Performance**: Optimized for Next.js
@@ -286,4 +286,4 @@ See: `firebase.json` and Firebase documentation
 ---
 
 **Last Updated**: February 28, 2026
-**Tested With**: CodeEx AI v2.0.0
+**Tested With**: SOHAM v2.0.0

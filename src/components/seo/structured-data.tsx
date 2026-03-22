@@ -50,11 +50,11 @@ export function StructuredData({ type, data }: StructuredDataProps) {
         image: data?.image,
         author: {
           '@type': 'Organization',
-          name: data?.author || 'CODEEX AI Team'
+          name: data?.author || 'SOHAM Team'
         },
         publisher: {
           '@type': 'Organization',
-          name: 'CODEEX AI',
+          name: 'SOHAM',
           logo: {
             '@type': 'ImageObject',
             url: 'https://codeex-ai.vercel.app/images/logo.png'
@@ -192,7 +192,7 @@ export function SoftwareStructuredData({
     screenshot: screenshots,
     author: {
       '@type': 'Organization',
-      name: 'CODEEX AI Team'
+      name: 'SOHAM Team'
     },
     datePublished: '2024-01-01',
     dateModified: '2026-12-23'

@@ -1,0 +1,32 @@
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad-orange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF7A00" />
+      <stop offset="100%" stop-color="#FF9A2B" />
+    </linearGradient>
+    <linearGradient id="grad-green" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#A8E400" />
+      <stop offset="100%" stop-color="#C7F123" />
+    </linearGradient>
+    <linearGradient id="grad-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#75C6DD" />
+      <stop offset="100%" stop-color="#9ADAEA" />
+    </linearGradient>
+
+    <!-- Draw orange over blue on the right side for the loop effect -->
+    <clipPath id="right-half">
+      <rect x="512" y="0" width="512" height="1024" />
+    </clipPath>
+  </defs>
+
+  <g fill="none" stroke-width="112" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Orange top arc -->
+    <path d="M 255 170 C 445 185 660 325 830 650" stroke="url(#grad-orange)" />
+    <!-- Green left arc -->
+    <path d="M 235 800 C 210 555 305 380 420 255" stroke="url(#grad-green)" />
+    <!-- Blue bottom sweep -->
+    <path d="M 260 640 C 470 725 700 760 880 595" stroke="url(#grad-blue)" />
+    <!-- Orange over blue (right side overlay) -->
+    <path d="M 255 170 C 445 185 660 325 830 650" stroke="url(#grad-orange)" clip-path="url(#right-half)" />
+  </g>
+</svg>

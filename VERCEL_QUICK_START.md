@@ -1,4 +1,4 @@
-# 🚀 CodeEx AI - Vercel Quick Start
+# 🚀 SOHAM - Vercel Quick Start
 
 ## Deploy in 5 Minutes
 
@@ -12,7 +12,7 @@ git push origin main
 ### Step 2: Deploy to Vercel
 
 1. **Visit**: https://vercel.com/new
-2. **Import**: Select your `CodeEx-AI-` repository
+2. **Import**: Select your `CODEEX-AI-` repository
 3. **Configure**: Framework preset will auto-detect as Next.js
 4. **Add Environment Variables**: Click "Environment Variables" dropdown
 
@@ -76,7 +76,7 @@ Visit your app and verify:
 
 ## 🎉 Done!
 
-Your CodeEx AI is now live on Vercel!
+Your SOHAM is now live on Vercel!
 
 **Next Steps:**
 - Share with friends for testing

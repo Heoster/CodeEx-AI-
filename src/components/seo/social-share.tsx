@@ -30,8 +30,8 @@ interface SocialShareProps {
 
 export function SocialShare({
   url = typeof window !== 'undefined' ? window.location.href : 'https://codeex-ai.vercel.app',
-  title = '🚀 CODEEX AI - Free AI Chat with 21+ Models | ChatGPT Alternative',
-  description = '✨ Try CODEEX AI - the best free AI assistant! Features: AI Chat, Code Generator, Image Creator, Math Solver, PDF Analyzer, Voice AI (Jarvis Mode). No signup needed! 🎯',
+  title = '🚀 SOHAM - Free AI Chat with 21+ Models | ChatGPT Alternative',
+  description = '✨ Try SOHAM - the best free AI assistant! Features: AI Chat, Code Generator, Image Creator, Math Solver, PDF Analyzer, Voice AI (Jarvis Mode). No signup needed! 🎯',
   hashtags = ['AI', 'ChatGPT', 'FreeAI', 'CodeGenerator', 'AIChat', 'ArtificialIntelligence', 'Coding', 'Programming', 'Tech', 'AITools'],
   via = 'codeexai',
   className = '',
@@ -131,7 +131,7 @@ ${description}
       setCopied(true);
       toast({
         title: '✅ Link copied!',
-        description: 'Share CODEEX AI with your friends!',
+        description: 'Share SOHAM with your friends!',
       });
       
       // Track copy event

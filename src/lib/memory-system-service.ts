@@ -1,6 +1,6 @@
 /**
  * Memory System Service
- * CODEEX V3.3 Multi-Model AI Router
+ * SOHAM V3.3 Multi-Model AI Router
  * 
  * Vector-based memory storage using Google embeddings and Firestore for context-aware responses.
  * 

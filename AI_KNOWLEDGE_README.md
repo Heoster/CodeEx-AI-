@@ -1,8 +1,8 @@
-# CodeEx AI - System Knowledge Integration
+# SOHAM - System Knowledge Integration
 
 ## Overview
 
-This document explains how CodeEx AI has been enhanced with comprehensive knowledge about itself, the platform, and its capabilities. This makes the AI a perfect assistant that can guide users effectively.
+This document explains how SOHAM has been enhanced with comprehensive knowledge about itself, the platform, and its capabilities. This makes the AI a perfect assistant that can guide users effectively.
 
 ## What Was Added
 
@@ -51,11 +51,11 @@ Updated `src/ai/flows/generate-answer-from-context.ts` with:
 
 ### Context Injection
 
-The AI now receives comprehensive context about CodeEx in every conversation:
+The AI now receives comprehensive context about SOHAM in every conversation:
 
 ```typescript
 // System instruction includes:
-- Platform overview (CodeEx, 35+ models, free, open-source)
+- Platform overview (SOHAM, 35+ models, free, open-source)
 - Capabilities (image gen, video gen, voice, multimodal)
 - Communication style (helpful, knowledgeable, friendly)
 - Response guidelines (accurate, concise, formatted)
@@ -96,7 +96,7 @@ The AI can now:
 
 **AI Response:**
 ```
-I'm CodeEx AI, and I can help you with a lot! Here's what I can do:
+I'm SOHAM, and I can help you with a lot! Here's what I can do:
 
 🤖 **Chat & Reasoning**
 - Answer questions on any topic
@@ -141,7 +141,7 @@ I used HuggingFace's FLUX.1 model to create this. Would you like me to generate 
 
 **AI Response:**
 ```
-CodeEx is **completely free**! 🎉
+SOHAM is **completely free**! 🎉
 
 All core features are free forever:
 - 35+ AI models
@@ -150,7 +150,7 @@ All core features are free forever:
 - Voice features
 - Unlimited conversations
 
-We believe AI should be accessible to everyone. That's why Heoster built CodeEx as a free, open-source platform.
+We believe AI should be accessible to everyone. That's why Heoster built SOHAM as a free, open-source platform.
 ```
 
 ## Benefits
@@ -331,7 +331,7 @@ const fullContext = getCompleteAIContext();
 
 ## Conclusion
 
-CodeEx AI is now a perfect assistant with comprehensive knowledge about:
+SOHAM is now a perfect assistant with comprehensive knowledge about:
 - ✅ The platform and its architecture
 - ✅ All features and capabilities
 - ✅ User interface and pages

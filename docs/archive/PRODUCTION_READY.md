@@ -213,7 +213,7 @@ git push origin main
 - **Privacy Policy:** `/privacy` page
 - **Contact:** codeex@email.com
 - **GitHub:** https://github.com/Heoster
-- **Instagram:** @codeex._.heoster
+- **Instagram:** @SOHAM._.heoster
 
 ---
 

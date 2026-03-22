@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'AI Personalization - CODEEX AI Documentation',
+  title: 'AI Personalization - SOHAM Documentation',
   description: 'Learn how to customize your AI experience with personalization settings, response formatting, and smart context management.',
 };
 
@@ -33,7 +33,7 @@ export default function PersonalizationDocsPage() {
             Customize your AI experience with advanced personalization settings, smart context management, and response optimization.
           </p>
           <Badge variant="secondary" className="text-sm">
-            New in CODEEX AI v3.1
+            New in SOHAM v3.1
           </Badge>
         </div>
 

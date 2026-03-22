@@ -114,8 +114,8 @@ export function ChatLayout() {
           <div className="flex items-center gap-3 pb-2">
             <div className="relative">
               <Image
-                src="/favicon.ico"
-                alt="CODEEX AI icon"
+                src="/FINALSOHAM.png"
+                alt="SOHAM icon"
                 width={32}
                 height={32}
                 className="rounded-lg"
@@ -123,7 +123,7 @@ export function ChatLayout() {
               <div className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-green-500 ring-2 ring-background" />
             </div>
             <div>
-              <h1 className="text-lg font-bold">CODEEX AI</h1>
+              <h1 className="text-lg font-bold">SOHAM</h1>
               <p className="text-xs text-muted-foreground">Your AI Assistant</p>
             </div>
           </div>
@@ -305,7 +305,7 @@ export function ChatLayout() {
           <SidebarTrigger className="md:hidden -ml-2" />
           <div className="flex-1 min-w-0">
             <h1 className="text-base md:text-lg font-semibold truncate">
-              {activeChat?.title || 'CODEEX AI'}
+              {activeChat?.title || 'SOHAM'}
             </h1>
             {activeChat && (
               <p className="text-xs text-muted-foreground">
@@ -332,7 +332,7 @@ export function ChatLayout() {
               <div className="space-y-2">
                 <h2 className="text-xl md:text-2xl font-bold">Start a New Conversation</h2>
                 <p className="text-sm md:text-base text-muted-foreground">
-                  Create a new chat to begin talking with CODEEX AI
+                  Create a new chat to begin talking with SOHAM
                 </p>
               </div>
               <Button 

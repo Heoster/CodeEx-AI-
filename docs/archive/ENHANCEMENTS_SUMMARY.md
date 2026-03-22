@@ -1,4 +1,4 @@
-# CODEEX AI Enhancements Summary
+# SOHAM Enhancements Summary
 
 ## Completed Tasks
 
@@ -211,7 +211,7 @@ export const metadata = generatePageMetadata({
 
 ## Conclusion
 
-CODEEX AI now features:
+SOHAM now features:
 
 1. **Enhanced Model Attribution**
    - Prominent, styled model name display
@@ -235,5 +235,5 @@ For questions or issues:
 
 ---
 
-**Built by Heoster (Harsh), 16-year-old founder of CODEEX AI**
+**Built by Heoster (Harsh), 16-year-old founder of SOHAM**
 *Democratizing AI education, one feature at a time.*

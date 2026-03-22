@@ -6,7 +6,7 @@
 
 ## Executive Summary
 
-Phase 4 of the CODEEX V3.3 Multi-Model AI Router has been successfully verified. All rate limiting and queuing components are working correctly and meet the specified requirements.
+Phase 4 of the SOHAM V3.3 Multi-Model AI Router has been successfully verified. All rate limiting and queuing components are working correctly and meet the specified requirements.
 
 ## Components Verified
 

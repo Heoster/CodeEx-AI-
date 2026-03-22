@@ -79,7 +79,7 @@ function getFallbackModels(category: ModelCategory): ModelConfig[] {
   const allModels = registry.getAvailableModels();
   
   // Define provider priority order
-  const providerPriority = ['groq', 'cerebras', 'google', 'huggingface'];
+  const providerPriority = ['groq', 'cerebras', 'google', 'openrouter', 'huggingface'];
   
   // Get models for the requested category
   const categoryModels = registry.getModelsByCategory(category);
@@ -192,7 +192,7 @@ export async function generateWithSmartFallback(
   const attempts: FallbackAttempt[] = [];
   let fallbackTriggered = false;
   const startTime = Date.now();
-  const MAX_TOTAL_TIME = 9000; // 9 seconds total for Netlify (leave 1s buffer)
+  const MAX_TOTAL_TIME = 9000; // 9 seconds total for serverless (leave 1s buffer)
   
   // Determine which models to try
   let modelsToTry: ModelConfig[] = [];
@@ -233,7 +233,7 @@ export async function generateWithSmartFallback(
   
   // Limit to 3 models maximum for better fallback coverage
   // Groq → Cerebras → Google Gemini
-  const maxModelsToTry = Math.min(modelsToTry.length, 3);
+  const maxModelsToTry = Math.min(modelsToTry.length, 5);
   
   // Try each model in sequence
   for (let i = 0; i < maxModelsToTry; i++) {
@@ -314,7 +314,7 @@ export function getFriendlyErrorMessage(error: unknown): string {
   }
   
   if (errorMessage.includes('All models failed')) {
-    return 'All AI providers (Groq, Cerebras, Google Gemini) are currently unavailable. Please check your API keys and try again in a few minutes.';
+    return 'All AI providers (Groq, Cerebras, Google Gemini, OpenRouter, Hugging Face) are currently unavailable. Please check your API keys and try again in a few minutes.';
   }
   
   return 'An unexpected error occurred. Please try again.';

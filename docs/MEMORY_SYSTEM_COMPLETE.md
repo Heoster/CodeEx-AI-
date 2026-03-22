@@ -2,7 +2,7 @@
 
 ## Overview
 
-The CODEEX Memory System provides long-term memory capabilities using vector embeddings and Firestore. It automatically extracts, stores, and recalls important information from conversations to provide personalized, context-aware responses.
+The SOHAM Memory System provides long-term memory capabilities using vector embeddings and Firestore. It automatically extracts, stores, and recalls important information from conversations to provide personalized, context-aware responses.
 
 ## Architecture
 
@@ -437,7 +437,7 @@ class MemoryExtractionService {
 
 ## Conclusion
 
-The CODEEX Memory System provides a complete solution for long-term memory in AI conversations. It automatically extracts, stores, and recalls important information, making conversations more personalized and context-aware.
+The SOHAM Memory System provides a complete solution for long-term memory in AI conversations. It automatically extracts, stores, and recalls important information, making conversations more personalized and context-aware.
 
 **Key Benefits:**
 - 🧠 Personalized responses based on past conversations

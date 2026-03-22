@@ -124,12 +124,12 @@ export default function AiAgentPlatformPage() {
         <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2">
             <Image
-              src="/favicon.ico"
-              alt="CODEEX AI Logo"
+              src="/FINALSOHAM.png"
+              alt="SOHAM Logo"
               width={28}
               height={28}
             />
-            <span className="text-lg md:text-xl font-bold text-foreground">CODEEX AI</span>
+            <span className="text-lg md:text-xl font-bold text-foreground">SOHAM</span>
           </Link>
           <nav className="hidden items-center gap-6 md:flex">
             
@@ -180,7 +180,7 @@ export default function AiAgentPlatformPage() {
               <div className="grid items-center gap-6 md:gap-8 md:grid-cols-2">
                 <div className="text-center md:text-left">
                   <h1 className="hero-title">
-                    CODEEX AI —
+                    SOHAM —
                     <span className="block gradient-text">Conversational Intelligence</span>
                   </h1>
 
@@ -290,7 +290,7 @@ export default function AiAgentPlatformPage() {
                   size="lg"
                   className="bg-primary text-primary-foreground hover:bg-primary/90"
                 >
-                  Get Started with CODEEX AI{' '}
+                  Get Started with SOHAM{' '}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -306,12 +306,12 @@ export default function AiAgentPlatformPage() {
             <div className="col-span-2 md:col-span-1">
               <Link href="/" className="flex items-center gap-2">
                 <Image
-                  src="/favicon.ico"
-                  alt="CODEEX AI Logo"
+                  src="/FINALSOHAM.png"
+                  alt="SOHAM Logo"
                   width={28}
                   height={28}
                 />
-                <span className="text-xl font-bold text-foreground">CODEEX AI</span>
+                <span className="text-xl font-bold text-foreground">SOHAM</span>
               </Link>
             </div>
             <div className="space-y-4">
@@ -410,8 +410,8 @@ export default function AiAgentPlatformPage() {
             </div>
           </div>
           <div className="mt-8 border-t border-border pt-8 text-center text-sm text-muted-foreground">
-            <p>&copy; {new Date().getFullYear()} CODEEX AI. All rights reserved.</p>
-            <p className="mt-1">CodeEx powered by Heoster.</p>
+            <p>&copy; {new Date().getFullYear()} CODEEX-AI. All rights reserved.</p>
+            <p className="mt-1">SOHAM (Self Organising Hyper Adaptive Machine), a Sanskrit-inspired AI by CODEEX-AI.</p>
           </div>
         </div>
       </footer>

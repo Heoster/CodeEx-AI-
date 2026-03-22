@@ -2,7 +2,7 @@
  * Example: Provider Utilization Monitoring
  * 
  * This example demonstrates how to use the provider utilization monitoring
- * features added in task 7.4 of the CODEEX V3.3 Multi-Model AI Router spec.
+ * features added in task 7.4 of the SOHAM V3.3 Multi-Model AI Router spec.
  * 
  * Features demonstrated:
  * - Calculate utilization rates (0-1 scale) per provider
@@ -167,7 +167,7 @@ export function analyzePeakUsagePatterns(provider: ProviderType): void {
  */
 export function runMonitoringDashboard(): void {
   console.log('='.repeat(60));
-  console.log('CODEEX V3.3 - Provider Utilization Monitoring Dashboard');
+  console.log('SOHAM V3.3 - Provider Utilization Monitoring Dashboard');
   console.log('='.repeat(60));
   
   // Check all providers

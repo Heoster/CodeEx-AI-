@@ -24,6 +24,10 @@ export async function GET() {
         configured: !!env.ai.cerebras,
         keyValid: env.ai.cerebras ? env.ai.cerebras.startsWith('csk_') : false,
       },
+      openrouter: {
+        configured: !!env.ai.openrouter,
+        keyValid: env.ai.openrouter ? env.ai.openrouter.startsWith('sk-or-') || env.ai.openrouter.length > 20 : false,
+      },
       huggingface: {
         configured: !!env.ai.huggingface,
         keyValid: env.ai.huggingface ? env.ai.huggingface.startsWith('hf_') : false,
@@ -65,6 +69,16 @@ export async function GET() {
         resend: !!env.email.resend.apiKey,
         elevenlabs: !!env.optional.elevenlabs,
       },
+
+      integrations: {
+        gnews: !!env.integrations.gnewsApiKey,
+        alphaVantage: !!env.integrations.alphaVantageApiKey,
+        cricApi: !!env.integrations.cricApiKey,
+        upstashVector: !!(env.integrations.upstashVectorUrl && env.integrations.upstashVectorToken),
+        supabase: !!(env.integrations.supabaseUrl && env.integrations.supabaseKey),
+        weather: true, // open-meteo free endpoint
+        coingecko: true, // public free endpoint
+      },
       
       // System info
       system: {
@@ -80,7 +94,7 @@ export async function GET() {
     
     // Add warnings for missing critical configuration
     if (availableProviders.length === 0) {
-      status.errors.push('CRITICAL: No AI providers configured. Add at least one: GROQ_API_KEY, GOOGLE_API_KEY, CEREBRAS_API_KEY, or HUGGINGFACE_API_KEY');
+      status.errors.push('CRITICAL: No AI providers configured. Add at least one: GROQ_API_KEY, GOOGLE_API_KEY, CEREBRAS_API_KEY, OPENROUTER_API_KEY, or HUGGINGFACE_API_KEY');
     }
     
     if (!status.firebase.configured) {
@@ -99,6 +113,9 @@ export async function GET() {
     }
     if (providerTests.huggingface.configured && !providerTests.huggingface.keyValid) {
       status.warnings.push('HUGGINGFACE_API_KEY may be invalid (should start with hf_)');
+    }
+    if (providerTests.openrouter.configured && !providerTests.openrouter.keyValid) {
+      status.warnings.push('OPENROUTER_API_KEY may be invalid');
     }
     
     // Return appropriate status code

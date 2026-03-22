@@ -1,4 +1,4 @@
-# EmailJS Setup Guide for CODEEX AI
+# EmailJS Setup Guide for SOHAM
 
 This guide explains how to set up EmailJS for the contact form and welcome emails.
 
@@ -25,7 +25,7 @@ This guide explains how to set up EmailJS for the contact form and welcome email
 
 **Subject:**
 ```
-New Contact from {{user_name}} - CODEEX AI
+New Contact from {{user_name}} - SOHAM
 ```
 
 **Body:**
@@ -39,7 +39,7 @@ New Contact from {{user_name}} - CODEEX AI
 <p>{{message}}</p>
 
 <hr>
-<p><small>Sent from <a href="{{app_url}}">CODEEX AI</a></small></p>
+<p><small>Sent from <a href="{{app_url}}">SOHAM</a></small></p>
 ```
 
 4. Set **To Email** to your email address
@@ -52,19 +52,19 @@ New Contact from {{user_name}} - CODEEX AI
 
 **Subject:**
 ```
-Welcome to CODEEX AI, {{to_name}}! 🎉
+Welcome to SOHAM, {{to_name}}! 🎉
 ```
 
 **Body:**
 ```html
 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
   <div style="text-align: center; padding: 20px;">
-    <h1 style="color: #3b82f6;">Welcome to CODEEX AI! 🎉</h1>
+    <h1 style="color: #3b82f6;">Welcome to SOHAM! 🎉</h1>
   </div>
   
   <p>Hi {{to_name}},</p>
   
-  <p>Welcome aboard! We're thrilled to have you with us at <strong>CODEEX AI</strong>.</p>
+  <p>Welcome aboard! We're thrilled to have you with us at <strong>SOHAM</strong>.</p>
   
   <p>Your account has been successfully created, and you're now ready to experience the future of intelligent AI assistance.</p>
   
@@ -89,7 +89,7 @@ Welcome to CODEEX AI, {{to_name}}! 🎉
   <p>Let's shape the future together!</p>
   
   <p>Warm regards,<br>
-  <strong>Team CODEEX AI</strong> 🚀</p>
+  <strong>Team SOHAM</strong> 🚀</p>
   
   <hr style="margin-top: 30px; border: none; border-top: 1px solid #eee;">
   <p style="font-size: 12px; color: #666; text-align: center;">
@@ -136,7 +136,7 @@ NEXT_PUBLIC_EMAILJS_USER_ID=your_public_key_here
 - `{{to_name}}` - User's display name
 - `{{to_email}}` - User's email address
 - `{{app_url}}` - App URL
-- `{{app_name}}` - "CODEEX AI"
+- `{{app_name}}` - "SOHAM"
 - `{{support_email}}` - Support email address
 
 ## Troubleshooting

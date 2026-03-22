@@ -148,7 +148,7 @@ export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
             >
               {isAssistant ? (
                 <>
-                  <AvatarImage src="/favicon.ico" alt="CODEEX AI" />
+                  <AvatarImage src="/FINALSOHAM.png" alt="SOHAM" />
                   <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
                     C
                   </AvatarFallback>
@@ -171,7 +171,7 @@ export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
             </Avatar>
           </TooltipTrigger>
           <TooltipContent side={isAssistant ? 'right' : 'left'}>
-            <p>{isAssistant ? 'CODEEX AI' : user?.displayName ?? 'You'}</p>
+            <p>{isAssistant ? 'SOHAM' : user?.displayName ?? 'You'}</p>
           </TooltipContent>
         </Tooltip>
 

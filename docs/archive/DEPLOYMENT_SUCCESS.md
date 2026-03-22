@@ -1,6 +1,6 @@
 # 🎉 Deployment Successful!
 
-## Repository Updated: https://github.com/Heoster/CodeEx-AI-ver-2.0
+## Repository Updated: https://github.com/Heoster/CODEEX-AI-ver-2.0
 
 **Date:** December 13, 2025  
 **Status:** ✅ SUCCESSFULLY DEPLOYED  
@@ -67,7 +67,7 @@
 ## 🌐 Repository Structure
 
 ```
-CodeEx-AI-ver-2.0/
+CODEEX-AI-ver-2.0/
 ├── src/
 │   ├── ai/                    # AI system core
 │   │   ├── adapters/         # Provider adapters (Groq, HF, Google)
@@ -87,7 +87,7 @@ CodeEx-AI-ver-2.0/
 ## 🎯 Next Steps for Users
 
 ### **Immediate Use**
-1. **Clone Repository**: `git clone https://github.com/Heoster/CodeEx-AI-ver-2.0.git`
+1. **Clone Repository**: `git clone https://github.com/Heoster/CODEEX-AI-ver-2.0.git`
 2. **Install Dependencies**: `npm install`
 3. **Configure API Keys**: Copy `.env.example` to `.env.local` and add keys
 4. **Start Development**: `npm run dev`
@@ -116,7 +116,7 @@ CodeEx-AI-ver-2.0/
 
 ---
 
-**The CodeEx AI application is now fully functional with all models working perfectly in both API endpoints and the chat interface!** 🎉
+**The SOHAM application is now fully functional with all models working perfectly in both API endpoints and the chat interface!** 🎉
 
-**Repository:** https://github.com/Heoster/CodeEx-AI-ver-2.0  
+**Repository:** https://github.com/Heoster/CODEEX-AI-ver-2.0  
 **Status:** Production Ready ✅

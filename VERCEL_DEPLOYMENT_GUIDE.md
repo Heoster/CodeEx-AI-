@@ -1,9 +1,9 @@
-# CodeEx AI - Vercel Deployment Guide
+# SOHAM - Vercel Deployment Guide
 
 ## 🚀 Quick Deploy to Vercel
 
 ### Prerequisites
-- GitHub account with CodeEx AI repository
+- GitHub account with SOHAM repository
 - Vercel account (free tier works)
 - Environment variables ready (from `.env.local`)
 
@@ -38,7 +38,7 @@ The following files are already configured for Vercel:
 
 2. **Import Project**
    - Click "Add New..." → "Project"
-   - Select your GitHub repository: `CodeEx-AI-`
+   - Select your GitHub repository: `CODEEX-AI-`
    - Click "Import"
 
 3. **Configure Project**
@@ -114,7 +114,7 @@ vercel --prod
    - Go to "Settings" → "Domains"
 
 2. **Add Domain**
-   - Enter your domain: `codeex.ai` or `app.codeex.ai`
+   - Enter your domain: `SOHAM.ai` or `app.SOHAM.ai`
    - Follow DNS configuration instructions
    - Vercel provides automatic HTTPS
 

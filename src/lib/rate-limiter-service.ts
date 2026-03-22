@@ -1,5 +1,5 @@
 /**
- * Rate Limiter Service for CODEEX V3.3
+ * Rate Limiter Service for SOHAM V3.3
  * 
  * Manages rate limits across all providers with intelligent queuing and request tracking.
  * Ensures the system stays within free tier limits while maximizing throughput.

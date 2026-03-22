@@ -1,4 +1,4 @@
-# Deployment Status - CodeEx AI
+# Deployment Status - SOHAM
 
 ## Current Status: ⚠️ ENVIRONMENT VARIABLES NEEDED
 

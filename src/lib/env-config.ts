@@ -16,7 +16,8 @@ function validateEnv() {
       process.env.GOOGLE_API_KEY ||
       process.env.GROQ_API_KEY ||
       process.env.HUGGINGFACE_API_KEY ||
-      process.env.CEREBRAS_API_KEY
+      process.env.CEREBRAS_API_KEY ||
+      process.env.OPENROUTER_API_KEY
     ),
   };
 
@@ -98,6 +99,16 @@ export const env = {
     recaptcha: process.env.NEXT_PUBLIC_RECAPTCHA_V3_SITE_KEY || '',
   },
 
+  integrations: {
+    gnewsApiKey: process.env.GNEWS_API_KEY || '',
+    alphaVantageApiKey: process.env.ALPHA_VANTAGE_API_KEY || '',
+    cricApiKey: process.env.CRICAPI_KEY || '',
+    upstashVectorUrl: process.env.UPSTASH_VECTOR_REST_URL || '',
+    upstashVectorToken: process.env.UPSTASH_VECTOR_REST_TOKEN || '',
+    supabaseUrl: process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+    supabaseKey: process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY || '',
+  },
+
   // Feature flags (Requirements 19.1, 19.2, 19.3, 19.4)
   features: {
     enableSafetyGuard: process.env.ENABLE_SAFETY_GUARD !== 'false', // Default: true
@@ -118,7 +129,8 @@ export function hasAIProvider(): boolean {
     env.ai.google ||
     env.ai.groq ||
     env.ai.huggingface ||
-    env.ai.cerebras
+    env.ai.cerebras ||
+    env.ai.openrouter
   );
 }
 
@@ -128,6 +140,7 @@ export function getAvailableAIProviders(): string[] {
   if (env.ai.groq) providers.push('Groq');
   if (env.ai.huggingface) providers.push('Hugging Face');
   if (env.ai.cerebras) providers.push('Cerebras');
+  if (env.ai.openrouter) providers.push('OpenRouter');
   return providers;
 }
 

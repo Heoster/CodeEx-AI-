@@ -33,7 +33,7 @@ export default function SettingsPage() {
           Customize Your Experience
         </h1>
         <p className="text-xl text-muted-foreground">
-          Personalize CodeEx AI with your preferred AI models, response style, voice settings, and appearance.
+          Personalize SOHAM with your preferred AI models, response style, voice settings, and appearance.
         </p>
       </div>
 
@@ -83,7 +83,7 @@ export default function SettingsPage() {
               Model Selection
             </CardTitle>
             <CardDescription>
-              Choose how CodeEx AI selects models for your conversations
+              Choose how SOHAM selects models for your conversations
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -443,7 +443,7 @@ export default function SettingsPage() {
             />
             <PrivacySetting
               name="Analytics"
-              description="Help improve CodeEx AI with usage data"
+              description="Help improve SOHAM with usage data"
               options={['Enabled (Anonymous)', 'Disabled']}
               current="Anonymous only"
             />

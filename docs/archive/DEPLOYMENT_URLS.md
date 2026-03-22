@@ -1,4 +1,4 @@
-# CODEEX AI - Deployment URLs
+# SOHAM - Deployment URLs
 
 ## Production Deployments
 

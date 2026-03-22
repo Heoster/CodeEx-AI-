@@ -375,5 +375,5 @@ describe('Context Chunking', () => {
 - [Model Registry V3](./MODEL_REGISTRY_V3.md)
 - [Intelligent Router](./INTELLIGENT_ROUTER.md)
 - [Rate Limiter Service](./RATE_LIMITER.md)
-- [Requirements Document](../.kiro/specs/codeex-v3-3-multi-model-router/requirements.md)
-- [Design Document](../.kiro/specs/codeex-v3-3-multi-model-router/design.md)
+- [Requirements Document](../.kiro/specs/SOHAM-v3-3-multi-model-router/requirements.md)
+- [Design Document](../.kiro/specs/SOHAM-v3-3-multi-model-router/design.md)

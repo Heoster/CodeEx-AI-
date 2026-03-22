@@ -1,6 +1,6 @@
 /**
  * Error Handler V3 Tests
- * CODEEX V3.3 Multi-Model AI Router
+ * SOHAM V3.3 Multi-Model AI Router
  * 
  * Tests for error classification, recovery strategies, logging, and graceful messages.
  */

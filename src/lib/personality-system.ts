@@ -1,7 +1,7 @@
 import { UserProfile, UserMemory } from './types';
 
 /**
- * Personality System for CodeEx AI
+ * Personality System for SOHAM
  * Implements behavioral rules for natural, context-aware interactions
  */
 

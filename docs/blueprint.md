@@ -1,4 +1,4 @@
-# **App Name**: CodeEx AI
+# **App Name**: SOHAM
 
 ## Core Features:
 

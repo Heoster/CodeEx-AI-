@@ -26,7 +26,7 @@ import { PageHeader } from '@/components/page-header';
 const integrations = [
   {
     name: 'REST API',
-    description: 'Full REST API access to all CODEEX AI capabilities',
+    description: 'Full REST API access to all SOHAM capabilities',
     icon: <Code className="h-6 w-6" />,
     status: 'available',
     category: 'API',
@@ -59,7 +59,7 @@ const integrations = [
   },
   {
     name: 'Zapier',
-    description: 'Connect CODEEX AI to 5000+ apps with no-code automation',
+    description: 'Connect SOHAM to 5000+ apps with no-code automation',
     icon: <Zap className="h-6 w-6" />,
     status: 'planned',
     category: 'No-Code',
@@ -75,7 +75,7 @@ const integrations = [
   },
   {
     name: 'Slack Bot',
-    description: 'Bring CODEEX AI directly into your Slack workspace',
+    description: 'Bring SOHAM directly into your Slack workspace',
     icon: <Slack className="h-6 w-6" />,
     status: 'planned',
     category: 'Communication',
@@ -120,11 +120,11 @@ export default function IntegrationsPage() {
         {/* Hero Section */}
         <div className="text-center space-y-4 mb-12">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-            Integrate CODEEX AI
+            Integrate SOHAM
             <span className="block gradient-text">Into Your Workflow</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Connect CODEEX AI to your favorite tools and platforms. Build powerful AI-driven
+            Connect SOHAM to your favorite tools and platforms. Build powerful AI-driven
             applications with our comprehensive integration options.
           </p>
         </div>
@@ -305,7 +305,7 @@ export default function IntegrationsPage() {
         <div className="mt-16 text-center space-y-6 py-12 border-t">
           <h2 className="text-3xl font-bold">Ready to Build?</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Start integrating CODEEX AI into your applications today with our REST API.
+            Start integrating SOHAM into your applications today with our REST API.
             More integration options coming soon!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

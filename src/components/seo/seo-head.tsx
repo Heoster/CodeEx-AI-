@@ -39,8 +39,8 @@ export function SEOHead({
   
   // Merge with defaults
   const seoTitle = templateTitle 
-    ? `${templateTitle} | ${typeof defaultSEO.title === 'string' ? defaultSEO.title : 'CodeEx AI'}`
-    : title || (typeof defaultSEO.title === 'string' ? defaultSEO.title : 'CodeEx AI');
+    ? `${templateTitle} | ${typeof defaultSEO.title === 'string' ? defaultSEO.title : 'SOHAM'}`
+    : title || (typeof defaultSEO.title === 'string' ? defaultSEO.title : 'SOHAM');
   
   const seoDescription = description || (typeof defaultSEO.description === 'string' ? defaultSEO.description : '');
   const defaultKeywords = Array.isArray(defaultSEO.keywords) ? defaultSEO.keywords : [];
@@ -51,7 +51,7 @@ export function SEOHead({
     : `${siteUrl}${seoImage}`;
   
   const canonicalUrl = canonical ? `${siteUrl}${canonical}` : siteUrl;
-  const authorName = author || 'CodeEx AI Team';
+  const authorName = author || 'SOHAM Team';
 
   return (
     <Head>
@@ -95,7 +95,7 @@ export function SEOHead({
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:site_name" content="CODEEX AI" />
+      <meta property="og:site_name" content="SOHAM" />
       <meta property="og:locale" content={locale} />
       
       {/* Article specific (for blog posts) */}
@@ -121,8 +121,8 @@ export function SEOHead({
       <meta name="twitter:creator" content="@codeexai" />
       
       {/* Additional Meta Tags for AI/Tech */}
-      <meta name="application-name" content="CODEEX AI" />
-      <meta name="apple-mobile-web-app-title" content="CODEEX AI" />
+      <meta name="application-name" content="SOHAM" />
+      <meta name="apple-mobile-web-app-title" content="SOHAM" />
       <meta name="theme-color" content="#020817" />
       <meta name="msapplication-TileColor" content="#020817" />
       
@@ -144,7 +144,7 @@ export function SEOHead({
       <link rel="dns-prefetch" href="https://generativelanguage.googleapis.com" />
       
       {/* Favicon and Icons */}
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" href="/FINALSOHAM.png" />
       <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png" />
       <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png" />
       <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />

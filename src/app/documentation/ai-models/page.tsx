@@ -29,7 +29,7 @@ export default function AIModelsPage() {
           AI Models & Selection
         </h1>
         <p className="text-xl text-muted-foreground">
-          CodeEx AI supports 13+ specialized models from multiple providers. Learn how to choose the right model for your tasks.
+          SOHAM supports 13+ specialized models from multiple providers. Learn how to choose the right model for your tasks.
         </p>
       </div>
 
@@ -41,13 +41,13 @@ export default function AIModelsPage() {
             Auto Mode (Recommended)
           </CardTitle>
           <CardDescription>
-            Let CodeEx AI automatically select the best model for each query
+            Let SOHAM automatically select the best model for each query
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             <p className="text-sm">
-              When set to "Auto", CodeEx AI analyzes your query and routes it to the most appropriate model:
+              When set to "Auto", SOHAM analyzes your query and routes it to the most appropriate model:
             </p>
             <div className="grid gap-3 md:grid-cols-2">
               <div className="bg-background/50 p-3 rounded-lg">

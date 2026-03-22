@@ -18,18 +18,18 @@ Transformed generic "About Us" page into a comprehensive developer profile page 
 
 #### Title Tag
 ```
-About Heoster - 16-Year-Old Founder of CODEEX | Young Developer from India
+About Heoster - 16-Year-Old Founder of SOHAM | Young Developer from India
 ```
 
 **Optimized for**:
 - "Heoster" (primary keyword)
 - "16 year old founder"
 - "young developer India"
-- "CODEEX founder"
+- "SOHAM founder"
 
 #### Meta Description
 ```
-Meet Heoster (Harsh), 16-year-old founder and developer of CODEEX. Built a free AI platform with 35+ models from Khatauli, India. Class 11 student at Maples Academy. 50,000+ lines of code, 1000+ daily users, 100+ countries. Contact: codeex@email.com
+Meet Heoster (Harsh), 16-year-old founder and developer of SOHAM. Built a free AI platform with 35+ models from Khatauli, India. Class 11 student at Maples Academy. 50,000+ lines of code, 1000+ daily users, 100+ countries. Contact: codeex@email.com
 ```
 
 **Key Elements**:
@@ -43,7 +43,7 @@ Meet Heoster (Harsh), 16-year-old founder and developer of CODEEX. Built a free 
 ```typescript
 keywords: [
   'Heoster',
-  'Heoster CODEEX',
+  'Heoster SOHAM',
   'Harsh developer',
   'Harsh Khatauli',
   '16 year old developer',
@@ -56,7 +56,7 @@ keywords: [
   'Class 11 developer',
   'teenage AI entrepreneur',
   'young developer success story',
-  'CODEEX founder',
+  'SOHAM founder',
   'AI platform founder India',
   'codeex@email.com',
   'Heoster GitHub',
@@ -89,7 +89,7 @@ Added comprehensive Person schema with:
   "jobTitle": "Founder & Lead Developer",
   "worksFor": {
     "@type": "Organization",
-    "name": "CODEEX"
+    "name": "SOHAM"
   },
   "alumniOf": {
     "@type": "EducationalOrganization",
@@ -98,7 +98,7 @@ Added comprehensive Person schema with:
   "email": "codeex@email.com",
   "url": "https://codeex-ai.netlify.app",
   "image": "https://2024wallepals.netlify.app/assets/friends/harsh.png",
-  "description": "16-year-old developer and founder of CODEEX...",
+  "description": "16-year-old developer and founder of SOHAM...",
   "knowsAbout": ["React", "Next.js", "TypeScript", ...],
   "knowsLanguage": ["English", "Hindi"],
   "sameAs": [
@@ -114,14 +114,14 @@ Added comprehensive Person schema with:
 
 ```typescript
 openGraph: {
-  title: 'About Heoster - 16-Year-Old Founder of CODEEX',
-  description: 'Meet Heoster (Harsh), 16-year-old founder of CODEEX. Built free AI platform with 35+ models. From Khatauli, India. 50,000+ lines of code.',
+  title: 'About Heoster - 16-Year-Old Founder of SOHAM',
+  description: 'Meet Heoster (Harsh), 16-year-old founder of SOHAM. Built free AI platform with 35+ models. From Khatauli, India. 50,000+ lines of code.',
   type: 'profile',
   images: [{
     url: 'https://2024wallepals.netlify.app/assets/friends/harsh.png',
     width: 400,
     height: 400,
-    alt: 'Heoster - Founder of CODEEX',
+    alt: 'Heoster - Founder of SOHAM',
   }],
 }
 ```
@@ -131,8 +131,8 @@ openGraph: {
 ```typescript
 twitter: {
   card: 'summary',
-  title: 'About Heoster - 16-Year-Old Founder of CODEEX',
-  description: '16-year-old developer from India who built CODEEX - free AI platform with 35+ models',
+  title: 'About Heoster - 16-Year-Old Founder of SOHAM',
+  description: '16-year-old developer from India who built SOHAM - free AI platform with 35+ models',
   images: ['https://2024wallepals.netlify.app/assets/friends/harsh.png'],
 }
 ```
@@ -144,7 +144,7 @@ twitter: {
 - Name: Heoster
 - Real name: Harsh
 - Alias: Heoster
-- Role: Founder & Lead Developer at CODEEX
+- Role: Founder & Lead Developer at SOHAM
 
 #### Quick Stats Cards
 - Age: 16 years old
@@ -243,7 +243,7 @@ Updated sitemap.ts:
 - ✅ "teenage entrepreneur"
 
 ### Project-Based
-- ✅ "CODEEX founder"
+- ✅ "SOHAM founder"
 - ✅ "AI platform founder"
 - ✅ "built AI platform"
 - ✅ "35+ models developer"
@@ -259,7 +259,7 @@ Updated sitemap.ts:
 ### Primary Queries
 1. **Heoster** - Direct name search
 2. **Harsh developer** - Name + profession
-3. **Heoster CODEEX** - Name + project
+3. **Heoster SOHAM** - Name + project
 4. **16 year old developer India** - Age + location
 5. **youngest AI founder** - Achievement-based
 
@@ -271,8 +271,8 @@ Updated sitemap.ts:
 5. **student built AI platform** - Story-based
 
 ### Long-tail Queries
-1. **who created CODEEX**
-2. **CODEEX founder age**
+1. **who created SOHAM**
+2. **SOHAM founder age**
 3. **16 year old builds AI platform**
 4. **youngest developer in India**
 5. **student developer success story**
@@ -303,7 +303,7 @@ Updated sitemap.ts:
 ### Month 6
 - "Heoster" ranks #1
 - "16 year old developer" top 10
-- "CODEEX founder" top 5
+- "SOHAM founder" top 5
 - Strong personal brand established
 
 ## 🔍 Rich Snippets
@@ -314,7 +314,7 @@ Google will show:
 - Age: 16
 - Location: Khatauli, India
 - Job: Founder & Lead Developer
-- Organization: CODEEX
+- Organization: SOHAM
 - Photo: Developer image
 - Social profiles: GitHub, LinkedIn, Twitter
 
@@ -324,7 +324,7 @@ With enough signals, Google may create a Knowledge Panel showing:
 - Name and aliases
 - Age and location
 - Education
-- Notable work (CODEEX)
+- Notable work (SOHAM)
 - Social media links
 - Contact information
 

@@ -299,7 +299,7 @@ export function ChatPanel({
             </code>
             .
           </p>
-          <p>CodeEx powered by Heoster.</p>
+          <p>SOHAM by CODEEX-AI.</p>
         </div>
       </div>
     </div>

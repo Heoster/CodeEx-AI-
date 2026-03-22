@@ -35,7 +35,7 @@ export default function FAQPage() {
           FAQ & Troubleshooting
         </h1>
         <p className="text-xl text-muted-foreground">
-          Find answers to common questions about CodeEx AI features, setup, and usage.
+          Find answers to common questions about SOHAM features, setup, and usage.
         </p>
       </div>
 
@@ -89,16 +89,16 @@ export default function FAQPage() {
           icon={Zap}
           questions={[
             {
-              question: "What is CodeEx AI?",
-              answer: "CodeEx AI is an intelligent multi-model assistant that helps with coding, math, learning, and creative tasks. It automatically selects the best AI model for each query from 13+ available options, providing optimal results without manual configuration."
+              question: "What is SOHAM?",
+              answer: "SOHAM is an intelligent multi-model assistant that helps with coding, math, learning, and creative tasks. It automatically selects the best AI model for each query from 13+ available options, providing optimal results without manual configuration."
             },
             {
-              question: "How do I start using CodeEx AI?",
+              question: "How do I start using SOHAM?",
               answer: "Simply visit the chat interface and start typing your questions. The AI will automatically understand your query and provide helpful responses. No setup or configuration is required to get started."
             },
             {
-              question: "Is CodeEx AI free to use?",
-              answer: "Yes! CodeEx AI offers free access to multiple AI models including HuggingFace models, OpenRouter free tier, and 5 daily image generations. Some premium models may have usage limits, but core functionality is completely free."
+              question: "Is SOHAM free to use?",
+              answer: "Yes! SOHAM offers free access to multiple AI models including HuggingFace models, OpenRouter free tier, and 5 daily image generations. Some premium models may have usage limits, but core functionality is completely free."
             },
             {
               question: "Do I need to create an account?",
@@ -119,7 +119,7 @@ export default function FAQPage() {
           questions={[
             {
               question: "How many AI models are available?",
-              answer: "CodeEx AI provides access to 13+ AI models from multiple providers including Groq, HuggingFace, Google, and OpenRouter. Models are specialized for different tasks like coding, math, conversation, and image generation."
+              answer: "SOHAM provides access to 13+ AI models from multiple providers including Groq, HuggingFace, Google, and OpenRouter. Models are specialized for different tasks like coding, math, conversation, and image generation."
             },
             {
               question: "What is Auto mode and should I use it?",
@@ -160,7 +160,7 @@ export default function FAQPage() {
             },
             {
               question: "How does image generation work?",
-              answer: "CodeEx AI provides 5 free image generations per day using multiple HuggingFace models. Visit the AI Services dashboard, describe your desired image, choose a style, and generate high-quality AI art in seconds."
+              answer: "SOHAM provides 5 free image generations per day using multiple HuggingFace models. Visit the AI Services dashboard, describe your desired image, choose a style, and generate high-quality AI art in seconds."
             },
             {
               question: "Can I analyze PDF documents?",
@@ -213,8 +213,8 @@ export default function FAQPage() {
           icon={Smartphone}
           questions={[
             {
-              question: "How do I install CodeEx AI on my phone?",
-              answer: "CodeEx AI is a Progressive Web App (PWA). On Android, use Chrome and tap 'Add to Home screen'. On iOS, use Safari, tap the share button, then 'Add to Home Screen'. The app will work like a native mobile app."
+              question: "How do I install SOHAM on my phone?",
+              answer: "SOHAM is a Progressive Web App (PWA). On Android, use Chrome and tap 'Add to Home screen'. On iOS, use Safari, tap the share button, then 'Add to Home Screen'. The app will work like a native mobile app."
             },
             {
               question: "Does the mobile app work offline?",

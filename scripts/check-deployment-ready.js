@@ -8,7 +8,7 @@
 const fs = require('fs');
 const path = require('path');
 
-console.log('\n🚀 CODEEX AI - Deployment Readiness Check\n');
+console.log('\n🚀 SOHAM - Deployment Readiness Check\n');
 console.log('='.repeat(70));
 
 let allChecks = true;

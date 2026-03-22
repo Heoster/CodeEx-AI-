@@ -35,7 +35,7 @@ export default function APIReferencePage() {
           App URLs & API Reference
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Complete reference for CODEEX AI URLs, endpoints, and integration guides.
+          Complete reference for SOHAM URLs, endpoints, and integration guides.
         </p>
       </div>
 
@@ -47,14 +47,14 @@ export default function APIReferencePage() {
             Main Application URLs
           </CardTitle>
           <CardDescription>
-            Direct links to access CODEEX AI features and tools
+            Direct links to access SOHAM features and tools
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid gap-4">
             <URLCard
               title="Main App"
-              description="CODEEX AI homepage and main interface"
+              description="SOHAM homepage and main interface"
               url={APP_CONFIG.BASE_URL}
               icon={<Globe className="h-4 w-4" />}
             />
@@ -193,7 +193,7 @@ export default function APIReferencePage() {
         <CardHeader>
           <CardTitle>Integration Examples</CardTitle>
           <CardDescription>
-            Code examples for integrating with CODEEX AI
+            Code examples for integrating with SOHAM
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -202,7 +202,7 @@ export default function APIReferencePage() {
               <h4 className="font-semibold mb-2">Direct Link to Chat</h4>
               <div className="bg-muted p-3 rounded-lg">
                 <code className="text-sm">
-                  {`<a href="${APP_CONFIG.SHARE_URLS.chat}" target="_blank">Chat with CODEEX AI</a>`}
+                  {`<a href="${APP_CONFIG.SHARE_URLS.chat}" target="_blank">Chat with SOHAM</a>`}
                 </code>
               </div>
             </div>

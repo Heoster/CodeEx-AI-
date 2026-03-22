@@ -56,15 +56,15 @@ This happens when Google's automated system detects potential trademark, brandin
 #### Current Issues to Check:
 
 1. **App Name**
-   - Current: "CODEEX AI - Intelligent Assistant"
+   - Current: "SOHAM - Intelligent Assistant"
    - Issue: May be flagged for "AI" usage or misleading name
    
    **Fix Options:**
-   - ✅ "CODEEX" (simple, clear)
-   - ✅ "CODEEX Chat" (descriptive)
-   - ✅ "CODEEX Platform" (professional)
-   - ❌ "CODEEX AI" (might be flagged)
-   - ❌ "Google CODEEX" (implies Google affiliation)
+   - ✅ "SOHAM" (simple, clear)
+   - ✅ "SOHAM Chat" (descriptive)
+   - ✅ "SOHAM Platform" (professional)
+   - ❌ "SOHAM" (might be flagged)
+   - ❌ "Google SOHAM" (implies Google affiliation)
 
 2. **App Logo**
    - Ensure it's your own original logo
@@ -79,14 +79,14 @@ This happens when Google's automated system detects potential trademark, brandin
    
    **Good Example:**
    ```
-   CODEEX is a free chat platform that allows users to interact with 
+   SOHAM is a free chat platform that allows users to interact with 
    multiple AI language models. Users can sign in with their Google 
    account to save their chat history and preferences.
    ```
    
    **Bad Example:**
    ```
-   CODEEX AI powered by Google - The best AI assistant using Google's 
+   SOHAM powered by Google - The best AI assistant using Google's 
    technology and other AI providers.
    ```
 
@@ -114,7 +114,7 @@ This happens when Google's automated system detects potential trademark, brandin
    
    **Application Name:**
    ```
-   CODEEX
+   SOHAM
    ```
    
    **Application Logo:**
@@ -145,7 +145,7 @@ This happens when Google's automated system detects potential trademark, brandin
    
    **Application Description:**
    ```
-   CODEEX is a free multi-model chat platform. Users can sign in with 
+   SOHAM is a free multi-model chat platform. Users can sign in with 
    their Google account to save conversations and personalize their 
    experience. We use Google Sign-In for authentication only.
    ```
@@ -190,8 +190,8 @@ This happens when Google's automated system detects potential trademark, brandin
    ```json
    // public/manifest.json
    {
-     "name": "CODEEX - Chat Platform",
-     "short_name": "CODEEX",
+     "name": "SOHAM - Chat Platform",
+     "short_name": "SOHAM",
      "description": "Multi-model chat platform for conversations and productivity"
    }
    ```
@@ -200,7 +200,7 @@ This happens when Google's automated system detects potential trademark, brandin
    ```typescript
    // src/lib/app-config.ts
    export const APP_CONFIG = {
-     APP_NAME: 'CODEEX',
+     APP_NAME: 'SOHAM',
      APP_DESCRIPTION: 'Free multi-model chat platform',
    };
    ```
@@ -208,7 +208,7 @@ This happens when Google's automated system detects potential trademark, brandin
 3. **Update Package.json**
    ```json
    {
-     "name": "codeex-chat",
+     "name": "SOHAM-chat",
      "description": "Multi-model chat platform with smart routing and web search"
    }
    ```
@@ -246,10 +246,10 @@ This happens when Google's automated system detects potential trademark, brandin
 
 ```json
 {
-  "name": "CODEEX - Chat Platform",
-  "short_name": "CODEEX",
+  "name": "SOHAM - Chat Platform",
+  "short_name": "SOHAM",
   "description": "Multi-model chat platform for conversations and productivity. Sign in to save your chats and preferences.",
-  "id": "codeex-chat"
+  "id": "SOHAM-chat"
 }
 ```
 
@@ -281,7 +281,7 @@ Ensure your terms (`src/app/terms/page.tsx`) clearly state:
 
 ### Application Information
 - [ ] App name doesn't include "Google", "Gmail", or misleading terms
-- [ ] App name is clear and honest (e.g., "CODEEX")
+- [ ] App name is clear and honest (e.g., "SOHAM")
 - [ ] Logo is original and doesn't resemble Google's
 - [ ] Logo is at least 120x120px
 - [ ] Home page URL is correct and accessible
@@ -367,7 +367,7 @@ Hello Google Support Team,
 I'm experiencing a branding verification issue with my OAuth consent screen.
 
 Project Details:
-- Project Name: CODEEX
+- Project Name: SOHAM
 - Project ID: [your-firebase-project-id]
 - GCP Project Number: [your-project-number]
 
@@ -375,7 +375,7 @@ Issue:
 My OAuth consent screen has been flagged for branding verification issues.
 
 Clarification:
-1. App Name: "CODEEX" - This is my own brand, not affiliated with Google
+1. App Name: "SOHAM" - This is my own brand, not affiliated with Google
 2. Purpose: Free chat platform that uses Google Sign-In for authentication
 3. Scopes: Only using basic scopes (email, profile, openid)
 4. No Impersonation: We clearly state we're not affiliated with Google
@@ -426,7 +426,7 @@ Thank you,
 
 ```yaml
 Application Type: External
-Application Name: CODEEX
+Application Name: SOHAM
 Application Logo: [Your original logo - 120x120px]
 Support Email: codeex@email.com
 
@@ -444,7 +444,7 @@ Scopes:
   - openid
 
 App Description: |
-  CODEEX is a free chat platform that allows users to interact with 
+  SOHAM is a free chat platform that allows users to interact with 
   multiple language models. Users can sign in with their Google account 
   to save their chat history and preferences. We use Google Sign-In for 
   authentication purposes only and do not access any other Google services.
@@ -623,7 +623,7 @@ Based on Google's official verification requirements, here's a complete checklis
   - Domain is verified through Netlify
 
 - [x] **Homepage accurately represents app/brand**
-  - Clear branding as "CODEEX"
+  - Clear branding as "SOHAM"
   - Professional design and layout
 
 - [x] **Homepage describes app functionality**
@@ -791,7 +791,7 @@ Before submitting for verification:
 - [ ] Privacy Policy is up to date
 
 ### OAuth Consent Screen
-- [ ] App name is "CODEEX" (not "CODEEX AI")
+- [ ] App name is "SOHAM" (not "SOHAM")
 - [ ] App logo is uploaded (your own, not Google's)
 - [ ] Homepage URL: `https://codeex-ai.netlify.app`
 - [ ] Privacy Policy URL: `https://codeex-ai.netlify.app/privacy`
@@ -831,7 +831,7 @@ Before submitting for verification:
    - https://console.cloud.google.com/apis/credentials/consent
 
 2. **Review All Information**
-   - App name: CODEEX
+   - App name: SOHAM
    - Logo: Your original logo
    - URLs: All correct and accessible
    - Scopes: Only basic scopes
@@ -881,9 +881,9 @@ Before submitting for verification:
 ### Avoid Common Mistakes
 
 1. **App Name**
-   - ❌ "Google CODEEX"
-   - ❌ "CODEEX AI by Google"
-   - ✅ "CODEEX"
+   - ❌ "Google SOHAM"
+   - ❌ "SOHAM by Google"
+   - ✅ "SOHAM"
 
 2. **Privacy Policy**
    - ❌ Generic template without Google info
@@ -966,13 +966,13 @@ Before submitting for verification:
 
 ## ✅ Summary
 
-Your CODEEX app is now configured to meet Google's Brand Verification Requirements:
+Your SOHAM app is now configured to meet Google's Brand Verification Requirements:
 
 1. ✅ Privacy Policy updated with Google API compliance
 2. ✅ Homepage describes app functionality
 3. ✅ Privacy Policy linked from homepage
 4. ✅ Only basic scopes requested (no sensitive/restricted)
-5. ✅ Clear branding (CODEEX, not CODEEX AI)
+5. ✅ Clear branding (SOHAM, not SOHAM)
 6. ✅ Professional presentation
 
 **Remaining Actions:**

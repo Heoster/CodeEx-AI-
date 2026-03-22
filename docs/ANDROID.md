@@ -1,15 +1,15 @@
-# CODEEX AI - Android Guide
+# SOHAM - Android Guide
 
 ## Installing on Android
 
-CODEEX AI is a Progressive Web App (PWA) that provides a native app-like experience on Android devices.
+SOHAM is a Progressive Web App (PWA) that provides a native app-like experience on Android devices.
 
 ### Installation Steps
 
 #### Method 1: Chrome Browser (Recommended)
 
 1. Open Chrome on your Android device
-2. Navigate to your CODEEX AI URL
+2. Navigate to your SOHAM URL
 3. Wait for the page to fully load
 4. Tap the **menu icon** (⋮) in the top right
 5. Select **"Add to Home screen"** or **"Install app"**
@@ -19,7 +19,7 @@ CODEEX AI is a Progressive Web App (PWA) that provides a native app-like experie
 #### Method 2: Samsung Internet
 
 1. Open Samsung Internet browser
-2. Navigate to your CODEEX AI URL
+2. Navigate to your SOHAM URL
 3. Tap the **menu icon** (≡)
 4. Select **"Add page to"** → **"Home screen"**
 5. Tap **"Add"**
@@ -27,7 +27,7 @@ CODEEX AI is a Progressive Web App (PWA) that provides a native app-like experie
 #### Method 3: Firefox
 
 1. Open Firefox on Android
-2. Navigate to your CODEEX AI URL
+2. Navigate to your SOHAM URL
 3. Tap the **menu icon** (⋮)
 4. Select **"Install"**
 5. Confirm installation
@@ -83,7 +83,7 @@ CODEEX AI is a Progressive Web App (PWA) that provides a native app-like experie
 
 ## Permissions
 
-CODEEX AI may request these permissions:
+SOHAM may request these permissions:
 
 | Permission | Purpose | Required |
 |------------|---------|----------|
@@ -131,7 +131,7 @@ CODEEX AI may request these permissions:
 ### App Crashes
 
 **Solution:**
-1. Clear app data: Settings → Apps → CODEEX AI → Clear Data
+1. Clear app data: Settings → Apps → SOHAM → Clear Data
 2. Reinstall the app
 3. Check available storage space
 
@@ -188,14 +188,14 @@ PWAs update automatically when you open them with internet connection.
 ### Method 2: Settings
 
 1. Go to **Settings** → **Apps**
-2. Find **CODEEX AI**
+2. Find **SOHAM**
 3. Tap **"Uninstall"**
 
 ---
 
 ## Comparison: PWA vs Native App
 
-| Feature | CODEEX AI (PWA) | Native App |
+| Feature | SOHAM (PWA) | Native App |
 |---------|-----------------|------------|
 | Installation | From browser | From Play Store |
 | Size | ~2MB | 50-100MB typical |

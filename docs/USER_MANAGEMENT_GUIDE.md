@@ -2,7 +2,7 @@
 
 ## Overview
 
-CODEEX AI provides comprehensive user management features including authentication, profile management, and security settings.
+SOHAM provides comprehensive user management features including authentication, profile management, and security settings.
 
 ## Features
 
@@ -146,7 +146,7 @@ Need help? Contact us at:
 
 ## API Integration
 
-For developers integrating with CODEEX AI:
+For developers integrating with SOHAM:
 
 ### Firebase Auth Service
 Located at `src/lib/firebase-auth-service.ts`

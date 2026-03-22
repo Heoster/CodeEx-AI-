@@ -1,6 +1,6 @@
 /**
  * Memory System Performance Benchmark
- * CODEEX V3.3 Multi-Model AI Router
+ * SOHAM V3.3 Multi-Model AI Router
  * 
  * Benchmarks to verify <100ms performance target for similarity search
  * Requirement: 13.10 - Memory System SHALL complete similarity search in under 100ms

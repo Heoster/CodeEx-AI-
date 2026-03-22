@@ -313,8 +313,8 @@ export default function AccountPage() {
   return (
     <>
       <PageSEO
-        title="Account | CODEEX AI"
-        description="Manage your CODEEX AI account, settings, and preferences"
+        title="Account | SOHAM"
+        description="Manage your SOHAM account, settings, and preferences"
         keywords={['account', 'settings', 'profile', 'security']}
         canonical="/account"
       />

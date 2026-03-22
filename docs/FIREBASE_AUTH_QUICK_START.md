@@ -21,17 +21,17 @@ All code is implemented! You just need to configure Firebase.
 2. Click each template and customize:
 
 **Password Reset Template:**
-- Subject: `Reset your password for CodeEx AI`
+- Subject: `Reset your password for SOHAM`
 - Click **Customize action URL**
 - Set to: `https://codeex-ai.netlify.app` (or your domain)
 
 **Email Address Change Template:**
-- Subject: `Verify your new email for CodeEx AI`
+- Subject: `Verify your new email for SOHAM`
 - Click **Customize action URL**
 - Set to: `https://codeex-ai.netlify.app`
 
 **Email Verification Template:**
-- Subject: `Verify your email for CodeEx AI`
+- Subject: `Verify your email for SOHAM`
 - Click **Customize action URL**
 - Set to: `https://codeex-ai.netlify.app`
 

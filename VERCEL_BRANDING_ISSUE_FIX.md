@@ -39,14 +39,14 @@ This is usually a false positive. Contact Vercel support to clarify:
 
 2. **Explain Your Project**
    ```
-   Subject: Branding Verification Issue - CodeEx AI Project
+   Subject: Branding Verification Issue - SOHAM Project
 
    Hello Vercel Team,
 
    I'm receiving a branding verification error for my project "codeex-ai".
    
    Project Details:
-   - Name: CODEEX AI
+   - Name: SOHAM
    - Purpose: Free AI chat platform aggregator
    - GitHub: [your-repo-url]
    
@@ -54,7 +54,7 @@ This is usually a false positive. Contact Vercel support to clarify:
    - Aggregates multiple AI providers (Groq, Google Gemini, etc.)
    - Does NOT impersonate any company
    - Uses official APIs with proper attribution
-   - Is clearly branded as "CODEEX AI" (my own brand)
+   - Is clearly branded as "SOHAM" (my own brand)
    
    I have proper API keys and permissions to use:
    - Groq API (official API key)
@@ -80,7 +80,7 @@ While waiting for Vercel support, you can modify the branding to be more generic
 ```json
 // package.json
 {
-  "name": "codeex-chat",  // Remove "AI"
+  "name": "SOHAM-chat",  // Remove "AI"
   "description": "Multi-provider chat platform"  // More generic
 }
 ```
@@ -89,8 +89,8 @@ While waiting for Vercel support, you can modify the branding to be more generic
 ```json
 // public/manifest.json
 {
-  "name": "CODEEX - Intelligent Assistant",  // Remove "AI"
-  "short_name": "CODEEX",
+  "name": "SOHAM - Intelligent Assistant",  // Remove "AI"
+  "short_name": "SOHAM",
   "description": "Intelligent assistant platform"
 }
 ```
@@ -99,7 +99,7 @@ While waiting for Vercel support, you can modify the branding to be more generic
 ```typescript
 // src/lib/app-config.ts
 export const APP_CONFIG = {
-  APP_NAME: 'CODEEX',  // Remove "AI"
+  APP_NAME: 'SOHAM',  // Remove "AI"
   APP_DESCRIPTION: 'Free multi-model chat platform',
 };
 ```

@@ -20,7 +20,7 @@ export default function TestApiPage() {
       <main className="container mx-auto max-w-4xl px-6 py-12">
         <div className="space-y-6">
           <div>
-            <h2 className="text-2xl font-bold mb-2">Test CODEEX AI API Endpoints</h2>
+            <h2 className="text-2xl font-bold mb-2">Test SOHAM API Endpoints</h2>
             <p className="text-muted-foreground">
               Test all API endpoints with multi-provider fallback support
             </p>

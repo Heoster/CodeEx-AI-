@@ -219,8 +219,8 @@ Users may need to sign out and sign in again for security.
 
 ```typescript
 <PageSEO
-  title="User Management | CODEEX AI"
-  description="Manage your CODEEX AI account settings, profile, security, and preferences"
+  title="User Management | SOHAM"
+  description="Manage your SOHAM account settings, profile, security, and preferences"
   keywords={['user management', 'account settings', 'profile', 'security']}
   canonical="/user-management"
 />

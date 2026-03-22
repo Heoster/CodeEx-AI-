@@ -1,11 +1,10 @@
 /**
- * Developer Information for CODEEX AI
- * Contains all information about the creator and development team
+ * Developer information for SOHAM and the parent company CODEEX-AI.
  */
 
 export const DEVELOPER_INFO = {
   // Personal Information
-  name: "CODEEX Heoster",
+  name: "Heoster",
   alias: "Heoster",
   realName: "Harsh",
   age: 16,
@@ -25,7 +24,7 @@ export const DEVELOPER_INFO = {
 
   // Professional
   company: {
-    name: "CODEEX AI",
+    name: "CODEEX-AI",
     role: "Founder & Lead Developer",
     founded: "2024",
     type: "AI Startup"
@@ -35,7 +34,7 @@ export const DEVELOPER_INFO = {
   contact: {
     email: "codeex@email.com",
     linkedin: "https://in.linkedin.com/in/codeex-heoster-4b60b8399",
-    linkedinVanity: "codeex-heoster-4b60b8399",
+    linkedinVanity: "codeex-heoster",
     github: "https://github.com/heoster",
     twitter: "https://twitter.com/The_Heoster_"
   },
@@ -72,7 +71,7 @@ export const DEVELOPER_INFO = {
 
   // Key Achievements
   achievements: [
-    "Built CODEEX AI with 26+ AI models at age 16",
+    "Built SOHAM with 26+ AI models at age 16",
     "Created the world's largest free AI model collection",
     "Developed innovative 'Six Souls' workflow for Smart Notes Pro",
     "Achieved sub-second load times with advanced optimization",
@@ -86,7 +85,7 @@ export const DEVELOPER_INFO = {
 
   // Current Projects
   currentProjects: [
-    "CODEEX AI Platform Development",
+    "SOHAM Platform Development",
     "Smart Notes Pro Enhancement",
     "Mobile App Development",
     "API Ecosystem Expansion",
@@ -129,11 +128,11 @@ export const DEVELOPER_INFO = {
 
   // Future Goals
   futureGoals: [
-    "Expand CODEEX AI to 1 million users",
+    "Expand SOHAM to 1 million users",
     "Launch native mobile applications",
     "Create AI education curriculum for schools",
     "Build developer ecosystem and marketplace",
-    "Establish CODEEX AI as leading AI platform in India",
+    "Establish SOHAM as leading AI platform in India",
     "Mentor other young developers and entrepreneurs",
     "Contribute to open source AI community",
     "Advance AI accessibility and education globally"
@@ -152,7 +151,7 @@ export const DEVELOPER_INFO = {
   timeline: [
     {
       year: "2024",
-      milestone: "Founded CODEEX AI",
+      milestone: "Founded CODEEX-AI",
       description: "Started building the comprehensive AI platform"
     },
     {

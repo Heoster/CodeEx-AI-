@@ -2,7 +2,7 @@
 
 ## ✅ Installation Complete
 
-Google Analytics (GA4) is now active on CODEEX AI with tracking ID: **G-YH87NZPSKB**
+Google Analytics (GA4) is now active on SOHAM with tracking ID: **G-YH87NZPSKB**
 
 ## What's Working
 

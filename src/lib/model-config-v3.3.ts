@@ -7,7 +7,7 @@ import { z } from 'zod';
 import type { ModelParams } from './model-config';
 
 // Extended provider types for V3.3 (includes elevenlabs)
-export type ProviderType = 'groq' | 'cerebras' | 'google' | 'huggingface' | 'elevenlabs';
+export type ProviderType = 'groq' | 'cerebras' | 'google' | 'huggingface' | 'openrouter' | 'elevenlabs';
 
 // Model category types (same as base but redefined for V3.3)
 export type ModelCategory = 'general' | 'coding' | 'math' | 'conversation' | 'multimodal';
@@ -112,7 +112,7 @@ export interface ModelUsageStats {
 // Zod schemas for validation
 export const LifecycleStatusSchema = z.enum(['ACTIVE', 'DYING', 'DEAD']);
 
-export const ProviderTypeSchema = z.enum(['groq', 'cerebras', 'google', 'huggingface', 'elevenlabs']);
+export const ProviderTypeSchema = z.enum(['groq', 'cerebras', 'google', 'huggingface', 'openrouter', 'elevenlabs']);
 
 export const ModelCategorySchema = z.enum(['general', 'coding', 'math', 'conversation', 'multimodal']);
 

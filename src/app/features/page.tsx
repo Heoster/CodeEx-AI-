@@ -152,7 +152,7 @@ export default function FeaturesPage() {
             <span className="block gradient-text">Modern AI Interaction</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            CODEEX AI combines cutting-edge AI models with an intuitive interface,
+            SOHAM combines cutting-edge AI models with an intuitive interface,
             giving you the tools you need to learn, create, and solve problems.
           </p>
         </div>
@@ -276,7 +276,7 @@ export default function FeaturesPage() {
         <div className="text-center space-y-6 py-12 border-t">
           <h2 className="text-3xl font-bold">Ready to Experience the Future?</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Start using CODEEX AI today and discover how intelligent AI assistance
+            Start using SOHAM today and discover how intelligent AI assistance
             can transform your workflow.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

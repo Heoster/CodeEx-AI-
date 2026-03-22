@@ -63,7 +63,7 @@ function ForgotPasswordForm() {
               </p>
             </div>
             <div className="mt-6">
-              <Image src="/favicon.ico" alt="CODEEX AI" width={80} height={80} />
+              <Image src="/FINALSOHAM.png" alt="SOHAM" width={80} height={80} />
             </div>
           </div>
 
@@ -71,7 +71,7 @@ function ForgotPasswordForm() {
           <div className="mx-auto w-full max-w-md rounded-lg border bg-card p-8 shadow-lg">
             <div className="text-center">
               <div className="mb-4 flex justify-center">
-                <Image src="/favicon.ico" alt="CODEEX AI Logo" width={56} height={56} />
+                <Image src="/FINALSOHAM.png" alt="SOHAM Logo" width={56} height={56} />
               </div>
               <h1 className="text-2xl font-bold">Reset link sent!</h1>
               <p className="mt-2 text-sm text-muted-foreground">
@@ -139,7 +139,7 @@ function ForgotPasswordForm() {
             </p>
           </div>
           <div className="mt-6">
-            <Image src="/favicon.ico" alt="CODEEX AI" width={80} height={80} />
+            <Image src="/FINALSOHAM.png" alt="SOHAM" width={80} height={80} />
           </div>
         </div>
 
@@ -147,7 +147,7 @@ function ForgotPasswordForm() {
         <div className="mx-auto w-full max-w-md rounded-lg border bg-card p-8 shadow-lg">
           <div className="text-center">
             <div className="mb-4 flex justify-center">
-              <Image src="/favicon.ico" alt="CODEEX AI Logo" width={56} height={56} />
+              <Image src="/FINALSOHAM.png" alt="SOHAM Logo" width={56} height={56} />
             </div>
             <h1 className="text-2xl font-bold">Reset your password</h1>
             <p className="mt-2 text-sm text-muted-foreground">
@@ -204,7 +204,7 @@ function ForgotPasswordForm() {
           </div>
 
           <p className="mt-4 text-center text-xs text-muted-foreground">
-            CodeEx powered by Heoster.
+            SOHAM by CODEEX-AI.
           </p>
         </div>
       </div>

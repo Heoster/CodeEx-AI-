@@ -23,6 +23,12 @@
       "apiKeyEnvVar": "CEREBRAS_API_KEY",
       "baseUrl": "https://api.cerebras.ai/v1",
       "enabled": true
+    },
+    "openrouter": {
+      "type": "openrouter",
+      "apiKeyEnvVar": "OPENROUTER_API_KEY",
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "enabled": true
     }
   },
   "models": [
@@ -250,6 +256,22 @@
         "temperature": 0.7,
         "topP": 0.9,
         "maxOutputTokens": 4096
+      },
+      "enabled": true
+    },
+    {
+      "id": "openrouter-deepseek-r1-free",
+      "name": "OpenRouter DeepSeek R1 (Free)",
+      "provider": "openrouter",
+      "modelId": "deepseek/deepseek-r1:free",
+      "category": "general",
+      "description": "Free-tier reasoning model via OpenRouter",
+      "contextWindow": 32768,
+      "supportsStreaming": false,
+      "defaultParams": {
+        "temperature": 0.6,
+        "topP": 0.9,
+        "maxOutputTokens": 2048
       },
       "enabled": true
     }

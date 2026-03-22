@@ -2,7 +2,7 @@
 
 ## Summary
 
-Enhanced CODEEX AI with improved model name display and comprehensive SEO optimization for multiple pages.
+Enhanced SOHAM with improved model name display and comprehensive SEO optimization for multiple pages.
 
 ## 1. Model Name Display Enhancement
 
@@ -92,7 +92,7 @@ export default function FeaturesPage() {
 
 1. **Title Tag**
    - Optimized with primary keywords
-   - Includes "CODEEX" branding
+   - Includes "SOHAM" branding
    - Under 60 characters for SERP display
 
 2. **Meta Description**
@@ -101,7 +101,7 @@ export default function FeaturesPage() {
    - 150-160 characters for optimal display
 
 3. **Keywords**
-   - Primary keywords (CODEEX, free AI, model names)
+   - Primary keywords (SOHAM, free AI, model names)
    - Secondary keywords (features, use cases)
    - Long-tail keywords (specific queries)
 
@@ -132,7 +132,7 @@ export default function FeaturesPage() {
 
 ### Home Page
 - **Focus**: Brand awareness, free AI, 35+ models
-- **Keywords**: CODEEX, free AI chat, Groq, Gemini, Cerebras
+- **Keywords**: SOHAM, free AI chat, Groq, Gemini, Cerebras
 - **CTA**: Start chatting, no signup required
 
 ### Chat Page
@@ -153,7 +153,7 @@ export default function FeaturesPage() {
 ### Documentation
 - **Focus**: User guides, API docs, tutorials
 - **Keywords**: ai documentation, api docs, user guide
-- **CTA**: Learn how to use CODEEX
+- **CTA**: Learn how to use SOHAM
 
 ### About Page
 - **Focus**: Founder story, mission, vision
@@ -333,7 +333,7 @@ export default function FeaturesLayout({ children }) {
 
 ## Conclusion
 
-CODEEX AI now has:
+SOHAM now has:
 - ✅ Enhanced model name display in chat
 - ✅ Comprehensive SEO metadata system
 - ✅ Page-specific optimization for 16+ pages

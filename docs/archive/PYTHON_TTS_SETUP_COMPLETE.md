@@ -262,8 +262,8 @@ After=network.target
 [Service]
 Type=simple
 User=www-data
-WorkingDirectory=/var/www/codeex/python
-ExecStart=/var/www/codeex/python/venv/bin/python edge_tts_server.py 8765
+WorkingDirectory=/var/www/SOHAM/python
+ExecStart=/var/www/SOHAM/python/venv/bin/python edge_tts_server.py 8765
 Restart=always
 
 [Install]

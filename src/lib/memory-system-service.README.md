@@ -4,7 +4,7 @@ Vector-based memory storage using Google embeddings and Firestore for context-aw
 
 ## Overview
 
-The Memory System Service provides intelligent memory storage and retrieval for the CODEEX V3.3 Multi-Model AI Router. It uses Google's `gemini-embedding-001` model to generate vector embeddings and stores them in Firestore for efficient similarity search.
+The Memory System Service provides intelligent memory storage and retrieval for the SOHAM V3.3 Multi-Model AI Router. It uses Google's `gemini-embedding-001` model to generate vector embeddings and stores them in Firestore for efficient similarity search.
 
 ## Features
 

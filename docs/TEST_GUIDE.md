@@ -1,4 +1,4 @@
-# Testing Guide for CODEEX AI Fixes
+# Testing Guide for SOHAM Fixes
 
 ## Quick Test Checklist
 
@@ -74,7 +74,7 @@
 2. Right-click → "View Page Source" (or Ctrl+U)
 3. Search for (Ctrl+F):
    - "Heoster"
-   - "CODEEX AI"
+   - "SOHAM"
    - "schema.org"
    - "og:title"
    - "twitter:card"

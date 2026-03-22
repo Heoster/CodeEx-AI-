@@ -1,10 +1,10 @@
-# 🚀 Netlify Deployment Guide for CODEEX AI
+# 🚀 Netlify Deployment Guide for SOHAM
 
-Complete guide to deploy CODEEX AI to Netlify with all features working.
+Complete guide to deploy SOHAM to Netlify with all features working.
 
 ## 📋 Prerequisites
 
-- GitHub repository with CODEEX AI code
+- GitHub repository with SOHAM code
 - Netlify account (free tier works)
 - API keys for AI providers (all free)
 
@@ -56,7 +56,7 @@ NEXT_PUBLIC_EMAILJS_USER_ID=your_user_id
 1. Go to [Netlify Dashboard](https://app.netlify.com)
 2. Click "New site from Git"
 3. Connect your GitHub account
-4. Select the CODEEX AI repository
+4. Select the SOHAM repository
 
 ### 2. Configure Build Settings
 - **Build command**: `npm run build:netlify`
@@ -154,4 +154,4 @@ If you encounter issues:
 
 **Ready to deploy!** 🚀
 
-Your CODEEX AI app will be live with all 8 AI models working perfectly.
+Your SOHAM app will be live with all 8 AI models working perfectly.

@@ -24,7 +24,7 @@ export function generatePageMetadata(options: PageMetadataOptions): Metadata {
   } = options;
 
   const fullTitle = title 
-    ? `${title} | CODEEX` 
+    ? `${title} | SOHAM` 
     : typeof defaultSEO.title === 'string' 
       ? defaultSEO.title 
       : defaultSEO.title.default;
@@ -39,7 +39,7 @@ export function generatePageMetadata(options: PageMetadataOptions): Metadata {
     keywords: finalKeywords.join(', '),
     authors: [{ name: defaultSEO.author || 'Heoster' }],
     creator: defaultSEO.author,
-    publisher: 'CODEEX',
+    publisher: 'SOHAM',
     robots: noIndex ? 'noindex, nofollow' : 'index, follow',
     alternates: {
       canonical: canonicalUrl,
@@ -48,13 +48,13 @@ export function generatePageMetadata(options: PageMetadataOptions): Metadata {
       title: fullTitle,
       description: finalDescription,
       url: canonicalUrl,
-      siteName: 'CODEEX',
+      siteName: 'SOHAM',
       images: [
         {
           url: ogImage || '/Multi-Chat.png',
           width: 1200,
           height: 630,
-          alt: 'CODEEX - Free AI Chat Platform',
+          alt: 'SOHAM - Free AI Chat Platform',
         },
       ],
       locale: 'en_US',
@@ -143,51 +143,51 @@ export const metadataGenerators = {
   }),
 
   pricing: () => generatePageMetadata({
-    title: 'Pricing - 100% Free Forever | CODEEX',
-    description: 'CODEEX is 100% free forever. Access 35+ AI models including Groq, Gemini, Cerebras at no cost. No hidden fees, no subscriptions. Free AI for everyone.',
-    keywords: ['free ai', 'free pricing', 'no cost ai', 'free chatgpt', 'CODEEX pricing'],
+    title: 'Pricing - 100% Free Forever | SOHAM',
+    description: 'SOHAM is 100% free forever. Access 35+ AI models including Groq, Gemini, Cerebras at no cost. No hidden fees, no subscriptions. Free AI for everyone.',
+    keywords: ['free ai', 'free pricing', 'no cost ai', 'free chatgpt', 'SOHAM pricing'],
     path: '/pricing',
   }),
 
   blog: () => generatePageMetadata({
-    title: 'Blog - AI News, Tutorials & Updates | CODEEX',
-    description: 'CODEEX blog: Latest AI news, tutorials, model comparisons, tips & tricks. Learn about Groq, Gemini, Cerebras, and more. Stay updated with AI technology.',
-    keywords: ['ai blog', 'ai news', 'ai tutorials', 'model comparisons', 'CODEEX blog'],
+    title: 'Blog - AI News, Tutorials & Updates | SOHAM',
+    description: 'SOHAM blog: Latest AI news, tutorials, model comparisons, tips & tricks. Learn about Groq, Gemini, Cerebras, and more. Stay updated with AI technology.',
+    keywords: ['ai blog', 'ai news', 'ai tutorials', 'model comparisons', 'SOHAM blog'],
     path: '/blog',
   }),
 
   careers: () => generatePageMetadata({
-    title: 'Careers - Join CODEEX Team | CODEEX',
-    description: 'Join CODEEX team. Work on cutting-edge AI technology. Help democratize AI education. Remote-friendly startup founded by 16-year-old developer.',
-    keywords: ['ai careers', 'startup jobs', 'remote work', 'ai developer jobs', 'CODEEX careers'],
+    title: 'Careers - Join SOHAM Team | SOHAM',
+    description: 'Join SOHAM team. Work on cutting-edge AI technology. Help democratize AI education. Remote-friendly startup founded by 16-year-old developer.',
+    keywords: ['ai careers', 'startup jobs', 'remote work', 'ai developer jobs', 'SOHAM careers'],
     path: '/careers',
   }),
 
   integrations: () => generatePageMetadata({
-    title: 'Integrations - API & Third-Party Tools | CODEEX',
-    description: 'CODEEX integrations: REST API, webhooks, browser extensions, mobile apps. Integrate 35+ AI models into your applications. Free API access.',
-    keywords: ['api integration', 'webhooks', 'browser extension', 'mobile app', 'CODEEX api'],
+    title: 'Integrations - API & Third-Party Tools | SOHAM',
+    description: 'SOHAM integrations: REST API, webhooks, browser extensions, mobile apps. Integrate 35+ AI models into your applications. Free API access.',
+    keywords: ['api integration', 'webhooks', 'browser extension', 'mobile app', 'SOHAM api'],
     path: '/integrations',
   }),
 
   support: () => generatePageMetadata({
-    title: 'Support - Help Center & FAQs | CODEEX',
-    description: 'CODEEX support center. Find answers to common questions, troubleshooting guides, tutorials, and contact information. Get help with AI models.',
-    keywords: ['support', 'help center', 'faq', 'troubleshooting', 'CODEEX support'],
+    title: 'Support - Help Center & FAQs | SOHAM',
+    description: 'SOHAM support center. Find answers to common questions, troubleshooting guides, tutorials, and contact information. Get help with AI models.',
+    keywords: ['support', 'help center', 'faq', 'troubleshooting', 'SOHAM support'],
     path: '/support',
   }),
 
   visualMath: () => generatePageMetadata({
-    title: 'Visual Math Solver - Solve Equations from Images | CODEEX',
-    description: 'Upload math equation images and get instant solutions. CODEEX visual math solver uses AI to recognize and solve equations with step-by-step explanations.',
-    keywords: ['math solver', 'image equation solver', 'visual math', 'ai math', 'CODEEX math'],
+    title: 'Visual Math Solver - Solve Equations from Images | SOHAM',
+    description: 'Upload math equation images and get instant solutions. SOHAM visual math solver uses AI to recognize and solve equations with step-by-step explanations.',
+    keywords: ['math solver', 'image equation solver', 'visual math', 'ai math', 'SOHAM math'],
     path: '/visual-math',
   }),
 
   pdfAnalyzer: () => generatePageMetadata({
-    title: 'PDF Analyzer - AI-Powered Document Analysis | CODEEX',
-    description: 'Analyze PDF documents with AI. Upload PDFs up to 5MB, ask questions, get summaries. CODEEX PDF analyzer extracts insights from your documents.',
-    keywords: ['pdf analyzer', 'document analysis', 'pdf ai', 'document reader', 'CODEEX pdf'],
+    title: 'PDF Analyzer - AI-Powered Document Analysis | SOHAM',
+    description: 'Analyze PDF documents with AI. Upload PDFs up to 5MB, ask questions, get summaries. SOHAM PDF analyzer extracts insights from your documents.',
+    keywords: ['pdf analyzer', 'document analysis', 'pdf ai', 'document reader', 'SOHAM pdf'],
     path: '/pdf-analyzer',
   }),
 };

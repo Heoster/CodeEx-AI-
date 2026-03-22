@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This document specifies the requirements for adding multi-model AI support to CodeEx AI. The feature enables users to select from various AI models optimized for different use cases (coding, math, conversation, multimodal) beyond the current Google Gemini models. The system will integrate models from providers like Qwen, DeepSeek, WizardLM, Meta Llama, Microsoft, and others through a unified interface.
+This document specifies the requirements for adding multi-model AI support to SOHAM. The feature enables users to select from various AI models optimized for different use cases (coding, math, conversation, multimodal) beyond the current Google Gemini models. The system will integrate models from providers like Qwen, DeepSeek, WizardLM, Meta Llama, Microsoft, and others through a unified interface.
 
 ## Glossary
 

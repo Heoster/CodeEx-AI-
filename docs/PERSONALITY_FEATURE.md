@@ -1,8 +1,8 @@
-# CodeEx AI Personality Feature
+# SOHAM Personality Feature
 
 ## Overview
 
-The Personality Feature enables CodeEx AI to provide more natural, context-aware interactions by:
+The Personality Feature enables SOHAM to provide more natural, context-aware interactions by:
 - Matching the user's communication style
 - Remembering relevant information across conversations
 - Being direct and concise without filler phrases

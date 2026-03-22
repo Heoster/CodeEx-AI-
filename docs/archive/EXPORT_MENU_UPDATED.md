@@ -26,7 +26,7 @@ The main export options are now prominently displayed at the top:
 - **Icon**: FileDown (blue)
 - **Label**: Bold "Export as PDF"
 - **Function**: Opens browser print dialog with branded PDF
-- **Output**: Professional PDF with CodeEx logo and branding
+- **Output**: Professional PDF with SOHAM logo and branding
 
 #### 2. Export as HTML 🟠
 - **Icon**: Globe (orange)
@@ -166,7 +166,7 @@ Download Formats
 
 ### 📄 PDF Export
 **What you get:**
-- Professional document with CodeEx branding
+- Professional document with SOHAM branding
 - Blue gradient logo in header
 - Metadata section (date, model, ID)
 - Formatted content with syntax highlighting
@@ -184,7 +184,7 @@ Download Formats
 - Complete standalone HTML file
 - Embedded CSS styles
 - Responsive design
-- CodeEx branding
+- SOHAM branding
 - Can be opened in any browser
 
 **Best for:**

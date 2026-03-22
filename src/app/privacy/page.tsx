@@ -6,8 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | CODEEX',
-  description: 'Privacy Policy and Data Protection practices for CODEEX platform - Compliant with Google API Services User Data Policy',
+  title: 'Privacy Policy | SOHAM',
+  description: 'Privacy Policy and Data Protection practices for SOHAM platform - Compliant with Google API Services User Data Policy',
 };
 
 export default function PrivacyPage() {
@@ -77,10 +77,10 @@ export default function PrivacyPage() {
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
               <p>
-                Welcome to CODEEX AI. We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform.
+                Welcome to SOHAM. We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform.
               </p>
               <p>
-                CODEEX AI is developed and maintained by Heoster (Harsh), located in Khatauli, Uttar Pradesh, India. By using our services, you agree to the collection and use of information in accordance with this policy.
+                SOHAM is developed and maintained by Heoster (Harsh), located in Khatauli, Uttar Pradesh, India. By using our services, you agree to the collection and use of information in accordance with this policy.
               </p>
               <p>
                 If you do not agree with the terms of this Privacy Policy, please do not access or use our services.
@@ -257,7 +257,7 @@ export default function PrivacyPage() {
               </div>
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
-              <p>CODEEX AI integrates with the following third-party services:</p>
+              <p>SOHAM integrates with the following third-party services:</p>
 
               <div>
                 <h4 className="font-semibold mb-2">Firebase (Google)</h4>
@@ -507,7 +507,7 @@ export default function PrivacyPage() {
               <Alert className="mb-4">
                 <Bell className="h-4 w-4" />
                 <AlertDescription>
-                  CODEEX uses Google API Services, including Google Sign-In for authentication. This section explains how we handle Google user data in compliance with{' '}
+                  SOHAM uses Google API Services, including Google Sign-In for authentication. This section explains how we handle Google user data in compliance with{' '}
                   <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
                     Google API Services User Data Policy
                   </a>.
@@ -531,7 +531,7 @@ export default function PrivacyPage() {
                 <h4 className="font-semibold mb-2">How We Use Google User Data</h4>
                 <p>We use Google user data exclusively for:</p>
                 <ul className="list-disc list-inside space-y-1 ml-4 mt-2">
-                  <li><strong>Authentication</strong> - To verify your identity and create your CODEEX account</li>
+                  <li><strong>Authentication</strong> - To verify your identity and create your SOHAM account</li>
                   <li><strong>Account Management</strong> - To maintain your user profile and preferences</li>
                   <li><strong>Communication</strong> - To send you important account-related notifications (with your consent)</li>
                 </ul>
@@ -542,7 +542,7 @@ export default function PrivacyPage() {
 
               <div>
                 <h4 className="font-semibold mb-2">Limited Use Requirements</h4>
-                <p>CODEEX's use of information received from Google APIs adheres to the{' '}
+                <p>SOHAM's use of information received from Google APIs adheres to the{' '}
                   <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                     Google API Services User Data Policy
                   </a>, including the Limited Use requirements:</p>
@@ -596,12 +596,12 @@ export default function PrivacyPage() {
                 <h4 className="font-semibold mb-2">Your Control Over Google Data</h4>
                 <p>You have full control over your Google user data:</p>
                 <ul className="list-disc list-inside space-y-1 ml-4 mt-2">
-                  <li><strong>Revoke Access</strong> - You can revoke CODEEX's access to your Google account at any time through{' '}
+                  <li><strong>Revoke Access</strong> - You can revoke SOHAM's access to your Google account at any time through{' '}
                     <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                       Google Account Permissions
                     </a>
                   </li>
-                  <li><strong>Delete Account</strong> - Delete your CODEEX account and all associated data through Account Settings</li>
+                  <li><strong>Delete Account</strong> - Delete your SOHAM account and all associated data through Account Settings</li>
                   <li><strong>Export Data</strong> - Export your data using our data export features</li>
                   <li><strong>Update Information</strong> - Update your profile information at any time</li>
                 </ul>
@@ -610,7 +610,7 @@ export default function PrivacyPage() {
               <div>
                 <h4 className="font-semibold mb-2">Independent Service</h4>
                 <p className="font-semibold">
-                  CODEEX is an independent service and is NOT affiliated with, endorsed by, or sponsored by Google.
+                  SOHAM is an independent service and is NOT affiliated with, endorsed by, or sponsored by Google.
                 </p>
                 <p className="mt-2">
                   We use Google Sign-In solely as an authentication method for user convenience. Your use of Google Sign-In is also subject to{' '}
@@ -626,7 +626,7 @@ export default function PrivacyPage() {
 
               <div>
                 <h4 className="font-semibold mb-2">Compliance & Transparency</h4>
-                <p>CODEEX is committed to:</p>
+                <p>SOHAM is committed to:</p>
                 <ul className="list-disc list-inside space-y-1 ml-4 mt-2">
                   <li>Full compliance with Google API Services User Data Policy</li>
                   <li>Transparent communication about data usage</li>
@@ -652,7 +652,7 @@ export default function PrivacyPage() {
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
               <p>
-                CODEEX AI is intended for users aged 13 and above. We do not knowingly collect personal information from children under 13.
+                SOHAM is intended for users aged 13 and above. We do not knowingly collect personal information from children under 13.
               </p>
               <p>
                 If you are under 18, you should have parental or guardian consent before using our services.
@@ -676,7 +676,7 @@ export default function PrivacyPage() {
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
               <p>
-                CODEEX AI is operated from India. If you are accessing our services from outside India, please be aware that your information may be transferred to, stored, and processed in India and other countries where our service providers operate.
+                SOHAM is operated from India. If you are accessing our services from outside India, please be aware that your information may be transferred to, stored, and processed in India and other countries where our service providers operate.
               </p>
               <p>
                 By using our services, you consent to the transfer of your information to countries outside your country of residence, which may have different data protection laws.
@@ -714,7 +714,7 @@ export default function PrivacyPage() {
                 <li>Send email notifications to registered users (for material changes)</li>
               </ul>
               <p>
-                Your continued use of CODEEX AI after changes are posted constitutes your acceptance of the updated Privacy Policy.
+                Your continued use of SOHAM after changes are posted constitutes your acceptance of the updated Privacy Policy.
               </p>
               <p>
                 We encourage you to review this Privacy Policy periodically to stay informed about how we protect your information.
@@ -781,7 +781,7 @@ export default function PrivacyPage() {
 
         {/* Footer */}
         <div className="mt-12 pt-8 border-t text-center text-sm text-muted-foreground">
-          <p>© 2026 CODEEX. All rights reserved.</p>
+          <p>© 2026 SOHAM. All rights reserved.</p>
           <p className="mt-2">
             This Privacy Policy is effective as of February 28, 2026 and will remain in effect except with respect to any changes in its provisions in the future.
           </p>

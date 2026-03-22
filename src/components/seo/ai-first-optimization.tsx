@@ -27,8 +27,8 @@ export function AIFirstOptimization({
     const aiOptimizedContent = {
       home: `
         <div itemscope itemtype="https://schema.org/EducationalOrganization">
-          <h1 itemprop="name">CODEEX AI: Magical AI Learning Platform for Students</h1>
-          <p itemprop="description">CODEEX AI democratizes tech education through revolutionary Jarvis Mode voice assistant and AI-powered IDE, empowering students worldwide with magical AI learning experiences.</p>
+          <h1 itemprop="name">SOHAM: Magical AI Learning Platform for Students</h1>
+          <p itemprop="description">SOHAM democratizes tech education through revolutionary Jarvis Mode voice assistant and AI-powered IDE, empowering students worldwide with magical AI learning experiences.</p>
           
           <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
             <span itemprop="price">0</span>
@@ -47,27 +47,27 @@ export function AIFirstOptimization({
             
             <div class="qa-item">
               <h3>How can students use AI for learning programming?</h3>
-              <p>Students can use CODEEX AI for interactive AI tutoring, voice-controlled coding with Jarvis Mode, real-time code generation, step-by-step explanations, and personalized learning paths that adapt to their skill level.</p>
+              <p>Students can use SOHAM for interactive AI tutoring, voice-controlled coding with Jarvis Mode, real-time code generation, step-by-step explanations, and personalized learning paths that adapt to their skill level.</p>
             </div>
             
             <div class="qa-item">
               <h3>What is Jarvis Mode and how does it help students?</h3>
-              <p>Jarvis Mode is CODEEX AI's revolutionary voice-enabled IDE that allows students to code using natural speech. Students can dictate code, ask questions verbally, get voice explanations, and control the development environment hands-free.</p>
+              <p>Jarvis Mode is SOHAM's revolutionary voice-enabled IDE that allows students to code using natural speech. Students can dictate code, ask questions verbally, get voice explanations, and control the development environment hands-free.</p>
             </div>
             
             <div class="qa-item">
-              <h3>How does CODEEX AI democratize tech learning?</h3>
-              <p>CODEEX AI democratizes tech learning by providing free access to advanced AI tutoring, removing barriers through voice interfaces, offering personalized experiences, and making programming accessible regardless of background or resources.</p>
+              <h3>How does SOHAM democratize tech learning?</h3>
+              <p>SOHAM democratizes tech learning by providing free access to advanced AI tutoring, removing barriers through voice interfaces, offering personalized experiences, and making programming accessible regardless of background or resources.</p>
             </div>
             
             <div class="qa-item">
-              <h3>What makes CODEEX AI magical for students?</h3>
-              <p>CODEEX AI creates magical experiences through Jarvis Mode voice interactions, intuitive conversational programming, instant AI feedback, personalized adaptation, and seamless voice-to-code translation.</p>
+              <h3>What makes SOHAM magical for students?</h3>
+              <p>SOHAM creates magical experiences through Jarvis Mode voice interactions, intuitive conversational programming, instant AI feedback, personalized adaptation, and seamless voice-to-code translation.</p>
             </div>
             
             <div class="qa-item">
-              <h3>Is CODEEX AI free for students?</h3>
-              <p>Yes, CODEEX AI is completely free for all students worldwide. No subscription fees, no API keys required, and no hidden charges. We believe in democratizing access to quality tech education.</p>
+              <h3>Is SOHAM free for students?</h3>
+              <p>Yes, SOHAM is completely free for all students worldwide. No subscription fees, no API keys required, and no hidden charges. We believe in democratizing access to quality tech education.</p>
             </div>
           </div>
           
@@ -114,7 +114,7 @@ export function AIFirstOptimization({
       
       features: `
         <div itemscope itemtype="https://schema.org/Product">
-          <h1 itemprop="name">CODEEX AI Features - Voice IDE and Learning Tools</h1>
+          <h1 itemprop="name">SOHAM Features - Voice IDE and Learning Tools</h1>
           <p itemprop="description">Comprehensive AI-powered features including Jarvis Mode voice IDE, code generation, debugging assistance, and educational tools for students.</p>
           
           <div class="feature-list">
@@ -133,8 +133,8 @@ export function AIFirstOptimization({
       
       documentation: `
         <div itemscope itemtype="https://schema.org/TechArticle">
-          <h1 itemprop="name">CODEEX AI Documentation - Complete Learning Guide</h1>
-          <p itemprop="description">Comprehensive documentation for CODEEX AI features, tutorials, and API reference for students and developers.</p>
+          <h1 itemprop="name">SOHAM Documentation - Complete Learning Guide</h1>
+          <p itemprop="description">Comprehensive documentation for SOHAM features, tutorials, and API reference for students and developers.</p>
           
           <div class="documentation-sections">
             <h2>Documentation Sections</h2>
@@ -152,8 +152,8 @@ export function AIFirstOptimization({
       
       contact: `
         <div itemscope itemtype="https://schema.org/ContactPage">
-          <h1 itemprop="name">Contact CODEEX AI - Student Support</h1>
-          <p itemprop="description">Get help with CODEEX AI features, technical support, and educational assistance for students and educators.</p>
+          <h1 itemprop="name">Contact SOHAM - Student Support</h1>
+          <p itemprop="description">Get help with SOHAM features, technical support, and educational assistance for students and educators.</p>
           
           <div class="contact-info">
             <h2>Support Options</h2>
@@ -236,8 +236,8 @@ export function useAISearchOptimization(queries: string[]) {
 // AI-optimized content snippets for different contexts
 export const aiContentSnippets = {
   studentHelp: {
-    title: "How CODEEX AI Helps Students Learn Programming",
-    content: "CODEEX AI empowers students through voice-enabled Jarvis Mode, providing instant AI tutoring, code generation, debugging assistance, and personalized learning paths. Students can learn programming naturally through conversation and voice commands."
+    title: "How SOHAM Helps Students Learn Programming",
+    content: "SOHAM empowers students through voice-enabled Jarvis Mode, providing instant AI tutoring, code generation, debugging assistance, and personalized learning paths. Students can learn programming naturally through conversation and voice commands."
   },
   
   voiceProgramming: {
@@ -247,11 +247,11 @@ export const aiContentSnippets = {
   
   accessibility: {
     title: "Accessible Programming Education for All Students",
-    content: "CODEEX AI prioritizes accessibility with voice control, screen reader support, keyboard navigation, and multi-modal learning options. Making programming education accessible to students with diverse needs and learning preferences."
+    content: "SOHAM prioritizes accessibility with voice control, screen reader support, keyboard navigation, and multi-modal learning options. Making programming education accessible to students with diverse needs and learning preferences."
   },
   
   freeEducation: {
     title: "Free AI Programming Education for Students Worldwide",
-    content: "CODEEX AI democratizes tech education by providing completely free access to advanced AI tutoring, multi-provider AI models, and comprehensive programming assistance. No subscriptions, no API keys, no barriers to learning."
+    content: "SOHAM democratizes tech education by providing completely free access to advanced AI tutoring, multi-provider AI models, and comprehensive programming assistance. No subscriptions, no API keys, no barriers to learning."
   }
 };

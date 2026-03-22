@@ -7,11 +7,11 @@ import { DEVELOPER_INFO } from '@/lib/developer-info';
 import { Mail, Github, Linkedin, Twitter, MapPin, GraduationCap, Code2, Award, Users, Globe } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'About Heoster - 16-Year-Old Founder of CODEEX | Young Developer from India',
-  description: `Meet Heoster (Harsh), 16-year-old founder and developer of CODEEX. Built a free AI platform with ${DEVELOPER_INFO.projectStats.modelsIntegrated}+ models from Khatauli, India. Class 11 student at Maples Academy. ${DEVELOPER_INFO.projectStats.linesOfCode} lines of code, ${DEVELOPER_INFO.projectStats.dailyUsers} daily users, ${DEVELOPER_INFO.projectStats.countriesReached} countries. Contact: codeex@email.com`,
+  title: 'About Heoster - 16-Year-Old Founder of SOHAM | Young Developer from India',
+  description: `Meet Heoster (Harsh), 16-year-old founder and developer of SOHAM. Built a free AI platform with ${DEVELOPER_INFO.projectStats.modelsIntegrated}+ models from Khatauli, India. Class 11 student at Maples Academy. ${DEVELOPER_INFO.projectStats.linesOfCode} lines of code, ${DEVELOPER_INFO.projectStats.dailyUsers} daily users, ${DEVELOPER_INFO.projectStats.countriesReached} countries. Contact: codeex@email.com`,
   keywords: [
     'Heoster',
-    'Heoster CODEEX',
+    'Heoster SOHAM',
     'Harsh developer',
     'Harsh Khatauli',
     '16 year old developer',
@@ -24,29 +24,29 @@ export const metadata: Metadata = {
     'Class 11 developer',
     'teenage AI entrepreneur',
     'young developer success story',
-    'CODEEX founder',
+    'SOHAM founder',
     'AI platform founder India',
     'codeex@email.com',
     'Heoster GitHub',
     'Heoster LinkedIn',
   ],
   openGraph: {
-    title: 'About Heoster - 16-Year-Old Founder of CODEEX',
-    description: `Meet Heoster (Harsh), 16-year-old founder of CODEEX. Built free AI platform with ${DEVELOPER_INFO.projectStats.modelsIntegrated}+ models. From Khatauli, India. ${DEVELOPER_INFO.projectStats.linesOfCode} lines of code.`,
+    title: 'About Heoster - 16-Year-Old Founder of SOHAM',
+    description: `Meet Heoster (Harsh), 16-year-old founder of CODEEX-AI and creator of SOHAM. Built free AI platform with ${DEVELOPER_INFO.projectStats.modelsIntegrated}+ models. From Khatauli, India. ${DEVELOPER_INFO.projectStats.linesOfCode} lines of code.`,
     type: 'profile',
     images: [
       {
         url: '/harsh.png',
         width: 400,
         height: 400,
-        alt: 'Heoster - Founder of CODEEX',
+        alt: 'Heoster - Founder of SOHAM',
       },
     ],
   },
   twitter: {
     card: 'summary',
-    title: 'About Heoster - 16-Year-Old Founder of CODEEX',
-    description: `16-year-old developer from India who built CODEEX - free AI platform with ${DEVELOPER_INFO.projectStats.modelsIntegrated}+ models`,
+    title: 'About Heoster - 16-Year-Old Founder of SOHAM',
+    description: `16-year-old developer from India who built SOHAM - free AI platform with ${DEVELOPER_INFO.projectStats.modelsIntegrated}+ models`,
     images: ['/harsh.png'],
   },
   alternates: {
@@ -97,7 +97,7 @@ export default function AboutUsPage() {
             jobTitle: DEVELOPER_INFO.company.role,
             worksFor: {
               '@type': 'Organization',
-              name: 'CODEEX',
+              name: 'SOHAM',
             },
             alumniOf: {
               '@type': 'EducationalOrganization',
@@ -106,7 +106,7 @@ export default function AboutUsPage() {
             email: DEVELOPER_INFO.contact.email,
             url: 'https://codeex-ai.vercel.app',
             image: '/harsh.png',
-            description: `${DEVELOPER_INFO.name} is a ${DEVELOPER_INFO.age}-year-old developer and founder of CODEEX. Currently studying ${DEVELOPER_INFO.education.class} ${DEVELOPER_INFO.education.stream} at ${DEVELOPER_INFO.education.school}, he has built a free AI platform with ${DEVELOPER_INFO.projectStats.modelsIntegrated}+ models, reaching ${DEVELOPER_INFO.projectStats.countriesReached} countries with ${DEVELOPER_INFO.projectStats.dailyUsers} daily users.`,
+            description: `${DEVELOPER_INFO.name} is a ${DEVELOPER_INFO.age}-year-old developer and founder of CODEEX-AI, the company behind SOHAM. Currently studying ${DEVELOPER_INFO.education.class} ${DEVELOPER_INFO.education.stream} at ${DEVELOPER_INFO.education.school}, he has built a free AI platform with ${DEVELOPER_INFO.projectStats.modelsIntegrated}+ models, reaching ${DEVELOPER_INFO.projectStats.countriesReached} countries with ${DEVELOPER_INFO.projectStats.dailyUsers} daily users.`,
             knowsAbout: DEVELOPER_INFO.skills.concat(DEVELOPER_INFO.aiTechnologies),
             knowsLanguage: ['English', 'Hindi'],
             sameAs: [
@@ -129,7 +129,7 @@ export default function AboutUsPage() {
                 src="/harsh.png"
                 width={160}
                 height={160}
-                alt="Heoster (Harsh) - Founder of CODEEX"
+                alt="Heoster (Harsh) - Founder of SOHAM"
                 className="object-cover"
                 priority
               />
@@ -173,7 +173,7 @@ export default function AboutUsPage() {
             <div className="space-y-4 text-lg leading-relaxed text-muted-foreground">
               <p>
                 Hi! I&apos;m <strong className="text-foreground">{DEVELOPER_INFO.name}</strong> (also known as <strong className="text-foreground">{DEVELOPER_INFO.realName}</strong>), 
-                a {DEVELOPER_INFO.age}-year-old developer and founder of <strong className="text-foreground">CODEEX</strong> from {DEVELOPER_INFO.location.city}, {DEVELOPER_INFO.location.state}, India.
+                a {DEVELOPER_INFO.age}-year-old developer and founder of <strong className="text-foreground">SOHAM</strong> from {DEVELOPER_INFO.location.city}, {DEVELOPER_INFO.location.state}, India.
               </p>
               <p>
                 I&apos;m currently studying <strong className="text-foreground">{DEVELOPER_INFO.education.class} {DEVELOPER_INFO.education.stream}</strong> at <strong className="text-foreground">{DEVELOPER_INFO.education.school}</strong>, 
@@ -269,7 +269,7 @@ export default function AboutUsPage() {
           <div className="space-y-4 rounded-lg border-2 border-primary bg-primary/5 p-6">
             <div className="flex items-center gap-2 text-2xl font-bold">
               <Users className="h-6 w-6 text-primary" />
-              CODEEX Platform Stats
+              SOHAM Platform Stats
             </div>
             <div className="grid gap-4 md:grid-cols-3">
               <div className="space-y-1">
@@ -306,7 +306,7 @@ export default function AboutUsPage() {
               <h3 className="text-2xl font-semibold">Friends & Testers</h3>
             </div>
             <p className="text-muted-foreground mb-4">
-              A huge thanks to my amazing friends who help test CodeEx and provide valuable feedback from a non-technical user perspective. Their insights ensure the platform is accessible and user-friendly for everyone:
+              A huge thanks to my amazing friends who help test SOHAM and provide valuable feedback from a non-technical user perspective. Their insights ensure the platform is accessible and user-friendly for everyone:
             </p>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {['Vidhan', 'Avineet', 'Vansh', 'Aayush', 'Varun', 'Pankaj', 'Masum', 'Sachin', 'Pardhuman', 'Shivansh', 'Vaibhav', 'Kartik'].map((name) => (
@@ -317,7 +317,7 @@ export default function AboutUsPage() {
               ))}
             </div>
             <p className="text-sm text-muted-foreground mt-4 italic">
-              These friends represent real users without technical backgrounds, helping make CodeEx truly accessible to everyone.
+              These friends represent real users without technical backgrounds, helping make SOHAM truly accessible to everyone.
             </p>
           </div>
 

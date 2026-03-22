@@ -14,7 +14,7 @@ The Safety Guard Service provides dual-layer safety checking using Groq's Llama 
 
 ## Requirements
 
-This implementation satisfies the following requirements from the CODEEX V3.3 spec:
+This implementation satisfies the following requirements from the SOHAM V3.3 spec:
 
 - **Requirement 2.1**: Validate user input using Llama Guard 4 12B
 - **Requirement 2.2**: Reject unsafe input immediately
@@ -29,7 +29,7 @@ This implementation satisfies the following requirements from the CODEEX V3.3 sp
 
 ## Installation
 
-The service is already integrated into the CODEEX V3.3 system. No additional installation is required.
+The service is already integrated into the SOHAM V3.3 system. No additional installation is required.
 
 ## Configuration
 
@@ -282,7 +282,7 @@ The test suite includes:
 
 ## Integration with Router
 
-The Safety Guard Service is integrated into the CODEEX V3.3 router pipeline:
+The Safety Guard Service is integrated into the SOHAM V3.3 router pipeline:
 
 1. **Input Validation**: User requests are checked before classification
 2. **Output Validation**: AI responses are checked before returning to user
@@ -335,9 +335,9 @@ Monitor these logs to:
 For issues or questions:
 - Check the test suite for usage examples
 - Review the example file for integration patterns
-- Consult the CODEEX V3.3 design document
+- Consult the SOHAM V3.3 design document
 - Contact the development team
 
 ## License
 
-Part of the CODEEX V3.3 Multi-Model AI Router system.
+Part of the SOHAM V3.3 Multi-Model AI Router system.

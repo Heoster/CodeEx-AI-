@@ -115,8 +115,8 @@ export default function UserManagementPage() {
   return (
     <>
       <PageSEO
-        title="User Management | CODEEX AI"
-        description="Manage your CODEEX AI account, view features, and access settings"
+        title="User Management | SOHAM"
+        description="Manage your SOHAM account, view features, and access settings"
         keywords={['user management', 'account', 'AI features']}
         canonical="/account"
       />

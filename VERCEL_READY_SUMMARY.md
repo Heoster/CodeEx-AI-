@@ -1,4 +1,4 @@
-# 🚀 CodeEx AI - Vercel Ready!
+# 🚀 SOHAM - Vercel Ready!
 
 ## ✅ Your app is now ready to deploy on Vercel!
 
@@ -38,7 +38,7 @@
 Go to: https://vercel.com/new
 
 ### Step 2: Import Repository
-Select your `CodeEx-AI-` repository from GitHub
+Select your `CODEEX-AI-` repository from GitHub
 
 ### Step 3: Add Environment Variables
 Copy from your `.env.local`:
@@ -107,7 +107,7 @@ Read: **DEPLOYMENT_PLATFORMS_COMPARISON.md**
 - ✅ 10s function timeout
 - ✅ Built-in analytics
 
-### Why Vercel for CodeEx AI?
+### Why Vercel for SOHAM?
 1. **Native Next.js Support** - Built by the Next.js team
 2. **Zero Configuration** - Works out of the box
 3. **Best Performance** - Optimized for Next.js
@@ -267,7 +267,7 @@ See **VERCEL_DEPLOYMENT_CHECKLIST.md** for complete testing guide.
 
 ## 🎉 Ready to Deploy!
 
-Your CodeEx AI is fully configured and ready for Vercel deployment.
+Your SOHAM is fully configured and ready for Vercel deployment.
 
 **Next Steps:**
 1. Read `VERCEL_QUICK_START.md`
@@ -281,7 +281,7 @@ Your CodeEx AI is fully configured and ready for Vercel deployment.
 ## 📦 What's Included
 
 ```
-CodeEx-AI/
+CODEEX-AI/
 ├── vercel.json                          # Vercel configuration
 ├── .vercelignore                        # Deployment optimization
 ├── .env.vercel.example                  # Environment variables template

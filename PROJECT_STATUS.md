@@ -1,4 +1,4 @@
-# CodeEx AI - Project Status
+# SOHAM - Project Status
 
 ## Current Status: ✅ Production Ready
 
@@ -6,7 +6,7 @@ Last Updated: February 25, 2026
 
 ## Overview
 
-CodeEx AI is a fully functional multi-model AI chat application with advanced features including image generation, voice interaction, memory system, and multi-provider fallback chains.
+SOHAM is a fully functional multi-model AI chat application with advanced features including image generation, voice interaction, memory system, and multi-provider fallback chains.
 
 ## Core Features
 

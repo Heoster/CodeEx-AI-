@@ -51,7 +51,7 @@ export function PWAPrompt() {
       <div className="flex items-start gap-3">
         <Download className="h-5 w-5 text-primary mt-0.5" />
         <div className="flex-1">
-          <h3 className="font-semibold text-sm">Install CODEEX AI</h3>
+          <h3 className="font-semibold text-sm">Install SOHAM</h3>
           <p className="text-xs text-muted-foreground mt-1">
             Install our app for a better experience with offline support.
           </p>

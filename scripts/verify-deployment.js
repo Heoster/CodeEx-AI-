@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Deployment Verification Script for CODEEX AI
+ * Deployment Verification Script for SOHAM
  * Verifies that the Netlify deployment is working correctly
  */
 

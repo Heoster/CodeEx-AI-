@@ -27,7 +27,7 @@ export default function CommandsPage() {
           Command Reference
         </h1>
         <p className="text-xl text-muted-foreground">
-          Master CodeEx AI's powerful slash commands for enhanced productivity and specialized tasks.
+          Master SOHAM's powerful slash commands for enhanced productivity and specialized tasks.
         </p>
       </div>
 
@@ -186,7 +186,7 @@ export default function CommandsPage() {
             Advanced Usage Tips
           </CardTitle>
           <CardDescription>
-            Get the most out of CodeEx AI commands
+            Get the most out of SOHAM commands
           </CardDescription>
         </CardHeader>
         <CardContent>

@@ -21,12 +21,12 @@ export function PageHeader({ backLink, backText, title }: PageHeaderProps) {
         </Link>
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src="/favicon.ico"
-            alt="CODEEX AI Logo"
+            src="/FINALSOHAM.png"
+            alt="SOHAM Logo"
             width={28}
             height={28}
           />
-          <span className="text-lg md:text-xl font-bold text-foreground">CODEEX AI</span>
+          <span className="text-lg md:text-xl font-bold text-foreground">SOHAM</span>
         </Link>
         <div className="w-20" /> {/* Spacer for centering */}
       </div>

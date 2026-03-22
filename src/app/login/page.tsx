@@ -140,7 +140,7 @@ export default function LoginPage() {
         const emailResult = await sendWelcomeEmail(result.user.email, result.user.displayName);
         if (emailResult.success) {
           toast({
-            title: 'Welcome to CODEEX AI! 🎉',
+            title: 'Welcome to SOHAM! 🎉',
             description: 'A welcome email has been sent to your inbox.',
           });
         }
@@ -221,7 +221,7 @@ export default function LoginPage() {
         const emailResult = await sendWelcomeEmail(currentUser.email, newUserName.trim());
         if (emailResult.success) {
           toast({
-            title: 'Welcome to CODEEX AI! 🎉',
+            title: 'Welcome to SOHAM! 🎉',
             description: 'A welcome email has been sent to your inbox.',
           });
         }
@@ -257,7 +257,7 @@ export default function LoginPage() {
             const emailResult = await sendWelcomeEmail(result.user.email, result.user.displayName);
             if (emailResult.success) {
               toast({
-                title: 'Welcome to CODEEX AI! 🎉',
+                title: 'Welcome to SOHAM! 🎉',
                 description: 'A welcome email has been sent to your inbox.',
               });
             }
@@ -285,7 +285,7 @@ export default function LoginPage() {
       <div className="flex h-screen w-full items-center justify-center bg-background p-4">
         <div className="w-full max-w-md rounded-lg border bg-card p-8 shadow-lg text-center space-y-4">
           <div className="flex justify-center">
-            <Image src="/favicon.ico" alt="CODEEX AI Logo" width={56} height={56} />
+            <Image src="/FINALSOHAM.png" alt="SOHAM Logo" width={56} height={56} />
           </div>
           <h2 className="text-2xl font-bold">You&apos;re Already Signed In!</h2>
           <p className="text-muted-foreground">
@@ -319,7 +319,7 @@ export default function LoginPage() {
           <div className="hidden flex-col justify-center gap-6 rounded-lg p-6 md:p-8 md:flex">
             <div>
               <h2 className="text-4xl font-extrabold">
-                Welcome back to <span className="gradient-text">CODEEX AI</span>
+                Welcome back to <span className="gradient-text">SOHAM</span>
               </h2>
               <p className="mt-3 max-w-lg text-lg text-muted-foreground">
                 Smart assistants, instant code help, and visual problem solving —
@@ -346,7 +346,7 @@ export default function LoginPage() {
           <div className="mx-auto w-full max-w-md transform rounded-lg border bg-card p-6 md:p-8 shadow-lg">
             <div className="grid gap-2 text-center">
               <div className="mb-2 flex justify-center">
-                <Image src="/favicon.ico" alt="CODEEX AI Logo" width={56} height={56} />
+                <Image src="/FINALSOHAM.png" alt="SOHAM Logo" width={56} height={56} />
               </div>
               <h1 className="text-2xl font-bold">Sign in to your account</h1>
               <p className="text-sm text-muted-foreground">Fast, secure access to your chats and settings</p>
@@ -428,14 +428,14 @@ export default function LoginPage() {
               By signing in, you agree to our{' '}
               <Link href="/privacy" className="underline hover:text-primary" target="_blank" rel="noopener noreferrer">Privacy Policy</Link>.
             </div>
-            <p className="mt-2 text-center text-xs text-muted-foreground">CodeEx powered by Heoster.</p>
+            <p className="mt-2 text-center text-xs text-muted-foreground">SOHAM (Self Organising Hyper Adaptive Machine) by CODEEX-AI.</p>
           </div>
         </div>
       </div>
       <Dialog open={isNamePromptOpen} onOpenChange={setIsNamePromptOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Welcome to CODEEX AI!</DialogTitle>
+            <DialogTitle>Welcome to SOHAM!</DialogTitle>
             <DialogDescription>
               Please enter your name. This will be displayed in your chat
               sessions.

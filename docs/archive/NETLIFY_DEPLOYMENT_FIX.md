@@ -56,7 +56,7 @@ git commit -m "Pin Next.js to exact version 14.2.35 (remove caret)"
 ## Current Status
 
 ### GitHub Repository
-✅ **Repository**: https://github.com/Heoster/CodeEx-AI-  
+✅ **Repository**: https://github.com/Heoster/CODEEX-AI-  
 ✅ **Latest Commit**: `e531180` - "Pin Next.js to exact version 14.2.35 (remove caret)"  
 ✅ **Branch**: main  
 ✅ **Next.js Version**: 14.2.35 (exact, no vulnerabilities)  
@@ -144,12 +144,12 @@ NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key (optional)
 
 ### If Different Repository Error
 
-**Problem**: Error mentions `codeex-focus` instead of `CodeEx-AI-`
+**Problem**: Error mentions `SOHAM-focus` instead of `CODEEX-AI-`
 
 **Solution**: 
 - Verify you're deploying the correct repository
 - Check Netlify site settings → Build & deploy → Repository
-- Ensure it points to: `https://github.com/Heoster/CodeEx-AI-`
+- Ensure it points to: `https://github.com/Heoster/CODEEX-AI-`
 
 ## Security Vulnerability Details
 

@@ -1,5 +1,5 @@
 /**
- * Routing Rules Configuration for CODEEX V3.3 Multi-Model AI Router
+ * Routing Rules Configuration for SOHAM V3.3 Multi-Model AI Router
  * 
  * This file defines the routing rules for all 11 task categories, mapping each
  * category to its primary model and comprehensive fallback chains.

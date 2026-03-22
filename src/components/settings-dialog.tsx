@@ -289,11 +289,11 @@ export function SettingsDialog({
 
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">About CODEEX AI</CardTitle>
+                <CardTitle className="text-lg">About SOHAM</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  CodeEx powered by Heoster. An intelligent AI assistant designed to help you with coding, problem-solving, and more.
+                  SOHAM by CODEEX-AI. An intelligent assistant designed to help you with coding, problem-solving, and more.
                 </p>
               </CardContent>
             </Card>

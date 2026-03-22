@@ -1,5 +1,5 @@
 /**
- * Multimodal Handler Service for CODEEX V3.3
+ * Multimodal Handler Service for SOHAM V3.3
  * 
  * Unified interface for handling voice, image, and video inputs/outputs across different providers.
  * 

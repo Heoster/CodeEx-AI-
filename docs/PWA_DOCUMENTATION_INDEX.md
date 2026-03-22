@@ -65,7 +65,7 @@
 ## 📁 File Structure
 
 ```
-CODEEX AI Root/
+SOHAM Root/
 ├── PWA_FINAL_SUMMARY.md              ← Executive Summary
 ├── PWA_VERIFICATION_REPORT.md        ← Detailed Verification
 ├── PWA_TESTING_GUIDE.md              ← Testing Procedures

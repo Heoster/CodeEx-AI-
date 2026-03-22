@@ -1,7 +1,7 @@
 # Multi-Provider AI System
 
 ## Overview
-CODEEX AI implements a robust multi-provider system with automatic fallback to ensure high availability and reliability.
+SOHAM implements a robust multi-provider system with automatic fallback to ensure high availability and reliability.
 
 ## Architecture
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This design document outlines the architecture for adding multi-model AI support to CodeEx AI. The system will extend the current Genkit-based architecture to support multiple AI providers (Google, Hugging Face, OpenRouter) and models optimized for different use cases. The design prioritizes extensibility, allowing new models to be added through configuration rather than code changes.
+This design document outlines the architecture for adding multi-model AI support to SOHAM. The system will extend the current Genkit-based architecture to support multiple AI providers (Google, Hugging Face, OpenRouter) and models optimized for different use cases. The design prioritizes extensibility, allowing new models to be added through configuration rather than code changes.
 
 ## Architecture
 

@@ -1,6 +1,6 @@
 /**
  * Rate Limiting Integration Tests
- * CODEEX V3.3 Multi-Model AI Router - Task 7.5
+ * SOHAM V3.3 Multi-Model AI Router - Task 7.5
  * 
  * Tests verify:
  * - Rate limit checks before model execution

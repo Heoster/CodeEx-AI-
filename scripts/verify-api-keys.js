@@ -312,7 +312,7 @@ function checkEmailJSConfig() {
  */
 async function main() {
   log('\n╔════════════════════════════════════════════════════════════╗', 'cyan');
-  log('║         CODEEX API KEY VERIFICATION SCRIPT                ║', 'cyan');
+  log('║         SOHAM API KEY VERIFICATION SCRIPT                ║', 'cyan');
   log('╚════════════════════════════════════════════════════════════╝\n', 'cyan');
 
   log('Testing API keys...', 'blue');
@@ -374,7 +374,7 @@ async function main() {
     process.exit(1);
   } else {
     log('\n✓ All configured API keys are valid!', 'green');
-    log('Your CODEEX application is ready to use.\n', 'green');
+    log('Your SOHAM application is ready to use.\n', 'green');
     process.exit(0);
   }
 }

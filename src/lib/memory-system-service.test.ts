@@ -1,6 +1,6 @@
 /**
  * Memory System Service Tests
- * CODEEX V3.3 Multi-Model AI Router
+ * SOHAM V3.3 Multi-Model AI Router
  * 
  * Tests for vector similarity search performance and correctness
  * Requirements: 7.4, 7.5, 7.6, 13.10

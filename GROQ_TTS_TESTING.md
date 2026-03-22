@@ -2,7 +2,7 @@
 
 ## Overview
 
-This guide explains how to test the Groq Orpheus Text-to-Speech (TTS) service from Canopy Labs used in CodeEx AI.
+This guide explains how to test the Groq Orpheus Text-to-Speech (TTS) service from Canopy Labs used in SOHAM.
 
 ## Prerequisites
 
@@ -220,7 +220,7 @@ File naming format: `groq-orpheus-{voice}-{speed}x-{timestamp}.wav`
 Orpheus supports emotional cues directly in text:
 
 ```typescript
-const text = '[cheerful] Welcome to CodeEx! [serious] This is important.';
+const text = '[cheerful] Welcome to SOHAM! [serious] This is important.';
 ```
 
 Available directions:
@@ -288,9 +288,9 @@ Based on typical test results:
 | Speed Range | 0.25x - 4.0x |
 | Audio Format | WAV |
 
-## Integration with CodeEx
+## Integration with SOHAM
 
-The TTS service is integrated into CodeEx AI:
+The TTS service is integrated into SOHAM:
 
 1. **Chat Interface** - Click speaker icon on AI messages
 2. **API Endpoint** - `/api/tts` for programmatic access

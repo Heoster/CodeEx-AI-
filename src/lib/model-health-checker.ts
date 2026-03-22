@@ -1,6 +1,6 @@
 /**
  * Model Health Checker Service
- * CODEEX V3.3 Multi-Model AI Router
+ * SOHAM V3.3 Multi-Model AI Router
  * 
  * Implements periodic health checks for all active models:
  * - Checks every 5 minutes by default

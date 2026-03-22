@@ -4,8 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 
 export const metadata: Metadata = {
-  title: 'Security & Privacy - CodeEx AI',
-  description: 'Learn about CodeEx AI security measures, data protection, and privacy policies.',
+  title: 'Security & Privacy - SOHAM',
+  description: 'Learn about SOHAM security measures, data protection, and privacy policies.',
 };
 
 export default function SecurityPage() {

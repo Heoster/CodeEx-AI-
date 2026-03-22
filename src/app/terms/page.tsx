@@ -6,8 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | CODEEX AI',
-  description: 'Terms of Service and User Agreement for CODEEX AI platform',
+  title: 'Terms of Service | SOHAM',
+  description: 'Terms of Service and User Agreement for SOHAM platform',
 };
 
 export default function TermsPage() {
@@ -36,7 +36,7 @@ export default function TermsPage() {
           <Alert className="mt-4">
             <AlertCircle className="h-4 w-4" />
             <AlertDescription>
-              By accessing or using CODEEX AI, you agree to be bound by these Terms of Service. Please read them carefully.
+              By accessing or using SOHAM, you agree to be bound by these Terms of Service. Please read them carefully.
             </AlertDescription>
           </Alert>
         </div>
@@ -74,10 +74,10 @@ export default function TermsPage() {
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
               <p>
-                Welcome to CODEEX AI. By accessing or using our platform, you agree to comply with and be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
+                Welcome to SOHAM. By accessing or using our platform, you agree to comply with and be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
               </p>
               <p>
-                These terms apply to all users, including visitors, registered users, and contributors. Your use of CODEEX AI constitutes your acceptance of these terms.
+                These terms apply to all users, including visitors, registered users, and contributors. Your use of SOHAM constitutes your acceptance of these terms.
               </p>
             </CardContent>
           </Card>
@@ -89,7 +89,7 @@ export default function TermsPage() {
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
               <p>
-                CODEEX AI provides access to artificial intelligence models and tools for various purposes including:
+                SOHAM provides access to artificial intelligence models and tools for various purposes including:
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>AI-powered chat and conversation</li>
@@ -130,7 +130,7 @@ export default function TermsPage() {
               <div>
                 <h4 className="font-semibold mb-2">Age Requirement</h4>
                 <p>
-                  You must be at least 13 years old to use CODEEX AI. Users under 18 should have parental or guardian consent.
+                  You must be at least 13 years old to use SOHAM. Users under 18 should have parental or guardian consent.
                 </p>
               </div>
             </CardContent>
@@ -145,7 +145,7 @@ export default function TermsPage() {
               </div>
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
-              <p>You agree NOT to use CODEEX AI to:</p>
+              <p>You agree NOT to use SOHAM to:</p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>Violate any applicable laws or regulations</li>
                 <li>Infringe on intellectual property rights of others</li>
@@ -176,7 +176,7 @@ export default function TermsPage() {
               <div>
                 <h4 className="font-semibold mb-2">Your Content</h4>
                 <p>
-                  You retain ownership of any content you submit to CODEEX AI. By submitting content, you grant us a worldwide, non-exclusive, royalty-free license to use, store, and process your content solely to provide and improve our services.
+                  You retain ownership of any content you submit to SOHAM. By submitting content, you grant us a worldwide, non-exclusive, royalty-free license to use, store, and process your content solely to provide and improve our services.
                 </p>
               </div>
               <div>
@@ -204,7 +204,7 @@ export default function TermsPage() {
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
               <p>
-                The CODEEX AI platform, including its design, code, features, and documentation, is owned by CODEEX AI and protected by intellectual property laws.
+                The SOHAM platform, including its design, code, features, and documentation, is owned by CODEEX-AI and protected by intellectual property laws.
               </p>
               <div>
                 <h4 className="font-semibold mb-2">Our Rights</h4>
@@ -259,7 +259,7 @@ export default function TermsPage() {
               <div>
                 <h4 className="font-semibold mb-2">Service Availability</h4>
                 <p>
-                  CODEEX AI is provided "as is" without warranties of any kind. We do not guarantee uninterrupted or error-free service. The platform may experience downtime for maintenance or technical issues.
+                  SOHAM is provided "as is" without warranties of any kind. We do not guarantee uninterrupted or error-free service. The platform may experience downtime for maintenance or technical issues.
                 </p>
               </div>
               <div>
@@ -271,7 +271,7 @@ export default function TermsPage() {
               <div>
                 <h4 className="font-semibold mb-2">Limitation of Damages</h4>
                 <p>
-                  We shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of CODEEX AI, including but not limited to loss of data, loss of profits, or business interruption.
+                  We shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of SOHAM, including but not limited to loss of data, loss of profits, or business interruption.
                 </p>
               </div>
               <Alert className="mt-4">
@@ -331,7 +331,7 @@ export default function TermsPage() {
                 <li>Sending an email notification (for registered users)</li>
               </ul>
               <p>
-                Your continued use of CODEEX AI after changes are posted constitutes your acceptance of the modified terms.
+                Your continued use of SOHAM after changes are posted constitutes your acceptance of the modified terms.
               </p>
             </CardContent>
           </Card>
@@ -379,9 +379,9 @@ export default function TermsPage() {
 
         {/* Footer */}
         <div className="mt-12 pt-8 border-t text-center text-sm text-muted-foreground">
-          <p>© 2026 CODEEX AI. All rights reserved.</p>
+          <p>© 2026 SOHAM. All rights reserved.</p>
           <p className="mt-2">
-            By using CODEEX AI, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.
+            By using SOHAM, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.
           </p>
         </div>
       </div>

@@ -2,7 +2,7 @@
 
 /**
  * API Usage Examples Component
- * Demonstrates how to use all CODEEX AI API endpoints
+ * Demonstrates how to use all SOHAM API endpoints
  */
 
 import { useState } from 'react';
@@ -150,7 +150,7 @@ export function ApiExamples() {
       <Card>
         <CardHeader>
           <CardTitle>API Examples</CardTitle>
-          <CardDescription>Test all CODEEX AI API endpoints</CardDescription>
+          <CardDescription>Test all SOHAM API endpoints</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex flex-wrap gap-2">

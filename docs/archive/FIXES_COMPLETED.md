@@ -1,4 +1,4 @@
-# CODEEX AI - Issues Fixed
+# SOHAM - Issues Fixed
 
 ## Summary
 All 4 major issues have been successfully resolved:
@@ -52,7 +52,7 @@ All 4 major issues have been successfully resolved:
 **Solution**:
 - Created comprehensive `src/lib/seo-config.ts` with:
   - Complete developer information (Heoster, age 16, from Khatauli, UP, India)
-  - Rich keywords including "CODEEX AI", "Heoster", "free AI", etc.
+  - Rich keywords including "SOHAM", "Heoster", "free AI", etc.
   - Page-specific SEO for home, chat, features, documentation, contact, privacy
   - Structured data for Organization, Software Application, Website, FAQ
 - Updated `src/app/layout.tsx` with:
@@ -66,11 +66,11 @@ All 4 major issues have been successfully resolved:
 
 ## Developer Information Now in AI
 The AI now knows about:
-- **Name**: CODEEX Heoster (Harsh)
+- **Name**: SOHAM Heoster (Harsh)
 - **Age**: 16 years old
 - **Location**: Khatauli, Uttar Pradesh, India
 - **Education**: Class 11th PCM at Maples Academy
-- **Company**: CODEEX AI (Founder & Lead Developer)
+- **Company**: SOHAM (Founder & Lead Developer)
 - **Contact**: codeex@email.com
 - **Social**: 
   - LinkedIn: codeex-heoster-4b60b8399

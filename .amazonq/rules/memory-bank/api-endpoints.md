@@ -1,7 +1,7 @@
 # API Endpoints Documentation
 
 ## Overview
-CODEEX AI provides RESTful API endpoints for AI-powered operations with automatic multi-provider fallback and robust error handling.
+SOHAM provides RESTful API endpoints for AI-powered operations with automatic multi-provider fallback and robust error handling.
 
 ## Core Features
 - **Multi-Provider Support**: Automatic fallback between Google AI, Hugging Face, and OpenRouter

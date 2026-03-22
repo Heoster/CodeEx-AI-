@@ -30,7 +30,7 @@ export default function QuickStartPage() {
           Get Started in 3 Minutes
         </h1>
         <p className="text-xl text-muted-foreground">
-          Learn the basics of CodeEx AI and start having productive conversations with our multi-model assistant.
+          Learn the basics of SOHAM and start having productive conversations with our multi-model assistant.
         </p>
       </div>
 
@@ -119,7 +119,7 @@ export default function QuickStartPage() {
               <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg">
                 <h4 className="font-medium text-sm mb-2">🎯 Pro Tip</h4>
                 <p className="text-sm text-muted-foreground">
-                  Set your model to "Auto" to let CodeEx AI automatically choose the best model for each query. 
+                  Set your model to "Auto" to let SOHAM automatically choose the best model for each query. 
                   Math questions go to math models, coding questions to coding models, and so on.
                 </p>
               </div>
@@ -168,7 +168,7 @@ export default function QuickStartPage() {
           />
           <NextStepCard
             title="Install Mobile App"
-            description="Add CodeEx AI to your phone as a PWA"
+            description="Add SOHAM to your phone as a PWA"
             href="/docs/installation"
             icon={Settings}
           />
@@ -189,7 +189,7 @@ export default function QuickStartPage() {
             Quick Start Checklist
           </CardTitle>
           <CardDescription>
-            Complete these steps to get the most out of CodeEx AI
+            Complete these steps to get the most out of SOHAM
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -198,7 +198,7 @@ export default function QuickStartPage() {
             <ChecklistItem text="Configured your preferred AI model and settings" />
             <ChecklistItem text="Tried a slash command (/solve, /search, or /summarize)" />
             <ChecklistItem text="Explored the AI Services dashboard" />
-            <ChecklistItem text="Bookmarked CodeEx AI for easy access" />
+            <ChecklistItem text="Bookmarked SOHAM for easy access" />
           </div>
         </CardContent>
       </Card>

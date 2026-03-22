@@ -396,7 +396,7 @@ Documentation:      84 KB, 7 guides ✅
 
 ## 🎉 Summary
 
-CODEEX AI has **enterprise-grade PWA support** with:
+SOHAM has **enterprise-grade PWA support** with:
 - ✅ Complete implementation
 - ✅ Full test coverage
 - ✅ Comprehensive documentation

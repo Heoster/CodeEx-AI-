@@ -1,8 +1,8 @@
-# Design Document: CODEEX V3.3 Multi-Model AI Router
+# Design Document: SOHAM V3.3 Multi-Model AI Router
 
 ## Overview
 
-CODEEX V3.3 is a comprehensive $0 multimodal AI agent that intelligently routes user requests across 30+ AI models from 5 providers (Groq, Cerebras, Google AI Studio, Hugging Face, ElevenLabs) based on task complexity, type, and model availability. The system implements a sophisticated classification and routing pipeline with automatic fallback chains, model lifecycle management, and graceful degradation to ensure 100% uptime while operating entirely on free tier limits.
+SOHAM V3.3 is a comprehensive $0 multimodal AI agent that intelligently routes user requests across 30+ AI models from 5 providers (Groq, Cerebras, Google AI Studio, Hugging Face, ElevenLabs) based on task complexity, type, and model availability. The system implements a sophisticated classification and routing pipeline with automatic fallback chains, model lifecycle management, and graceful degradation to ensure 100% uptime while operating entirely on free tier limits.
 
 The router acts as a unified interface that abstracts away provider-specific APIs, rate limits, and model deprecation cycles, providing users with seamless access to the best available model for each task without manual selection. Key innovations include safety-first architecture with Llama Guard 4, intelligent task classification, multi-tier fallback chains, and automatic context chunking for long-context scenarios exceeding 1M tokens.
 

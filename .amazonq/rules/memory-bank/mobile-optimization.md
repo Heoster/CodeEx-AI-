@@ -1,7 +1,7 @@
 # Mobile Optimization Summary
 
 ## Overview
-CODEEX AI has been fully optimized for mobile devices with responsive design, touch-friendly interactions, and PWA capabilities.
+SOHAM has been fully optimized for mobile devices with responsive design, touch-friendly interactions, and PWA capabilities.
 
 ## Key Mobile Optimizations Implemented
 

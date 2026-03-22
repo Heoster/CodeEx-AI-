@@ -1,6 +1,6 @@
 /**
  * Fallback Chain Manager
- * CODEEX V3.3 Multi-Model AI Router
+ * SOHAM V3.3 Multi-Model AI Router
  * 
  * Manages multi-tier fallback chains with exponential backoff and intelligent retry logic.
  * Handles automatic fallback execution on primary model failure, provider switching on rate limits,

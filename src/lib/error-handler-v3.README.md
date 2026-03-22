@@ -1,8 +1,8 @@
-# Error Handler V3 - CODEEX V3.3 Multi-Model AI Router
+# Error Handler V3 - SOHAM V3.3 Multi-Model AI Router
 
 ## Overview
 
-The Error Handler V3 provides comprehensive error handling and recovery for the CODEEX V3.3 Multi-Model AI Router. It classifies errors, determines recovery strategies, provides graceful user messages, and tracks error statistics for monitoring and alerting.
+The Error Handler V3 provides comprehensive error handling and recovery for the SOHAM V3.3 Multi-Model AI Router. It classifies errors, determines recovery strategies, provides graceful user messages, and tracks error statistics for monitoring and alerting.
 
 ## Features
 

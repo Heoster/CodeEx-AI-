@@ -4,7 +4,7 @@
 
 ### Root Level
 ```
-CodeEx-AI-ver-2.0-main/
+SOHAM-AI-ver-2.0-main/
 ├── src/                    # Source code
 ├── public/                 # Static assets and PWA files
 ├── docs/                   # Documentation files

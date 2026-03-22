@@ -1,8 +1,8 @@
-# CODEEX - Free AI Chat with 35+ Models
+# SOHAM - Free AI Chat with 35+ Models
 
 <div align="center">
 
-![CODEEX](./public/Multi-Chat.png)
+![SOHAM](./public/Multi-Chat.png)
 
 **Free AI chat platform with Groq, Gemini, Cerebras, DeepSeek - No signup required**
 
@@ -17,9 +17,9 @@
 
 ---
 
-## 🌟 About CODEEX
+## 🌟 About SOHAM
 
-CODEEX is a **100% free** AI chat platform featuring **35+ models** from leading providers: Groq (Llama 3.3 70B), Google Gemini 2.5, Cerebras (Qwen 3 235B), DeepSeek R1, and more. Chat, code, solve math, analyze PDFs - all without signup.
+SOHAM is a **100% free** AI chat platform featuring **35+ models** from leading providers: Groq (Llama 3.3 70B), Google Gemini 2.5, Cerebras (Qwen 3 235B), DeepSeek R1, and more. Chat, code, solve math, analyze PDFs - all without signup.
 
 ### 🎯 Mission
 > "Making powerful AI accessible to everyone, everywhere, for free."
@@ -266,7 +266,7 @@ See `.env.example` for complete template with all required variables.
 
 ## 📱 Progressive Web App (PWA)
 
-CODEEX AI is a fully-featured PWA that works on all devices:
+SOHAM is a fully-featured PWA that works on all devices:
 
 ### Installation
 
@@ -284,7 +284,7 @@ CODEEX AI is a fully-featured PWA that works on all devices:
 #### 💻 Windows/Mac
 1. Open in Chrome/Edge
 2. Click install icon in address bar
-3. Or: Menu → "Install CODEEX AI"
+3. Or: Menu → "Install SOHAM"
 
 ### PWA Benefits
 - ⚡ **10-15x faster** repeat loads
@@ -499,13 +499,13 @@ We welcome contributions! Here's how:
 - **Age**: 16 years old
 - **Location**: Khatauli, Uttar Pradesh, India
 - **Education**: Class 11 PCM, Maples Academy
-- **Role**: Founder & Lead Developer, CODEEX AI
+- **Role**: Founder & Lead Developer, SOHAM
 
 ### Vision
 > "To democratize AI education in India and make advanced technology accessible to every student, regardless of their background or resources."
 
 ### Achievements
-- Built CODEEX AI with 35+ models at age 16
+- Built SOHAM with 35+ models at age 16
 - 50,000+ lines of code written
 - 200+ components developed
 - 1,000+ daily users worldwide
@@ -514,7 +514,7 @@ We welcome contributions! Here's how:
 
 ### Connect
 - 📧 Email: [codeex@email.com](mailto:codeex@email.com)
-- 💼 LinkedIn: [codeex-heoster](https://in.linkedin.com/in/codeex-heoster-4b60b8399)
+- 💼 LinkedIn: [SOHAM-heoster](https://in.linkedin.com/in/codeex-heoster-4b60b8399)
 - 🐙 GitHub: [@heoster](https://github.com/heoster)
 - 🐦 Twitter: [@The_Heoster_](https://twitter.com/The_Heoster_)
 - 📸 Instagram: [@heoster_official](https://instagram.com/heoster_official)
@@ -617,7 +617,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🌟 Star History
 
-If you find CODEEX AI useful, please consider giving it a star ⭐
+If you find SOHAM useful, please consider giving it a star ⭐
 
 [![Star History Chart](https://api.star-history.com/svg?repos=heoster/codeex-ai&type=Date)](https://star-history.com/#heoster/codeex-ai&Date)
 
@@ -675,7 +675,7 @@ If you find CODEEX AI useful, please consider giving it a star ⭐
 
 **[Netlify](https://codeex-ai.netlify.app)** • **[Vercel](https://codeex-ai.vercel.app)** • **[GitHub](https://github.com/heoster/codeex-ai)** • **[LinkedIn](https://in.linkedin.com/in/codeex-heoster-4b60b8399)** • **[Twitter](https://twitter.com/The_Heoster_)**
 
-© 2024-2026 CODEEX AI. All rights reserved.
+© 2024-2026 SOHAM. All rights reserved.
 
 Made in 🇮🇳 India with passion for democratizing AI education
 

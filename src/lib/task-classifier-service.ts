@@ -1,6 +1,6 @@
 /**
  * Task Classifier Service
- * CODEEX V3.3 Multi-Model AI Router
+ * SOHAM V3.3 Multi-Model AI Router
  * 
  * Intelligent classification of user requests into 11 task categories using Groq Llama 3.2 3B.
  * Provides confidence scoring, reasoning explanation, complexity estimation, and multimodal detection.

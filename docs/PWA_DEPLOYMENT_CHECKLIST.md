@@ -465,7 +465,7 @@ Before going live, verify:
 
 ## 🎉 Summary
 
-**CODEEX AI PWA is fully configured and ready for production deployment.**
+**SOHAM PWA is fully configured and ready for production deployment.**
 
 - ✅ Service Worker: Active and optimized
 - ✅ Offline Support: Fully functional

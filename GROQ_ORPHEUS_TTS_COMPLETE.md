@@ -160,7 +160,7 @@ Available directions:
 
 ## Integration Status
 
-✅ **Fully Integrated** into CodeEx AI:
+✅ **Fully Integrated** into SOHAM:
 - Chat interface with speaker icon
 - Voice settings in user preferences
 - Automatic fallback chain

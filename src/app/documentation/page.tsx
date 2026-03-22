@@ -30,7 +30,7 @@ export default function DocsHomePage() {
           <span className="font-medium">Complete Documentation</span>
         </div>
         <h1 className="text-4xl font-bold tracking-tight">
-          Welcome to CodeEx AI
+          Welcome to SOHAM
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
           Your intelligent multi-model assistant for coding, learning, math, and creative tasks. 
@@ -148,7 +148,7 @@ export default function DocsHomePage() {
           />
           <GuideCard
             title="Installing as Mobile App"
-            description="Learn how to install CodeEx AI as a PWA on your Android device"
+            description="Learn how to install SOHAM as a PWA on your Android device"
             href="/docs/installation"
             icon={Smartphone}
           />

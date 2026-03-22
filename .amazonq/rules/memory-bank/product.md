@@ -1,7 +1,7 @@
 # Product Overview
 
 ## Project Purpose
-CODEEX AI is a comprehensive conversational AI platform built with Next.js that provides intelligent, context-aware interactions with advanced features including voice support, visual problem solving, and real-time web search capabilities. Created by heoster, it serves as a fully-functional AI assistant application showcasing real-world AI capabilities.
+SOHAM is a comprehensive conversational AI platform built with Next.js that provides intelligent, context-aware interactions with advanced features including voice support, visual problem solving, and real-time web search capabilities. Created by heoster, it serves as a fully-functional AI assistant application showcasing real-world AI capabilities.
 
 ## Value Proposition
 - **Intelligent Conversations**: Natural, context-aware dialogues with conversation history and adaptive responses

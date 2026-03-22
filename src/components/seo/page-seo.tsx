@@ -32,7 +32,7 @@ export function PageSEO({
   useEffect(() => {
     // Update document title dynamically
     if (title) {
-      document.title = `${title} | CODEEX AI`;
+      document.title = `${title} | SOHAM`;
     }
 
     // Update meta description

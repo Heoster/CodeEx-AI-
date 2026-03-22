@@ -1,4 +1,4 @@
-# CodeEx AI - Vercel Deployment Checklist
+# SOHAM - Vercel Deployment Checklist
 
 ## Pre-Deployment Checklist
 
@@ -41,7 +41,7 @@
 
 ### Step 2: Import Project
 - [ ] Clicked "Add New Project" in Vercel
-- [ ] Selected CodeEx-AI repository
+- [ ] Selected CODEEX-AI repository
 - [ ] Framework detected as Next.js
 - [ ] Root directory set to `./`
 

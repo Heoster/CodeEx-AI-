@@ -1,4 +1,4 @@
-# 🚀 CODEEX DEPLOYMENT CHECKLIST
+# 🚀 SOHAM DEPLOYMENT CHECKLIST
 
 ## ✅ Pre-Deployment Checklist
 
@@ -303,4 +303,4 @@ vercel --prod
 
 ## ✅ Ready to Deploy!
 
-Once all checkboxes are checked, you're ready to deploy CODEEX with the full SOHAM pipeline! 🚀
+Once all checkboxes are checked, you're ready to deploy SOHAM with the full SOHAM pipeline! 🚀

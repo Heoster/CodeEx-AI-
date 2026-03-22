@@ -29,7 +29,7 @@ export default function InstallationPage() {
           Install as Mobile App
         </h1>
         <p className="text-xl text-muted-foreground">
-          CodeEx AI is a Progressive Web App (PWA) that can be installed on your mobile device for a native app experience.
+          SOHAM is a Progressive Web App (PWA) that can be installed on your mobile device for a native app experience.
         </p>
       </div>
 
@@ -81,7 +81,7 @@ export default function InstallationPage() {
               Chrome Browser (Recommended)
             </CardTitle>
             <CardDescription>
-              The easiest way to install CodeEx AI on Android
+              The easiest way to install SOHAM on Android
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -90,7 +90,7 @@ export default function InstallationPage() {
                 {[
                   {
                     step: 1,
-                    title: "Open CodeEx AI in Chrome",
+                    title: "Open SOHAM in Chrome",
                     description: "Navigate to codeex-ai.vercel.app in your Chrome browser",
                     tip: "Make sure you're using the latest version of Chrome"
                   },
@@ -104,7 +104,7 @@ export default function InstallationPage() {
                     step: 3,
                     title: "Tap 'Add to Home screen'",
                     description: "Or select 'Install app' from the Chrome menu",
-                    tip: "You might see 'Install CodeEx AI' instead"
+                    tip: "You might see 'Install SOHAM' instead"
                   },
                   {
                     step: 4,
@@ -129,7 +129,7 @@ export default function InstallationPage() {
                   <h4 className="font-medium text-green-700 dark:text-green-300">Success!</h4>
                 </div>
                 <p className="text-sm text-green-600 dark:text-green-400">
-                  Once installed, you'll find CodeEx AI on your home screen with its own icon. 
+                  Once installed, you'll find SOHAM on your home screen with its own icon. 
                   It will open in full-screen mode without browser controls.
                 </p>
               </div>
@@ -150,7 +150,7 @@ export default function InstallationPage() {
               <BrowserGuide
                 browser="Firefox"
                 steps={[
-                  "Open CodeEx AI in Firefox",
+                  "Open SOHAM in Firefox",
                   "Tap the menu (⋮) in the top right",
                   "Select 'Add to Home screen'",
                   "Confirm by tapping 'Add'"
@@ -159,7 +159,7 @@ export default function InstallationPage() {
               <BrowserGuide
                 browser="Microsoft Edge"
                 steps={[
-                  "Navigate to CodeEx AI in Edge",
+                  "Navigate to SOHAM in Edge",
                   "Tap the menu (⋯) at the bottom",
                   "Select 'Add to phone'",
                   "Choose 'Add to Home screen'"
@@ -168,7 +168,7 @@ export default function InstallationPage() {
               <BrowserGuide
                 browser="Samsung Internet"
                 steps={[
-                  "Open CodeEx AI in Samsung Internet",
+                  "Open SOHAM in Samsung Internet",
                   "Tap the menu button",
                   "Select 'Add page to' → 'Home screen'",
                   "Tap 'Add' to confirm"
@@ -219,7 +219,7 @@ export default function InstallationPage() {
                     step: 4,
                     title: "Customize and Add",
                     description: "Edit the name if desired, then tap 'Add'",
-                    tip: "The default name 'CodeEx AI' works perfectly"
+                    tip: "The default name 'SOHAM' works perfectly"
                   }
                 ].map((step) => (
                   <InstallationStep
@@ -255,7 +255,7 @@ export default function InstallationPage() {
           <CardHeader>
             <CardTitle>Chrome, Edge, and Other Chromium Browsers</CardTitle>
             <CardDescription>
-              Install CodeEx AI as a desktop app for quick access
+              Install SOHAM as a desktop app for quick access
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -273,7 +273,7 @@ export default function InstallationPage() {
                 <h4 className="font-semibold">Manual Installation</h4>
                 <ol className="space-y-2 text-sm text-muted-foreground">
                   <li>1. Click the menu (⋮) in the browser</li>
-                  <li>2. Select "Install CodeEx AI..."</li>
+                  <li>2. Select "Install SOHAM..."</li>
                   <li>3. Click "Install" in the dialog</li>
                   <li>4. App appears in your applications</li>
                 </ol>

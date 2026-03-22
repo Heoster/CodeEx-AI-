@@ -1,6 +1,6 @@
 /**
  * Model Registry V3 - Extended with Lifecycle Management
- * CODEEX V3.3 Multi-Model AI Router
+ * SOHAM V3.3 Multi-Model AI Router
  * 
  * Manages 30+ AI models across 5 providers with:
  * - Lifecycle status tracking (ACTIVE, DYING, DEAD)
