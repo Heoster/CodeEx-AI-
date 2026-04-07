@@ -495,11 +495,12 @@ We welcome contributions! Here's how:
 
 ## 👨‍💻 About the Developer
 
-### Heoster (Harsh)
+### Heoster
+- **Real name**: Harsh
 - **Age**: 16 years old
 - **Location**: Khatauli, Uttar Pradesh, India
-- **Education**: Class 11 PCM, Maples Academy
-- **Role**: Founder & Lead Developer, SOHAM
+- **Education**: Class 12 PCM and Computer science, Maples Academy Khatauli
+- **Role**: Founder & Lead Developer, CODEEX AI.
 
 ### Vision
 > "To democratize AI education in India and make advanced technology accessible to every student, regardless of their background or resources."
