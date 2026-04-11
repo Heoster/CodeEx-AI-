@@ -2,171 +2,216 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { 
-  Sparkles, 
-  Zap, 
-  Cpu, 
-  MessageSquare, 
-  Calculator, 
-  Search, 
-  FileText, 
-  Image, 
+import {Button} from '@/components/ui/button';
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
+import {Badge} from '@/components/ui/badge';
+import {
+  Sparkles,
+  Zap,
+  Cpu,
+  MessageSquare,
+  Calculator,
+  Search,
+  FileText,
+  Image,
   Code,
   ArrowRight,
   BookOpen,
-  Smartphone
+  Smartphone,
+  Mic,
+  Volume2,
+  Globe,
 } from 'lucide-react';
-import { DEVELOPER_INFO } from '@/lib/developer-info';
 
 export default function DocsHomePage() {
   return (
-    <div className="space-y-8">
-      {/* Hero Section */}
-      <div className="text-center space-y-4">
+    <div className="space-y-10">
+      {/* Hero */}
+      <div className="space-y-4">
         <div className="inline-flex items-center gap-2 rounded-full border bg-muted px-4 py-2 text-sm">
           <BookOpen className="h-4 w-4 text-primary" />
-          <span className="font-medium">Complete Documentation</span>
+          <span className="font-medium">SOHAM Documentation</span>
         </div>
-        <h1 className="text-4xl font-bold tracking-tight">
-          Welcome to SOHAM
-        </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Your intelligent multi-model assistant for coding, learning, math, and creative tasks. 
-          Get started with our comprehensive guides and tutorials.
+        <h1 className="text-4xl font-bold tracking-tight">Welcome to SOHAM Docs</h1>
+        <p className="text-xl text-muted-foreground max-w-2xl">
+          Everything you need to get the most out of SOHAM — the free, multi-model AI assistant built by
+          Heoster (CODEEX-AI). Browse guides for chat, voice, image generation, PDF analysis, and more.
         </p>
-        <p className="text-sm text-muted-foreground max-w-3xl mx-auto">
-          Explore product guides for <Link href="/chat" className="font-medium text-foreground hover:underline">AI chat</Link>,{' '}
-          <Link href="/pdf-analyzer" className="font-medium text-foreground hover:underline">PDF analysis</Link>,{' '}
-          <Link href="/visual-math" className="font-medium text-foreground hover:underline">image math solving</Link>, and{' '}
-          <Link href="/features" className="font-medium text-foreground hover:underline">core SOHAM features</Link>.
-        </p>
-        
-        {/* App URLs Section */}
-        <div className="mt-6 p-4 bg-muted/50 rounded-lg border">
-          <h3 className="text-sm font-semibold mb-2">🔗 Quick Access URLs</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
-            <div className="text-left">
-              <span className="font-medium">Main App:</span>
-              <code className="ml-2 px-2 py-1 bg-background rounded text-xs">
-                https://soham-ai.vercel.app
-              </code>
-            </div>
-            <div className="text-left">
-              <span className="font-medium">Chat Interface:</span>
-              <code className="ml-2 px-2 py-1 bg-background rounded text-xs">
-                https://soham-ai.vercel.app/chat
-              </code>
-            </div>
-            <div className="text-left">
-              <span className="font-medium">AI Services:</span>
-              <code className="ml-2 px-2 py-1 bg-background rounded text-xs">
-                https://soham-ai.vercel.app/ai-services
-              </code>
-            </div>
-            <div className="text-left">
-              <span className="font-medium">Math Solver:</span>
-              <code className="ml-2 px-2 py-1 bg-background rounded text-xs">
-                https://soham-ai.vercel.app/visual-math
-              </code>
-            </div>
+        <div className="flex flex-wrap gap-3 pt-1">
+          <Link href="/chat">
+            <Button size="lg">
+              Open Chat
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+          <Link href="/documentation/quick-start">
+            <Button size="lg" variant="outline">
+              Quick Start Guide
+            </Button>
+          </Link>
+        </div>
+      </div>
+
+      {/* Quick access URLs */}
+      <Card className="border-primary/20 bg-primary/5">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Globe className="h-5 w-5 text-primary" />
+            Quick Access URLs
+          </CardTitle>
+          <CardDescription>Direct links to every major section of SOHAM</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm font-mono">
+            {[
+              {label: 'Main App', url: 'https://soham-ai.vercel.app'},
+              {label: 'Chat', url: 'https://soham-ai.vercel.app/chat'},
+              {label: 'AI Services', url: 'https://soham-ai.vercel.app/ai-services'},
+              {label: 'Visual Math', url: 'https://soham-ai.vercel.app/visual-math'},
+              {label: 'PDF Analyzer', url: 'https://soham-ai.vercel.app/pdf-analyzer'},
+              {label: 'Account', url: 'https://soham-ai.vercel.app/account'},
+            ].map(({label, url}) => (
+              <div key={url} className="flex items-center gap-2 bg-background/60 rounded px-3 py-2">
+                <span className="text-muted-foreground shrink-0">{label}:</span>
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline truncate"
+                >
+                  {url}
+                </a>
+              </div>
+            ))}
           </div>
+        </CardContent>
+      </Card>
+
+      {/* Start here */}
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Start Here</h2>
+        <div className="grid gap-4 md:grid-cols-3">
+          <QuickCard
+            title="Quick Start"
+            description="Get up and running in 3 minutes"
+            icon={Zap}
+            href="/documentation/quick-start"
+            badge="Start Here"
+          />
+          <QuickCard
+            title="AI Models"
+            description="13+ models — Groq, Gemini, HuggingFace, OpenRouter"
+            icon={Cpu}
+            href="/documentation/ai-models"
+          />
+          <QuickCard
+            title="Slash Commands"
+            description="/solve, /search, /summarize — master them all"
+            icon={Code}
+            href="/documentation/commands"
+          />
         </div>
       </div>
 
-      {/* Quick Start Cards */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <QuickStartCard
-          title="Quick Start"
-          description="Get up and running in minutes"
-          icon={Zap}
-          href="/documentation/quick-start"
-          badge="Start Here"
-        />
-        <QuickStartCard
-          title="AI Models"
-          description={`${DEVELOPER_INFO.projectStats.modelsIntegrated}+ models for different tasks`}
-          icon={Cpu}
-          href="/documentation/ai-models"
-        />
-        <QuickStartCard
-          title="Chat Interface"
-          description="Conversational AI features"
-          icon={MessageSquare}
-          href="/documentation/chat"
-        />
-      </div>
-
-      {/* Feature Overview */}
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Key Features</h2>
+      {/* Core features */}
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Core Features</h2>
         <div className="grid gap-4 md:grid-cols-2">
           <FeatureCard
-            title="Smart Auto-Routing"
-            description="Automatically selects the best AI model for your query"
-            icon={Sparkles}
-            href="/documentation/smart-routing"
+            title="Chat Interface"
+            description="Context-aware conversations, voice input, TTS, message sharing, and smart auto-routing"
+            icon={MessageSquare}
+            href="/documentation/chat"
           />
           <FeatureCard
-            title="AI Services Dashboard"
-            description="Open PDF analysis, image tools, and focused workflows from one place"
+            title="Web Search"
+            description="Auto-triggered real-time search via DuckDuckGo — no command needed for current events"
+            icon={Search}
+            href="/documentation/web-search"
+            badge="Auto"
+          />
+          <FeatureCard
+            title="Image Generation"
+            description="Generate images using HuggingFace FLUX.1-schnell directly from chat"
             icon={Image}
-            href="/ai-services"
-            badge="Live"
+            href="/documentation/image-generation"
           />
           <FeatureCard
             title="PDF Analysis"
-            description="Analyze and extract insights from documents"
+            description="Upload PDFs up to 5 MB and ask questions, get summaries, extract key data"
             icon={FileText}
             href="/documentation/pdf-analysis"
           />
           <FeatureCard
-            title="Math Solver"
-            description="Solve equations with step-by-step explanations"
+            title="Visual Math Solver"
+            description="Upload a photo of an equation and get step-by-step solutions"
             icon={Calculator}
             href="/documentation/math-solver"
           />
           <FeatureCard
-            title="Web Search"
-            description="Get real-time information with citations"
-            icon={Search}
-            href="/documentation/web-search"
+            title="Voice Features"
+            description="Groq Whisper STT + Orpheus TTS with 6 voice options (troy, diana, hannah, autumn, austin, daniel)"
+            icon={Mic}
+            href="/documentation/chat"
           />
         </div>
       </div>
 
-      {/* Popular Guides */}
-      <div className="space-y-6">
+      {/* Popular guides */}
+      <div className="space-y-4">
         <h2 className="text-2xl font-bold">Popular Guides</h2>
-        <div className="grid gap-4">
-          <GuideCard
-            title="Installing as Mobile App"
-            description="Learn how to install SOHAM as a PWA on your Android device"
-            href="/documentation/installation"
-            icon={Smartphone}
-          />
-          <GuideCard
-            title="Using Slash Commands"
-            description="Master /solve, /search, and /summarize commands for better productivity"
-            href="/documentation/commands"
-            icon={Code}
-          />
-          <GuideCard
-            title="Model Selection Guide"
-            description="Choose the right AI model for your specific tasks and needs"
-            href="/documentation/ai-models"
-            icon={Cpu}
-          />
+        <div className="grid gap-3">
+          {[
+            {
+              title: 'Install SOHAM as a Mobile App (PWA)',
+              description: 'Add SOHAM to your home screen on Android or iOS for a native app experience',
+              href: '/documentation/installation',
+              icon: Smartphone,
+            },
+            {
+              title: 'Settings & Customization',
+              description: 'Configure AI model, response tone, technical level, voice, and theme',
+              href: '/documentation/settings',
+              icon: Sparkles,
+            },
+            {
+              title: 'API Reference & App URLs',
+              description: 'All app URLs, REST API endpoints, and integration examples',
+              href: '/documentation/api-reference',
+              icon: Globe,
+            },
+            {
+              title: 'FAQ & Troubleshooting',
+              description: 'Answers to the most common questions about SOHAM features and issues',
+              href: '/documentation/faq',
+              icon: BookOpen,
+            },
+          ].map((guide) => (
+            <Link key={guide.href} href={guide.href}>
+              <Card className="hover:shadow-md transition-shadow cursor-pointer">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-4">
+                    <div className="p-2 rounded-lg bg-muted">
+                      <guide.icon className="h-5 w-5 text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold">{guide.title}</h3>
+                      <p className="text-sm text-muted-foreground">{guide.description}</p>
+                    </div>
+                    <ArrowRight className="h-4 w-4 text-muted-foreground shrink-0" />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
         </div>
       </div>
 
-      {/* CTA Section */}
+      {/* CTA */}
       <div className="rounded-xl border bg-gradient-to-br from-primary/10 via-primary/5 to-background p-8 text-center">
-        <h2 className="text-2xl font-bold mb-3">Ready to Start?</h2>
+        <h2 className="text-2xl font-bold mb-2">Ready to start?</h2>
         <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-          Jump into the chat interface and start experiencing the power of multi-model AI assistance.
+          SOHAM is 100% free. No signup required. Just open chat and go.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link href="/chat">
@@ -186,7 +231,7 @@ export default function DocsHomePage() {
   );
 }
 
-function QuickStartCard({
+function QuickCard({
   title,
   description,
   icon: Icon,
@@ -210,11 +255,7 @@ function QuickStartCard({
             <div className="flex-1">
               <div className="flex items-center gap-2">
                 <CardTitle className="text-lg">{title}</CardTitle>
-                {badge && (
-                  <Badge variant="secondary" className="text-xs">
-                    {badge}
-                  </Badge>
-                )}
+                {badge && <Badge variant="secondary" className="text-xs">{badge}</Badge>}
               </div>
               <CardDescription>{description}</CardDescription>
             </div>
@@ -243,54 +284,17 @@ function FeatureCard({
       <Card className="h-full hover:shadow-md transition-shadow cursor-pointer">
         <CardHeader className="pb-3">
           <div className="flex items-start gap-3">
-            <Icon className="h-5 w-5 text-primary mt-0.5" />
+            <Icon className="h-5 w-5 text-primary mt-0.5 shrink-0" />
             <div className="flex-1">
               <div className="flex items-center gap-2">
                 <CardTitle className="text-base">{title}</CardTitle>
-                {badge && (
-                  <Badge variant="secondary" className="text-xs">
-                    {badge}
-                  </Badge>
-                )}
+                {badge && <Badge variant="secondary" className="text-xs">{badge}</Badge>}
               </div>
-              <CardDescription className="text-sm">
-                {description}
-              </CardDescription>
+              <CardDescription className="text-sm">{description}</CardDescription>
             </div>
-            <ArrowRight className="h-4 w-4 text-muted-foreground" />
+            <ArrowRight className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
           </div>
         </CardHeader>
-      </Card>
-    </Link>
-  );
-}
-
-function GuideCard({
-  title,
-  description,
-  href,
-  icon: Icon,
-}: {
-  title: string;
-  description: string;
-  href: string;
-  icon: React.ElementType;
-}) {
-  return (
-    <Link href={href}>
-      <Card className="hover:shadow-md transition-shadow cursor-pointer">
-        <CardContent className="p-4">
-          <div className="flex items-center gap-4">
-            <div className="p-2 rounded-lg bg-muted">
-              <Icon className="h-5 w-5 text-primary" />
-            </div>
-            <div className="flex-1">
-              <h3 className="font-semibold">{title}</h3>
-              <p className="text-sm text-muted-foreground">{description}</p>
-            </div>
-            <ArrowRight className="h-4 w-4 text-muted-foreground" />
-          </div>
-        </CardContent>
       </Card>
     </Link>
   );

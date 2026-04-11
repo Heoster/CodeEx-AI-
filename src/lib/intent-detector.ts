@@ -1,6 +1,6 @@
 /**
  * Intent Detection Brain
- * Intelligently detects user intent for search, image generation, video generation, etc.
+ * Intelligently detects user intent for search, image generation, etc.
  * Similar to SOHAM pipeline but for intent classification
  */
 
@@ -10,6 +10,40 @@ export type IntentType =
   | 'CHAT'
   | 'CODE_GENERATION'
   | 'EXPLANATION';
+
+/**
+ * Determines if a query requires real-time / current web data.
+ * Used to auto-trigger web search even without explicit search keywords.
+ */
+export function requiresWebSearch(message: string): boolean {
+  const lower = message.toLowerCase();
+
+  // Explicit time-sensitive signals
+  const timeSensitive = [
+    /\b(today|tonight|yesterday|this (week|month|year)|right now|currently|at the moment|as of|latest|recent|newest|breaking|live)\b/,
+    /\b(news|headlines|update|announcement|release|launch|event|match|score|result|weather|forecast|stock|price|rate|trend)\b/,
+    /\b(who (is|are|was|were) (the )?(current|new|latest|now))\b/,
+    /\b(what (is|are) (the )?(current|latest|new|today'?s?))\b/,
+    /\b(when (is|was|did|does|do))\b/,
+    /\b(how much (does|is|are|did))\b/,
+    /\b(is .+ (still|open|available|alive|working|running))\b/,
+  ];
+
+  // Factual lookup signals (things an LLM may hallucinate without search)
+  const factualLookup = [
+    /\b(who (invented|created|founded|discovered|wrote|made|built|designed))\b/,
+    /\b(what (year|date|time|place|country|city) (was|is|did|does))\b/,
+    /\b(where (is|are|was|were) .+ (located|based|from|born|founded))\b/,
+    /\b(population of|capital of|currency of|president of|prime minister of|ceo of|founder of)\b/,
+    /\b(definition of|meaning of|what does .+ mean)\b/,
+  ];
+
+  for (const pattern of [...timeSensitive, ...factualLookup]) {
+    if (pattern.test(lower)) return true;
+  }
+
+  return false;
+}
 
 export interface IntentResult {
   intent: IntentType;
@@ -65,7 +99,17 @@ export class IntentDetector {
   /**
    * Detect web search intent
    */
-  private detectWebSearch(lowerMessage: string, originalMessage: string): IntentResult {
+  private detectWebSearch(_lowerMessage: string, originalMessage: string): IntentResult {
+    // Auto-detect real-time / factual queries even without explicit search keywords
+    if (requiresWebSearch(originalMessage)) {
+      return {
+        intent: 'WEB_SEARCH',
+        confidence: 0.85,
+        extractedQuery: originalMessage,
+        reasoning: 'Query requires real-time or factual web data',
+      };
+    }
+
     const patterns = [
       // Direct search commands
       { regex: /^(search|google|bing|find|lookup|look up)\s+(for|about|on)?\s*(.+)/i, weight: 1.0 },
@@ -129,7 +173,7 @@ export class IntentDetector {
   /**
    * Detect image generation intent
    */
-  private detectImageGeneration(lowerMessage: string, originalMessage: string): IntentResult {
+  private detectImageGeneration(_lowerMessage: string, originalMessage: string): IntentResult {
     const patterns = [
       // Direct generation commands
       { regex: /^(generate|create|make|draw|paint|design|produce)\s+(an?|the)?\s*(image|picture|photo|illustration|artwork|graphic)\s+(of|showing|depicting|with)?\s*(.+)/i, weight: 1.0 },
@@ -187,7 +231,7 @@ export class IntentDetector {
   /**
    * Detect code generation intent
    */
-  private detectCodeGeneration(lowerMessage: string, originalMessage: string): IntentResult {
+  private detectCodeGeneration(_lowerMessage: string, originalMessage: string): IntentResult {
     const patterns = [
       { regex: /^(write|create|generate|make|build)\s+(a|an|the)?\s*(function|class|component|script|program|code|api|endpoint)/i, weight: 0.9 },
       { regex: /^(code|implement|develop)\s+(a|an|the)?\s*(.+)/i, weight: 0.8 },
@@ -214,7 +258,7 @@ export class IntentDetector {
   /**
    * Detect explanation intent
    */
-  private detectExplanation(lowerMessage: string, originalMessage: string): IntentResult {
+  private detectExplanation(_lowerMessage: string, originalMessage: string): IntentResult {
     const patterns = [
       { regex: /^(explain|describe|what is|what are|define|clarify)\s+(.+)/i, weight: 0.8 },
       { regex: /^(how does|how do|why does|why do)\s+(.+)\s+(work|function|operate)/i, weight: 0.85 },

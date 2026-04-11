@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageSEO } from '@/lib/seo-config';
 import Link from 'next/link';
 import { ArrowLeft, FileText, Shield, AlertCircle, Scale, UserCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -6,8 +7,18 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | SOHAM',
-  description: 'Terms of Service and User Agreement for SOHAM platform',
+  title: pageSEO.terms.title,
+  description: pageSEO.terms.description,
+  keywords: pageSEO.terms.keywords,
+  alternates: { canonical: 'https://soham-ai.vercel.app/terms' },
+  openGraph: {
+    title: pageSEO.terms.title,
+    description: pageSEO.terms.description,
+    url: 'https://soham-ai.vercel.app/terms',
+    siteName: 'SOHAM',
+    images: [{ url: 'https://soham-ai.vercel.app/Multi-Chat.png', width: 1200, height: 630, alt: 'SOHAM Terms of Service' }],
+    type: 'website',
+  },
 };
 
 export default function TermsPage() {

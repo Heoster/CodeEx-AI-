@@ -91,17 +91,10 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'RY6Rmrn0nrzaZO8QXaazCfjsnLoEBKT8-oJxBc_l_9U',
-    other: {
-      // Add your second Google verification code here
-      // 'google-site-verification': 'YOUR_SECOND_VERIFICATION_CODE',
-    },
+    google: 'BOhoSA2Bv_SY0gWI4wdYE6gPRxqXimqYLLMrYQxVN4k',
   },
   alternates: {
     canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://soham-ai.vercel.app',
-    languages: {
-      'en-US': process.env.NEXT_PUBLIC_SITE_URL || 'https://soham-ai.vercel.app',
-    },
   },
   category: 'technology',
   classification: 'Artificial Intelligence Platform',
@@ -150,13 +143,10 @@ export default function RootLayout({
         <StructuredData type="person" />
         <StructuredData type="softwareApplication" />
         <StructuredData type="website" />
-        <StructuredData type="searchAction" />
         <StructuredData type="breadcrumb" />
         <link rel="author" href={DEVELOPER_INFO.contact.github} />
         <link rel="me" href={DEVELOPER_INFO.contact.linkedin} />
         <link rel="me" href={DEVELOPER_INFO.contact.twitter} />
-        {/* Second Google Site Verification */}
-        <meta name="google-site-verification" content="BOhoSA2Bv_SY0gWI4wdYE6gPRxqXimqYLLMrYQxVN4k" />
       </head>
       <body className={`${manrope.variable} font-body antialiased`}>
         <ErrorBoundary>

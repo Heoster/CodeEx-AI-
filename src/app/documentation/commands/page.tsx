@@ -1,509 +1,301 @@
 'use client';
 
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Link from 'next/link';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { 
-  BookOpen, 
-  Calculator, 
-  Search, 
-  FileText, 
+import { Button } from '@/components/ui/button';
+import {
+  Terminal,
+  Search,
+  Calculator,
+  FileText,
+  ArrowRight,
+  Lightbulb,
   Zap,
-  MessageSquare,
-  Code,
-  Lightbulb
+  CheckCircle,
+  Code2,
+  Globe,
 } from 'lucide-react';
+
+const commands = [
+  {
+    cmd: '/solve',
+    icon: Calculator,
+    color: 'text-blue-500',
+    bg: 'bg-blue-500/10',
+    badge: 'Math & Logic',
+    badgeVariant: 'secondary' as const,
+    description: 'Solve math problems, coding challenges, and logical puzzles step-by-step.',
+    syntax: '/solve <problem>',
+    examples: [
+      { input: '/solve integrate x^2 * sin(x) dx', output: 'Step-by-step integration by parts with LaTeX rendering' },
+      { input: '/solve find the time complexity of bubble sort', output: 'O(n²) worst/average, O(n) best — with explanation' },
+      { input: '/solve two trains 300km apart approach at 60 and 90 km/h, when do they meet?', output: 'Full working: t = 300 / (60+90) = 2 hours' },
+      { input: '/solve debug this Python: for i in range(10) print(i)', output: 'Missing colon after range(10) — corrected code provided' },
+    ],
+    tips: [
+      'Include units for physics problems (e.g., "60 km/h")',
+      'Paste code snippets directly after /solve for debugging',
+      'Works with LaTeX notation: /solve \\int_0^1 x^2 dx',
+      'Ask for a specific method: /solve using dynamic programming...',
+    ],
+    whenToUse: 'Use /solve when you need structured, step-by-step working — not just an answer. It forces SOHAM into problem-solving mode.',
+  },
+  {
+    cmd: '/search',
+    icon: Search,
+    color: 'text-green-500',
+    bg: 'bg-green-500/10',
+    badge: 'Web Search',
+    badgeVariant: 'secondary' as const,
+    description: 'Trigger a live DuckDuckGo web search and get summarised, up-to-date results.',
+    syntax: '/search <query>',
+    examples: [
+      { input: '/search latest Next.js 15 features', output: 'Live results: React 19, Turbopack stable, improved caching...' },
+      { input: '/search best free vector databases 2025', output: 'Ranked list: Qdrant, Weaviate, Chroma — with pros/cons' },
+      { input: '/search India vs Australia cricket score today', output: 'Real-time score from live web results' },
+      { input: '/search how to fix CORS error in Express.js', output: 'Top solutions with code snippets from current docs' },
+    ],
+    tips: [
+      'SOHAM also auto-triggers search for time-sensitive questions — /search forces it',
+      'Combine with follow-ups: "/search X" then "now summarize the third result"',
+      'Use for current events, prices, scores, or anything that changes frequently',
+      'Quotes work: /search "exact phrase" site:github.com',
+    ],
+    whenToUse: 'Use /search when you need real-time or recent information that the AI model may not have in its training data.',
+  },
+  {
+    cmd: '/summarize',
+    icon: FileText,
+    color: 'text-purple-500',
+    bg: 'bg-purple-500/10',
+    badge: 'Text Condensation',
+    badgeVariant: 'secondary' as const,
+    description: 'Condense long text, articles, or pasted content into clear, structured summaries.',
+    syntax: '/summarize <text or URL>',
+    examples: [
+      { input: '/summarize [paste 2000-word article]', output: '5-bullet executive summary with key takeaways' },
+      { input: '/summarize in 3 sentences: [research abstract]', output: 'Concise 3-sentence distillation' },
+      { input: '/summarize as bullet points: [meeting transcript]', output: 'Action items and decisions in bullet format' },
+      { input: '/summarize for a 10-year-old: [technical doc]', output: 'Plain-language explanation with analogies' },
+    ],
+    tips: [
+      'Specify format: "as bullet points", "in 3 sentences", "as a table"',
+      'Specify audience: "for a beginner", "for a CEO", "for a developer"',
+      'Works great after /search — summarize the results you just got',
+      'Paste PDF text here if you want a quick summary without uploading',
+    ],
+    whenToUse: 'Use /summarize when you have a wall of text and need the key points fast. Especially useful for research papers, articles, and meeting notes.',
+  },
+];
+
+const scenarios = [
+  {
+    title: 'Research → Understand → Apply',
+    steps: [
+      { cmd: '/search', text: 'transformer architecture 2024 improvements' },
+      { cmd: '/summarize', text: 'the search results above as bullet points' },
+      { cmd: '/solve', text: 'implement a simple self-attention mechanism in Python' },
+    ],
+  },
+  {
+    title: 'Debug a Production Issue',
+    steps: [
+      { cmd: '/search', text: 'Next.js 15 hydration error boundary fix' },
+      { cmd: '/solve', text: 'my component throws: "Text content does not match server-rendered HTML"' },
+      { cmd: '/summarize', text: 'the fix in one paragraph for my team' },
+    ],
+  },
+  {
+    title: 'Exam Prep',
+    steps: [
+      { cmd: '/solve', text: 'explain the difference between BFS and DFS with examples' },
+      { cmd: '/solve', text: 'give me 3 practice problems on graph traversal' },
+      { cmd: '/summarize', text: 'everything we covered into a cheat sheet' },
+    ],
+  },
+];
 
 export default function CommandsPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Header */}
       <div className="space-y-4">
         <div className="inline-flex items-center gap-2 rounded-full border bg-muted px-4 py-2 text-sm">
-          <BookOpen className="h-4 w-4 text-primary" />
+          <Terminal className="h-4 w-4 text-primary" />
           <span className="font-medium">Slash Commands</span>
+          <Badge variant="secondary" className="text-xs">3 commands</Badge>
         </div>
-        <h1 className="text-4xl font-bold tracking-tight">
-          Command Reference
-        </h1>
-        <p className="text-xl text-muted-foreground">
-          Master SOHAM's powerful slash commands for enhanced productivity and specialized tasks.
+        <h1 className="text-4xl font-bold tracking-tight">Slash Commands Reference</h1>
+        <p className="text-xl text-muted-foreground max-w-2xl">
+          Prefix your message with a slash command to activate a specific SOHAM capability.
+          Commands give you precise control over how the AI responds.
         </p>
       </div>
 
-      {/* Quick Reference */}
+      {/* Quick reference */}
       <Card className="border-primary/20 bg-primary/5">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Zap className="h-5 w-5 text-primary" />
+          <CardTitle className="flex items-center gap-2 text-base">
+            <Zap className="h-4 w-4 text-primary" />
             Quick Reference
           </CardTitle>
-          <CardDescription>
-            The three essential commands you'll use most often
-          </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-3 md:grid-cols-3">
-            <QuickRefCard
-              command="/solve"
-              description="Math, coding, quiz problems"
-              example="x² + 5x + 6 = 0"
-            />
-            <QuickRefCard
-              command="/search"
-              description="Web search with citations"
-              example="latest AI news"
-            />
-            <QuickRefCard
-              command="/summarize"
-              description="Condense long texts"
-              example="[paste article]"
-            />
+          <div className="grid gap-3 sm:grid-cols-3">
+            {commands.map(({ cmd, icon: Icon, color, description }) => (
+              <div key={cmd} className="flex items-start gap-3 rounded-lg border bg-background p-3">
+                <Icon className={`h-4 w-4 mt-0.5 shrink-0 ${color}`} />
+                <div>
+                  <code className="text-sm font-bold">{cmd}</code>
+                  <p className="text-xs text-muted-foreground mt-0.5">{description.split('.')[0]}.</p>
+                </div>
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>
 
-      {/* Detailed Commands */}
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Detailed Command Guide</h2>
-        
-        <div className="space-y-6">
-          <CommandSection
-            command="/solve"
-            icon={Calculator}
-            color="text-blue-500"
-            description="Solve mathematical equations, coding problems, quiz questions, and logical puzzles with step-by-step explanations."
-            syntax="/solve [your problem or question]"
-            examples={[
-              {
-                input: '/solve x² + 5x + 6 = 0',
-                description: 'Quadratic equation solving',
-                output: 'Step-by-step algebraic solution with factoring'
-              },
-              {
-                input: '/solve What is the derivative of sin(x)?',
-                description: 'Calculus problem',
-                output: 'Mathematical explanation with rules applied'
-              },
-              {
-                input: '/solve Write a binary search algorithm in Python',
-                description: 'Coding challenge',
-                output: 'Complete code with explanation and complexity analysis'
-              },
-              {
-                input: '/solve If a train travels 60 mph for 2 hours, how far does it go?',
-                description: 'Word problem',
-                output: 'Solution with formula and calculation steps'
-              }
-            ]}
-            tips={[
-              'Math problems are automatically routed to math-optimized models',
-              'Include "step-by-step" for detailed explanations',
-              'Works with algebra, calculus, statistics, and discrete math',
-              'Coding problems get routed to programming-specialized models'
-            ]}
-          />
-
-          <CommandSection
-            command="/search"
-            icon={Search}
-            color="text-green-500"
-            description="Search the web for current information using DuckDuckGo with Google fallback. Results include source citations and AI synthesis."
-            syntax="/search [your search query]"
-            examples={[
-              {
-                input: '/search latest developments in artificial intelligence',
-                description: 'Current events search',
-                output: 'Recent AI news with sources and summary'
-              },
-              {
-                input: '/search weather in Tokyo today',
-                description: 'Real-time information',
-                output: 'Current weather conditions with forecast'
-              },
-              {
-                input: '/search how to deploy Next.js to Netlify 2026',
-                description: 'Technical tutorial search',
-                output: 'Up-to-date deployment guides and best practices'
-              },
-              {
-                input: '/search stock price Apple AAPL',
-                description: 'Financial data',
-                output: 'Current stock information and recent performance'
-              }
-            ]}
-            tips={[
-              'Great for current events and real-time data',
-              'Results include clickable source links',
-              'AI synthesizes information from multiple sources',
-              'Use specific keywords for better results'
-            ]}
-          />
-
-          <CommandSection
-            command="/summarize"
-            icon={FileText}
-            color="text-purple-500"
-            description="Condense long articles, documents, or texts into concise summaries while preserving key information and main points."
-            syntax="/summarize [paste your text here]"
-            examples={[
-              {
-                input: '/summarize [long research paper]',
-                description: 'Academic paper summary',
-                output: 'Key findings, methodology, and conclusions'
-              },
-              {
-                input: '/summarize [news article]',
-                description: 'News article condensation',
-                output: 'Main points, key facts, and implications'
-              },
-              {
-                input: '/summarize [meeting transcript]',
-                description: 'Meeting notes summary',
-                output: 'Action items, decisions, and key discussions'
-              },
-              {
-                input: '/summarize [technical documentation]',
-                description: 'Documentation overview',
-                output: 'Essential information and important details'
-              }
-            ]}
-            tips={[
-              'Works best with structured text content',
-              'Preserves important technical details',
-              'Extracts actionable items and key decisions',
-              'Maintains context and relationships between ideas'
-            ]}
-          />
-        </div>
-      </div>
-
-      {/* Advanced Usage */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Lightbulb className="h-5 w-5" />
-            Advanced Usage Tips
-          </CardTitle>
-          <CardDescription>
-            Get the most out of SOHAM commands
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-6">
-            <div className="grid gap-4 md:grid-cols-2">
-              <TipCard
-                title="Command Chaining"
-                description="Use multiple commands in sequence for complex workflows"
-                example='First "/search latest React features", then "/summarize" the results'
-              />
-              <TipCard
-                title="Context Awareness"
-                description="Commands understand conversation context and previous messages"
-                example="Follow up with clarifying questions without repeating context"
-              />
-              <TipCard
-                title="Model Selection"
-                description="Commands automatically route to the best model for the task"
-                example="/solve uses math models, /search uses general models"
-              />
-              <TipCard
-                title="Natural Language"
-                description="You can also ask naturally without using slash commands"
-                example='"Solve this equation" works the same as "/solve equation"'
-              />
+      {/* Individual command sections */}
+      {commands.map(({ cmd, icon: Icon, color, bg, badge, description, syntax, examples, tips, whenToUse }) => (
+        <div key={cmd} className="space-y-4">
+          <div className="flex items-center gap-3">
+            <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${bg}`}>
+              <Icon className={`h-5 w-5 ${color}`} />
             </div>
-
-            <div className="bg-muted/50 p-4 rounded-lg">
-              <h4 className="font-medium mb-3">💡 Pro Tips</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• Commands are case-insensitive: <code>/SOLVE</code> works the same as <code>/solve</code></li>
-                <li>• Use code blocks (```) when sharing code for better formatting</li>
-                <li>• Be specific in your queries for more accurate results</li>
-                <li>• Combine commands with specific model selection for specialized tasks</li>
-                <li>• Use follow-up questions to dive deeper into results</li>
-              </ul>
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-2xl font-bold">{cmd}</h2>
+                <Badge variant="secondary">{badge}</Badge>
+              </div>
+              <p className="text-sm text-muted-foreground">{description}</p>
             </div>
           </div>
-        </CardContent>
-      </Card>
 
-      {/* Command Comparison */}
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold">When to Use Each Command</h2>
-        
-        <div className="grid gap-4 md:grid-cols-3">
-          <ComparisonCard
-            command="/solve"
-            bestFor={[
-              'Mathematical equations',
-              'Coding problems',
-              'Logic puzzles',
-              'Step-by-step solutions',
-              'Educational content'
-            ]}
-            notFor={[
-              'Current events',
-              'Real-time data',
-              'Long text processing'
-            ]}
-          />
-          <ComparisonCard
-            command="/search"
-            bestFor={[
-              'Current information',
-              'Real-time data',
-              'News and events',
-              'Technical tutorials',
-              'Fact checking'
-            ]}
-            notFor={[
-              'Math calculations',
-              'Code generation',
-              'Text summarization'
-            ]}
-          />
-          <ComparisonCard
-            command="/summarize"
-            bestFor={[
-              'Long articles',
-              'Research papers',
-              'Meeting notes',
-              'Documentation',
-              'Content analysis'
-            ]}
-            notFor={[
-              'Short texts',
-              'Real-time searches',
-              'Mathematical problems'
-            ]}
-          />
-        </div>
-      </div>
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Syntax</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <code className="block rounded-lg bg-muted px-4 py-3 text-sm font-mono">{syntax}</code>
+            </CardContent>
+          </Card>
 
-      {/* Examples in Action */}
-      <Card>
-        <CardHeader>
-          <CardTitle>🎯 Real-World Examples</CardTitle>
-          <CardDescription>
-            See how commands work in practical scenarios
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-6">
-            <ScenarioCard
-              scenario="Student Studying Calculus"
-              workflow={[
-                '/solve What is the integral of x² + 3x + 2?',
-                'Follow up: "Can you explain the power rule?"',
-                '/solve Practice problem: ∫(2x³ - 5x + 1)dx'
-              ]}
-            />
-            <ScenarioCard
-              scenario="Developer Learning New Framework"
-              workflow={[
-                '/search Next.js 14 new features 2026',
-                '/summarize [paste documentation]',
-                '/solve Write a Next.js component with server actions'
-              ]}
-            />
-            <ScenarioCard
-              scenario="Researcher Analyzing Papers"
-              workflow={[
-                '/search recent machine learning papers 2026',
-                '/summarize [paste abstract and findings]',
-                '/solve Explain the mathematical concepts in this paper'
-              ]}
-            />
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
-
-function QuickRefCard({
-  command,
-  description,
-  example,
-}: {
-  command: string;
-  description: string;
-  example: string;
-}) {
-  return (
-    <div className="bg-background/50 p-4 rounded-lg">
-      <code className="text-primary font-bold">{command}</code>
-      <p className="text-sm text-muted-foreground mt-1">{description}</p>
-      <p className="text-xs text-muted-foreground mt-2 font-mono">
-        Example: {example}
-      </p>
-    </div>
-  );
-}
-
-function CommandSection({
-  command,
-  icon: Icon,
-  color,
-  description,
-  syntax,
-  examples,
-  tips,
-}: {
-  command: string;
-  icon: React.ElementType;
-  color: string;
-  description: string;
-  syntax: string;
-  examples: Array<{
-    input: string;
-    description: string;
-    output: string;
-  }>;
-  tips: string[];
-}) {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Icon className={`h-6 w-6 ${color}`} />
-          <code className="text-2xl">{command}</code>
-        </CardTitle>
-        <CardDescription>{description}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-6">
-          {/* Syntax */}
-          <div>
-            <h4 className="font-semibold mb-2">Syntax</h4>
-            <code className="block bg-muted p-3 rounded font-mono text-sm">
-              {syntax}
-            </code>
-          </div>
-
-          {/* Examples */}
-          <div>
-            <h4 className="font-semibold mb-3">Examples</h4>
-            <div className="space-y-4">
-              {examples.map((example, i) => (
-                <div key={i} className="border rounded-lg p-4">
-                  <div className="space-y-2">
-                    <div>
-                      <Badge variant="outline" className="text-xs mb-2">
-                        {example.description}
-                      </Badge>
-                      <code className="block bg-muted p-2 rounded font-mono text-sm">
-                        {example.input}
-                      </code>
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground">
-                        <strong>Result:</strong> {example.output}
-                      </p>
-                    </div>
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Examples</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {examples.map((ex, i) => (
+                <div key={i} className="rounded-lg border overflow-hidden">
+                  <div className="bg-muted/60 px-4 py-2 flex items-center gap-2">
+                    <Code2 className="h-3 w-3 text-muted-foreground" />
+                    <code className="text-xs font-mono text-foreground">{ex.input}</code>
+                  </div>
+                  <div className="px-4 py-2 flex items-start gap-2">
+                    <CheckCircle className="h-3 w-3 text-green-500 mt-0.5 shrink-0" />
+                    <p className="text-xs text-muted-foreground">{ex.output}</p>
                   </div>
                 </div>
               ))}
-            </div>
-          </div>
+            </CardContent>
+          </Card>
 
-          {/* Tips */}
-          <div>
-            <h4 className="font-semibold mb-2">Tips</h4>
-            <ul className="space-y-1 text-sm text-muted-foreground">
-              {tips.map((tip, i) => (
-                <li key={i}>• {tip}</li>
-              ))}
-            </ul>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2 text-sm">
+                  <Lightbulb className="h-4 w-4 text-yellow-500" />
+                  Tips
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  {tips.map((tip, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <span className="text-primary mt-0.5">•</span>
+                      {tip}
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+            <Card className="border-orange-200 dark:border-orange-900/40 bg-orange-50/50 dark:bg-orange-950/10">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm">When to use {cmd} vs natural language</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">{whenToUse}</p>
+              </CardContent>
+            </Card>
           </div>
         </div>
-      </CardContent>
-    </Card>
-  );
-}
+      ))}
 
-function TipCard({
-  title,
-  description,
-  example,
-}: {
-  title: string;
-  description: string;
-  example: string;
-}) {
-  return (
-    <div className="bg-muted/50 p-4 rounded-lg">
-      <h4 className="font-medium text-sm mb-2">{title}</h4>
-      <p className="text-sm text-muted-foreground mb-2">{description}</p>
-      <p className="text-xs text-muted-foreground font-mono bg-background p-2 rounded">
-        {example}
-      </p>
-    </div>
-  );
-}
-
-function ComparisonCard({
-  command,
-  bestFor,
-  notFor,
-}: {
-  command: string;
-  bestFor: string[];
-  notFor: string[];
-}) {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-lg">
-          <code>{command}</code>
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <div>
-            <h4 className="font-medium text-sm text-green-600 mb-2">✅ Best for:</h4>
-            <ul className="text-sm space-y-1">
-              {bestFor.map((item, i) => (
-                <li key={i} className="text-muted-foreground">• {item}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-medium text-sm text-red-600 mb-2">❌ Not ideal for:</h4>
-            <ul className="text-sm space-y-1">
-              {notFor.map((item, i) => (
-                <li key={i} className="text-muted-foreground">• {item}</li>
-              ))}
-            </ul>
-          </div>
+      {/* Real-world scenarios */}
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Real-World Scenarios</h2>
+        <p className="text-muted-foreground text-sm">
+          Combine commands in sequence to tackle complex, multi-step tasks.
+        </p>
+        <div className="grid gap-4 sm:grid-cols-3">
+          {scenarios.map((scenario) => (
+            <Card key={scenario.title}>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm">{scenario.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                {scenario.steps.map((step, i) => (
+                  <div key={i} className="flex items-start gap-2">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary text-xs font-bold">{i + 1}</span>
+                    <p className="text-xs text-muted-foreground">
+                      <code className="font-semibold text-foreground">{step.cmd}</code> {step.text}
+                    </p>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          ))}
         </div>
-      </CardContent>
-    </Card>
-  );
-}
+      </div>
 
-function ScenarioCard({
-  scenario,
-  workflow,
-}: {
-  scenario: string;
-  workflow: string[];
-}) {
-  return (
-    <div className="border rounded-lg p-4">
-      <h4 className="font-semibold mb-3">{scenario}</h4>
-      <div className="space-y-2">
-        {workflow.map((step, i) => (
-          <div key={i} className="flex gap-3">
-            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs text-primary-foreground">
-              {i + 1}
-            </span>
-            <code className="text-sm bg-muted px-2 py-1 rounded flex-1">
-              {step}
-            </code>
-          </div>
-        ))}
+      {/* Natural language note */}
+      <Card className="border-muted">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-base">
+            <Globe className="h-4 w-4 text-primary" />
+            Commands vs Natural Language
+          </CardTitle>
+          <CardDescription>You don&apos;t always need a slash command</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-3 text-sm text-muted-foreground">
+          <p>
+            SOHAM&apos;s smart routing automatically detects intent from plain messages. Asking
+            &quot;what&apos;s the weather in Delhi?&quot; will trigger a web search without needing{' '}
+            <code>/search</code>. Commands are most useful when you want to be explicit or when
+            auto-routing picks the wrong mode.
+          </p>
+          <p>
+            Think of slash commands as <strong className="text-foreground">overrides</strong> — they
+            guarantee a specific behaviour regardless of how the message reads.
+          </p>
+        </CardContent>
+      </Card>
+
+      {/* CTA */}
+      <div className="rounded-xl border bg-gradient-to-br from-primary/10 via-primary/5 to-background p-8 text-center space-y-4">
+        <h2 className="text-xl font-bold">Try a command now</h2>
+        <p className="text-muted-foreground text-sm max-w-md mx-auto">
+          Head to the chat and type <code className="bg-muted px-1.5 py-0.5 rounded">/solve</code>,{' '}
+          <code className="bg-muted px-1.5 py-0.5 rounded">/search</code>, or{' '}
+          <code className="bg-muted px-1.5 py-0.5 rounded">/summarize</code> followed by your query.
+        </p>
+        <Button asChild size="lg">
+          <Link href="/chat">
+            Open Chat <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
+        </Button>
       </div>
     </div>
   );

@@ -4,6 +4,7 @@
  */
 
 import { structuredData } from '@/lib/seo-config';
+import { DEVELOPER_INFO } from '@/lib/developer-info';
 
 interface StructuredDataProps {
   type: 'organization' | 'person' | 'softwareApplication' | 'website' | 'faq' | 'breadcrumb' | 'article' | 'searchAction';
@@ -11,84 +12,141 @@ interface StructuredDataProps {
 }
 
 export function StructuredData({ type, data }: StructuredDataProps) {
-  let jsonLd;
+  let jsonLd: Record<string, any> | null = null;
 
   switch (type) {
     case 'organization':
       jsonLd = structuredData.organization;
       break;
+
     case 'person':
       jsonLd = structuredData.person;
       break;
+
     case 'softwareApplication':
       jsonLd = structuredData.softwareApplication;
       break;
+
     case 'website':
-      jsonLd = structuredData.website;
-      break;
-    case 'searchAction':
+      // Full WebSite schema — includes SearchAction inline so we don't need a separate script
       jsonLd = {
         '@context': 'https://schema.org',
         '@type': 'WebSite',
+        '@id': 'https://soham-ai.vercel.app/#website',
+        name: 'SOHAM',
+        alternateName: ['SOHAM by CODEEX-AI', 'CODEEX-AI SOHAM'],
+        url: 'https://soham-ai.vercel.app',
+        description: structuredData.website.description,
+        inLanguage: ['en', 'hi'],
+        publisher: {
+          '@type': 'Organization',
+          '@id': 'https://soham-ai.vercel.app/#organization',
+          name: 'CODEEX-AI',
+        },
+        creator: {
+          '@type': 'Person',
+          '@id': 'https://soham-ai.vercel.app/#person',
+          name: DEVELOPER_INFO.name,
+        },
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: {
+            '@type': 'EntryPoint',
+            urlTemplate: 'https://soham-ai.vercel.app/chat?q={search_term_string}',
+          },
+          'query-input': 'required name=search_term_string',
+        },
+      };
+      break;
+
+    case 'searchAction':
+      // Standalone SearchAction — kept for backward compat but points to the same action
+      jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        '@id': 'https://soham-ai.vercel.app/#search',
         name: 'SOHAM',
         url: 'https://soham-ai.vercel.app',
         potentialAction: {
           '@type': 'SearchAction',
-          target: 'https://soham-ai.vercel.app/chat?q={search_term_string}',
-          'query-input': 'required name=search_term_string'
-        }
+          target: {
+            '@type': 'EntryPoint',
+            urlTemplate: 'https://soham-ai.vercel.app/chat?q={search_term_string}',
+          },
+          'query-input': 'required name=search_term_string',
+        },
       };
       break;
+
     case 'faq':
-      jsonLd = structuredData.faq;
+      jsonLd = data?.faqs
+        ? {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: data.faqs.map((faq: { question: string; answer: string }) => ({
+              '@type': 'Question',
+              name: faq.question,
+              acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+            })),
+          }
+        : structuredData.faq;
       break;
+
     case 'breadcrumb':
-      jsonLd = data?.items ? {
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: data.items.map((item: any, index: number) => ({
-          '@type': 'ListItem',
-          position: index + 1,
-          name: item.name,
-          item: item.url
-        }))
-      } : structuredData.breadcrumb;
+      jsonLd = data?.items
+        ? {
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: data.items.map((item: { name: string; url: string }, index: number) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              name: item.name,
+              item: item.url,
+            })),
+          }
+        : structuredData.breadcrumb;
       break;
+
     case 'article':
       jsonLd = {
         '@context': 'https://schema.org',
         '@type': 'Article',
         headline: data?.title,
         description: data?.description,
-        image: data?.image,
+        image: data?.image ?? 'https://soham-ai.vercel.app/Multi-Chat.png',
         author: {
-          '@type': 'Organization',
-          name: data?.author || 'SOHAM Team'
+          '@type': 'Person',
+          name: data?.author ?? DEVELOPER_INFO.name,
+          url: DEVELOPER_INFO.contact.github,
         },
         publisher: {
           '@type': 'Organization',
-          name: 'SOHAM',
+          name: 'CODEEX-AI',
           logo: {
             '@type': 'ImageObject',
-            url: 'https://soham-ai.vercel.app/FINALSOHAM.png'
-          }
+            url: 'https://soham-ai.vercel.app/FINALSOHAM.png',
+          },
         },
         datePublished: data?.publishedTime,
-        dateModified: data?.modifiedTime || data?.publishedTime,
+        dateModified: data?.modifiedTime ?? data?.publishedTime,
         mainEntityOfPage: {
           '@type': 'WebPage',
-          '@id': data?.url
-        }
+          '@id': data?.url,
+        },
       };
       break;
+
     default:
       return null;
   }
 
+  if (!jsonLd) return null;
+
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd, null, 0) }}
     />
   );
 }

@@ -1,486 +1,313 @@
 'use client';
 
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Link from 'next/link';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Smartphone, 
-  Download, 
-  Chrome, 
-  Globe, 
-  Shield, 
-  Zap,
+import { Button } from '@/components/ui/button';
+import {
+  Smartphone,
+  Monitor,
+  Share2,
+  Chrome,
   CheckCircle,
   AlertCircle,
-  Settings,
-  Home
+  ArrowRight,
+  Zap,
+  WifiOff,
+  Home,
+  RefreshCw,
 } from 'lucide-react';
+
+const androidSteps = [
+  {
+    title: 'Open Chrome and visit SOHAM',
+    body: 'Navigate to soham-ai.vercel.app in Chrome on your Android device.',
+    tip: 'Use Chrome 76+ for the best PWA experience.',
+  },
+  {
+    title: 'Look for the install banner',
+    body: 'Chrome shows an "Add to Home screen" banner at the bottom of the screen after a few seconds.',
+    tip: 'If the banner doesn\'t appear, tap ⋮ → "Install app" from the menu.',
+  },
+  {
+    title: 'Tap "Install"',
+    body: 'Confirm in the dialog that pops up. The install takes under a second.',
+    tip: 'The SOHAM icon is added to your home screen immediately.',
+  },
+  {
+    title: 'Launch from your home screen',
+    body: 'Tap the SOHAM icon — it opens full-screen with no browser address bar.',
+    tip: 'You can move it to any folder or dock just like a regular app.',
+  },
+];
+
+const iosSteps = [
+  {
+    title: 'Open Safari',
+    body: 'Navigate to soham-ai.vercel.app in Safari on your iPhone or iPad.',
+    tip: 'Chrome and Firefox on iOS cannot install PWAs — Safari only.',
+  },
+  {
+    title: 'Tap the Share button',
+    body: 'The share icon (□↑) is in the bottom toolbar on iPhone, top toolbar on iPad.',
+    tip: 'It looks like a box with an arrow pointing up.',
+  },
+  {
+    title: 'Tap "Add to Home Screen"',
+    body: 'Scroll down in the share sheet to find this option — it has a "+" icon.',
+    tip: 'If you don\'t see it, scroll down further in the share sheet.',
+  },
+  {
+    title: 'Confirm and tap "Add"',
+    body: 'Optionally rename it, then tap "Add" in the top-right corner of the dialog.',
+    tip: 'The default name "SOHAM" works great.',
+  },
+];
+
+const desktopSteps = [
+  {
+    browser: 'Chrome',
+    steps: [
+      'Visit soham-ai.vercel.app',
+      'Click the install icon (⊕) in the address bar on the right',
+      'Click "Install" in the confirmation dialog',
+      'SOHAM opens as a standalone window',
+    ],
+  },
+  {
+    browser: 'Microsoft Edge',
+    steps: [
+      'Visit soham-ai.vercel.app',
+      'Click ⋯ menu → "Apps" → "Install this site as an app"',
+      'Confirm the installation',
+      'Find SOHAM in your Start menu or taskbar',
+    ],
+  },
+  {
+    browser: 'Brave',
+    steps: [
+      'Visit soham-ai.vercel.app',
+      'Click the install icon in the address bar or ⋮ → "Install SOHAM"',
+      'Confirm installation',
+      'Launch from your desktop or app launcher',
+    ],
+  },
+];
+
+const afterInstall = [
+  { icon: Home,      text: 'Home screen icon — launches like a native app' },
+  { icon: Zap,       text: 'Full-screen mode — no browser chrome or address bar' },
+  { icon: WifiOff,   text: 'Offline UI cache — browse previous chats without internet' },
+  { icon: RefreshCw, text: 'Auto-updates — always runs the latest version silently' },
+  { icon: Smartphone,text: 'Touch-optimised layout on mobile' },
+  { icon: Monitor,   text: 'Standalone window on desktop — separate from your browser' },
+];
+
+const troubleshooting = [
+  {
+    q: 'No install prompt appears',
+    a: 'Clear browser cache, reload the page, and wait a few seconds. On Chrome, check ⋮ → "Install app". Ensure you\'re on HTTPS (soham-ai.vercel.app).',
+  },
+  {
+    q: 'iOS "Add to Home Screen" option is missing',
+    a: 'You must use Safari on iOS. Chrome and Firefox on iOS do not support PWA installation. Update to iOS 14+ for best results.',
+  },
+  {
+    q: 'App opens in the browser instead of standalone',
+    a: 'Uninstall the app, clear Chrome\'s site data for soham-ai.vercel.app, and reinstall.',
+  },
+  {
+    q: 'App won\'t open after installation',
+    a: 'Long-press the icon → "App info" → "Clear cache". If that fails, uninstall and reinstall from the browser.',
+  },
+];
 
 export default function InstallationPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Header */}
       <div className="space-y-4">
         <div className="inline-flex items-center gap-2 rounded-full border bg-muted px-4 py-2 text-sm">
           <Smartphone className="h-4 w-4 text-primary" />
-          <span className="font-medium">Mobile Installation</span>
+          <span className="font-medium">PWA Installation</span>
+          <Badge variant="secondary" className="text-xs">No App Store</Badge>
         </div>
-        <h1 className="text-4xl font-bold tracking-tight">
-          Install as Mobile App
-        </h1>
-        <p className="text-xl text-muted-foreground">
-          SOHAM is a Progressive Web App (PWA) that can be installed on your mobile device for a native app experience.
+        <h1 className="text-4xl font-bold tracking-tight">Install SOHAM</h1>
+        <p className="text-xl text-muted-foreground max-w-2xl">
+          Install SOHAM as a Progressive Web App directly from your browser — no Play Store,
+          App Store, or download required.
         </p>
       </div>
 
-      {/* PWA Benefits */}
+      {/* Why install */}
       <Card className="border-primary/20 bg-primary/5">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Zap className="h-5 w-5 text-primary" />
-            Why Install as an App?
+          <CardTitle className="flex items-center gap-2 text-base">
+            <Zap className="h-4 w-4 text-primary" />
+            Why Install Instead of Using the Browser?
           </CardTitle>
-          <CardDescription>
-            Get the best mobile experience with native app features
-          </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4 md:grid-cols-2">
-            <BenefitCard
-              icon={Globe}
-              title="Full-Screen Experience"
-              description="No browser UI, just pure app interface"
-            />
-            <BenefitCard
-              icon={Zap}
-              title="Faster Loading"
-              description="Cached resources for instant startup"
-            />
-            <BenefitCard
-              icon={Shield}
-              title="Offline Support"
-              description="Access previous conversations without internet"
-            />
-            <BenefitCard
-              icon={Home}
-              title="Home Screen Icon"
-              description="Quick access from your device's home screen"
-            />
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {afterInstall.map(({ icon: Icon, text }) => (
+              <div key={text} className="flex items-center gap-3 rounded-lg border bg-background p-3">
+                <Icon className="h-4 w-4 text-primary shrink-0" />
+                <p className="text-sm">{text}</p>
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>
 
-      {/* Android Installation */}
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Android Installation</h2>
-        
+      {/* Android */}
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold flex items-center gap-2">
+          <Chrome className="h-6 w-6" /> Android — Chrome
+        </h2>
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Chrome className="h-5 w-5" />
-              Chrome Browser (Recommended)
-            </CardTitle>
-            <CardDescription>
-              The easiest way to install SOHAM on Android
-            </CardDescription>
+            <CardDescription>Recommended browser for Android PWA installation</CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              <div className="space-y-4">
-                {[
-                  {
-                    step: 1,
-                    title: "Open SOHAM in Chrome",
-                    description: "Navigate to soham-ai.vercel.app in your Chrome browser",
-                    tip: "Make sure you're using the latest version of Chrome"
-                  },
-                  {
-                    step: 2,
-                    title: "Look for the Install Prompt",
-                    description: "Chrome will show an 'Add to Home screen' banner at the bottom",
-                    tip: "If you don't see it, tap the menu (⋮) in the top right"
-                  },
-                  {
-                    step: 3,
-                    title: "Tap 'Add to Home screen'",
-                    description: "Or select 'Install app' from the Chrome menu",
-                    tip: "You might see 'Install SOHAM' instead"
-                  },
-                  {
-                    step: 4,
-                    title: "Confirm Installation",
-                    description: "Tap 'Install' in the confirmation dialog",
-                    tip: "The app will be added to your home screen automatically"
-                  }
-                ].map((step) => (
-                  <InstallationStep
-                    key={step.step}
-                    step={step.step}
-                    title={step.title}
-                    description={step.description}
-                    tip={step.tip}
-                  />
-                ))}
-              </div>
-
-              <div className="bg-green-50 dark:bg-green-950/20 p-4 rounded-lg">
-                <div className="flex items-center gap-2 mb-2">
-                  <CheckCircle className="h-4 w-4 text-green-500" />
-                  <h4 className="font-medium text-green-700 dark:text-green-300">Success!</h4>
-                </div>
-                <p className="text-sm text-green-600 dark:text-green-400">
-                  Once installed, you'll find SOHAM on your home screen with its own icon. 
-                  It will open in full-screen mode without browser controls.
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Alternative Browsers */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Other Android Browsers</CardTitle>
-            <CardDescription>
-              Installation steps for Firefox, Edge, and Samsung Internet
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <BrowserGuide
-                browser="Firefox"
-                steps={[
-                  "Open SOHAM in Firefox",
-                  "Tap the menu (⋮) in the top right",
-                  "Select 'Add to Home screen'",
-                  "Confirm by tapping 'Add'"
-                ]}
-              />
-              <BrowserGuide
-                browser="Microsoft Edge"
-                steps={[
-                  "Navigate to SOHAM in Edge",
-                  "Tap the menu (⋯) at the bottom",
-                  "Select 'Add to phone'",
-                  "Choose 'Add to Home screen'"
-                ]}
-              />
-              <BrowserGuide
-                browser="Samsung Internet"
-                steps={[
-                  "Open SOHAM in Samsung Internet",
-                  "Tap the menu button",
-                  "Select 'Add page to' → 'Home screen'",
-                  "Tap 'Add' to confirm"
-                ]}
-              />
+          <CardContent className="space-y-5">
+            <ol className="space-y-4">
+              {androidSteps.map((step, i) => (
+                <li key={i} className="flex gap-4">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">
+                    {i + 1}
+                  </span>
+                  <div>
+                    <p className="font-semibold text-sm">{step.title}</p>
+                    <p className="text-sm text-muted-foreground">{step.body}</p>
+                    <p className="text-xs text-blue-600 dark:text-blue-400 mt-0.5">💡 {step.tip}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <div className="rounded-lg bg-green-50 dark:bg-green-950/20 p-4 flex gap-3">
+              <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
+              <p className="text-sm text-green-700 dark:text-green-300">
+                Done! SOHAM now appears in your app drawer and home screen just like any native app.
+              </p>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* iOS Installation */}
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold">iOS Installation (iPhone/iPad)</h2>
-        
+      {/* iOS */}
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold flex items-center gap-2">
+          <Share2 className="h-6 w-6" /> iPhone / iPad — Safari
+        </h2>
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Globe className="h-5 w-5" />
-              Safari Browser (Required)
-            </CardTitle>
-            <CardDescription>
-              iOS only supports PWA installation through Safari
-            </CardDescription>
+            <CardDescription>Apple only allows PWA installation through Safari — not Chrome or Firefox</CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              <div className="space-y-4">
-                {[
-                  {
-                    step: 1,
-                    title: "Open Safari",
-                    description: "Navigate to soham-ai.vercel.app in Safari browser",
-                    tip: "Other browsers like Chrome won't work for PWA installation on iOS"
-                  },
-                  {
-                    step: 2,
-                    title: "Tap the Share Button",
-                    description: "Look for the share icon (square with arrow) at the bottom",
-                    tip: "It's in the bottom toolbar of Safari"
-                  },
-                  {
-                    step: 3,
-                    title: "Select 'Add to Home Screen'",
-                    description: "Scroll down in the share menu to find this option",
-                    tip: "You might need to scroll down to see it"
-                  },
-                  {
-                    step: 4,
-                    title: "Customize and Add",
-                    description: "Edit the name if desired, then tap 'Add'",
-                    tip: "The default name 'SOHAM' works perfectly"
-                  }
-                ].map((step) => (
-                  <InstallationStep
-                    key={step.step}
-                    step={step.step}
-                    title={step.title}
-                    description={step.description}
-                    tip={step.tip}
-                  />
-                ))}
-              </div>
-
-              <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg">
-                <div className="flex items-center gap-2 mb-2">
-                  <AlertCircle className="h-4 w-4 text-blue-500" />
-                  <h4 className="font-medium text-blue-700 dark:text-blue-300">iOS Note</h4>
-                </div>
-                <p className="text-sm text-blue-600 dark:text-blue-400">
-                  iOS PWAs have some limitations compared to Android. Features like push notifications 
-                  and background sync are not available, but the core app experience works perfectly.
-                </p>
-              </div>
+          <CardContent className="space-y-5">
+            <ol className="space-y-4">
+              {iosSteps.map((step, i) => (
+                <li key={i} className="flex gap-4">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">
+                    {i + 1}
+                  </span>
+                  <div>
+                    <p className="font-semibold text-sm">{step.title}</p>
+                    <p className="text-sm text-muted-foreground">{step.body}</p>
+                    <p className="text-xs text-blue-600 dark:text-blue-400 mt-0.5">💡 {step.tip}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <div className="rounded-lg bg-blue-50 dark:bg-blue-950/20 p-4 flex gap-3">
+              <AlertCircle className="h-4 w-4 text-blue-500 mt-0.5 shrink-0" />
+              <p className="text-sm text-blue-700 dark:text-blue-300">
+                iOS PWAs run in a separate browser context from Safari. Requires iOS 14+ for basic
+                PWA support; iOS 16.4+ for push notifications.
+              </p>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Desktop Installation */}
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Desktop Installation</h2>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle>Chrome, Edge, and Other Chromium Browsers</CardTitle>
-            <CardDescription>
-              Install SOHAM as a desktop app for quick access
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-6 md:grid-cols-2">
-              <div className="space-y-3">
-                <h4 className="font-semibold">Automatic Prompt</h4>
-                <ol className="space-y-2 text-sm text-muted-foreground">
-                  <li>1. Visit soham-ai.vercel.app in Chrome/Edge</li>
-                  <li>2. Look for the install icon in the address bar</li>
-                  <li>3. Click the install button</li>
-                  <li>4. Confirm installation</li>
+      {/* Desktop */}
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold flex items-center gap-2">
+          <Monitor className="h-6 w-6" /> Desktop
+        </h2>
+        <div className="grid gap-4 sm:grid-cols-3">
+          {desktopSteps.map(({ browser, steps }) => (
+            <Card key={browser}>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-base">{browser}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ol className="space-y-2">
+                  {steps.map((step, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <span className="font-bold text-foreground shrink-0">{i + 1}.</span>
+                      {step}
+                    </li>
+                  ))}
                 </ol>
-              </div>
-              <div className="space-y-3">
-                <h4 className="font-semibold">Manual Installation</h4>
-                <ol className="space-y-2 text-sm text-muted-foreground">
-                  <li>1. Click the menu (⋮) in the browser</li>
-                  <li>2. Select "Install SOHAM..."</li>
-                  <li>3. Click "Install" in the dialog</li>
-                  <li>4. App appears in your applications</li>
-                </ol>
-              </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      {/* What you get */}
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">What You Get After Installing</h2>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {[
+            'Full-screen experience with no browser address bar',
+            'Home screen / desktop icon for one-tap access',
+            'Faster load times via service-worker caching',
+            'Offline access to the UI and cached conversations',
+            'Auto-updates in the background — always up to date',
+            'All SOHAM features: chat, image gen, PDF analysis, voice',
+            'Works on Android (Chrome), iOS (Safari), and desktop',
+            '100% free — no account, no subscription, no app store',
+          ].map((item) => (
+            <div key={item} className="flex items-center gap-3 rounded-lg border p-3">
+              <CheckCircle className="h-4 w-4 text-green-500 shrink-0" />
+              <p className="text-sm">{item}</p>
             </div>
-          </CardContent>
-        </Card>
+          ))}
+        </div>
       </div>
 
       {/* Troubleshooting */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Settings className="h-5 w-5" />
-            Troubleshooting
-          </CardTitle>
-          <CardDescription>
-            Common issues and solutions
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <TroubleshootItem
-              problem="Don't see the install option?"
-              solutions={[
-                "Make sure you're using a supported browser (Chrome, Firefox, Edge, Safari)",
-                "Clear your browser cache and reload the page",
-                "Check that JavaScript is enabled",
-                "Try visiting the site in an incognito/private window"
-              ]}
-            />
-            <TroubleshootItem
-              problem="App won't install on iOS?"
-              solutions={[
-                "Use Safari browser only - other browsers don't support PWA installation on iOS",
-                "Make sure you're tapping the share button (not the address bar)",
-                "Update to the latest iOS version if possible"
-              ]}
-            />
-            <TroubleshootItem
-              problem="Installed app won't open?"
-              solutions={[
-                "Try uninstalling and reinstalling the app",
-                "Clear browser data for soham-ai.vercel.app",
-                "Check your internet connection",
-                "Restart your device"
-              ]}
-            />
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Features After Installation */}
-      <Card>
-        <CardHeader>
-          <CardTitle>What You Get After Installation</CardTitle>
-          <CardDescription>
-            Features available in the installed app
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 md:grid-cols-2">
-            <FeatureCard
-              title="Native App Experience"
-              description="Full-screen interface without browser controls"
-              available={true}
-            />
-            <FeatureCard
-              title="Offline Access"
-              description="View previous conversations without internet"
-              available={true}
-            />
-            <FeatureCard
-              title="Fast Loading"
-              description="Cached resources for instant startup"
-              available={true}
-            />
-            <FeatureCard
-              title="Home Screen Icon"
-              description="Quick access from your device"
-              available={true}
-            />
-            <FeatureCard
-              title="Push Notifications"
-              description="Get notified of updates (Android only)"
-              available="android"
-            />
-            <FeatureCard
-              title="Background Sync"
-              description="Sync data when connection returns (Android only)"
-              available="android"
-            />
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
-
-function BenefitCard({
-  icon: Icon,
-  title,
-  description,
-}: {
-  icon: React.ElementType;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="flex items-center gap-3 p-3 bg-background/50 rounded-lg">
-      <Icon className="h-5 w-5 text-primary" />
-      <div>
-        <h4 className="font-medium text-sm">{title}</h4>
-        <p className="text-xs text-muted-foreground">{description}</p>
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Troubleshooting</h2>
+        <div className="space-y-3">
+          {troubleshooting.map(({ q, a }) => (
+            <Card key={q}>
+              <CardContent className="pt-4 pb-4">
+                <p className="font-semibold text-sm text-orange-600 dark:text-orange-400 mb-1">❓ {q}</p>
+                <p className="text-sm text-muted-foreground">{a}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
-    </div>
-  );
-}
 
-function InstallationStep({
-  step,
-  title,
-  description,
-  tip,
-}: {
-  step: number;
-  title: string;
-  description: string;
-  tip: string;
-}) {
-  return (
-    <div className="flex gap-4">
-      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-sm">
-        {step}
-      </div>
-      <div className="flex-1">
-        <h4 className="font-semibold">{title}</h4>
-        <p className="text-sm text-muted-foreground mb-1">{description}</p>
-        <p className="text-xs text-blue-600 dark:text-blue-400">💡 {tip}</p>
-      </div>
-    </div>
-  );
-}
-
-function BrowserGuide({
-  browser,
-  steps,
-}: {
-  browser: string;
-  steps: string[];
-}) {
-  return (
-    <div className="border rounded-lg p-4">
-      <h4 className="font-semibold mb-3">{browser}</h4>
-      <ol className="space-y-1 text-sm text-muted-foreground">
-        {steps.map((step, i) => (
-          <li key={i}>{i + 1}. {step}</li>
-        ))}
-      </ol>
-    </div>
-  );
-}
-
-function TroubleshootItem({
-  problem,
-  solutions,
-}: {
-  problem: string;
-  solutions: string[];
-}) {
-  return (
-    <div className="border rounded-lg p-4">
-      <h4 className="font-semibold mb-2 text-orange-600 dark:text-orange-400">
-        ❓ {problem}
-      </h4>
-      <ul className="space-y-1 text-sm text-muted-foreground">
-        {solutions.map((solution, i) => (
-          <li key={i}>• {solution}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function FeatureCard({
-  title,
-  description,
-  available,
-}: {
-  title: string;
-  description: string;
-  available: boolean | string;
-}) {
-  return (
-    <div className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg">
-      <div className="mt-0.5">
-        {available === true ? (
-          <CheckCircle className="h-4 w-4 text-green-500" />
-        ) : available === "android" ? (
-          <Badge variant="outline" className="text-xs">Android</Badge>
-        ) : (
-          <AlertCircle className="h-4 w-4 text-orange-500" />
-        )}
-      </div>
-      <div>
-        <h4 className="font-medium text-sm">{title}</h4>
-        <p className="text-xs text-muted-foreground">{description}</p>
+      {/* CTA */}
+      <div className="rounded-xl border bg-gradient-to-br from-primary/10 via-primary/5 to-background p-8 text-center space-y-4">
+        <h2 className="text-xl font-bold">Ready to install?</h2>
+        <p className="text-muted-foreground text-sm max-w-md mx-auto">
+          Open SOHAM in your mobile browser or desktop Chrome/Edge and follow the steps above.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <Button asChild size="lg">
+            <Link href="/chat">
+              Open SOHAM <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+          <Button asChild size="lg" variant="outline">
+            <Link href="/documentation/pwa">PWA Details</Link>
+          </Button>
+        </div>
       </div>
     </div>
   );

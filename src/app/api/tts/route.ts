@@ -18,17 +18,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate text length
-    if (text.length > 4096) {
-      return NextResponse.json(
-        { success: false, error: 'Text too long. Maximum 4096 characters.' },
-        { status: 400 }
-      );
-    }
+    // Truncate long text gracefully instead of rejecting
+    const processedText = text.length > 4000 ? text.substring(0, 4000) + '...' : text;
 
     // Use unified voice service with fallback chain
     const voiceService = getUnifiedVoiceService();
-    const result = await voiceService.textToSpeech(text, {
+    const result = await voiceService.textToSpeech(processedText, {
       voice: voice || 'troy', // Default to troy for Orpheus
       speed: speed || 1.0,
     });

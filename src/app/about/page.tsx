@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { pageSEO } from '@/lib/seo-config';
 import {
   ArrowRight,
   Award,
@@ -19,39 +20,22 @@ import { PageHeader } from '@/components/page-header';
 import { DEVELOPER_INFO } from '@/lib/developer-info';
 
 export const metadata: Metadata = {
-  title: 'About Heoster and CODEEX-AI | Founder Story Behind SOHAM',
-  description: `Meet Heoster (Harsh), ${DEVELOPER_INFO.age}-year-old founder of CODEEX-AI and creator of SOHAM. Learn about the company, his background, and the mission behind the platform.`,
-  keywords: [
-    'Heoster',
-    'Harsh',
-    'CODEEX-AI founder',
-    'creator of SOHAM',
-    'Heoster CODEEX-AI',
-    'young AI founder India',
-    'about CODEEX-AI',
-    'about Heoster',
-  ],
-  alternates: {
-    canonical: 'https://soham-ai.vercel.app/about',
-  },
+  title: pageSEO.about.title,
+  description: pageSEO.about.description,
+  keywords: pageSEO.about.keywords,
+  alternates: { canonical: 'https://soham-ai.vercel.app/about' },
   openGraph: {
-    title: 'About Heoster and CODEEX-AI | Founder Story Behind SOHAM',
-    description: `Meet Heoster (Harsh), ${DEVELOPER_INFO.age}-year-old founder of CODEEX-AI and creator of SOHAM.`,
+    title: pageSEO.about.title,
+    description: pageSEO.about.description,
     url: 'https://soham-ai.vercel.app/about',
     type: 'profile',
-    images: [
-      {
-        url: 'https://soham-ai.vercel.app/harsh.png',
-        width: 400,
-        height: 400,
-        alt: 'Heoster, founder of CODEEX-AI and creator of SOHAM',
-      },
-    ],
+    siteName: 'SOHAM',
+    images: [{ url: 'https://soham-ai.vercel.app/harsh.png', width: 1200, height: 630, alt: 'Heoster, founder of CODEEX-AI and creator of SOHAM' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About Heoster and CODEEX-AI | Founder Story Behind SOHAM',
-    description: `Meet Heoster (Harsh), ${DEVELOPER_INFO.age}-year-old founder of CODEEX-AI and creator of SOHAM.`,
+    title: pageSEO.about.title,
+    description: pageSEO.about.description,
     images: ['https://soham-ai.vercel.app/harsh.png'],
   },
 };

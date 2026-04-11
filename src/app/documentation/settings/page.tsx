@@ -1,784 +1,360 @@
 'use client';
 
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Link from 'next/link';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Settings, 
-  Cpu, 
-  Volume2, 
-  Palette, 
-  User, 
+import { Button } from '@/components/ui/button';
+import {
+  Settings,
+  Brain,
+  MessageSquare,
+  GraduationCap,
+  Volume2,
+  Palette,
   Shield,
-  Zap,
-  Globe,
-  Smartphone,
+  ArrowRight,
+  CheckCircle,
   Monitor,
-  Moon,
   Sun,
-  Mic,
-  MessageSquare
+  Moon,
+  Laptop,
 } from 'lucide-react';
 
 export default function SettingsPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Header */}
       <div className="space-y-4">
         <div className="inline-flex items-center gap-2 rounded-full border bg-muted px-4 py-2 text-sm">
           <Settings className="h-4 w-4 text-primary" />
           <span className="font-medium">Settings & Customization</span>
         </div>
-        <h1 className="text-4xl font-bold tracking-tight">
-          Customize Your Experience
-        </h1>
-        <p className="text-xl text-muted-foreground">
-          Personalize SOHAM with your preferred AI models, response style, voice settings, and appearance.
+        <h1 className="text-4xl font-bold tracking-tight">Settings Guide</h1>
+        <p className="text-xl text-muted-foreground max-w-2xl">
+          Tailor SOHAM to your workflow — choose your AI model, response style, voice, and more.
+          All settings are saved locally in your browser.
         </p>
       </div>
 
-      {/* How to Access Settings */}
+      {/* How to open */}
       <Card className="border-primary/20 bg-primary/5">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Zap className="h-5 w-5 text-primary" />
-            How to Access Settings
+          <CardTitle className="flex items-center gap-2 text-base">
+            <Settings className="h-4 w-4 text-primary" />
+            How to Open Settings
           </CardTitle>
-          <CardDescription>
-            Quick guide to opening and navigating the settings panel
-          </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="space-y-3">
-              <h4 className="font-semibold">Desktop</h4>
-              <ol className="space-y-2 text-sm text-muted-foreground">
-                <li>1. Look for the settings icon (⚙️) in the top header</li>
-                <li>2. Click the icon to open the settings dialog</li>
-                <li>3. Adjust your preferences</li>
-                <li>4. Settings save automatically</li>
-              </ol>
-            </div>
-            <div className="space-y-3">
-              <h4 className="font-semibold">Mobile</h4>
-              <ol className="space-y-2 text-sm text-muted-foreground">
-                <li>1. Tap the settings icon in the header</li>
-                <li>2. Settings open in a mobile-optimized dialog</li>
-                <li>3. Swipe down to dismiss when done</li>
-                <li>4. Changes apply immediately</li>
-              </ol>
-            </div>
+        <CardContent className="grid gap-4 sm:grid-cols-2">
+          <div className="rounded-lg border bg-background p-4 space-y-2">
+            <p className="font-semibold text-sm flex items-center gap-2">
+              <Monitor className="h-4 w-4 text-muted-foreground" /> Desktop
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Click the <strong className="text-foreground">⚙️ gear icon</strong> in the top-right
+              header. The settings panel slides in from the right.
+            </p>
+          </div>
+          <div className="rounded-lg border bg-background p-4 space-y-2">
+            <p className="font-semibold text-sm flex items-center gap-2">
+              <Monitor className="h-4 w-4 text-muted-foreground" /> Mobile
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Tap the <strong className="text-foreground">⚙️ gear icon</strong> in the header — same
+              location. The panel opens as a bottom sheet on small screens.
+            </p>
           </div>
         </CardContent>
       </Card>
 
-      {/* AI Model Settings */}
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold">AI Model Configuration</h2>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Cpu className="h-5 w-5" />
-              Model Selection
-            </CardTitle>
-            <CardDescription>
-              Choose how SOHAM selects models for your conversations
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              <div className="grid gap-4 md:grid-cols-2">
-                <ModelOption
-                  name="Auto (Recommended)"
-                  description="Smart routing - AI automatically selects the best model for each query"
-                  badge="Smart"
-                  features={[
-                    'Math questions → Math models',
-                    'Code questions → Programming models',
-                    'General chat → Conversational models',
-                    'Image tasks → Multimodal models'
-                  ]}
-                  recommended={true}
-                />
-                <ModelOption
-                  name="Manual Selection"
-                  description="Choose a specific model for all conversations"
-                  badge="Control"
-                  features={[
-                    '13+ models available',
-                    'Consistent model behavior',
-                    'Specialized for specific tasks',
-                    'Expert users preferred'
-                  ]}
-                />
-              </div>
-
-              <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg">
-                <h4 className="font-medium text-blue-700 dark:text-blue-300 mb-2">💡 Recommendation</h4>
-                <p className="text-sm text-blue-600 dark:text-blue-400">
-                  Use "Auto" mode for the best experience. The AI will automatically route your questions 
-                  to the most appropriate model, giving you optimal results without manual selection.
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Response Customization */}
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Response Customization</h2>
-        
-        <div className="grid gap-6 md:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <MessageSquare className="h-5 w-5" />
-                Response Tone
-              </CardTitle>
-              <CardDescription>
-                Set the personality and communication style
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <ToneOption
-                  tone="Helpful"
-                  description="Friendly, supportive, and encouraging responses"
-                  example="I'd be happy to help you with that! Let me break it down step by step..."
-                  default={true}
-                />
-                <ToneOption
-                  tone="Formal"
-                  description="Professional, structured, and precise communication"
-                  example="I shall provide you with a comprehensive analysis of the requested topic..."
-                />
-                <ToneOption
-                  tone="Casual"
-                  description="Relaxed, conversational, and approachable style"
-                  example="Sure thing! So here's the deal with that..."
-                />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <User className="h-5 w-5" />
-                Technical Level
-              </CardTitle>
-              <CardDescription>
-                Adjust explanation complexity and detail
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <TechnicalLevel
-                  level="Beginner"
-                  description="Simple explanations with basic terminology"
-                  features={['Step-by-step guidance', 'Minimal jargon', 'Lots of examples']}
-                />
-                <TechnicalLevel
-                  level="Intermediate"
-                  description="Balanced explanations with moderate detail"
-                  features={['Some technical terms', 'Practical examples', 'Moderate depth']}
-                />
-                <TechnicalLevel
-                  level="Expert"
-                  description="Advanced explanations with technical depth"
-                  features={['Technical terminology', 'Detailed analysis', 'Assumes knowledge']}
-                />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-
-      {/* Voice & Audio Settings */}
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Voice & Audio Settings</h2>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Volume2 className="h-5 w-5" />
-              Speech Output (Text-to-Speech)
-            </CardTitle>
-            <CardDescription>
-              Configure AI responses to be read aloud
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              <div className="grid gap-4 md:grid-cols-2">
-                <div className="space-y-4">
-                  <h4 className="font-semibold">Voice Options</h4>
-                  <div className="space-y-3">
-                    <VoiceOption
-                      name="Voice 1"
-                      description="Natural, clear female voice"
-                      characteristics={['Clear pronunciation', 'Moderate pace', 'Professional tone']}
-                    />
-                    <VoiceOption
-                      name="Voice 2"
-                      description="Warm, friendly male voice"
-                      characteristics={['Conversational style', 'Slightly slower pace', 'Approachable']}
-                    />
-                    <VoiceOption
-                      name="Voice 3"
-                      description="Crisp, articulate female voice"
-                      characteristics={['Fast pace', 'Technical content', 'Precise diction']}
-                    />
-                    <VoiceOption
-                      name="Voice 4"
-                      description="Deep, authoritative male voice"
-                      characteristics={['Slower pace', 'Emphasis on key points', 'Confident delivery']}
-                    />
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  <h4 className="font-semibold">Audio Controls</h4>
-                  <div className="space-y-3">
-                    <AudioControl
-                      name="Speech Rate"
-                      description="Adjust how fast the AI speaks"
-                      range="0.5x to 2.0x speed"
-                    />
-                    <AudioControl
-                      name="Pitch"
-                      description="Modify voice pitch for comfort"
-                      range="Lower to higher pitch"
-                    />
-                    <AudioControl
-                      name="Volume"
-                      description="Control speech output volume"
-                      range="0% to 100%"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-green-50 dark:bg-green-950/20 p-4 rounded-lg">
-                <h4 className="font-medium text-green-700 dark:text-green-300 mb-2">🎧 Accessibility</h4>
-                <p className="text-sm text-green-600 dark:text-green-400">
-                  Speech output is perfect for accessibility, multitasking, or when you prefer to listen 
-                  rather than read. Great for learning while doing other activities.
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Mic className="h-5 w-5" />
-              Voice Input Settings
-            </CardTitle>
-            <CardDescription>
-              Configure speech-to-text input preferences
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4 md:grid-cols-2">
-              <VoiceInputSetting
-                name="Auto-Send"
-                description="Automatically send message after voice input"
-                options={['Enabled', 'Disabled (Review first)']}
-              />
-              <VoiceInputSetting
-                name="Language Detection"
-                description="Automatically detect spoken language"
-                options={['Auto-detect', 'Fixed language']}
-              />
-              <VoiceInputSetting
-                name="Noise Filtering"
-                description="Filter background noise during recording"
-                options={['Enabled (Recommended)', 'Disabled']}
-              />
-              <VoiceInputSetting
-                name="Recording Timeout"
-                description="Stop recording after silence"
-                options={['3 seconds', '5 seconds', '10 seconds']}
-              />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Appearance Settings */}
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Appearance & Theme</h2>
-        
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Palette className="h-5 w-5" />
-              Theme Selection
-            </CardTitle>
-            <CardDescription>
-              Choose your preferred visual appearance
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4 md:grid-cols-3">
-              <ThemeOption
-                name="Light"
-                description="Bright, clean interface perfect for daytime use"
-                icon={Sun}
-                features={['High contrast text', 'Bright backgrounds', 'Easy reading']}
-              />
-              <ThemeOption
-                name="Dark"
-                description="Dark interface that's easy on the eyes"
-                icon={Moon}
-                features={['Reduced eye strain', 'Better for low light', 'Modern appearance']}
-              />
-              <ThemeOption
-                name="System"
-                description="Automatically matches your device's theme"
-                icon={Monitor}
-                features={['Auto light/dark switching', 'Follows OS preference', 'Seamless integration']}
-                recommended={true}
-              />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Device-Specific Settings */}
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Device-Specific Settings</h2>
-        
-        <div className="grid gap-6 md:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Smartphone className="h-5 w-5" />
-                Mobile Settings
-              </CardTitle>
-              <CardDescription>
-                Optimizations for mobile devices
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <MobileSetting
-                  name="Touch Targets"
-                  description="Larger buttons for easier tapping"
-                  status="Always enabled"
-                />
-                <MobileSetting
-                  name="Swipe Gestures"
-                  description="Swipe to dismiss dialogs and sheets"
-                  status="Configurable"
-                />
-                <MobileSetting
-                  name="Haptic Feedback"
-                  description="Vibration feedback for interactions"
-                  status="Device dependent"
-                />
-                <MobileSetting
-                  name="Auto-Zoom Prevention"
-                  description="Prevent zoom on input focus"
-                  status="Always enabled"
-                />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Monitor className="h-5 w-5" />
-                Desktop Settings
-              </CardTitle>
-              <CardDescription>
-                Features specific to desktop usage
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
-                <DesktopSetting
-                  name="Keyboard Shortcuts"
-                  description="Quick access via keyboard"
-                  shortcuts={['Ctrl+Enter to send', 'Ctrl+/ for commands']}
-                />
-                <DesktopSetting
-                  name="Window Resizing"
-                  description="Responsive layout adaptation"
-                  shortcuts={['Auto-adjust to window size']}
-                />
-                <DesktopSetting
-                  name="Multi-Monitor"
-                  description="Optimized for multiple displays"
-                  shortcuts={['Consistent scaling', 'DPI awareness']}
-                />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-
-      {/* Privacy & Security */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Shield className="h-5 w-5" />
-            Privacy & Security Settings
-          </CardTitle>
-          <CardDescription>
-            Control your data and privacy preferences
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 md:grid-cols-2">
-            <PrivacySetting
-              name="Conversation Storage"
-              description="How long to keep your chat history"
-              options={['Session only', '7 days', '30 days', 'Until cleared']}
-              current="Session only"
-            />
-            <PrivacySetting
-              name="Analytics"
-              description="Help improve SOHAM with usage data"
-              options={['Enabled (Anonymous)', 'Disabled']}
-              current="Anonymous only"
-            />
-            <PrivacySetting
-              name="Voice Data"
-              description="How voice input is processed"
-              options={['Local processing', 'Cloud processing']}
-              current="Local preferred"
-            />
-            <PrivacySetting
-              name="Model Preferences"
-              description="Save your model selection preferences"
-              options={['Remember settings', 'Reset each session']}
-              current="Remember settings"
-            />
+      {/* AI Model */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10">
+            <Brain className="h-5 w-5 text-blue-500" />
           </div>
-        </CardContent>
-      </Card>
-
-      {/* Settings Backup */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Globe className="h-5 w-5" />
-            Settings Management
-          </CardTitle>
-          <CardDescription>
-            Backup, restore, and sync your preferences
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-3">
-              <SettingsAction
-                title="Export Settings"
-                description="Download your preferences as a file"
-                action="Download JSON file"
-              />
-              <SettingsAction
-                title="Import Settings"
-                description="Restore preferences from a backup file"
-                action="Upload JSON file"
-              />
-              <SettingsAction
-                title="Reset to Defaults"
-                description="Clear all customizations"
-                action="Reset all settings"
-              />
-            </div>
-            
-            <div className="bg-gray-50 dark:bg-gray-950/20 p-4 rounded-lg">
-              <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">⚠️ Settings Storage</h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Your settings are stored locally in your browser. They won't sync across devices unless 
-                you manually export and import them. Consider backing up your settings if you have 
-                specific preferences configured.
+          <div>
+            <h2 className="text-2xl font-bold">AI Model Selection</h2>
+            <p className="text-sm text-muted-foreground">Choose which model powers your conversations</p>
+          </div>
+        </div>
+        <Card>
+          <CardContent className="pt-6 space-y-4">
+            <div className="rounded-lg border-2 border-primary/30 bg-primary/5 p-4">
+              <div className="flex items-center justify-between mb-2">
+                <p className="font-semibold text-sm">Auto (Recommended)</p>
+                <Badge>Default</Badge>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                SOHAM picks the best model for each message automatically — fast models for simple
+                questions, powerful models for complex reasoning.
               </p>
             </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {[
+                { provider: 'Groq', models: ['Llama 3.1 8B Instant'], note: 'Fastest responses, great for quick Q&A' },
+                { provider: 'HuggingFace', models: ['Llama 3.1 70B', 'Llama 3.2 1B', 'Qwen 2.5 7B', 'DeepSeek V3.2', 'RNJ-1'], note: 'Wide variety, strong reasoning' },
+                { provider: 'Google', models: ['Gemini 2.5 Flash', 'Gemini Flash Latest', 'Gemini 2.5 Flash Lite'], note: 'Excellent for multimodal and long context' },
+                { provider: 'OpenRouter', models: ['Auto'], note: 'Routes to the best available model' },
+              ].map(({ provider, models, note }) => (
+                <div key={provider} className="rounded-lg border p-4">
+                  <p className="font-semibold text-sm mb-1">{provider}</p>
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    {models.map(m => (
+                      <Badge key={m} variant="outline" className="text-xs">{m}</Badge>
+                    ))}
+                  </div>
+                  <p className="text-xs text-muted-foreground">{note}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-muted-foreground flex items-center gap-1">
+              <CheckCircle className="h-3 w-3 text-green-500" />
+              All 13+ models are free — no API key or account required.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Response Tone */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-green-500/10">
+            <MessageSquare className="h-5 w-5 text-green-500" />
           </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
-
-function ModelOption({
-  name,
-  description,
-  badge,
-  features,
-  recommended = false,
-}: {
-  name: string;
-  description: string;
-  badge: string;
-  features: string[];
-  recommended?: boolean;
-}) {
-  return (
-    <div className={`border rounded-lg p-4 ${recommended ? 'border-primary/50 bg-primary/5' : ''}`}>
-      <div className="flex items-center gap-2 mb-2">
-        <h4 className="font-semibold">{name}</h4>
-        <Badge variant={recommended ? "default" : "outline"} className="text-xs">
-          {badge}
-        </Badge>
-        {recommended && (
-          <Badge variant="secondary" className="text-xs">
-            Recommended
-          </Badge>
-        )}
+          <div>
+            <h2 className="text-2xl font-bold">Response Tone</h2>
+            <p className="text-sm text-muted-foreground">Controls how SOHAM phrases its answers</p>
+          </div>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-3">
+          {[
+            {
+              tone: 'Helpful',
+              badge: 'Default',
+              desc: 'Balanced, friendly, and practical. Good for most use cases.',
+              example: '"Sure! Here\'s how you can fix that — the issue is in line 12 where..."',
+            },
+            {
+              tone: 'Formal',
+              badge: null,
+              desc: 'Professional and structured. Ideal for reports, emails, and business writing.',
+              example: '"The error originates from an incorrect type assertion on line 12. The recommended resolution is..."',
+            },
+            {
+              tone: 'Casual',
+              badge: null,
+              desc: 'Relaxed and conversational. Great for brainstorming and quick chats.',
+              example: '"Oh yeah, that\'s a classic one! Line 12 is the culprit — just change the type and you\'re good."',
+            },
+          ].map(({ tone, badge, desc, example }) => (
+            <Card key={tone}>
+              <CardHeader className="pb-2">
+                <CardTitle className="flex items-center justify-between text-base">
+                  {tone}
+                  {badge && <Badge variant="secondary" className="text-xs">{badge}</Badge>}
+                </CardTitle>
+                <CardDescription>{desc}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="rounded-lg bg-muted/60 p-3">
+                  <p className="text-xs text-muted-foreground italic">{example}</p>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
-      <p className="text-sm text-muted-foreground mb-3">{description}</p>
-      <ul className="space-y-1">
-        {features.map((feature, i) => (
-          <li key={i} className="text-xs text-muted-foreground">• {feature}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
 
-function ToneOption({
-  tone,
-  description,
-  example,
-  default: isDefault = false,
-}: {
-  tone: string;
-  description: string;
-  example: string;
-  default?: boolean;
-}) {
-  return (
-    <div className={`border rounded-lg p-4 ${isDefault ? 'border-primary/50 bg-primary/5' : ''}`}>
-      <div className="flex items-center gap-2 mb-2">
-        <h4 className="font-semibold">{tone}</h4>
-        {isDefault && (
-          <Badge variant="secondary" className="text-xs">
-            Default
-          </Badge>
-        )}
+      {/* Technical Level */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-500/10">
+            <GraduationCap className="h-5 w-5 text-purple-500" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold">Technical Level</h2>
+            <p className="text-sm text-muted-foreground">Adjusts the depth and vocabulary of explanations</p>
+          </div>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-3">
+          {[
+            {
+              level: 'Beginner',
+              desc: 'Plain language, analogies, no assumed knowledge.',
+              example: 'Explains recursion as "a function that calls itself, like Russian nesting dolls."',
+            },
+            {
+              level: 'Intermediate',
+              badge: 'Default',
+              desc: 'Assumes basic familiarity. Uses standard terminology with brief explanations.',
+              example: 'Explains recursion with a factorial example and mentions the call stack.',
+            },
+            {
+              level: 'Expert',
+              desc: 'Dense, precise, no hand-holding. Assumes deep domain knowledge.',
+              example: 'Discusses tail-call optimisation, memoisation, and stack frame overhead directly.',
+            },
+          ].map(({ level, badge, desc, example }) => (
+            <Card key={level}>
+              <CardHeader className="pb-2">
+                <CardTitle className="flex items-center justify-between text-base">
+                  {level}
+                  {badge && <Badge variant="secondary" className="text-xs">{badge}</Badge>}
+                </CardTitle>
+                <CardDescription>{desc}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-xs text-muted-foreground italic">{example}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
-      <p className="text-sm text-muted-foreground mb-3">{description}</p>
-      <div className="bg-muted/50 p-3 rounded text-xs font-mono">
-        "{example}"
+
+      {/* Voice Settings */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/10">
+            <Volume2 className="h-5 w-5 text-orange-500" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold">Voice Settings</h2>
+            <p className="text-sm text-muted-foreground">Text-to-speech powered by Groq Orpheus TTS</p>
+          </div>
+        </div>
+        <Card>
+          <CardContent className="pt-6 space-y-5">
+            <div className="flex items-start gap-3 rounded-lg border p-4">
+              <Volume2 className="h-4 w-4 text-orange-500 mt-0.5 shrink-0" />
+              <div>
+                <p className="font-semibold text-sm">Enable Text-to-Speech</p>
+                <p className="text-sm text-muted-foreground">
+                  Toggle TTS on to have SOHAM read responses aloud using Groq Orpheus. Works in all
+                  modern browsers. Microphone permission is not required for TTS.
+                </p>
+              </div>
+            </div>
+            <div>
+              <p className="font-semibold text-sm mb-3">Choose a Voice</p>
+              <div className="grid gap-3 sm:grid-cols-3">
+                {[
+                  { name: 'troy',   desc: 'Deep, authoritative male voice' },
+                  { name: 'diana',  desc: 'Clear, professional female voice' },
+                  { name: 'hannah', desc: 'Warm, friendly female voice' },
+                  { name: 'autumn', desc: 'Soft, calm female voice' },
+                  { name: 'austin', desc: 'Energetic, upbeat male voice' },
+                  { name: 'daniel', desc: 'Neutral, natural male voice' },
+                ].map(({ name, desc }) => (
+                  <div key={name} className="flex items-center gap-3 rounded-lg border p-3">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-orange-500/10">
+                      <Volume2 className="h-3.5 w-3.5 text-orange-500" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-sm capitalize">{name}</p>
+                      <p className="text-xs text-muted-foreground">{desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Voice input (speech-to-text) uses Groq Whisper V3 Turbo and is configured separately
+              via the microphone button in the chat interface.
+            </p>
+          </CardContent>
+        </Card>
       </div>
-    </div>
-  );
-}
 
-function TechnicalLevel({
-  level,
-  description,
-  features,
-}: {
-  level: string;
-  description: string;
-  features: string[];
-}) {
-  return (
-    <div className="border rounded-lg p-4">
-      <h4 className="font-semibold mb-1">{level}</h4>
-      <p className="text-sm text-muted-foreground mb-3">{description}</p>
-      <ul className="space-y-1">
-        {features.map((feature, i) => (
-          <li key={i} className="text-xs text-muted-foreground">• {feature}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function VoiceOption({
-  name,
-  description,
-  characteristics,
-}: {
-  name: string;
-  description: string;
-  characteristics: string[];
-}) {
-  return (
-    <div className="border rounded-lg p-3">
-      <h5 className="font-medium text-sm mb-1">{name}</h5>
-      <p className="text-xs text-muted-foreground mb-2">{description}</p>
-      <ul className="space-y-0.5">
-        {characteristics.map((char, i) => (
-          <li key={i} className="text-xs text-muted-foreground">• {char}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function AudioControl({
-  name,
-  description,
-  range,
-}: {
-  name: string;
-  description: string;
-  range: string;
-}) {
-  return (
-    <div className="bg-muted/50 p-3 rounded-lg">
-      <h5 className="font-medium text-sm mb-1">{name}</h5>
-      <p className="text-xs text-muted-foreground mb-1">{description}</p>
-      <p className="text-xs text-blue-600 dark:text-blue-400">{range}</p>
-    </div>
-  );
-}
-
-function VoiceInputSetting({
-  name,
-  description,
-  options,
-}: {
-  name: string;
-  description: string;
-  options: string[];
-}) {
-  return (
-    <div className="bg-muted/50 p-4 rounded-lg">
-      <h4 className="font-medium text-sm mb-1">{name}</h4>
-      <p className="text-xs text-muted-foreground mb-2">{description}</p>
-      <div className="space-y-1">
-        {options.map((option, i) => (
-          <p key={i} className="text-xs text-muted-foreground">• {option}</p>
-        ))}
+      {/* Theme */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-yellow-500/10">
+            <Palette className="h-5 w-5 text-yellow-500" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold">Theme</h2>
+            <p className="text-sm text-muted-foreground">Controls the visual appearance of the app</p>
+          </div>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-3">
+          {[
+            { theme: 'Light', icon: Sun,     desc: 'White background, dark text. Best in bright environments.' },
+            { theme: 'Dark',  icon: Moon,    desc: 'Dark background, light text. Easier on the eyes at night.' },
+            { theme: 'System',icon: Laptop,  desc: 'Follows your OS preference automatically. Recommended.', badge: 'Default' },
+          ].map(({ theme, icon: Icon, desc, badge }) => (
+            <Card key={theme}>
+              <CardHeader className="pb-2">
+                <CardTitle className="flex items-center justify-between text-base">
+                  <span className="flex items-center gap-2">
+                    <Icon className="h-4 w-4" /> {theme}
+                  </span>
+                  {badge && <Badge variant="secondary" className="text-xs">{badge}</Badge>}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">{desc}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
-    </div>
-  );
-}
 
-function ThemeOption({
-  name,
-  description,
-  icon: Icon,
-  features,
-  recommended = false,
-}: {
-  name: string;
-  description: string;
-  icon: React.ElementType;
-  features: string[];
-  recommended?: boolean;
-}) {
-  return (
-    <div className={`border rounded-lg p-4 ${recommended ? 'border-primary/50 bg-primary/5' : ''}`}>
-      <div className="flex items-center gap-2 mb-2">
-        <Icon className="h-4 w-4" />
-        <h4 className="font-semibold">{name}</h4>
-        {recommended && (
-          <Badge variant="secondary" className="text-xs">
-            Recommended
-          </Badge>
-        )}
+      {/* Privacy */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-500/10">
+            <Shield className="h-5 w-5 text-red-500" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold">Privacy Settings</h2>
+            <p className="text-sm text-muted-foreground">Your data stays on your device</p>
+          </div>
+        </div>
+        <Card>
+          <CardContent className="pt-6 space-y-4">
+            {[
+              {
+                title: 'Local Storage Only',
+                desc: 'All settings and conversation history are stored in your browser\'s localStorage. Nothing is sent to SOHAM servers.',
+              },
+              {
+                title: 'Clear Session',
+                desc: 'Use the "Clear conversation" button in the chat header to wipe the current session from memory. This is immediate and irreversible.',
+              },
+              {
+                title: 'No Account Required',
+                desc: 'SOHAM is 100% free with no sign-up. Without an account, no data is tied to an identity. Creating an account (optional) enables cross-device memory sync.',
+              },
+              {
+                title: 'API Calls',
+                desc: 'Messages are sent to third-party AI providers (Groq, HuggingFace, Google, OpenRouter) to generate responses. Review their respective privacy policies for data handling.',
+              },
+            ].map(({ title, desc }) => (
+              <div key={title} className="flex items-start gap-3 rounded-lg border p-4">
+                <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
+                <div>
+                  <p className="font-semibold text-sm">{title}</p>
+                  <p className="text-sm text-muted-foreground">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
       </div>
-      <p className="text-sm text-muted-foreground mb-3">{description}</p>
-      <ul className="space-y-1">
-        {features.map((feature, i) => (
-          <li key={i} className="text-xs text-muted-foreground">• {feature}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
 
-function MobileSetting({
-  name,
-  description,
-  status,
-}: {
-  name: string;
-  description: string;
-  status: string;
-}) {
-  return (
-    <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-      <div>
-        <h4 className="font-medium text-sm">{name}</h4>
-        <p className="text-xs text-muted-foreground">{description}</p>
+      {/* CTA */}
+      <div className="rounded-xl border bg-gradient-to-br from-primary/10 via-primary/5 to-background p-8 text-center space-y-4">
+        <h2 className="text-xl font-bold">Configure SOHAM your way</h2>
+        <p className="text-muted-foreground text-sm max-w-md mx-auto">
+          Open the chat and click the ⚙️ icon to start customising.
+        </p>
+        <Button asChild size="lg">
+          <Link href="/chat">
+            Open Chat <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
+        </Button>
       </div>
-      <Badge variant="outline" className="text-xs">
-        {status}
-      </Badge>
-    </div>
-  );
-}
-
-function DesktopSetting({
-  name,
-  description,
-  shortcuts,
-}: {
-  name: string;
-  description: string;
-  shortcuts: string[];
-}) {
-  return (
-    <div className="p-3 bg-muted/50 rounded-lg">
-      <h4 className="font-medium text-sm mb-1">{name}</h4>
-      <p className="text-xs text-muted-foreground mb-2">{description}</p>
-      <ul className="space-y-0.5">
-        {shortcuts.map((shortcut, i) => (
-          <li key={i} className="text-xs text-blue-600 dark:text-blue-400">• {shortcut}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function PrivacySetting({
-  name,
-  description,
-  options,
-  current,
-}: {
-  name: string;
-  description: string;
-  options: string[];
-  current: string;
-}) {
-  return (
-    <div className="border rounded-lg p-4">
-      <h4 className="font-semibold mb-1">{name}</h4>
-      <p className="text-sm text-muted-foreground mb-3">{description}</p>
-      <div className="space-y-1 mb-2">
-        {options.map((option, i) => (
-          <p key={i} className="text-xs text-muted-foreground">• {option}</p>
-        ))}
-      </div>
-      <Badge variant="outline" className="text-xs">
-        Current: {current}
-      </Badge>
-    </div>
-  );
-}
-
-function SettingsAction({
-  title,
-  description,
-  action,
-}: {
-  title: string;
-  description: string;
-  action: string;
-}) {
-  return (
-    <div className="border rounded-lg p-4 text-center">
-      <h4 className="font-semibold mb-2">{title}</h4>
-      <p className="text-sm text-muted-foreground mb-3">{description}</p>
-      <Badge variant="outline" className="text-xs">
-        {action}
-      </Badge>
     </div>
   );
 }

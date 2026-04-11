@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { pageSEO } from '@/lib/seo-config';
 import Link from 'next/link';
 import { ArrowLeft, Shield, Eye, Lock, Database, Users, Bell, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -6,8 +7,18 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | SOHAM',
-  description: 'Privacy Policy and Data Protection practices for SOHAM platform - Compliant with Google API Services User Data Policy',
+  title: pageSEO.privacy.title,
+  description: pageSEO.privacy.description,
+  keywords: pageSEO.privacy.keywords,
+  alternates: { canonical: 'https://soham-ai.vercel.app/privacy' },
+  openGraph: {
+    title: pageSEO.privacy.title,
+    description: pageSEO.privacy.description,
+    url: 'https://soham-ai.vercel.app/privacy',
+    siteName: 'SOHAM',
+    images: [{ url: 'https://soham-ai.vercel.app/Multi-Chat.png', width: 1200, height: 630, alt: 'SOHAM Privacy Policy' }],
+    type: 'website',
+  },
 };
 
 export default function PrivacyPage() {

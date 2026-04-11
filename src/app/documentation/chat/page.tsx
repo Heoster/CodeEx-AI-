@@ -2,613 +2,342 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { 
-  MessageSquare, 
-  Mic, 
-  Volume2, 
-  Settings, 
-  Sparkles,
-  ArrowRight,
+import { Button } from '@/components/ui/button';
+import {
+  MessageSquare,
+  Mic,
+  Volume2,
+  Share2,
+  Settings,
   Zap,
   Brain,
-  Clock,
-  Users,
-  Shield,
+  Globe,
+  ArrowRight,
+  CheckCircle,
+  Smartphone,
+  History,
   Lightbulb,
-  Share2
+  Terminal,
 } from 'lucide-react';
-import { DEVELOPER_INFO } from '@/lib/developer-info';
+
+const coreFeatures = [
+  {
+    icon: Brain,
+    title: 'Context-Aware Conversations',
+    desc: 'SOHAM remembers everything said in the current session. Ask follow-up questions naturally — no need to repeat context.',
+  },
+  {
+    icon: Zap,
+    title: 'Smart Auto-Routing',
+    desc: 'Automatically selects the best AI model and capability for each message — web search, image generation, PDF analysis, or direct chat.',
+  },
+  {
+    icon: Mic,
+    title: 'Voice Input',
+    desc: 'Speak your message using Groq Whisper V3 Turbo for fast, accurate speech-to-text transcription.',
+  },
+  {
+    icon: Volume2,
+    title: 'Text-to-Speech',
+    desc: 'Have responses read aloud using Groq Orpheus TTS with 6 natural-sounding voices.',
+  },
+  {
+    icon: Share2,
+    title: 'Message Sharing & Export',
+    desc: 'Share individual messages or export the full conversation as text or markdown.',
+  },
+  {
+    icon: Globe,
+    title: 'Live Web Search',
+    desc: 'DuckDuckGo search is auto-triggered for time-sensitive queries, or use /search explicitly.',
+  },
+];
+
+const interfaceItems = [
+  { label: 'Message Input',        desc: 'Type your message here. Supports multi-line input with Shift+Enter.' },
+  { label: 'Voice Button (🎤)',     desc: 'Hold to record, release to transcribe. Powered by Groq Whisper V3 Turbo.' },
+  { label: 'Model Selector',       desc: 'Click to switch between 13+ AI models mid-conversation.' },
+  { label: 'Settings (⚙️)',         desc: 'Adjust tone, technical level, TTS voice, and theme.' },
+  { label: 'Clear Conversation',   desc: 'Wipe the current session from memory. Irreversible.' },
+  { label: 'Export / Share',       desc: 'Export the conversation or share a specific message.' },
+];
+
+const voiceInputSteps = [
+  { title: 'Allow microphone access', body: 'When prompted by your browser, click "Allow" to grant microphone permission.' },
+  { title: 'Click the microphone button', body: 'The mic button is in the message input area. Click it to start recording.' },
+  { title: 'Speak your message', body: 'Speak clearly. SOHAM uses Groq Whisper V3 Turbo for fast, accurate transcription.' },
+  { title: 'Review and send', body: 'Your speech is transcribed into the input field. Edit if needed, then press Enter to send.' },
+];
+
+const ttsSteps = [
+  { title: 'Open Settings', body: 'Click the ⚙️ icon in the header to open the settings panel.' },
+  { title: 'Enable Text-to-Speech', body: 'Toggle the TTS switch to on. The toggle turns blue when active.' },
+  { title: 'Choose a voice', body: 'Select from 6 Orpheus voices: troy, diana, hannah, autumn, austin, or daniel.' },
+  { title: 'Send a message', body: 'SOHAM will automatically read its next response aloud using your chosen voice.' },
+];
+
+const conversationTips = [
+  {
+    icon: Lightbulb,
+    tip: 'Be specific',
+    example: 'Instead of "explain sorting", try "explain merge sort vs quicksort for a job interview".',
+  },
+  {
+    icon: History,
+    tip: 'Use follow-ups',
+    example: '"Now show me a Python implementation" — SOHAM remembers the context from earlier in the chat.',
+  },
+  {
+    icon: Terminal,
+    tip: 'Use slash commands',
+    example: '/solve for step-by-step working, /search for live web results, /summarize for condensed output.',
+  },
+  {
+    icon: Settings,
+    tip: 'Set your technical level',
+    example: 'Set "Expert" in settings for dense, precise answers without hand-holding.',
+  },
+];
 
 export default function ChatPage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Header */}
       <div className="space-y-4">
         <div className="inline-flex items-center gap-2 rounded-full border bg-muted px-4 py-2 text-sm">
           <MessageSquare className="h-4 w-4 text-primary" />
           <span className="font-medium">Chat Interface</span>
+          <Badge variant="secondary" className="text-xs">13+ Models</Badge>
         </div>
-        <h1 className="text-4xl font-bold tracking-tight">
-          Conversational AI Features
-        </h1>
-        <p className="text-xl text-muted-foreground">
-          Master the chat interface with context-aware conversations, voice input, speech output, and intelligent memory.
+        <h1 className="text-4xl font-bold tracking-tight">Chat Interface Guide</h1>
+        <p className="text-xl text-muted-foreground max-w-2xl">
+          Everything you need to know about SOHAM&apos;s chat — from basic messaging to voice input,
+          TTS, and advanced conversation techniques.
         </p>
       </div>
 
-      {/* Quick Start */}
-      <Card className="border-primary/20 bg-primary/5">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Zap className="h-5 w-5 text-primary" />
-            Start Chatting Now
-          </CardTitle>
-          <CardDescription>
-            Jump into a conversation and experience intelligent AI assistance
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link href="/chat">
-              <Button size="lg">
-                Open Chat Interface
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="/documentation/quick-start">
-              <Button size="lg" variant="outline">
-                Quick Start Guide
-              </Button>
-            </Link>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Core Features */}
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Core Chat Features</h2>
-        
-        <div className="grid gap-6 md:grid-cols-2">
-          <FeatureCard
-            icon={Brain}
-            title="Context-Aware Conversations"
-            description="AI remembers your conversation history and maintains context across messages"
-            features={[
-              'Remembers previous questions and answers',
-              'Maintains conversation flow naturally',
-              'References earlier parts of the conversation',
-              'Adapts responses based on your preferences'
-            ]}
-          />
-          
-          <FeatureCard
-            icon={Sparkles}
-            title="Smart Auto-Routing"
-            description="Automatically selects the best AI model for each type of question"
-            features={[
-              'Math questions → Math-specialized models',
-              'Code questions → Programming models',
-              'General chat → Conversational models',
-              'Search-backed tasks → Tool-enabled workflows'
-            ]}
-          />
-
-          <FeatureCard
-            icon={Mic}
-            title="Voice Input"
-            description="Speak your questions instead of typing for hands-free interaction"
-            features={[
-              'Click microphone icon to start recording',
-              'Automatic speech-to-text conversion',
-              'Works in multiple languages',
-              'Perfect for mobile usage'
-            ]}
-          />
-
-          <FeatureCard
-            icon={Volume2}
-            title="Speech Output (TTS)"
-            description="Hear AI responses read aloud with natural-sounding voices"
-            features={[
-              'Per-message speak button in chat',
-              'Automatic speech output from settings',
-              'Hybrid fallback: API TTS, Edge TTS, and browser TTS',
-              'Great for accessibility and multitasking'
-            ]}
-          />
-
-          <FeatureCard
-            icon={Share2}
-            title="Share & Export Responses"
-            description="Save and share AI responses in multiple formats"
-            features={[
-              'Export as Text, Markdown, or HTML',
-              'Share via Email, Twitter, LinkedIn, Facebook',
-              'Native mobile sharing support',
-              'Quick copy formatted text'
-            ]}
-          />
+      {/* Core features */}
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Core Features</h2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {coreFeatures.map(({ icon: Icon, title, desc }) => (
+            <div key={title} className="flex gap-3 rounded-xl border bg-background p-4">
+              <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                <Icon className="h-4 w-4 text-primary" />
+              </div>
+              <div>
+                <p className="font-semibold text-sm">{title}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{desc}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Interface Overview */}
-      <div className="space-y-6">
+      {/* Interface overview */}
+      <div className="space-y-4">
         <h2 className="text-2xl font-bold">Interface Overview</h2>
-        
         <Card>
-          <CardHeader>
-            <CardTitle>Chat Interface Components</CardTitle>
-            <CardDescription>
-              Understanding the main elements of the chat interface
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              <div className="grid gap-4 md:grid-cols-2">
-                <InterfaceComponent
-                  name="Message Input"
-                  description="Type your questions, commands, or requests"
-                  location="Bottom of screen"
-                  features={['Supports markdown formatting', 'Auto-resize as you type', 'Command suggestions']}
-                />
-                <InterfaceComponent
-                  name="Voice Button"
-                  description="Click to start voice input recording"
-                  location="Right side of input field"
-                  features={['Visual recording indicator', 'Automatic transcription', 'Cancel option']}
-                />
-                <InterfaceComponent
-                  name="Model Selector"
-                  description="Choose AI model or set to Auto mode"
-                  location="Top right (desktop) or bottom sheet (mobile)"
-                  features={[`${DEVELOPER_INFO.projectStats.modelsIntegrated}+ model options`, 'Auto-routing mode', 'Model descriptions']}
-                />
-                <InterfaceComponent
-                  name="Settings Panel"
-                  description="Customize your chat experience"
-                  location="Settings icon in header"
-                  features={['Voice settings', 'Response tone', 'Technical level']}
-                />
-              </div>
+          <CardContent className="pt-6">
+            <div className="divide-y">
+              {interfaceItems.map(({ label, desc }) => (
+                <div key={label} className="flex items-start gap-4 py-3">
+                  <code className="shrink-0 rounded bg-muted px-2 py-0.5 text-xs font-semibold">{label}</code>
+                  <p className="text-sm text-muted-foreground">{desc}</p>
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Voice Features */}
-      <div className="space-y-6">
-        <h2 className="text-2xl font-bold">Voice Features</h2>
-        
-        <div className="grid gap-6 md:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Mic className="h-5 w-5" />
-                Voice Input Setup
-              </CardTitle>
-              <CardDescription>
-                How to use speech-to-text for hands-free input
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="space-y-3">
-                  {[
-                    {
-                      step: 1,
-                      title: "Click the Microphone",
-                      description: "Find the mic icon next to the message input field"
-                    },
-                    {
-                      step: 2,
-                      title: "Grant Permissions",
-                      description: "Allow browser access to your microphone when prompted"
-                    },
-                    {
-                      step: 3,
-                      title: "Start Speaking",
-                      description: "Speak clearly and naturally - the AI will transcribe automatically"
-                    },
-                    {
-                      step: 4,
-                      title: "Review & Send",
-                      description: "Check the transcription and click send or edit as needed"
-                    }
-                  ].map((step) => (
-                    <VoiceStep
-                      key={step.step}
-                      step={step.step}
-                      title={step.title}
-                      description={step.description}
-                    />
-                  ))}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+      {/* Voice input */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10">
+            <Mic className="h-5 w-5 text-blue-500" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold">Voice Input Setup</h2>
+            <p className="text-sm text-muted-foreground">Powered by Groq Whisper V3 Turbo (STT)</p>
+          </div>
+        </div>
+        <Card>
+          <CardContent className="pt-6 space-y-5">
+            <ol className="space-y-4">
+              {voiceInputSteps.map((step, i) => (
+                <li key={i} className="flex gap-4">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">
+                    {i + 1}
+                  </span>
+                  <div>
+                    <p className="font-semibold text-sm">{step.title}</p>
+                    <p className="text-sm text-muted-foreground">{step.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <div className="rounded-lg bg-blue-50 dark:bg-blue-950/20 p-4 flex gap-3">
+              <CheckCircle className="h-4 w-4 text-blue-500 mt-0.5 shrink-0" />
+              <p className="text-sm text-blue-700 dark:text-blue-300">
+                Whisper V3 Turbo supports multiple languages and handles accents well. Works best
+                in a quiet environment.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Volume2 className="h-5 w-5" />
-                Speech Output Setup
-              </CardTitle>
-              <CardDescription>
-                Configure text-to-speech for AI responses
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="space-y-3">
-                  {[
-                    {
-                      step: 1,
-                      title: "Open Settings",
-                      description: "Click the settings icon (⚙️) in the header"
-                    },
-                    {
-                      step: 2,
-                      title: "Enable Speech Output",
-                      description: "Toggle on 'Enable Speech Output' option"
-                    },
-                    {
-                      step: 3,
-                      title: "Choose Voice",
-                      description: "Select one of the available SOHAM voice profiles"
-                    },
-                    {
-                      step: 4,
-                      title: "Adjust Settings",
-                      description: "Fine-tune speech rate and pitch to your preference"
-                    }
-                  ].map((step) => (
-                    <VoiceStep
-                      key={step.step}
-                      step={step.step}
-                      title={step.title}
-                      description={step.description}
-                    />
-                  ))}
+      {/* TTS setup */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/10">
+            <Volume2 className="h-5 w-5 text-orange-500" />
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold">Text-to-Speech Setup</h2>
+            <p className="text-sm text-muted-foreground">Powered by Groq Orpheus TTS — 6 voices</p>
+          </div>
+        </div>
+        <Card>
+          <CardContent className="pt-6 space-y-5">
+            <ol className="space-y-4">
+              {ttsSteps.map((step, i) => (
+                <li key={i} className="flex gap-4">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">
+                    {i + 1}
+                  </span>
+                  <div>
+                    <p className="font-semibold text-sm">{step.title}</p>
+                    <p className="text-sm text-muted-foreground">{step.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <div className="grid gap-2 sm:grid-cols-3">
+              {['troy', 'diana', 'hannah', 'autumn', 'austin', 'daniel'].map((voice) => (
+                <div key={voice} className="flex items-center gap-2 rounded-lg border px-3 py-2">
+                  <Volume2 className="h-3.5 w-3.5 text-orange-500 shrink-0" />
+                  <span className="text-sm capitalize font-medium">{voice}</span>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Conversation tips */}
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold">Conversation Tips</h2>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {conversationTips.map(({ icon: Icon, tip, example }) => (
+            <Card key={tip}>
+              <CardHeader className="pb-2">
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Icon className="h-4 w-4 text-primary" />
+                  {tip}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="rounded-lg bg-muted/60 px-3 py-2">
+                  <p className="text-xs text-muted-foreground italic">{example}</p>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
 
-      {/* Conversation Tips */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Lightbulb className="h-5 w-5" />
-            Conversation Tips
-          </CardTitle>
-          <CardDescription>
-            Get better results with these conversation strategies
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-6 md:grid-cols-2">
-            <div className="space-y-4">
-              <h4 className="font-semibold">✅ Best Practices</h4>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• Be specific in your questions for more accurate answers</li>
-                <li>• Use follow-up questions to dive deeper into topics</li>
-                <li>• Reference previous messages: "Can you explain that differently?"</li>
-                <li>• Use slash commands (/solve, /search) for specialized tasks</li>
-                <li>• Set your technical level in settings for appropriate explanations</li>
-                <li>• Use code blocks (```) when sharing code for better formatting</li>
-              </ul>
-            </div>
-            <div className="space-y-4">
-              <h4 className="font-semibold">🎯 Example Conversations</h4>
-              <div className="space-y-3">
-                <ExampleConversation
-                  topic="Learning Programming"
-                  messages={[
-                    "Explain how React hooks work",
-                    "Can you show me an example with useState?",
-                    "What are the rules of hooks?"
-                  ]}
-                />
-                <ExampleConversation
-                  topic="Math Problem Solving"
-                  messages={[
-                    "/solve x² + 5x + 6 = 0",
-                    "Can you explain the quadratic formula?",
-                    "Show me another example"
-                  ]}
-                />
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Advanced Features */}
-      <div className="space-y-6">
+      {/* Advanced features */}
+      <div className="space-y-4">
         <h2 className="text-2xl font-bold">Advanced Features</h2>
-        
-        <div className="grid gap-6 md:grid-cols-3">
-          <AdvancedFeature
-            icon={Clock}
-            title="Conversation Memory"
-            description="AI remembers context from your entire conversation session"
-            details={[
-              'Maintains context across messages',
-              'References previous questions',
-              'Builds on earlier explanations'
-            ]}
-          />
-          
-          <AdvancedFeature
-            icon={Users}
-            title="Personalized Responses"
-            description="Adapts to your preferred communication style and technical level"
-            details={[
-              'Learns your preferences over time',
-              'Adjusts explanation complexity',
-              'Remembers your interests'
-            ]}
-          />
-          
-          <AdvancedFeature
-            icon={Shield}
-            title="Privacy & Security"
-            description="Your conversations are secure and private"
-            details={[
-              'End-to-end encryption',
-              'No conversation logging',
-              'Local storage only'
-            ]}
-          />
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center gap-2 text-base">
+                <History className="h-4 w-4 text-primary" />
+                Conversation Memory
+              </CardTitle>
+              <CardDescription>Within-session context retention</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm text-muted-foreground">
+              <p>
+                SOHAM maintains full conversation history within a session. You can reference
+                anything said earlier: &quot;go back to the code you wrote in step 2&quot; or
+                &quot;now apply that to the second example&quot;.
+              </p>
+              <p>
+                History is stored in your browser&apos;s memory and cleared when you close the tab
+                or click &quot;Clear conversation&quot;.
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center gap-2 text-base">
+                <Brain className="h-4 w-4 text-primary" />
+                Personalised Responses
+              </CardTitle>
+              <CardDescription>Settings that shape every reply</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-2 text-sm text-muted-foreground">
+              <p>
+                Your tone (Helpful / Formal / Casual) and technical level (Beginner / Intermediate /
+                Expert) settings apply to every message in the session. Change them mid-conversation
+                and the next response will reflect the new settings immediately.
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </div>
 
-      {/* Settings Overview */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Settings className="h-5 w-5" />
-            Chat Settings
-          </CardTitle>
-          <CardDescription>
-            Customize your chat experience
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 md:grid-cols-2">
-            <SettingCard
-              title="AI Model"
-              description="Choose specific model or Auto for smart routing"
-              options={['Auto (Recommended)', 'Specific models', '13+ options available']}
-            />
-            <SettingCard
-              title="Response Tone"
-              description="Set the personality and style of AI responses"
-              options={['Helpful (Default)', 'Formal', 'Casual']}
-            />
-            <SettingCard
-              title="Technical Level"
-              description="Adjust explanation complexity"
-              options={['Beginner', 'Intermediate', 'Expert']}
-            />
-            <SettingCard
-              title="Speech Settings"
-              description="Configure voice input and output"
-              options={['4 voice options', 'Adjustable speed', 'Pitch control']}
-            />
+      {/* Mobile experience */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-green-500/10">
+            <Smartphone className="h-5 w-5 text-green-500" />
           </div>
-        </CardContent>
-      </Card>
-
-      {/* Mobile Optimization */}
-      <Card>
-        <CardHeader>
-          <CardTitle>📱 Mobile Chat Experience</CardTitle>
-          <CardDescription>
-            Optimized features for mobile devices
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 md:grid-cols-2">
-            <MobileFeature
-              title="Touch-Optimized Interface"
-              description="Large touch targets and swipe gestures"
-            />
-            <MobileFeature
-              title="Bottom Sheet Model Selector"
-              description="Easy model switching with thumb-friendly design"
-            />
-            <MobileFeature
-              title="Voice Input Priority"
-              description="Prominent microphone button for hands-free use"
-            />
-            <MobileFeature
-              title="Responsive Design"
-              description="Adapts perfectly to all screen sizes"
-            />
+          <div>
+            <h2 className="text-2xl font-bold">Mobile Chat Experience</h2>
+            <p className="text-sm text-muted-foreground">Touch-optimised for Android and iOS</p>
           </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
-
-function FeatureCard({
-  icon: Icon,
-  title,
-  description,
-  features,
-}: {
-  icon: React.ElementType;
-  title: string;
-  description: string;
-  features: string[];
-}) {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Icon className="h-5 w-5 text-primary" />
-          {title}
-        </CardTitle>
-        <CardDescription>{description}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ul className="space-y-2 text-sm">
-          {features.map((feature, i) => (
-            <li key={i} className="flex items-start gap-2">
-              <div className="h-1.5 w-1.5 rounded-full bg-primary mt-2 shrink-0" />
-              <span className="text-muted-foreground">{feature}</span>
-            </li>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {[
+            { title: 'Touch-optimised layout',       desc: 'Larger tap targets, swipe gestures, and a bottom-anchored input bar for thumb-friendly typing.' },
+            { title: 'Bottom sheet model selector',  desc: 'Tap the model name to open a full-screen bottom sheet with all 13+ models listed.' },
+            { title: 'Voice priority',               desc: 'The microphone button is prominently placed for quick voice input — ideal when typing is inconvenient.' },
+            { title: 'PWA full-screen mode',         desc: 'Install as a PWA for a native app feel with no browser chrome. See the Installation guide.' },
+          ].map(({ title, desc }) => (
+            <div key={title} className="flex items-start gap-3 rounded-xl border p-4">
+              <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
+              <div>
+                <p className="font-semibold text-sm">{title}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{desc}</p>
+              </div>
+            </div>
           ))}
-        </ul>
-      </CardContent>
-    </Card>
-  );
-}
-
-function InterfaceComponent({
-  name,
-  description,
-  location,
-  features,
-}: {
-  name: string;
-  description: string;
-  location: string;
-  features: string[];
-}) {
-  return (
-    <div className="border rounded-lg p-4">
-      <h4 className="font-semibold mb-1">{name}</h4>
-      <p className="text-sm text-muted-foreground mb-2">{description}</p>
-      <p className="text-xs text-blue-600 dark:text-blue-400 mb-3">📍 {location}</p>
-      <ul className="space-y-1">
-        {features.map((feature, i) => (
-          <li key={i} className="text-xs text-muted-foreground">• {feature}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function VoiceStep({
-  step,
-  title,
-  description,
-}: {
-  step: number;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="flex gap-3">
-      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-xs">
-        {step}
+        </div>
       </div>
-      <div>
-        <h5 className="font-medium text-sm">{title}</h5>
-        <p className="text-xs text-muted-foreground">{description}</p>
-      </div>
-    </div>
-  );
-}
 
-function ExampleConversation({
-  topic,
-  messages,
-}: {
-  topic: string;
-  messages: string[];
-}) {
-  return (
-    <div className="bg-muted/50 p-3 rounded-lg">
-      <h5 className="font-medium text-sm mb-2">{topic}</h5>
-      <div className="space-y-1">
-        {messages.map((message, i) => (
-          <p key={i} className="text-xs text-muted-foreground font-mono">
-            {i + 1}. "{message}"
-          </p>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function AdvancedFeature({
-  icon: Icon,
-  title,
-  description,
-  details,
-}: {
-  icon: React.ElementType;
-  title: string;
-  description: string;
-  details: string[];
-}) {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <Icon className="h-5 w-5 text-primary" />
-          {title}
-        </CardTitle>
-        <CardDescription>{description}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <ul className="space-y-1 text-sm">
-          {details.map((detail, i) => (
-            <li key={i} className="flex items-start gap-2">
-              <div className="h-1 w-1 rounded-full bg-primary mt-2 shrink-0" />
-              <span className="text-muted-foreground">{detail}</span>
-            </li>
-          ))}
-        </ul>
-      </CardContent>
-    </Card>
-  );
-}
-
-function SettingCard({
-  title,
-  description,
-  options,
-}: {
-  title: string;
-  description: string;
-  options: string[];
-}) {
-  return (
-    <div className="bg-muted/50 p-4 rounded-lg">
-      <h4 className="font-medium text-sm mb-1">{title}</h4>
-      <p className="text-xs text-muted-foreground mb-3">{description}</p>
-      <ul className="space-y-1">
-        {options.map((option, i) => (
-          <li key={i} className="text-xs text-muted-foreground">• {option}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function MobileFeature({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg">
-      <div className="h-2 w-2 rounded-full bg-primary mt-2 shrink-0" />
-      <div>
-        <h4 className="font-medium text-sm">{title}</h4>
-        <p className="text-xs text-muted-foreground">{description}</p>
+      {/* CTA */}
+      <div className="rounded-xl border bg-gradient-to-br from-primary/10 via-primary/5 to-background p-8 text-center space-y-4">
+        <h2 className="text-xl font-bold">Start chatting</h2>
+        <p className="text-muted-foreground text-sm max-w-md mx-auto">
+          No account needed. Open the chat and start typing — or speak your first message.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <Button asChild size="lg">
+            <Link href="/chat">
+              Open Chat <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+          <Button asChild size="lg" variant="outline">
+            <Link href="/documentation/commands">Slash Commands</Link>
+          </Button>
+        </div>
       </div>
     </div>
   );

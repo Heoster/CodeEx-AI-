@@ -11,7 +11,7 @@ import {
 import {type User, onAuthStateChanged, getAuth} from 'firebase/auth';
 import {app} from '@/lib/firebase';
 import {usePathname, useRouter, useSearchParams} from 'next/navigation';
-import { Skeleton } from '@/components/ui/skeleton';
+import { SohamLoader } from '@/components/soham-loader';
 
 interface AuthContextType {
   user: User | null;
@@ -70,24 +70,11 @@ function ProtectedRouteInner({children}: {children: ReactNode}) {
   }, [loading, user, router, pathname, searchParams]);
 
   if (loading) {
-    return (
-      <div className="flex h-screen w-full flex-col items-center justify-center gap-4">
-        <Skeleton className="h-12 w-12 rounded-full" />
-        <div className="space-y-2">
-          <Skeleton className="h-4 w-[250px]" />
-          <Skeleton className="h-4 w-[200px]" />
-        </div>
-      </div>
-    );
+    return <SohamLoader variant="overlay" label="Authenticating…" />;
   }
 
   if (!user) {
-    return (
-      <div className="flex h-screen w-full flex-col items-center justify-center gap-4 p-4">
-        <Skeleton className="h-12 w-[220px]" />
-        <Skeleton className="h-4 w-[180px]" />
-      </div>
-    );
+    return <SohamLoader variant="overlay" label="Redirecting…" />;
   }
 
   return <>{children}</>;
@@ -95,17 +82,7 @@ function ProtectedRouteInner({children}: {children: ReactNode}) {
 
 export function ProtectedRoute({children}: {children: ReactNode}) {
   return (
-    <Suspense
-      fallback={
-        <div className="flex h-screen w-full flex-col items-center justify-center gap-4">
-          <Skeleton className="h-12 w-12 rounded-full" />
-          <div className="space-y-2">
-            <Skeleton className="h-4 w-[250px]" />
-            <Skeleton className="h-4 w-[200px]" />
-          </div>
-        </div>
-      }
-    >
+    <Suspense fallback={<SohamLoader variant="overlay" label="Loading…" />}>
       <ProtectedRouteInner>{children}</ProtectedRouteInner>
     </Suspense>
   );

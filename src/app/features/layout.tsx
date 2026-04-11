@@ -1,28 +1,27 @@
-import type {Metadata} from 'next';
+import type { Metadata } from 'next';
+import { pageSEO } from '@/lib/seo-config';
 
 export const metadata: Metadata = {
-  title: 'AI Features | SOHAM - 35+ Models, Voice, PDF Analysis',
-  description:
-    'Explore SOHAM features including AI chat, PDF analysis, image math solving, voice interaction, multi-model routing, and smart search.',
-  alternates: {
-    canonical: 'https://soham-ai.vercel.app/features',
-  },
+  title: pageSEO.features.title,
+  description: pageSEO.features.description,
+  keywords: pageSEO.features.keywords,
+  alternates: { canonical: 'https://soham-ai.vercel.app/features' },
   openGraph: {
-    title: 'AI Features | SOHAM - 35+ Models, Voice, PDF Analysis',
-    description:
-      'Explore SOHAM features including AI chat, PDF analysis, image math solving, voice interaction, multi-model routing, and smart search.',
+    title: pageSEO.features.title,
+    description: pageSEO.features.description,
     url: 'https://soham-ai.vercel.app/features',
-    images: [
-      {
-        url: 'https://soham-ai.vercel.app/Multi-Chat.png',
-        width: 1200,
-        height: 630,
-        alt: 'SOHAM AI features overview',
-      },
-    ],
+    siteName: 'SOHAM',
+    images: [{ url: 'https://soham-ai.vercel.app/Multi-Chat.png', width: 1200, height: 630, alt: 'SOHAM AI Features' }],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: pageSEO.features.title,
+    description: pageSEO.features.description,
+    images: ['https://soham-ai.vercel.app/Multi-Chat.png'],
   },
 };
 
-export default function FeaturesLayout({children}: {children: React.ReactNode}) {
-  return children;
+export default function FeaturesLayout({ children }: { children: React.ReactNode }) {
+  return <>{children}</>;
 }

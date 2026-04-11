@@ -37,6 +37,7 @@ import {
   FileText,
   LayoutGrid,
   Boxes,
+  LayoutDashboard,
 } from 'lucide-react';
 import {Edit2, Download, User} from 'lucide-react';
 import {QuickSettingsPopover, SettingsDialog} from '../settings-dialog';
@@ -336,15 +337,17 @@ export function ChatLayout() {
         </header>
 
         {activeChat ? (
-          <ChatPanel
-            key={activeChat.id}
-            chat={activeChat}
-            settings={settings}
-            messages={activeChatMessages}
-            addMessage={addMessage}
-          />
+          <div className="pb-16 md:pb-0">
+            <ChatPanel
+              key={activeChat.id}
+              chat={activeChat}
+              settings={settings}
+              messages={activeChatMessages}
+              addMessage={addMessage}
+            />
+          </div>
         ) : (
-          <div className="flex h-[calc(100vh-4rem)] items-center justify-center px-4">
+          <div className="flex h-[calc(100vh-4rem)] items-center justify-center px-4 pb-16 md:pb-0">
             <div className="text-center space-y-4 max-w-md">
               <div className="mx-auto w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
                 <MessageSquarePlus className="h-8 w-8 text-primary" />
@@ -367,6 +370,41 @@ export function ChatLayout() {
             </div>
           </div>
         )}
+
+        {/* ── Mobile bottom navigation bar ── */}
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 flex items-center justify-around border-t border-border bg-background/95 px-2 pb-safe pt-1 backdrop-blur-sm">
+          <button
+            className="flex flex-col items-center gap-0.5 rounded-xl px-3 py-2 text-muted-foreground transition-colors active:bg-accent touch-manipulation"
+            onClick={createNewChat}
+            disabled={!user}
+          >
+            <MessageSquarePlus className="h-5 w-5" />
+            <span className="text-[10px] font-medium">New</span>
+          </button>
+
+          <SidebarTrigger asChild>
+            <button className="flex flex-col items-center gap-0.5 rounded-xl px-3 py-2 text-muted-foreground transition-colors active:bg-accent touch-manipulation">
+              <LayoutDashboard className="h-5 w-5" />
+              <span className="text-[10px] font-medium">Chats</span>
+            </button>
+          </SidebarTrigger>
+
+          <Link
+            href="/ai-services"
+            className="flex flex-col items-center gap-0.5 rounded-xl px-3 py-2 text-muted-foreground transition-colors active:bg-accent touch-manipulation"
+          >
+            <Boxes className="h-5 w-5" />
+            <span className="text-[10px] font-medium">Services</span>
+          </Link>
+
+          <button
+            className="flex flex-col items-center gap-0.5 rounded-xl px-3 py-2 text-muted-foreground transition-colors active:bg-accent touch-manipulation"
+            onClick={() => setIsSettingsOpen(true)}
+          >
+            <SettingsIcon className="h-5 w-5" />
+            <span className="text-[10px] font-medium">Settings</span>
+          </button>
+        </nav>
       </SidebarInset>
       <SettingsDialog
         settings={settings}

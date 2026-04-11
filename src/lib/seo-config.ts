@@ -105,7 +105,7 @@ export const defaultSEO: SEOConfig = {
   twitterCard: 'summary_large_image',
   author: `${DEVELOPER_INFO.name} (${DEVELOPER_INFO.realName})`,
   locale: 'en_US',
-  alternateLocales: ['hi_IN', 'en_IN'],
+  alternateLocales: [],
 };
 
 // Page-specific SEO configurations
@@ -163,6 +163,7 @@ export const structuredData = {
   organization: {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': 'https://soham-ai.vercel.app/#organization',
     name: 'CODEEX-AI',
     alternateName: ['SOHAM', 'CodeEx-AI', 'Codeex AI'],
     url: 'https://soham-ai.vercel.app',
@@ -223,6 +224,7 @@ export const structuredData = {
   person: {
     '@context': 'https://schema.org',
     '@type': 'Person',
+    '@id': 'https://soham-ai.vercel.app/#person',
     name: DEVELOPER_INFO.name,
     alternateName: DEVELOPER_INFO.realName,
     givenName: DEVELOPER_INFO.realName,
@@ -350,6 +352,7 @@ export const structuredData = {
   website: {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': 'https://soham-ai.vercel.app/#website',
     name: 'SOHAM',
     alternateName: ['SOHAM by CODEEX-AI', 'CODEEX-AI SOHAM'],
     url: 'https://soham-ai.vercel.app',

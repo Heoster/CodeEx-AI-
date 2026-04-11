@@ -121,12 +121,33 @@ const processUserMessageFlow = ai.defineFlow(
     }
     
     // ============================================================================
-    // STEP 3: Handle WEB_SEARCH intent
+    // STEP 3: Handle WEB_SEARCH intent — auto web search when required
     // ============================================================================
     if (intentResult.intent === 'WEB_SEARCH' && intentResult.confidence > 0.7) {
-      console.log('[Process] WEB_SEARCH intent detected but no search provider configured');
-      console.log('[Process] Falling back to conversational response');
-      // Fall through to default conversational response
+      console.log('[Process] Routing to WEB_SEARCH:', intentResult.extractedQuery);
+      try {
+        const { answer, sources, modelUsed } = await enhancedSearch({
+          query: intentResult.extractedQuery,
+          preferredModel: isAutoMode ? undefined : settings.model,
+        });
+
+        // Append source links if available
+        let finalAnswer = answer;
+        if (sources && sources.length > 0) {
+          finalAnswer += '\n\n**Sources:**\n' +
+            sources.map((s, i) => `${i + 1}. [${s.title}](${s.url})`).join('\n');
+        }
+
+        return {
+          answer: finalAnswer,
+          modelUsed: modelUsed || settings.model,
+          autoRouted: true,
+          routingReasoning: intentResult.reasoning,
+        };
+      } catch (error) {
+        console.error('[Process] WEB_SEARCH failed, falling back to conversational:', error);
+        // Fall through to default conversational response
+      }
     }
     
     // ============================================================================

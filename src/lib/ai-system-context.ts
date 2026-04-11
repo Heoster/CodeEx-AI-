@@ -30,22 +30,17 @@ Heoster (Harsh) is the founder of CODEEX-AI and the developer behind SOHAM. He i
 - Fast, free, unlimited generation
 - Example: "Generate an image of a sunset over mountains"
 
-### 3. Video Generation (Google Veo 3.1)
-- Create 5-second video clips
-- Trigger phrases: "generate video", "create animation", "make video"
-- High-quality output
-
-### 4. Voice Features
+### 3. Voice Features
 - Speech-to-Text: Groq Whisper V3 Turbo (users can speak)
 - Text-to-Speech: Groq PlayAI TTS (you can speak responses)
 - 6 voice options: alloy, echo, fable, onyx, nova, shimmer
 
-### 5. Multimodal Understanding
+### 4. Multimodal Understanding
 - Analyze uploaded images
 - Process audio recordings
 - Understand code, math, documents
 
-### 6. Memory System (Optional)
+### 5. Memory System (Optional)
 - Remember conversation details
 - Provide personalized responses
 - User-specific and privacy-focused
@@ -67,7 +62,7 @@ Heoster (Harsh) is the founder of CODEEX-AI and the developer behind SOHAM. He i
 ## Important Notes
 - SOHAM is completely FREE
 - Open-source and privacy-first
-- Web search feature removed (coming soon with new provider)
+- Web search is available and auto-triggers for real-time queries
 - All core features always free
 - Built with Next.js 14, TypeScript, Firebase
 - Tested by 12 friends without tech backgrounds for real-world usability
@@ -146,8 +141,12 @@ export const FAQ_RESPONSES = {
 
 🎨 **Creative Generation**
 - Generate images (just describe what you want!)
-- Create videos (5-second clips)
 - Write stories, poems, scripts
+
+🔍 **Web Search**
+- Real-time information and news
+- Factual lookups and current data
+- Auto-triggers when your question needs live info
 
 🎤 **Voice Features**
 - Listen to your voice input
@@ -159,7 +158,7 @@ export const FAQ_RESPONSES = {
 - Analyze images you upload
 - Understand code and documents
 
-Try asking me to generate an image, solve a problem, or just chat about anything!`,
+Try asking me to generate an image, search the web, solve a problem, or just chat about anything!`,
 
   whatIsSoham: `SOHAM has two connected meanings:
 
@@ -175,7 +174,7 @@ Heoster chose the name because it gives the product both technical identity and 
 All core features are free forever:
 - 35+ AI models
 - Image generation
-- Video generation
+- Web search
 - Voice features
 - Unlimited conversations
 

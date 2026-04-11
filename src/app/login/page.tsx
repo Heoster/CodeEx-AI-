@@ -17,7 +17,6 @@ import {Label} from '@/components/ui/label';
 import {useRouter, useSearchParams} from 'next/navigation';
 import {useAuth} from '@/hooks/use-auth';
 import {useEffect, useState} from 'react';
-import {Skeleton} from '@/components/ui/skeleton';
 import {Eye, EyeOff, MessageSquare, Shield, Sparkles, Zap} from 'lucide-react';
 import {
   Dialog,
@@ -33,6 +32,7 @@ import {useToast} from '@/hooks/use-toast';
 import {sendWelcomeEmail} from '@/lib/email';
 import {Space_Grotesk} from 'next/font/google';
 import {Suspense} from 'react';
+import {SohamLoader} from '@/components/soham-loader';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -112,7 +112,7 @@ const getFirebaseAuthErrorMessage = (error: unknown): string => {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div className="flex h-screen w-full items-center justify-center"><Skeleton className="h-64 w-full max-w-md" /></div>}>
+    <Suspense fallback={<SohamLoader variant="overlay" label="Loading…" />}>
       <LoginPageInner />
     </Suspense>
   );
@@ -299,19 +299,11 @@ function LoginPageInner() {
   }, [toast]);
 
   if (loading) {
-    return (
-      <div className="flex h-screen w-full items-center justify-center">
-        <Skeleton className="h-64 w-full max-w-md" />
-      </div>
-    );
+    return <SohamLoader variant="overlay" label="Authenticating…" />;
   }
 
   if (user && user.displayName) {
-    return (
-      <div className="flex h-screen w-full items-center justify-center">
-        <Skeleton className="h-64 w-full max-w-md" />
-      </div>
-    );
+    return <SohamLoader variant="overlay" label="Redirecting…" />;
   }
 
   return (

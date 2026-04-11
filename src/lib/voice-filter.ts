@@ -63,40 +63,11 @@ export class VoiceFilter {
    * Check if text should skip TTS (contains code blocks, tables, etc.)
    */
   private static shouldSkipTTS(text: string): boolean {
-    // Check for 3 or more consecutive equals signs (markdown tables, separators)
-    if (/={3,}/.test(text)) {
-      return true;
-    }
-
-    // Check for 3 or more consecutive hyphens (markdown tables, separators)
-    if (/-{3,}/.test(text)) {
-      return true;
-    }
-
-    // Check for 3 or more consecutive underscores
-    if (/_{3,}/.test(text)) {
-      return true;
-    }
-
-    // Check for 3 or more consecutive asterisks
-    if (/\*{3,}/.test(text)) {
-      return true;
-    }
-
-    // Check for pipe tables (|---|---|)
-    if (/\|[\s-]+\|/.test(text)) {
-      return true;
-    }
-
-    // Check for code fence markers
-    if (/```/.test(text)) {
-      return true;
-    }
-
+    // Only skip if the text is ENTIRELY code (no readable prose at all)
     // Check if text is mostly code (high ratio of special characters)
     const specialChars = (text.match(/[{}[\]();,<>]/g) || []).length;
     const totalChars = text.length;
-    if (totalChars > 0 && specialChars / totalChars > 0.3) {
+    if (totalChars > 0 && specialChars / totalChars > 0.5) {
       return true;
     }
 
