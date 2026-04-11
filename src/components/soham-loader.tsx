@@ -34,7 +34,7 @@ export function SohamLoader({
   const isOverlay = variant === 'overlay';
   const svgSize = size ?? (isOverlay ? 80 : 36);
   const showLabel = label !== false;
-  const labelText = label ?? (isOverlay ? 'Loading…' : undefined);
+  const labelText = (label !== false && label !== undefined) ? label : (isOverlay ? 'Loading…' : undefined);
 
   const svg = (
     <svg
@@ -115,7 +115,7 @@ export function SohamLoader({
       )}
       role="status"
       aria-label={labelText ?? 'Loading'}
-    >
+     >
       {svg}
       <div className="text-center space-y-1">
         <p className="text-2xl font-extrabold tracking-[0.25em] uppercase text-foreground">
