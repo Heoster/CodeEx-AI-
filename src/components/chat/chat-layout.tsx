@@ -14,6 +14,7 @@ import {
   SidebarMenuButton,
   SidebarInset,
   SidebarTrigger,
+  useSidebar,
 } from '@/components/ui/sidebar';
 import {
   AlertDialog,
@@ -55,6 +56,20 @@ const defaultSettings: Settings = {
   enableSpeech: false,
   voice: 'troy',
 };
+
+// Must be rendered inside SidebarProvider to access useSidebar
+function MobileChatsButton() {
+  const { toggleSidebar } = useSidebar();
+  return (
+    <button
+      className="flex flex-col items-center gap-0.5 rounded-xl px-3 py-2 text-muted-foreground transition-colors active:bg-accent touch-manipulation"
+      onClick={toggleSidebar}
+    >
+      <LayoutDashboard className="h-5 w-5" />
+      <span className="text-[10px] font-medium">Chats</span>
+    </button>
+  );
+}
 
 export function ChatLayout() {
   const {user} = useAuth();
@@ -382,12 +397,7 @@ export function ChatLayout() {
             <span className="text-[10px] font-medium">New</span>
           </button>
 
-          <SidebarTrigger asChild>
-            <button className="flex flex-col items-center gap-0.5 rounded-xl px-3 py-2 text-muted-foreground transition-colors active:bg-accent touch-manipulation">
-              <LayoutDashboard className="h-5 w-5" />
-              <span className="text-[10px] font-medium">Chats</span>
-            </button>
-          </SidebarTrigger>
+          <MobileChatsButton />
 
           <Link
             href="/ai-services"

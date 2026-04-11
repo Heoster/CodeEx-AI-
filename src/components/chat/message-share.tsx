@@ -261,7 +261,7 @@ export function MessageShare({ message, className }: MessageShareProps) {
     <TooltipProvider delayDuration={100}>
       <DropdownMenu>
         <Tooltip>
-          <TooltipTrigger asChild>
+          <TooltipTrigger>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
