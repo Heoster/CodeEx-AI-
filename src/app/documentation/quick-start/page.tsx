@@ -1,4 +1,5 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
@@ -17,7 +18,7 @@ import {
   FileText,
 } from 'lucide-react';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Quick Start | SOHAM Documentation',
   description:
     'Get started with SOHAM in 3 minutes. Learn how to chat, configure settings, use slash commands, and explore AI features.',
