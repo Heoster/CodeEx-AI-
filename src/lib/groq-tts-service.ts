@@ -30,8 +30,6 @@ export class GroqTTSService {
     const { voice = 'troy', speed = 1.0 } = options || {};
 
     try {
-      console.log('[Groq TTS] Generating speech with Orpheus...');
-
       const response = await fetch(this.baseUrl, {
         method: 'POST',
         headers: {
@@ -52,8 +50,6 @@ export class GroqTTSService {
       }
 
       const audio = await response.arrayBuffer();
-      
-      console.log('[Groq TTS] Speech generated successfully');
 
       return {
         audio,
@@ -70,12 +66,7 @@ export class GroqTTSService {
    * Check if Groq TTS is available
    */
   isAvailable(): boolean {
-    const available = !!process.env.GROQ_API_KEY;
-    console.log('[Groq TTS] isAvailable check:', {
-      hasKey: available,
-      keyPrefix: process.env.GROQ_API_KEY?.substring(0, 10),
-    });
-    return available;
+    return !!process.env.GROQ_API_KEY;
   }
 }
 

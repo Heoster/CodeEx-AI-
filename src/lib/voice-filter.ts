@@ -26,7 +26,6 @@ export class VoiceFilter {
 
     // Step 0: Check if text should be skipped (code blocks, tables, etc.)
     if (this.shouldSkipTTS(filtered)) {
-      console.log('[Voice Filter] Text contains code/table markers, skipping TTS');
       return ''; // Return empty string to skip TTS
     }
 

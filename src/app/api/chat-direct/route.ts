@@ -170,15 +170,10 @@ export async function POST(request: NextRequest) {
           content: msg.content,
         })),
       });
-
-      console.log('[Classification]', {
-        category: classification.category,
-        confidence: classification.confidence,
-        complexity: classification.estimatedComplexity,
-        reasoning: classification.reasoning,
-      });
     } catch (classificationError) {
-      console.error('[Classification] Error:', classificationError);
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('[Classification] Error:', classificationError);
+      }
       // Use default classification on failure
       classification = {
         category: 'MEDIUM' as const,

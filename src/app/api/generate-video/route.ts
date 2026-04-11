@@ -30,11 +30,9 @@ export async function POST(request: NextRequest) {
     let model: string;
 
     try {
-      console.log('[Video] Trying Veo 3.1 Fast...');
       videoBlob = await generateWithVeo(prompt, 'veo-3.1-fast-generate-preview', duration);
       model = 'veo-3.1-fast-generate-preview';
-    } catch (error) {
-      console.warn('[Video] Veo Fast failed, trying regular...');
+    } catch {
       videoBlob = await generateWithVeo(prompt, 'veo-3.1-generate-preview', duration);
       model = 'veo-3.1-generate-preview';
     }

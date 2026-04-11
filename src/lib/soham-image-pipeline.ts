@@ -36,13 +36,13 @@ export class SOHAMImagePipeline {
     try {
       return await this.enhanceWithCerebras(raw, styleGuide);
     } catch {
-      console.warn('[SOHAM] Cerebras failed, trying Groq...');
+      // Cerebras failed, try Groq
     }
 
     try {
       return await this.enhanceWithGroq(raw, styleGuide);
     } catch {
-      console.warn('[SOHAM] Groq failed, using raw prompt.');
+      // Groq failed, use raw prompt
     }
 
     return styleGuide ? `${raw}. ${styleGuide}` : raw;
@@ -114,34 +114,28 @@ Rules: no intro/outro text, just the prompt. Be specific about lighting, composi
 
     // 1. Pollinations.ai — free, no key needed
     try {
-      console.log('[SOHAM] Trying Pollinations.ai (flux)...');
       const blob = await this.paintWithPollinations(prompt, 'flux');
       return { blob, provider: 'pollinations', model: 'flux' };
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);
-      console.warn('[SOHAM] Pollinations flux failed:', msg);
       errors.push(`Pollinations/flux: ${msg}`);
     }
 
     // 2. HuggingFace FLUX.1-schnell via Together AI (free tier)
     try {
-      console.log('[SOHAM] Trying HuggingFace FLUX.1-schnell...');
       const blob = await this.paintWithHuggingFaceTogether(prompt, 'black-forest-labs/FLUX.1-schnell');
       return { blob, provider: 'huggingface', model: 'FLUX.1-schnell' };
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);
-      console.warn('[SOHAM] FLUX.1-schnell failed:', msg);
       errors.push(`HuggingFace/FLUX.1-schnell: ${msg}`);
     }
 
     // 3. HuggingFace Wavespeed turbo-lora
     try {
-      console.log('[SOHAM] Trying HuggingFace Wavespeed turbo-lora...');
       const blob = await this.paintWithHuggingFaceWavespeed(prompt);
       return { blob, provider: 'huggingface', model: 'wavespeed-turbo-lora' };
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);
-      console.warn('[SOHAM] Wavespeed failed:', msg);
       errors.push(`HuggingFace/Wavespeed: ${msg}`);
     }
 
@@ -281,17 +275,9 @@ Rules: no intro/outro text, just the prompt. Be specific about lighting, composi
   async generate(request: SOHAMImageRequest): Promise<SOHAMImageResult> {
     const startTime = Date.now();
 
-    console.log('[SOHAM] Step 1: Enhancing prompt...');
     const enhancedPrompt = await this.enhancePrompt(request.userPrompt, request.style);
-    console.log('[SOHAM] Enhanced:', enhancedPrompt);
-
-    console.log('[SOHAM] Step 2: Generating image...');
     const { blob, provider, model } = await this.paintImage(enhancedPrompt);
-    console.log(`[SOHAM] Generated with ${provider}/${model}`);
-
-    console.log('[SOHAM] Step 3: Saving to storage...');
     const { url, path } = await this.saveImage(blob, request.userId);
-    console.log('[SOHAM] Saved:', url);
 
     return {
       url,
