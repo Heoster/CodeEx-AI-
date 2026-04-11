@@ -19,6 +19,7 @@ import {
   BookOpen,
   Smartphone
 } from 'lucide-react';
+import { DEVELOPER_INFO } from '@/lib/developer-info';
 
 export default function DocsHomePage() {
   return (
@@ -36,6 +37,12 @@ export default function DocsHomePage() {
           Your intelligent multi-model assistant for coding, learning, math, and creative tasks. 
           Get started with our comprehensive guides and tutorials.
         </p>
+        <p className="text-sm text-muted-foreground max-w-3xl mx-auto">
+          Explore product guides for <Link href="/chat" className="font-medium text-foreground hover:underline">AI chat</Link>,{' '}
+          <Link href="/pdf-analyzer" className="font-medium text-foreground hover:underline">PDF analysis</Link>,{' '}
+          <Link href="/visual-math" className="font-medium text-foreground hover:underline">image math solving</Link>, and{' '}
+          <Link href="/features" className="font-medium text-foreground hover:underline">core SOHAM features</Link>.
+        </p>
         
         {/* App URLs Section */}
         <div className="mt-6 p-4 bg-muted/50 rounded-lg border">
@@ -44,25 +51,25 @@ export default function DocsHomePage() {
             <div className="text-left">
               <span className="font-medium">Main App:</span>
               <code className="ml-2 px-2 py-1 bg-background rounded text-xs">
-                https://codeex-ai.vercel.app
+                https://soham-ai.vercel.app
               </code>
             </div>
             <div className="text-left">
               <span className="font-medium">Chat Interface:</span>
               <code className="ml-2 px-2 py-1 bg-background rounded text-xs">
-                https://codeex-ai.vercel.app/chat
+                https://soham-ai.vercel.app/chat
               </code>
             </div>
             <div className="text-left">
-              <span className="font-medium">Smart Notes Pro:</span>
+              <span className="font-medium">AI Services:</span>
               <code className="ml-2 px-2 py-1 bg-background rounded text-xs">
-                https://codeex-ai.vercel.app/smart-notes
+                https://soham-ai.vercel.app/ai-services
               </code>
             </div>
             <div className="text-left">
               <span className="font-medium">Math Solver:</span>
               <code className="ml-2 px-2 py-1 bg-background rounded text-xs">
-                https://codeex-ai.vercel.app/visual-math
+                https://soham-ai.vercel.app/visual-math
               </code>
             </div>
           </div>
@@ -75,20 +82,20 @@ export default function DocsHomePage() {
           title="Quick Start"
           description="Get up and running in minutes"
           icon={Zap}
-          href="/docs/quick-start"
+          href="/documentation/quick-start"
           badge="Start Here"
         />
         <QuickStartCard
           title="AI Models"
-          description="13+ models for different tasks"
+          description={`${DEVELOPER_INFO.projectStats.modelsIntegrated}+ models for different tasks`}
           icon={Cpu}
-          href="/docs/ai-models"
+          href="/documentation/ai-models"
         />
         <QuickStartCard
           title="Chat Interface"
           description="Conversational AI features"
           icon={MessageSquare}
-          href="/docs/chat"
+          href="/documentation/chat"
         />
       </div>
 
@@ -97,41 +104,35 @@ export default function DocsHomePage() {
         <h2 className="text-2xl font-bold">Key Features</h2>
         <div className="grid gap-4 md:grid-cols-2">
           <FeatureCard
-            title="Smart Notes Pro"
-            description="AI-powered research notes with 18+ sources and image support"
-            icon={FileText}
-            href="/docs/smart-notes"
-            badge="New"
-          />
-          <FeatureCard
             title="Smart Auto-Routing"
             description="Automatically selects the best AI model for your query"
             icon={Sparkles}
-            href="/docs/smart-routing"
+            href="/documentation/smart-routing"
           />
           <FeatureCard
-            title="Image Generation"
-            description="Create AI art with 5 free generations daily"
+            title="AI Services Dashboard"
+            description="Open PDF analysis, image tools, and focused workflows from one place"
             icon={Image}
-            href="/docs/image-generation"
+            href="/ai-services"
+            badge="Live"
           />
           <FeatureCard
             title="PDF Analysis"
             description="Analyze and extract insights from documents"
             icon={FileText}
-            href="/docs/pdf-analysis"
+            href="/documentation/pdf-analysis"
           />
           <FeatureCard
             title="Math Solver"
             description="Solve equations with step-by-step explanations"
             icon={Calculator}
-            href="/docs/math-solver"
+            href="/documentation/math-solver"
           />
           <FeatureCard
             title="Web Search"
             description="Get real-time information with citations"
             icon={Search}
-            href="/docs/web-search"
+            href="/documentation/web-search"
           />
         </div>
       </div>
@@ -141,27 +142,21 @@ export default function DocsHomePage() {
         <h2 className="text-2xl font-bold">Popular Guides</h2>
         <div className="grid gap-4">
           <GuideCard
-            title="Smart Notes Pro Guide"
-            description="Generate comprehensive research notes with AI agents and 18+ sources"
-            href="/docs/smart-notes"
-            icon={FileText}
-          />
-          <GuideCard
             title="Installing as Mobile App"
             description="Learn how to install SOHAM as a PWA on your Android device"
-            href="/docs/installation"
+            href="/documentation/installation"
             icon={Smartphone}
           />
           <GuideCard
             title="Using Slash Commands"
             description="Master /solve, /search, and /summarize commands for better productivity"
-            href="/docs/commands"
+            href="/documentation/commands"
             icon={Code}
           />
           <GuideCard
             title="Model Selection Guide"
             description="Choose the right AI model for your specific tasks and needs"
-            href="/docs/ai-models"
+            href="/documentation/ai-models"
             icon={Cpu}
           />
         </div>
@@ -180,7 +175,7 @@ export default function DocsHomePage() {
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </Link>
-          <Link href="/docs/quick-start">
+          <Link href="/documentation/quick-start">
             <Button size="lg" variant="outline">
               Read Quick Start
             </Button>

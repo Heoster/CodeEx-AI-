@@ -5,42 +5,43 @@
 
 export const APP_CONFIG = {
   // Base URLs
-  BASE_URL: process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app',
+  BASE_URL: process.env.NEXT_PUBLIC_SITE_URL || 'https://soham-ai.vercel.app',
   API_BASE_URL: process.env.NEXT_PUBLIC_SITE_URL 
     ? `${process.env.NEXT_PUBLIC_SITE_URL}/api`
-    : 'https://codeex-ai.vercel.app/api',
+    : 'https://soham-ai.vercel.app/api',
 
   // Feature Routes
   FEATURES: {
     chat: '/chat',
-    smartNotes: '/smart-notes',
-    mathSolver: '/math-solver',
+    smartNotes: '/ai-services',
+    mathSolver: '/visual-math',
     pdfAnalyzer: '/pdf-analyzer',
-    imageGenerator: '/image-generator',
-    jarvisMode: '/jarvis',
-    memoryDashboard: '/memory',
+    imageGenerator: '/ai-services',
+    jarvisMode: '/chat',
+    memoryDashboard: '/account',
+    aiServices: '/ai-services',
   },
 
   // Documentation Routes
   DOCS: {
-    base: '/docs',
-    quickStart: '/docs/quick-start',
-    aiModels: '/docs/ai-models',
-    commands: '/docs/commands',
-    chat: '/docs/chat',
-    smartNotes: '/docs/smart-notes',
-    mathSolver: '/docs/math-solver',
-    pdfAnalysis: '/docs/pdf-analysis',
-    webSearch: '/docs/web-search',
-    settings: '/docs/settings',
-    faq: '/docs/faq',
+    base: '/documentation',
+    quickStart: '/documentation/quick-start',
+    aiModels: '/documentation/ai-models',
+    commands: '/documentation/commands',
+    chat: '/documentation/chat',
+    smartNotes: '/documentation/smart-notes',
+    mathSolver: '/documentation/math-solver',
+    pdfAnalysis: '/documentation/pdf-analysis',
+    webSearch: '/documentation/web-search',
+    settings: '/documentation/settings',
+    faq: '/documentation/faq',
   },
 
   // Share URLs (for embedding)
   SHARE_URLS: {
-    chat: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app'}/chat`,
-    smartNotes: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app'}/smart-notes`,
-    mathSolver: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app'}/math-solver`,
+    chat: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://soham-ai.vercel.app'}/chat`,
+    smartNotes: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://soham-ai.vercel.app'}/ai-services`,
+    mathSolver: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://soham-ai.vercel.app'}/visual-math`,
   },
 
   // App Metadata

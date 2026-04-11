@@ -326,7 +326,7 @@ Node version: 18.x or higher
 **Name**: Heoster (Harsh)  
 **Age**: 16 years old  
 **Location**: Khatauli, Uttar Pradesh, India  
-**Education**: Class 11 PCM, Maples Academy  
+**Education**: Class 12 PCM, Maples Academy Khatauli  
 **Role**: Founder & Lead Developer
 
 ### Vision

@@ -35,10 +35,11 @@ import {
   Trash2,
   Calculator,
   FileText,
+  LayoutGrid,
+  Boxes,
 } from 'lucide-react';
 import {Edit2, Download, User} from 'lucide-react';
-import {ThemeToggle} from '../theme-toggle';
-import {SettingsDialog} from '../settings-dialog';
+import {QuickSettingsPopover, SettingsDialog} from '../settings-dialog';
 import {useAuth} from '@/hooks/use-auth';
 import {getAuth, signOut} from 'firebase/auth';
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
@@ -76,6 +77,7 @@ export function ChatLayout() {
     defaultSettings
   );
   const [isClearHistoryAlertOpen, setIsClearHistoryAlertOpen] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const auth = getAuth();
 
   // Auto-create new chat when user logs in or app restarts
@@ -95,23 +97,11 @@ export function ChatLayout() {
     setIsClearHistoryAlertOpen(false);
   };
 
-  const sidebarFooterContent = (
-    <>
-      <SettingsDialog settings={settings} onSettingsChange={setSettings}>
-        <Button variant="ghost" className="w-full justify-start">
-          <SettingsIcon className="mr-2" />
-          Settings
-        </Button>
-      </SettingsDialog>
-      <ThemeToggle />
-    </>
-  );
-
   return (
     <SidebarProvider defaultOpen={typeof window !== 'undefined' && window.innerWidth >= 768}>
-      <Sidebar>
-        <SidebarHeader className="space-y-3 p-4">
-          <div className="flex items-center gap-3 pb-2">
+      <Sidebar variant="inset" collapsible="offcanvas">
+        <SidebarHeader className="space-y-4 border-b p-4">
+          <div className="flex items-center gap-3">
             <div className="relative">
               <Image
                 src="/FINALSOHAM.png"
@@ -124,19 +114,26 @@ export function ChatLayout() {
             </div>
             <div>
               <h1 className="text-lg font-bold">SOHAM</h1>
-              <p className="text-xs text-muted-foreground">Your AI Assistant</p>
+              <p className="text-xs text-muted-foreground">Adaptive AI workspace</p>
             </div>
           </div>
-          <Button
-            variant="default"
-            size="sm"
-            className="w-full justify-start gap-2 h-10 font-medium shadow-sm"
-            onClick={createNewChat}
-            disabled={!user}
-          >
-            <MessageSquarePlus className="h-4 w-4" />
-            New Chat
-          </Button>
+          <div className="grid grid-cols-2 gap-2">
+            <Button
+              variant="default"
+              size="sm"
+              className="justify-start gap-2 h-10 font-medium shadow-sm"
+              onClick={createNewChat}
+              disabled={!user}
+            >
+              <MessageSquarePlus className="h-4 w-4" />
+              NEW
+            </Button>
+            <QuickSettingsPopover
+              settings={settings}
+              onSettingsChange={setSettings}
+              onOpenFullSettings={() => setIsSettingsOpen(true)}
+            />
+          </div>
           <div className="flex gap-2">
             <Button
               variant="outline"
@@ -155,12 +152,20 @@ export function ChatLayout() {
             />
           </div>
         </SidebarHeader>
-        <SidebarContent className="px-2">
+        <SidebarContent className="px-2 py-3">
           <SidebarMenu className="space-y-1">
-            <div className="pb-2 mb-2 border-b space-y-1">
+            <div className="pb-3 mb-3 border-b space-y-1">
               <p className="px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                Tools
+                Workspace
               </p>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild className="h-9">
+                  <Link href="/ai-services" className="gap-3">
+                    <Boxes className="h-4 w-4" />
+                    <span>AI Services</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild className="h-9">
                   <Link href="/visual-math" className="gap-3">
@@ -263,10 +268,11 @@ export function ChatLayout() {
             )}
           </SidebarMenu>
         </SidebarContent>
-        <SidebarFooter className="p-4 space-y-2">
-          <div className="space-y-1">
-            {sidebarFooterContent}
-          </div>
+        <SidebarFooter className="border-t p-4 space-y-3">
+          <Button variant="outline" className="w-full justify-start gap-2" onClick={() => setIsSettingsOpen(true)}>
+            <SettingsIcon className="h-4 w-4" />
+            Settings
+          </Button>
           {user && (
             <div className="border-t pt-3 flex items-center gap-3">
               <Avatar className="h-9 w-9 ring-2 ring-primary/10">
@@ -301,8 +307,11 @@ export function ChatLayout() {
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>
-        <header className="sticky top-0 z-10 flex h-16 items-center gap-3 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 md:px-6">
-          <SidebarTrigger className="md:hidden -ml-2" />
+        <header className="sticky top-0 z-10 flex h-16 items-center gap-3 border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/70 md:px-6">
+          <SidebarTrigger className="-ml-2" />
+          <div className="flex items-center gap-2 md:hidden">
+            <Image src="/FINALSOHAM.png" alt="SOHAM icon" width={26} height={26} className="rounded-md" />
+          </div>
           <div className="flex-1 min-w-0">
             <h1 className="text-base md:text-lg font-semibold truncate">
               {activeChat?.title || 'SOHAM'}
@@ -312,6 +321,17 @@ export function ChatLayout() {
                 {activeChatMessages.length} messages
               </p>
             )}
+          </div>
+          <div className="flex items-center gap-2">
+            <QuickSettingsPopover
+              settings={settings}
+              onSettingsChange={setSettings}
+              onOpenFullSettings={() => setIsSettingsOpen(true)}
+            />
+            <Button variant="outline" size="icon" className="hidden md:inline-flex" onClick={() => setIsSettingsOpen(true)}>
+              <SettingsIcon className="h-4 w-4" />
+              <span className="sr-only">Open settings</span>
+            </Button>
           </div>
         </header>
 
@@ -342,12 +362,18 @@ export function ChatLayout() {
                 className="gap-2"
               >
                 <MessageSquarePlus className="h-5 w-5" />
-                New Chat
+                Chat
               </Button>
             </div>
           </div>
         )}
       </SidebarInset>
+      <SettingsDialog
+        settings={settings}
+        onSettingsChange={setSettings}
+        open={isSettingsOpen}
+        onOpenChange={setIsSettingsOpen}
+      />
       <AlertDialog
         open={isClearHistoryAlertOpen}
         onOpenChange={setIsClearHistoryAlertOpen}

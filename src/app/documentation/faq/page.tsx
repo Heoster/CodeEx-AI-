@@ -21,6 +21,7 @@ import {
   Mic,
   ArrowRight
 } from 'lucide-react';
+import { DEVELOPER_INFO } from '@/lib/developer-info';
 
 export default function FAQPage() {
   return (
@@ -90,7 +91,7 @@ export default function FAQPage() {
           questions={[
             {
               question: "What is SOHAM?",
-              answer: "SOHAM is an intelligent multi-model assistant that helps with coding, math, learning, and creative tasks. It automatically selects the best AI model for each query from 13+ available options, providing optimal results without manual configuration."
+              answer: `SOHAM is an intelligent multi-model assistant from CODEEX-AI that helps with coding, math, learning, document analysis, and web-assisted tasks. It can automatically select the best model for each query from ${DEVELOPER_INFO.projectStats.modelsIntegrated}+ available options.`
             },
             {
               question: "How do I start using SOHAM?",
@@ -119,7 +120,7 @@ export default function FAQPage() {
           questions={[
             {
               question: "How many AI models are available?",
-              answer: "SOHAM provides access to 13+ AI models from multiple providers including Groq, HuggingFace, Google, and OpenRouter. Models are specialized for different tasks like coding, math, conversation, and image generation."
+              answer: `SOHAM provides access to ${DEVELOPER_INFO.projectStats.modelsIntegrated}+ AI models from multiple providers including Groq, HuggingFace, Google, and OpenRouter. Models are specialized for tasks like coding, math, conversation, and multimodal analysis.`
             },
             {
               question: "What is Auto mode and should I use it?",
@@ -156,11 +157,11 @@ export default function FAQPage() {
             },
             {
               question: "Can the AI speak responses aloud?",
-              answer: "Yes! Enable speech output in settings to hear AI responses read aloud. Choose from 4 different voices and adjust speech rate and pitch to your preference. Great for accessibility and multitasking."
+              answer: "Yes. You can enable speech output in settings and also use the speaker button on assistant messages. The app uses a fallback TTS pipeline so playback still works if one provider fails."
             },
             {
               question: "How does image generation work?",
-              answer: "SOHAM provides 5 free image generations per day using multiple HuggingFace models. Visit the AI Services dashboard, describe your desired image, choose a style, and generate high-quality AI art in seconds."
+              answer: "Image-related workflows are exposed through the AI Services area and the chat pipeline. Availability depends on the currently enabled providers and free-tier limits configured in the app."
             },
             {
               question: "Can I analyze PDF documents?",
@@ -197,7 +198,7 @@ export default function FAQPage() {
             },
             {
               question: "Image generation says I've reached my limit",
-              answer: "Free users get 5 image generations per day, which reset at midnight UTC. The limit is per browser session for anonymous users, or per account for registered users. Wait for the daily reset or create an account for individual limits."
+              answer: "Generation and provider limits depend on the active free-tier services configured in the app. If a provider limit is reached, try again later or switch to another supported workflow."
             },
             {
               question: "The AI gave an incorrect or unhelpful answer",

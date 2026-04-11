@@ -5,7 +5,7 @@ import { MetadataRoute } from 'next';
  * Optimized for search engine crawling
  */
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://soham-ai.vercel.app';
 
   return {
     rules: [

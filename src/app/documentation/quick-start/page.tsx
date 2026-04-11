@@ -16,6 +16,7 @@ import {
   CheckCircle,
   Sparkles
 } from 'lucide-react';
+import { DEVELOPER_INFO } from '@/lib/developer-info';
 
 export default function QuickStartPage() {
   return (
@@ -156,26 +157,26 @@ export default function QuickStartPage() {
         <div className="grid gap-4 md:grid-cols-2">
           <NextStepCard
             title="Explore AI Models"
-            description="Learn about our 13+ specialized models"
-            href="/docs/ai-models"
+            description={`Learn about our ${DEVELOPER_INFO.projectStats.modelsIntegrated}+ specialized models`}
+            href="/documentation/ai-models"
             icon={Sparkles}
           />
           <NextStepCard
             title="Try AI Services"
-            description="Use PDF analysis, image generation, and more"
-            href="/docs/image-generation"
+            description="Use PDF analysis, image math solving, and focused tools"
+            href="/ai-services"
             icon={MessageSquare}
           />
           <NextStepCard
             title="Install Mobile App"
             description="Add SOHAM to your phone as a PWA"
-            href="/docs/installation"
+            href="/documentation/installation"
             icon={Settings}
           />
           <NextStepCard
             title="Master Commands"
             description="Learn all available slash commands"
-            href="/docs/commands"
+            href="/documentation/commands"
             icon={Calculator}
           />
         </div>

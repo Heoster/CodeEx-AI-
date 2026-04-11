@@ -11,7 +11,7 @@
 - **Publish Directory**: `.next`
 
 ### Secondary Deployment (Vercel)
-- **URL**: https://codeex-ai.vercel.app
+- **URL**: https://soham-ai.vercel.app
 - **Status**: Active
 - **Platform**: Vercel
 - **Auto-deploy**: Yes (from main branch)
@@ -22,19 +22,19 @@
 
 ### Main Application
 - Netlify: https://codeex-ai.netlify.app
-- Vercel: https://codeex-ai.vercel.app
+- Vercel: https://soham-ai.vercel.app
 
 ### Chat Interface
 - Netlify: https://codeex-ai.netlify.app/chat
-- Vercel: https://codeex-ai.vercel.app/chat
+- Vercel: https://soham-ai.vercel.app/chat
 
 ### Documentation
 - Netlify: https://codeex-ai.netlify.app/documentation
-- Vercel: https://codeex-ai.vercel.app/documentation
+- Vercel: https://soham-ai.vercel.app/documentation
 
 ### API Endpoints
 - Netlify: https://codeex-ai.netlify.app/api
-- Vercel: https://codeex-ai.vercel.app/api
+- Vercel: https://soham-ai.vercel.app/api
 
 ## Sitemaps
 
@@ -43,8 +43,8 @@
 - Robots: https://codeex-ai.netlify.app/robots.txt
 
 ### Vercel
-- Sitemap: https://codeex-ai.vercel.app/sitemap.xml
-- Robots: https://codeex-ai.vercel.app/robots.txt
+- Sitemap: https://soham-ai.vercel.app/sitemap.xml
+- Robots: https://soham-ai.vercel.app/robots.txt
 
 ## Google Search Console
 
@@ -55,7 +55,7 @@ Both URLs should be added to Google Search Console:
    - Verification Code 2: `BOhoSA2Bv_SY0gWI4wdYE6gPRxqXimqYLLMrYQxVN4k`
    - Submit Sitemap: `sitemap.xml`
 
-2. **Vercel Property**: https://codeex-ai.vercel.app
+2. **Vercel Property**: https://soham-ai.vercel.app
    - Verification Code 1: `RY6Rmrn0nrzaZO8QXaazCfjsnLoEBKT8-oJxBc_l_9U`
    - Verification Code 2: `BOhoSA2Bv_SY0gWI4wdYE6gPRxqXimqYLLMrYQxVN4k`
    - Submit Sitemap: `sitemap.xml`

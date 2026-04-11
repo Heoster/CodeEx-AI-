@@ -19,7 +19,6 @@ import {enhancedSolve} from './enhanced-solve';
 import {enhancedSummarize} from './enhanced-summarize';
 import {enhancedSearch} from './enhanced-search';
 import {generateImageSOHAM} from './generate-image-soham';
-import {generateVideoVeo} from './generate-video-veo';
 import {getAutoRouter} from '@/ai/auto-router';
 import {getCommandRouter} from '@/ai/command-router';
 import {getIntentDetector} from '@/lib/intent-detector';
@@ -122,31 +121,7 @@ const processUserMessageFlow = ai.defineFlow(
     }
     
     // ============================================================================
-    // STEP 3: Handle VIDEO_GENERATION intent
-    // ============================================================================
-    if (intentResult.intent === 'VIDEO_GENERATION' && intentResult.confidence > 0.7) {
-      console.log('[Process] Routing to VIDEO_GENERATION:', intentResult.extractedQuery);
-      
-      try {
-        const result = await generateVideoVeo({
-          prompt: intentResult.extractedQuery,
-          userId: userId || 'anonymous',
-          duration: 5, // Default 5 seconds
-        });
-        
-        return {
-          answer: result.answer,
-          modelUsed: result.model,
-          autoRouted: true,
-          routingReasoning: `${intentResult.reasoning} - routed to Veo 3.1`,
-        };
-      } catch (error) {
-        console.error('[Process] VIDEO_GENERATION failed:', error);
-      }
-    }
-    
-    // ============================================================================
-    // STEP 4: Handle WEB_SEARCH intent
+    // STEP 3: Handle WEB_SEARCH intent
     // ============================================================================
     if (intentResult.intent === 'WEB_SEARCH' && intentResult.confidence > 0.7) {
       console.log('[Process] WEB_SEARCH intent detected but no search provider configured');
@@ -155,7 +130,7 @@ const processUserMessageFlow = ai.defineFlow(
     }
     
     // ============================================================================
-    // STEP 5: Check for special commands
+    // STEP 4: Check for special commands
     // ============================================================================
     const commandResult = commandRouter.routeCommand(message, settings.model, isAutoMode);
     

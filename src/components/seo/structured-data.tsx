@@ -6,7 +6,7 @@
 import { structuredData } from '@/lib/seo-config';
 
 interface StructuredDataProps {
-  type: 'organization' | 'person' | 'softwareApplication' | 'website' | 'faq' | 'breadcrumb' | 'article';
+  type: 'organization' | 'person' | 'softwareApplication' | 'website' | 'faq' | 'breadcrumb' | 'article' | 'searchAction';
   data?: any;
 }
 
@@ -25,6 +25,19 @@ export function StructuredData({ type, data }: StructuredDataProps) {
       break;
     case 'website':
       jsonLd = structuredData.website;
+      break;
+    case 'searchAction':
+      jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'SOHAM',
+        url: 'https://soham-ai.vercel.app',
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: 'https://soham-ai.vercel.app/chat?q={search_term_string}',
+          'query-input': 'required name=search_term_string'
+        }
+      };
       break;
     case 'faq':
       jsonLd = structuredData.faq;
@@ -57,7 +70,7 @@ export function StructuredData({ type, data }: StructuredDataProps) {
           name: 'SOHAM',
           logo: {
             '@type': 'ImageObject',
-            url: 'https://codeex-ai.vercel.app/images/logo.png'
+            url: 'https://soham-ai.vercel.app/FINALSOHAM.png'
           }
         },
         datePublished: data?.publishedTime,

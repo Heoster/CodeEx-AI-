@@ -191,7 +191,7 @@ Created comprehensive benchmarks:
 
 ## Future Optimization Opportunities
 
-If performance becomes an issue with larger datasets (1000+ memories):
+If performance becomes an issue with larger datasets (100+ memories):
 
 1. **Vector Database**: Use specialized vector DB (Pinecone, Weaviate, Qdrant)
 2. **Approximate Nearest Neighbors**: Use ANN algorithms (HNSW, IVF)

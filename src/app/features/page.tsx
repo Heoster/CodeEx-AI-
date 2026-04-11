@@ -155,6 +155,12 @@ export default function FeaturesPage() {
             SOHAM combines cutting-edge AI models with an intuitive interface,
             giving you the tools you need to learn, create, and solve problems.
           </p>
+          <p className="text-sm text-muted-foreground max-w-3xl mx-auto">
+            Explore the full product flow from <Link href="/chat" className="font-medium text-foreground hover:underline">AI chat</Link> to{' '}
+            <Link href="/pdf-analyzer" className="font-medium text-foreground hover:underline">PDF analysis</Link>,{' '}
+            <Link href="/visual-math" className="font-medium text-foreground hover:underline">image math solving</Link>, and{' '}
+            <Link href="/documentation" className="font-medium text-foreground hover:underline">technical documentation</Link>.
+          </p>
         </div>
 
         {/* Core Features Grid */}

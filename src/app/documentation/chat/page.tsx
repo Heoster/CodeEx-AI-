@@ -20,6 +20,7 @@ import {
   Lightbulb,
   Share2
 } from 'lucide-react';
+import { DEVELOPER_INFO } from '@/lib/developer-info';
 
 export default function ChatPage() {
   return (
@@ -57,7 +58,7 @@ export default function ChatPage() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
-            <Link href="/docs/quick-start">
+            <Link href="/documentation/quick-start">
               <Button size="lg" variant="outline">
                 Quick Start Guide
               </Button>
@@ -91,7 +92,7 @@ export default function ChatPage() {
               'Math questions → Math-specialized models',
               'Code questions → Programming models',
               'General chat → Conversational models',
-              'Image tasks → Multimodal models'
+              'Search-backed tasks → Tool-enabled workflows'
             ]}
           />
 
@@ -112,9 +113,9 @@ export default function ChatPage() {
             title="Speech Output (TTS)"
             description="Hear AI responses read aloud with natural-sounding voices"
             features={[
-              '4 different voice options available',
-              'Adjustable speech rate and pitch',
-              'Works with all AI responses',
+              'Per-message speak button in chat',
+              'Automatic speech output from settings',
+              'Hybrid fallback: API TTS, Edge TTS, and browser TTS',
               'Great for accessibility and multitasking'
             ]}
           />
@@ -163,7 +164,7 @@ export default function ChatPage() {
                   name="Model Selector"
                   description="Choose AI model or set to Auto mode"
                   location="Top right (desktop) or bottom sheet (mobile)"
-                  features={['13+ model options', 'Auto-routing mode', 'Model descriptions']}
+                  features={[`${DEVELOPER_INFO.projectStats.modelsIntegrated}+ model options`, 'Auto-routing mode', 'Model descriptions']}
                 />
                 <InterfaceComponent
                   name="Settings Panel"
@@ -256,7 +257,7 @@ export default function ChatPage() {
                     {
                       step: 3,
                       title: "Choose Voice",
-                      description: "Select from 4 available voice options"
+                      description: "Select one of the available SOHAM voice profiles"
                     },
                     {
                       step: 4,

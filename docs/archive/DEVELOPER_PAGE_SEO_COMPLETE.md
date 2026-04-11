@@ -29,7 +29,7 @@ About Heoster - 16-Year-Old Founder of SOHAM | Young Developer from India
 
 #### Meta Description
 ```
-Meet Heoster (Harsh), 16-year-old founder and developer of SOHAM. Built a free AI platform with 35+ models from Khatauli, India. Class 11 student at Maples Academy. 50,000+ lines of code, 1000+ daily users, 100+ countries. Contact: codeex@email.com
+Meet Heoster (Harsh), 16-year-old founder and developer of SOHAM. Built a free AI platform with 35+ models from Khatauli, India. Class 12student at Maples Academy Khatauli. 50,000+ lines of code, 100+ daily users, 100+ countries. Contact: codeex@email.com
 ```
 
 **Key Elements**:
@@ -52,8 +52,8 @@ keywords: [
   'student developer India',
   'Khatauli developer',
   'Uttar Pradesh developer',
-  'Maples Academy student',
-  'Class 11 developer',
+  'Maples Academy Khatauli student',
+  'Class 12developer',
   'teenage AI entrepreneur',
   'young developer success story',
   'SOHAM founder',
@@ -93,7 +93,7 @@ Added comprehensive Person schema with:
   },
   "alumniOf": {
     "@type": "EducationalOrganization",
-    "name": "Maples Academy"
+    "name": "Maples Academy Khatauli"
   },
   "email": "codeex@email.com",
   "url": "https://codeex-ai.netlify.app",
@@ -154,7 +154,7 @@ twitter: {
 
 #### About Section
 - Personal introduction
-- Current education (Class 11 PCM at Maples Academy)
+- Current education (Class 12 PCM at Maples Academy Khatauli)
 - Location (Khatauli, Uttar Pradesh, India)
 - Company founding year (2024)
 - Mission statement
@@ -163,7 +163,7 @@ twitter: {
 - City: Khatauli
 - State: Uttar Pradesh
 - Country: India
-- School: Maples Academy
+- School: Maples Academy Khatauli
 - Class: 11 PCM
 
 #### Technical Skills
@@ -183,7 +183,7 @@ Display all skills from DEVELOPER_INFO:
 All 10 achievements listed with numbered badges:
 1. Built comprehensive AI platform with 35+ models
 2. Integrated 4 major AI providers
-3. Reached 1000+ daily active users
+3. Reached 100+ daily active users
 4. Platform available in 100+ countries
 5. Wrote 50,000+ lines of production code
 6. Created 200+ reusable components
@@ -237,8 +237,8 @@ Updated sitemap.ts:
 - ✅ "developer from India"
 
 ### Education-Based
-- ✅ "Maples Academy student"
-- ✅ "Class 11 developer"
+- ✅ "Maples Academy Khatauli student"
+- ✅ "Class 12developer"
 - ✅ "student developer"
 - ✅ "teenage entrepreneur"
 
@@ -265,8 +265,8 @@ Updated sitemap.ts:
 
 ### Secondary Queries
 1. **Khatauli developer** - Location-based
-2. **Maples Academy student developer** - School-based
-3. **Class 11 developer** - Education-based
+2. **Maples Academy Khatauli student developer** - School-based
+3. **Class 12developer** - Education-based
 4. **teenage AI entrepreneur** - Age + achievement
 5. **student built AI platform** - Story-based
 

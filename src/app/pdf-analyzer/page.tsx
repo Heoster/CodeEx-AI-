@@ -12,6 +12,7 @@ import { analyzeDocumentFromPdf } from '@/app/actions';
 import { Label } from '@/components/ui/label';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { ProtectedRoute } from '@/hooks/use-auth';
 
 export default function PdfAnalyzerPage() {
   const [pdfFile, setPdfFile] = useState<File | null>(null);
@@ -71,14 +72,23 @@ export default function PdfAnalyzerPage() {
   const triggerFileSelect = () => fileInputRef.current?.click();
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <PageHeader 
-        backLink="/chat" 
-        backText="Back to Chat" 
-        title="PDF Document Analyzer"
-      />
+    <ProtectedRoute>
+      <div className="min-h-screen bg-background text-foreground">
+        <PageHeader 
+          backLink="/chat" 
+          backText="Back to Chat" 
+          title="PDF Document Analyzer"
+        />
 
-      <main className="container mx-auto max-w-7xl px-4 py-8 md:px-6 md:py-12">
+        <main className="container mx-auto max-w-7xl px-4 py-8 md:px-6 md:py-12">
+        <section className="mb-6 space-y-2">
+          <h1 className="text-3xl font-bold tracking-tight md:text-4xl">AI PDF Analyzer</h1>
+          <p className="max-w-3xl text-muted-foreground">
+            Upload a PDF, ask natural-language questions, and let SOHAM summarize, extract insights, and analyze document content.
+            For broader workflows, visit <Link href="/chat" className="font-medium text-foreground hover:underline">AI chat</Link> or read the{' '}
+            <Link href="/documentation/pdf-analysis" className="font-medium text-foreground hover:underline">PDF analysis guide</Link>.
+          </p>
+        </section>
         <div className="grid gap-8 md:grid-cols-2">
           {/* Input Section */}
           <Card>
@@ -164,7 +174,8 @@ export default function PdfAnalyzerPage() {
             </CardContent>
           </Card>
         </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </ProtectedRoute>
   );
 }

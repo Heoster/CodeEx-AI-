@@ -83,7 +83,7 @@ The following files are already configured for Vercel:
 5. **Deploy**
    - Click "Deploy"
    - Wait 2-3 minutes for build to complete
-   - You'll get a URL like: `https://codeex-ai.vercel.app`
+   - You'll get a URL like: `https://soham-ai.vercel.app`
 
 6. **Update App URL**
    - Go to Project Settings → Environment Variables

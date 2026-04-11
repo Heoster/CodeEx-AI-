@@ -182,14 +182,14 @@ export function AISearchOptimization({
       ].join(', '),
       mainEntityOfPage: {
         '@type': 'WebPage',
-        '@id': typeof window !== 'undefined' ? window.location.href : 'https://codeex-ai.vercel.app'
+        '@id': typeof window !== 'undefined' ? window.location.href : 'https://soham-ai.vercel.app'
       },
       publisher: {
         '@type': 'Organization',
         name: 'SOHAM',
         logo: {
           '@type': 'ImageObject',
-          url: 'https://codeex-ai.vercel.app/images/logo.png'
+          url: 'https://soham-ai.vercel.app/FINALSOHAM.png'
         }
       },
       datePublished: '2024-01-01',

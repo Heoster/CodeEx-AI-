@@ -1,6 +1,15 @@
 'use client';
 
+import type {ReactNode} from 'react';
+import {useState} from 'react';
+import Link from 'next/link';
+import {getAuth, signOut} from 'firebase/auth';
+import {useTheme} from 'next-themes';
+import {useAuth} from '@/hooks/use-auth';
+import {useIsMobile} from '@/hooks/use-mobile';
+import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {Button} from '@/components/ui/button';
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
 import {
   Dialog,
   DialogContent,
@@ -9,6 +18,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import {Label} from '@/components/ui/label';
+import {ModelSelector} from './model-selector';
+import {MobileModelSelector} from './mobile-model-selector';
+import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover';
 import {
   Select,
   SelectContent,
@@ -16,290 +29,389 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {Label} from '@/components/ui/label';
-import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
-import type {ReactNode} from 'react';
-import type {Settings, Model} from '@/lib/types';
-import {ModelSelector} from './model-selector';
-import {MobileModelSelector} from './mobile-model-selector';
-import {useIsMobile} from '@/hooks/use-mobile';
+import {Separator} from '@/components/ui/separator';
 import {Switch} from '@/components/ui/switch';
-import {useTheme} from 'next-themes';
-import Link from 'next/link';
-import {useState} from 'react';
-import {ChevronDown, Sparkles, Palette, Volume2, Info} from 'lucide-react';
+import {Tabs, TabsContent, TabsList, TabsTrigger} from '@/components/ui/tabs';
+import type {Settings, Model} from '@/lib/types';
+import {
+  ChevronDown,
+  LogOut,
+  Monitor,
+  Palette,
+  Settings2,
+  SlidersHorizontal,
+  Sparkles,
+  UserCircle2,
+  Volume2,
+} from 'lucide-react';
 
 interface SettingsDialogProps {
-  children: ReactNode;
+  children?: ReactNode;
   settings: Settings;
   onSettingsChange: (settings: Settings) => void;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+}
+
+interface QuickSettingsPopoverProps {
+  settings: Settings;
+  onSettingsChange: (settings: Settings) => void;
+  onOpenFullSettings: () => void;
+}
+
+function VoiceSettingsCard({
+  settings,
+  onSettingsChange,
+}: {
+  settings: Settings;
+  onSettingsChange: (settings: Settings) => void;
+}) {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-lg flex items-center gap-2">
+          <Volume2 className="h-5 w-5" />
+          Voice
+        </CardTitle>
+        <CardDescription>Control speech output and voice selection.</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="flex items-center justify-between gap-4 rounded-xl border p-4">
+          <div className="space-y-1">
+            <Label htmlFor="speech-enabled">Enable speech output</Label>
+            <p className="text-sm text-muted-foreground">Read assistant replies aloud after each response.</p>
+          </div>
+          <Switch
+            id="speech-enabled"
+            checked={settings.enableSpeech}
+            onCheckedChange={(checked) => onSettingsChange({...settings, enableSpeech: checked})}
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="voice">Voice preset</Label>
+          <Select
+            value={settings.voice}
+            onValueChange={(value: Settings['voice']) =>
+              onSettingsChange({...settings, voice: value})
+            }
+            disabled={!settings.enableSpeech}
+          >
+            <SelectTrigger id="voice" className="h-11">
+              <SelectValue placeholder="Select voice" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="troy">Troy</SelectItem>
+              <SelectItem value="diana">Diana</SelectItem>
+              <SelectItem value="hannah">Hannah</SelectItem>
+              <SelectItem value="autumn">Autumn</SelectItem>
+              <SelectItem value="austin">Austin</SelectItem>
+              <SelectItem value="daniel">Daniel</SelectItem>
+            </SelectContent>
+          </Select>
+          <p className="text-xs text-muted-foreground">Groq Orpheus TTS voice selection.</p>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+export function QuickSettingsPopover({
+  settings,
+  onSettingsChange,
+  onOpenFullSettings,
+}: QuickSettingsPopoverProps) {
+  const {theme, setTheme} = useTheme();
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="outline" size="icon" className="h-9 w-9">
+          <SlidersHorizontal className="h-4 w-4" />
+          <span className="sr-only">Quick settings</span>
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent align="end" className="w-80 space-y-4">
+        <div className="space-y-1">
+          <h3 className="font-semibold">Quick Settings</h3>
+          <p className="text-sm text-muted-foreground">Adjust the most-used chat controls without leaving the conversation.</p>
+        </div>
+        <Separator />
+
+        <div className="space-y-2">
+          <Label htmlFor="quick-theme">Theme</Label>
+          <Select value={theme} onValueChange={setTheme}>
+            <SelectTrigger id="quick-theme" className="h-10">
+              <SelectValue placeholder="Select theme" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="light">Light</SelectItem>
+              <SelectItem value="dark">Dark</SelectItem>
+              <SelectItem value="system">System</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="quick-tone">Tone</Label>
+          <Select
+            value={settings.tone}
+            onValueChange={(value: Settings['tone']) =>
+              onSettingsChange({...settings, tone: value})
+            }
+          >
+            <SelectTrigger id="quick-tone" className="h-10">
+              <SelectValue placeholder="Select tone" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="helpful">Helpful</SelectItem>
+              <SelectItem value="formal">Formal</SelectItem>
+              <SelectItem value="casual">Casual</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="flex items-center justify-between rounded-xl border p-3">
+          <div className="space-y-0.5">
+            <p className="text-sm font-medium">Speech output</p>
+            <p className="text-xs text-muted-foreground">Enable assistant voice replies.</p>
+          </div>
+          <Switch
+            checked={settings.enableSpeech}
+            onCheckedChange={(checked) => onSettingsChange({...settings, enableSpeech: checked})}
+          />
+        </div>
+
+        <div className="rounded-xl border p-3 text-sm">
+          <p className="font-medium">Current model</p>
+          <p className="mt-1 text-muted-foreground">
+            {settings.model === 'auto' ? 'Auto smart routing' : settings.model}
+          </p>
+        </div>
+
+        <Button onClick={onOpenFullSettings} className="w-full gap-2">
+          <Settings2 className="h-4 w-4" />
+          Open Settings
+        </Button>
+      </PopoverContent>
+    </Popover>
+  );
 }
 
 export function SettingsDialog({
   children,
   settings,
   onSettingsChange,
+  open,
+  onOpenChange,
 }: SettingsDialogProps) {
   const {theme, setTheme} = useTheme();
   const isMobile = useIsMobile();
+  const {user} = useAuth();
   const [isMobileModelSelectorOpen, setIsMobileModelSelectorOpen] = useState(false);
 
-  return (
-    <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="sm:max-w-[600px] max-h-[85vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="text-2xl">Settings</DialogTitle>
-          <DialogDescription>
-            Customize your AI experience and preferences
-          </DialogDescription>
-        </DialogHeader>
+  const handleSignOut = async () => {
+    await signOut(getAuth());
+    onOpenChange?.(false);
+  };
 
-        <Tabs defaultValue="ai" className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="ai" className="gap-2">
-              <Sparkles className="h-4 w-4" />
-              AI
-            </TabsTrigger>
-            <TabsTrigger value="appearance" className="gap-2">
-              <Palette className="h-4 w-4" />
-              Appearance
-            </TabsTrigger>
-            <TabsTrigger value="about" className="gap-2">
-              <Info className="h-4 w-4" />
-              About
-            </TabsTrigger>
-          </TabsList>
+  const content = (
+    <DialogContent className="sm:max-w-[760px] max-h-[88vh] overflow-y-auto">
+      <DialogHeader className="space-y-2">
+        <DialogTitle className="text-2xl">Settings</DialogTitle>
+        <DialogDescription>
+          One place for AI behavior, voice, appearance, and user account controls.
+        </DialogDescription>
+      </DialogHeader>
 
-          <TabsContent value="ai" className="space-y-4 mt-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">AI Model</CardTitle>
-                <CardDescription>
-                  Choose which AI model to use for responses
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {isMobile ? (
-                  <>
-                    <Button
-                      variant="outline"
-                      className="w-full justify-between h-11"
-                      onClick={() => setIsMobileModelSelectorOpen(true)}
-                    >
-                      <span className="truncate">
-                        {settings.model === 'auto' ? 'Auto (Smart Routing)' : settings.model}
-                      </span>
-                      <ChevronDown className="h-4 w-4 ml-2 shrink-0" />
-                    </Button>
-                    <MobileModelSelector
-                      value={settings.model}
-                      onValueChange={(value) => {
-                        console.log('[Settings] Model changed to:', value);
-                        onSettingsChange({...settings, model: value as 'auto' | Model});
-                      }}
-                      isOpen={isMobileModelSelectorOpen}
-                      onClose={() => setIsMobileModelSelectorOpen(false)}
-                    />
-                  </>
-                ) : (
-                  <ModelSelector
+      <Tabs defaultValue="ai" className="w-full">
+        <TabsList className="grid w-full grid-cols-4">
+          <TabsTrigger value="ai" className="gap-2">
+            <Sparkles className="h-4 w-4" />
+            AI
+          </TabsTrigger>
+          <TabsTrigger value="voice" className="gap-2">
+            <Volume2 className="h-4 w-4" />
+            Voice
+          </TabsTrigger>
+          <TabsTrigger value="appearance" className="gap-2">
+            <Palette className="h-4 w-4" />
+            Look
+          </TabsTrigger>
+          <TabsTrigger value="account" className="gap-2">
+            <UserCircle2 className="h-4 w-4" />
+            Account
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="ai" className="mt-5 space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Model selection</CardTitle>
+              <CardDescription>Choose a model manually or stay on auto-routing.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {isMobile ? (
+                <>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-between h-11"
+                    onClick={() => setIsMobileModelSelectorOpen(true)}
+                  >
+                    <span className="truncate">
+                      {settings.model === 'auto' ? 'Auto (Smart Routing)' : settings.model}
+                    </span>
+                    <ChevronDown className="h-4 w-4 ml-2 shrink-0" />
+                  </Button>
+                  <MobileModelSelector
                     value={settings.model}
-                    onValueChange={(value: 'auto' | Model) => {
-                      console.log('[Settings] Model changed to:', value);
-                      onSettingsChange({...settings, model: value});
-                    }}
+                    onValueChange={(value) =>
+                      onSettingsChange({...settings, model: value as 'auto' | Model})
+                    }
+                    isOpen={isMobileModelSelectorOpen}
+                    onClose={() => setIsMobileModelSelectorOpen(false)}
                   />
-                )}
-              </CardContent>
-            </Card>
+                </>
+              ) : (
+                <ModelSelector
+                  value={settings.model}
+                  onValueChange={(value: 'auto' | Model) =>
+                    onSettingsChange({...settings, model: value})
+                  }
+                />
+              )}
+            </CardContent>
+          </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Response Style</CardTitle>
-                <CardDescription>
-                  Adjust how the AI communicates with you
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="tone">Tone</Label>
-                  <Select
-                    value={settings.tone}
-                    onValueChange={(value: Settings['tone']) =>
-                      onSettingsChange({...settings, tone: value})
-                    }
-                  >
-                    <SelectTrigger id="tone" className="h-11">
-                      <SelectValue placeholder="Select tone" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="helpful">Helpful</SelectItem>
-                      <SelectItem value="formal">Formal</SelectItem>
-                      <SelectItem value="casual">Casual</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="technical">Technical Level</Label>
-                  <Select
-                    value={settings.technicalLevel}
-                    onValueChange={(value: Settings['technicalLevel']) =>
-                      onSettingsChange({
-                        ...settings,
-                        technicalLevel: value,
-                      })
-                    }
-                  >
-                    <SelectTrigger id="technical" className="h-11">
-                      <SelectValue placeholder="Select level" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="beginner">Beginner</SelectItem>
-                      <SelectItem value="intermediate">Intermediate</SelectItem>
-                      <SelectItem value="expert">Expert</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="appearance" className="space-y-4 mt-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Theme</CardTitle>
-                <CardDescription>
-                  Choose your preferred color scheme
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Select value={theme} onValueChange={setTheme}>
-                  <SelectTrigger id="theme" className="h-11">
-                    <SelectValue placeholder="Select theme" />
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Response behavior</CardTitle>
+              <CardDescription>Shape how SOHAM responds to your questions.</CardDescription>
+            </CardHeader>
+            <CardContent className="grid gap-4 md:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="tone">Tone</Label>
+                <Select
+                  value={settings.tone}
+                  onValueChange={(value: Settings['tone']) =>
+                    onSettingsChange({...settings, tone: value})
+                  }
+                >
+                  <SelectTrigger id="tone" className="h-11">
+                    <SelectValue placeholder="Select tone" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="light">Light</SelectItem>
-                    <SelectItem value="dark">Dark</SelectItem>
-                    <SelectItem value="system">System</SelectItem>
+                    <SelectItem value="helpful">Helpful</SelectItem>
+                    <SelectItem value="formal">Formal</SelectItem>
+                    <SelectItem value="casual">Casual</SelectItem>
                   </SelectContent>
                 </Select>
-              </CardContent>
-            </Card>
+              </div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <Volume2 className="h-5 w-5" />
-                  Speech Settings
-                </CardTitle>
-                <CardDescription>
-                  Configure text-to-speech output
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="space-y-0.5">
-                    <Label htmlFor="speech">Enable Speech Output</Label>
-                    <p className="text-sm text-muted-foreground">
-                      Hear AI responses read aloud
-                    </p>
-                  </div>
-                  <Switch
-                    id="speech"
-                    checked={settings.enableSpeech}
-                    onCheckedChange={checked =>
-                      onSettingsChange({...settings, enableSpeech: checked})
-                    }
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="voice">Voice</Label>
-                  <Select
-                    value={settings.voice}
-                    onValueChange={(value: Settings['voice']) =>
-                      onSettingsChange({...settings, voice: value})
-                    }
-                    disabled={!settings.enableSpeech}
-                  >
-                    <SelectTrigger id="voice" className="h-11">
-                      <SelectValue placeholder="Select voice" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="troy">Troy (Balanced)</SelectItem>
-                      <SelectItem value="diana">Diana (Professional)</SelectItem>
-                      <SelectItem value="hannah">Hannah (Warm)</SelectItem>
-                      <SelectItem value="autumn">Autumn (Gentle)</SelectItem>
-                      <SelectItem value="austin">Austin (Energetic)</SelectItem>
-                      <SelectItem value="daniel">Daniel (Commanding)</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <p className="text-xs text-muted-foreground">
-                    Powered by Groq Orpheus TTS
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="about" className="space-y-4 mt-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Support</CardTitle>
-                <CardDescription>
-                  Get help and contact information
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <p className="text-sm">
-                    For support or inquiries, please email us at:
-                  </p>
-                  <a
-                    href="mailto:codeex@email.com"
-                    className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full"
-                  >
-                    codeex@email.com
-                  </a>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Legal</CardTitle>
-                <CardDescription>
-                  Privacy and terms information
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Link
-                  href="/privacy"
-                  className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full"
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <div className="space-y-2">
+                <Label htmlFor="technical-level">Technical level</Label>
+                <Select
+                  value={settings.technicalLevel}
+                  onValueChange={(value: Settings['technicalLevel']) =>
+                    onSettingsChange({...settings, technicalLevel: value})
+                  }
                 >
-                  Privacy Policy
-                </Link>
-              </CardContent>
-            </Card>
+                  <SelectTrigger id="technical-level" className="h-11">
+                    <SelectValue placeholder="Select level" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="beginner">Beginner</SelectItem>
+                    <SelectItem value="intermediate">Intermediate</SelectItem>
+                    <SelectItem value="expert">Expert</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">About SOHAM</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">
-                  SOHAM by CODEEX-AI. An intelligent assistant designed to help you with coding, problem-solving, and more.
-                </p>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
-      </DialogContent>
+        <TabsContent value="voice" className="mt-5">
+          <VoiceSettingsCard settings={settings} onSettingsChange={onSettingsChange} />
+        </TabsContent>
+
+        <TabsContent value="appearance" className="mt-5 space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Monitor className="h-5 w-5" />
+                Theme
+              </CardTitle>
+              <CardDescription>Choose the color mode that fits your device and workspace.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Select value={theme} onValueChange={setTheme}>
+                <SelectTrigger id="theme" className="h-11">
+                  <SelectValue placeholder="Select theme" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="light">Light</SelectItem>
+                  <SelectItem value="dark">Dark</SelectItem>
+                  <SelectItem value="system">System</SelectItem>
+                </SelectContent>
+              </Select>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="account" className="mt-5 space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">User profile</CardTitle>
+              <CardDescription>Manage your session and account-related actions.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {user ? (
+                <div className="flex items-center gap-3 rounded-2xl border p-4">
+                  <Avatar className="h-12 w-12">
+                    <AvatarImage src={user.photoURL ?? ''} alt={user.displayName ?? 'User'} />
+                    <AvatarFallback>{user.displayName?.charAt(0) ?? 'U'}</AvatarFallback>
+                  </Avatar>
+                  <div className="min-w-0">
+                    <p className="truncate font-medium">{user.displayName || 'SOHAM User'}</p>
+                    <p className="truncate text-sm text-muted-foreground">{user.email}</p>
+                  </div>
+                </div>
+              ) : (
+                <p className="text-sm text-muted-foreground">Sign in to access account actions.</p>
+              )}
+
+              <div className="grid gap-3 md:grid-cols-2">
+                <Link href="/account" className="w-full">
+                  <Button variant="outline" className="w-full">Open Account Page</Button>
+                </Link>
+                <Link href="/account-settings" className="w-full">
+                  <Button variant="outline" className="w-full">Open Advanced Settings</Button>
+                </Link>
+                <Link href="/privacy" className="w-full" target="_blank" rel="noopener noreferrer">
+                  <Button variant="outline" className="w-full">Privacy Policy</Button>
+                </Link>
+                <a href="mailto:codeex@email.com" className="w-full">
+                  <Button variant="outline" className="w-full">Contact Support</Button>
+                </a>
+              </div>
+
+              {user && (
+                <Button variant="destructive" className="w-full gap-2" onClick={handleSignOut}>
+                  <LogOut className="h-4 w-4" />
+                  Sign Out
+                </Button>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </DialogContent>
+  );
+
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      {children ? <DialogTrigger asChild>{children}</DialogTrigger> : null}
+      {content}
     </Dialog>
   );
 }

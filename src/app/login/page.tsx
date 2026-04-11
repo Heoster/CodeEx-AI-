@@ -14,11 +14,11 @@ import {app, googleProvider} from '@/lib/firebase';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Label} from '@/components/ui/label';
-import {useRouter} from 'next/navigation';
+import {useRouter, useSearchParams} from 'next/navigation';
 import {useAuth} from '@/hooks/use-auth';
 import {useEffect, useState} from 'react';
 import {Skeleton} from '@/components/ui/skeleton';
-import {Eye, EyeOff, MessageSquare} from 'lucide-react';
+import {Eye, EyeOff, MessageSquare, Shield, Sparkles, Zap} from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -31,6 +31,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {useToast} from '@/hooks/use-toast';
 import {sendWelcomeEmail} from '@/lib/email';
+import {Space_Grotesk} from 'next/font/google';
+import {Suspense} from 'react';
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['500', '600', '700'],
+  variable: '--font-space-grotesk',
+});
 
 const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" {...props}>
@@ -103,18 +111,29 @@ const getFirebaseAuthErrorMessage = (error: unknown): string => {
 };
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="flex h-screen w-full items-center justify-center"><Skeleton className="h-64 w-full max-w-md" /></div>}>
+      <LoginPageInner />
+    </Suspense>
+  );
+}
+
+function LoginPageInner() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const {user, loading} = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
   const {toast} = useToast();
 
   const [isNamePromptOpen, setIsNamePromptOpen] = useState(false);
   const [newUserName, setNewUserName] = useState('');
   const [isSavingName, setIsSavingName] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
+  const nextPath = searchParams?.get('next') || '/chat';
 
   const handleAuthError = (error: unknown) => {
     console.error('Authentication Error:', error);
@@ -168,8 +187,7 @@ export default function LoginPage() {
     }
   };
 
-  const handleEmailSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleEmailSignUp = async () => {
     setError(null);
     if (password.length < 6) {
       setError('Password should be at least 6 characters.');
@@ -188,8 +206,7 @@ export default function LoginPage() {
     }
   };
 
-  const handleEmailSignIn = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleEmailSignIn = async () => {
     setError(null);
     const auth = getAuth(app);
     try {
@@ -198,6 +215,15 @@ export default function LoginPage() {
     } catch (error: unknown) {
       handleAuthError(error);
     }
+  };
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (authMode === 'signup') {
+      await handleEmailSignUp();
+      return;
+    }
+    await handleEmailSignIn();
   };
 
   const handleSaveName = async () => {
@@ -239,10 +265,11 @@ export default function LoginPage() {
     if (!loading && user) {
       if (!user.displayName) {
         setIsNamePromptOpen(true);
+        return;
       }
-      // Don't auto-redirect - let user navigate manually or use a button
+      router.replace(nextPath);
     }
-  }, [user, loading]);
+  }, [user, loading, router, nextPath]);
 
   // Handle redirect result from Google sign-in
   useEffect(() => {
@@ -279,156 +306,211 @@ export default function LoginPage() {
     );
   }
 
-  // If user is already logged in, show a success message with navigation option
   if (user && user.displayName) {
     return (
-      <div className="flex h-screen w-full items-center justify-center bg-background p-4">
-        <div className="w-full max-w-md rounded-lg border bg-card p-8 shadow-lg text-center space-y-4">
-          <div className="flex justify-center">
-            <Image src="/FINALSOHAM.png" alt="SOHAM Logo" width={56} height={56} />
-          </div>
-          <h2 className="text-2xl font-bold">You&apos;re Already Signed In!</h2>
-          <p className="text-muted-foreground">
-            Welcome back, {user.displayName}!
-          </p>
-          <div className="flex flex-col gap-2 pt-4">
-            <Button onClick={() => router.push('/chat')} className="btn-gradient w-full">
-              Go to Chat
-            </Button>
-            <Button 
-              onClick={() => {
-                const auth = getAuth(app);
-                auth.signOut();
-              }} 
-              variant="outline" 
-              className="w-full"
-            >
-              Sign Out
-            </Button>
-          </div>
-        </div>
+      <div className="flex h-screen w-full items-center justify-center">
+        <Skeleton className="h-64 w-full max-w-md" />
       </div>
     );
   }
 
   return (
     <>
-      <div className="flex min-h-screen w-full items-center justify-center bg-background p-4 md:p-6">
-        <div className="container mx-auto grid w-full max-w-6xl grid-cols-1 gap-6 md:gap-8 rounded-lg md:grid-cols-2">
-          {/* Left promo panel */}
-          <div className="hidden flex-col justify-center gap-6 rounded-lg p-6 md:p-8 md:flex">
-            <div>
-              <h2 className="text-4xl font-extrabold">
-                Welcome back to <span className="gradient-text">SOHAM</span>
-              </h2>
-              <p className="mt-3 max-w-lg text-lg text-muted-foreground">
-                Smart assistants, instant code help, and visual problem solving —
-                all in one place. Sign in to continue where you left off.
-              </p>
-            </div>
-
-            <div className="mt-4 flex items-center gap-4">
-              <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                <MessageSquare />
-              </div>
+      <div className={`${spaceGrotesk.variable} min-h-screen w-full bg-[#05070b] text-slate-100`}>
+        <div className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(circle_at_18%_20%,rgba(56,189,248,0.18),transparent_42%),radial-gradient(circle_at_82%_16%,rgba(251,146,60,0.2),transparent_40%),radial-gradient(circle_at_50%_100%,rgba(163,230,53,0.13),transparent_45%)]" />
+        <div className="mx-auto flex min-h-screen w-full max-w-6xl items-center justify-center px-4 py-10 sm:px-6">
+          <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-2">
+            <div className="hidden flex-col justify-between rounded-3xl border border-white/10 bg-white/5 p-8 md:flex">
               <div>
-                <h4 className="font-semibold">Conversational AI</h4>
-                <p className="text-sm text-muted-foreground">Context-aware chats & multi-session support</p>
+                <div className="flex items-center gap-3">
+                  <Image src="/FINALSOHAM.png" alt="SOHAM logo" width={44} height={44} />
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.2em] text-slate-400">SOHAM</p>
+                    <p className="text-sm text-slate-300">by CODEEX-AI</p>
+                  </div>
+                </div>
+
+                <h2 className="mt-8 font-[family:var(--font-space-grotesk)] text-3xl font-semibold text-white">
+                  Professional access to your AI workspace
+                </h2>
+                <p className="mt-3 text-sm leading-relaxed text-slate-300">
+                  Sign in to resume conversations, manage multi-device memory, and run tool-driven workflows in a
+                  serverless-ready environment.
+                </p>
+              </div>
+
+              <div className="mt-8 space-y-4">
+                <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-black/30 p-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-slate-100">
+                    <Shield size={18} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-white">Secure sign-in</p>
+                    <p className="text-xs text-slate-400">Firebase authentication with safe fallbacks.</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-black/30 p-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-slate-100">
+                    <Sparkles size={18} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-white">Unified agent stack</p>
+                    <p className="text-xs text-slate-400">Tools, memory, and model routing in one flow.</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-black/30 p-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-slate-100">
+                    <Zap size={18} />
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-white">Fast onboarding</p>
+                    <p className="text-xs text-slate-400">Create an account in seconds and start chatting.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6">
+                <div className="infinity-animation" />
               </div>
             </div>
 
-            <div className="mt-8 flex justify-center">
-              <div className="infinity-animation" />
-            </div>
-          </div>
-
-          {/* Right auth card */}
-          <div className="mx-auto w-full max-w-md transform rounded-lg border bg-card p-6 md:p-8 shadow-lg">
-            <div className="grid gap-2 text-center">
-              <div className="mb-2 flex justify-center">
-                <Image src="/FINALSOHAM.png" alt="SOHAM Logo" width={56} height={56} />
+            <div className="mx-auto w-full max-w-md rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl backdrop-blur-md sm:p-8">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10">
+                    <MessageSquare size={20} />
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.18em] text-slate-400">Access</p>
+                    <h1 className="text-xl font-semibold text-white">
+                      {authMode === 'signin' ? 'Sign in to SOHAM' : 'Create your SOHAM account'}
+                    </h1>
+                  </div>
+                </div>
+                <Image src="/FINALSOHAM.png" alt="SOHAM logo" width={34} height={34} />
               </div>
-              <h1 className="text-2xl font-bold">Sign in to your account</h1>
-              <p className="text-sm text-muted-foreground">Fast, secure access to your chats and settings</p>
-            </div>
 
-            <div className="mt-6 grid gap-4">
-              <Button 
-                onClick={handleGoogleSignIn} 
-                variant="outline" 
-                className="w-full py-3"
-                disabled={isRedirecting}
-              >
-                <GoogleIcon className="mr-3 h-5 w-5" />
-                {isRedirecting ? 'Redirecting...' : 'Continue with Google'}
-              </Button>
-              
-              <div className="text-center">
+              <div className="mt-6 flex rounded-full border border-white/10 bg-black/30 p-1 text-xs">
                 <button
                   type="button"
-                  onClick={async () => {
-                    setError(null);
-                    setIsRedirecting(true);
-                    const auth = getAuth(app);
-                    try {
-                      await signInWithRedirect(auth, googleProvider);
-                    } catch (error: unknown) {
-                      setIsRedirecting(false);
-                      handleAuthError(error);
-                    }
-                  }}
-                  className="text-xs text-muted-foreground hover:text-foreground underline"
-                  disabled={isRedirecting}
+                  onClick={() => setAuthMode('signin')}
+                  className={`flex-1 rounded-full px-3 py-2 text-center transition ${
+                    authMode === 'signin' ? 'bg-white text-slate-950' : 'text-slate-300'
+                  }`}
                 >
-                  Having trouble with pop-ups? Try redirect sign-in
+                  Sign In
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setAuthMode('signup')}
+                  className={`flex-1 rounded-full px-3 py-2 text-center transition ${
+                    authMode === 'signup' ? 'bg-white text-slate-950' : 'text-slate-300'
+                  }`}
+                >
+                  Sign Up
                 </button>
               </div>
 
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="bg-card px-3 text-muted-foreground">Or use your email</span>
-                </div>
-              </div>
+              <div className="mt-6 grid gap-4">
+                <Button
+                  onClick={handleGoogleSignIn}
+                  variant="outline"
+                  className="w-full border-white/15 bg-white/5 py-3 text-slate-100 hover:bg-white/10"
+                  disabled={isRedirecting}
+                >
+                  <GoogleIcon className="mr-3 h-5 w-5" />
+                  {isRedirecting ? 'Redirecting...' : 'Continue with Google'}
+                </Button>
 
-              <form onSubmit={handleEmailSignIn} className="space-y-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="name@example.com" value={email} onChange={e => setEmail(e.target.value)} required />
+                <div className="text-center">
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      setError(null);
+                      setIsRedirecting(true);
+                      const auth = getAuth(app);
+                      try {
+                        await signInWithRedirect(auth, googleProvider);
+                      } catch (error: unknown) {
+                        setIsRedirecting(false);
+                        handleAuthError(error);
+                      }
+                    }}
+                    className="text-xs text-slate-400 hover:text-slate-100 underline"
+                    disabled={isRedirecting}
+                  >
+                    Having trouble with pop-ups? Try redirect sign-in
+                  </button>
                 </div>
 
-                <div className="relative grid gap-2">
-                  <Label htmlFor="password">Password</Label>
-                  <Input id="password" type={isPasswordVisible ? 'text' : 'password'} placeholder="••••••••" value={password} onChange={e => setPassword(e.target.value)} required />
-                  <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-7 h-7 w-7" onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
-                    {isPasswordVisible ? <EyeOff size={16} /> : <Eye size={16} />}
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t border-white/10" />
+                  </div>
+                  <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-[#0b0f15] px-3 text-slate-400">Or use your email</span>
+                  </div>
+                </div>
+
+                <form onSubmit={handleEmailSubmit} className="space-y-4">
+                  <div className="grid gap-2">
+                    <Label htmlFor="email" className="text-slate-200">Email</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="name@example.com"
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      required
+                      className="border-white/15 bg-black/30 text-slate-100 placeholder:text-slate-500"
+                    />
+                  </div>
+
+                  <div className="relative grid gap-2">
+                    <Label htmlFor="password" className="text-slate-200">Password</Label>
+                    <Input
+                      id="password"
+                      type={isPasswordVisible ? 'text' : 'password'}
+                      placeholder="••••••••"
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+                      required
+                      className="border-white/15 bg-black/30 text-slate-100 placeholder:text-slate-500"
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="absolute right-1 top-7 h-7 w-7 text-slate-400 hover:text-slate-100"
+                      onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                    >
+                      {isPasswordVisible ? <EyeOff size={16} /> : <Eye size={16} />}
+                    </Button>
+                  </div>
+
+                  {error && <p className="whitespace-pre-wrap text-sm text-rose-300">{error}</p>}
+
+                  <Button type="submit" className="w-full bg-white py-2 text-slate-950 hover:bg-slate-200">
+                    {authMode === 'signin' ? 'Sign In' : 'Create Account'}
                   </Button>
-                </div>
+                </form>
 
-                {error && <p className="whitespace-pre-wrap text-sm text-destructive">{error}</p>}
-
-                <div className="flex items-center justify-between gap-2">
-                  <Button type="submit" className="btn-gradient w-full py-2">Sign In</Button>
-                  <Button type="button" variant="outline" className="w-full py-2" onClick={handleEmailSignUp}>Sign Up</Button>
-                </div>
-              </form>
-
-              <div className="text-center mt-2 text-sm space-y-2">
-                <div>
-                  <Link href="/forgot-password" className="text-muted-foreground hover:text-primary">
+                <div className="text-center text-sm">
+                  <Link href="/forgot-password" className="text-slate-400 hover:text-white">
                     Forgot your password?
                   </Link>
                 </div>
               </div>
-            </div>
 
-            <div className="mt-4 md:mt-6 text-center text-xs md:text-sm text-muted-foreground">
-              By signing in, you agree to our{' '}
-              <Link href="/privacy" className="underline hover:text-primary" target="_blank" rel="noopener noreferrer">Privacy Policy</Link>.
+              <div className="mt-6 text-center text-xs text-slate-400">
+                By continuing, you agree to our{' '}
+                <Link href="/privacy" className="underline hover:text-white" target="_blank" rel="noopener noreferrer">
+                  Privacy Policy
+                </Link>
+                .
+              </div>
+              <p className="mt-2 text-center text-xs text-slate-500">SOHAM (Self Organising Hyper Adaptive Machine) by CODEEX-AI.</p>
             </div>
-            <p className="mt-2 text-center text-xs text-muted-foreground">SOHAM (Self Organising Hyper Adaptive Machine) by CODEEX-AI.</p>
           </div>
         </div>
       </div>

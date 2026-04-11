@@ -44,7 +44,7 @@ export function ChatMessages({
 
   return (
     <ScrollArea className={cn('w-full', className)} ref={scrollAreaRef}>
-      <div className="max-w-4xl mx-auto p-4 md:p-6 lg:p-8" ref={viewportRef}>
+      <div className="mx-auto w-full max-w-5xl px-3 py-4 md:px-6 md:py-6 lg:px-8" ref={viewportRef}>
         {header}
         <div className="space-y-6 md:space-y-8">
           {messages.map((message, index) => (

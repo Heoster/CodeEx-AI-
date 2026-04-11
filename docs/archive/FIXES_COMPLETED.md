@@ -69,7 +69,7 @@ The AI now knows about:
 - **Name**: SOHAM Heoster (Harsh)
 - **Age**: 16 years old
 - **Location**: Khatauli, Uttar Pradesh, India
-- **Education**: Class 11th PCM at Maples Academy
+- **Education**: Class 11th PCM at Maples Academy Khatauli
 - **Company**: SOHAM (Founder & Lead Developer)
 - **Contact**: codeex@email.com
 - **Social**: 

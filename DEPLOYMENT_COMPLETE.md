@@ -357,7 +357,7 @@ git push origin feature-branch
 git push origin main
 
 # Vercel automatically deploys to production
-# Live at: https://codeex-ai.vercel.app
+# Live at: https://soham-ai.vercel.app
 ```
 
 ---

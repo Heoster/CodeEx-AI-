@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { PageHeader } from '@/components/page-header';
 import { solveEquationFromImage } from '@/app/actions';
+import { ProtectedRoute } from '@/hooks/use-auth';
 
 type SolutionState = {
   recognizedEquation: string;
@@ -60,14 +61,23 @@ export default function VisualMathPage() {
   const triggerFileSelect = () => fileInputRef.current?.click();
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <PageHeader 
-        backLink="/chat" 
-        backText="Back to Chat" 
-        title="Visual Math Solver"
-      />
+    <ProtectedRoute>
+      <div className="min-h-screen bg-background text-foreground">
+        <PageHeader 
+          backLink="/chat" 
+          backText="Back to Chat" 
+          title="Visual Math Solver"
+        />
 
-      <main className="container mx-auto max-w-4xl px-4 py-6 md:py-8 lg:py-12 md:px-6">
+        <main className="container mx-auto max-w-4xl px-4 py-6 md:py-8 lg:py-12 md:px-6">
+        <section className="mb-6 space-y-2">
+          <h1 className="text-3xl font-bold tracking-tight md:text-4xl">AI Image Math Solver</h1>
+          <p className="max-w-3xl text-muted-foreground">
+            Upload a handwritten or printed equation and let SOHAM recognize the math problem, solve it, and explain each step.
+            You can also return to <Link href="/chat" className="font-medium text-foreground hover:underline">AI chat</Link> or explore the full{' '}
+            <Link href="/documentation/math-solver" className="font-medium text-foreground hover:underline">math solver guide</Link>.
+          </p>
+        </section>
         <div className="grid gap-6 md:gap-8 md:grid-cols-2">
           {/* Input Section */}
           <Card>
@@ -162,7 +172,8 @@ export default function VisualMathPage() {
             </CardContent>
           </Card>
         </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </ProtectedRoute>
   );
 }

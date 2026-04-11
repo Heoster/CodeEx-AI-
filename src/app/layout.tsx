@@ -1,6 +1,7 @@
 
 import type { Metadata, Viewport } from 'next';
 import { Manrope } from 'next/font/google';
+import Script from 'next/script';
 import './globals.css';
 import 'katex/dist/katex.min.css';
 import {ThemeProvider} from '@/components/theme-provider';
@@ -30,7 +31,7 @@ if (typeof window === 'undefined') {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://soham-ai.vercel.app'),
   title: defaultSEO.title,
   description: defaultSEO.description,
   keywords: defaultSEO.keywords,
@@ -47,23 +48,23 @@ export const metadata: Metadata = {
     capable: true,
     statusBarStyle: 'black-translucent',
     title: DEVELOPER_INFO.company.name,
-    startupImage: '/icons/icon-192x192.png',
+    startupImage: '/FINALSOHAM.png',
   },
   icons: {
     icon: '/FINALSOHAM.png',
-    apple: '/icons/icon-192x192.png',
+    apple: '/FINALSOHAM.png',
     shortcut: '/FINALSOHAM.png',
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app',
+    url: process.env.NEXT_PUBLIC_SITE_URL || 'https://soham-ai.vercel.app',
     siteName: 'SOHAM',
-    title: 'SOHAM - Free AI Chat with 35+ Models | Groq, Gemini, Cerebras, DeepSeek',
-    description: `Free AI chat with 35+ models including Groq Llama 3.3 70B, Google Gemini 2.5, Cerebras Qwen 3 235B, DeepSeek R1. Chat, code, solve math, analyze PDFs. No signup required. 100% free forever.`,
+    title: 'Free AI Chat Platform | SOHAM - 35+ Models, PDF Analysis, Image Math Solver',
+    description: 'Free AI chat with 35+ models. Chat, code, solve math, analyze PDFs, and use smart web search - no signup required.',
     images: [
       {
-        url: '/Multi-Chat.png',
+        url: 'https://soham-ai.vercel.app/Multi-Chat.png',
         width: 1200,
         height: 630,
         alt: 'SOHAM - Free AI Chat Platform with 35+ Models',
@@ -72,10 +73,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'SOHAM - Free AI Chat with 35+ Models',
-    description: `Free AI chat with 35+ models: Groq Llama 3.3, Gemini 2.5, Cerebras Qwen 3 235B, DeepSeek. Chat, code, solve math, analyze PDFs. No signup.`,
-    creator: `@${DEVELOPER_INFO.social.Twitter}`,
-    images: ['/Multi-Chat.png'],
+    title: 'Free AI Chat Platform | SOHAM - 35+ Models, PDF Analysis, Image Math Solver',
+    description: 'Free AI chat with 35+ models. Chat, code, solve math, analyze PDFs, and use smart web search - no signup required.',
+    site: '@The_Heoster_',
+    creator: '@The_Heoster_',
+    images: ['https://soham-ai.vercel.app/Multi-Chat.png'],
   },
   robots: {
     index: true,
@@ -96,10 +98,9 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app',
+    canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://soham-ai.vercel.app',
     languages: {
-      'en-US': process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app',
-      'en-IN': process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app',
+      'en-US': process.env.NEXT_PUBLIC_SITE_URL || 'https://soham-ai.vercel.app',
     },
   },
   category: 'technology',
@@ -133,25 +134,23 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Google Analytics */}
-        <script
-          async
+        <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-YH87NZPSKB"
+          strategy="afterInteractive"
         />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-YH87NZPSKB');
-            `,
-          }}
-        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-YH87NZPSKB');
+          `}
+        </Script>
         <StructuredData type="organization" />
         <StructuredData type="person" />
         <StructuredData type="softwareApplication" />
         <StructuredData type="website" />
+        <StructuredData type="searchAction" />
         <StructuredData type="breadcrumb" />
         <link rel="author" href={DEVELOPER_INFO.contact.github} />
         <link rel="me" href={DEVELOPER_INFO.contact.linkedin} />

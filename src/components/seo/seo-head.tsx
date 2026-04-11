@@ -35,7 +35,7 @@ export function SEOHead({
   noindex = false,
   nofollow = false
 }: SEOHeadProps) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://soham-ai.vercel.app';
   
   // Merge with defaults
   const seoTitle = templateTitle 
@@ -145,9 +145,9 @@ export function SEOHead({
       
       {/* Favicon and Icons */}
       <link rel="icon" href="/FINALSOHAM.png" />
-      <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png" />
-      <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png" />
-      <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+      <link rel="icon" type="image/png" sizes="32x32" href="/FINALSOHAM.png" />
+      <link rel="icon" type="image/png" sizes="16x16" href="/FINALSOHAM.png" />
+      <link rel="apple-touch-icon" href="/FINALSOHAM.png" />
       <link rel="manifest" href="/manifest.json" />
       
       {/* Additional Performance Hints */}

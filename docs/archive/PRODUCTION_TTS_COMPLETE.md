@@ -160,7 +160,7 @@ curl -H "X-API-Key: your_key" http://localhost:8765/tts
 ### CORS Protection
 ```env
 # Allow specific origins only
-ALLOWED_ORIGINS=https://codeex-ai.netlify.app,https://codeex-ai.vercel.app
+ALLOWED_ORIGINS=https://codeex-ai.netlify.app,https://soham-ai.vercel.app
 ```
 
 ### Rate Limiting
@@ -243,7 +243,7 @@ TTS_API_KEY=your_secret_key_here
 MAX_TEXT_LENGTH=5000
 
 # CORS
-ALLOWED_ORIGINS=https://codeex-ai.netlify.app,https://codeex-ai.vercel.app
+ALLOWED_ORIGINS=https://codeex-ai.netlify.app,https://soham-ai.vercel.app
 ```
 
 ### Nginx Configuration

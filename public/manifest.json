@@ -1,16 +1,16 @@
 {
-  "name": "CODEEX AI - Intelligent Assistant",
-  "short_name": "CODEEX AI",
-  "description": "An intelligent AI assistant powered by Heoster. Chat with multiple AI models, solve math problems, search the web, and more. Optimized for mobile devices.",
+  "name": "SOHAM - Intelligent Assistant",
+  "short_name": "SOHAM",
+  "description": "Free AI assistant. Chat with Groq, Gemini, Cerebras, solve math from images, and analyze PDFs.",
   "icons": [
     {
-      "src": "/icons/icon-192x192.png",
+      "src": "/FINALSOHAM.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icons/icon-192x192.png",
+      "src": "/FINALSOHAM.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
@@ -20,7 +20,7 @@
   "background_color": "#020817",
   "start_url": "/chat",
   "scope": "/",
-  "id": "codeex-ai",
+  "id": "soham",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
   "orientation": "portrait-primary",
@@ -34,25 +34,25 @@
       "sizes": "390x844",
       "type": "image/png",
       "form_factor": "narrow",
-      "label": "Chat interface on mobile"
+      "label": "Mobile AI chat interface with 35+ models"
     },
     {
       "src": "/screenshots/chat-desktop.png",
       "sizes": "1920x1080",
       "type": "image/png",
       "form_factor": "wide",
-      "label": "Chat interface on desktop"
+      "label": "Desktop AI chat workspace with smart search and tools"
     }
   ],
   "shortcuts": [
     {
       "name": "New Chat",
       "short_name": "Chat",
-      "description": "Start a new AI conversation",
+      "description": "Start a free AI chat conversation with 35+ models",
       "url": "/chat",
       "icons": [
         {
-          "src": "/icons/icon-192x192.png",
+          "src": "/FINALSOHAM.png",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -61,11 +61,11 @@
     {
       "name": "Visual Math Solver",
       "short_name": "Math",
-      "description": "Solve math problems from images",
+      "description": "Solve equations from images with the AI math solver",
       "url": "/visual-math",
       "icons": [
         {
-          "src": "/icons/icon-192x192.png",
+          "src": "/FINALSOHAM.png",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -74,11 +74,11 @@
     {
       "name": "PDF Analyzer",
       "short_name": "PDF",
-      "description": "Analyze and ask questions about PDFs",
+      "description": "Analyze PDFs and ask document questions with AI",
       "url": "/pdf-analyzer",
       "icons": [
         {
-          "src": "/icons/icon-192x192.png",
+          "src": "/FINALSOHAM.png",
           "sizes": "192x192",
           "type": "image/png"
         }

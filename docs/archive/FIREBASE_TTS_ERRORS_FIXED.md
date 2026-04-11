@@ -124,7 +124,7 @@ If you want to enable App Check properly:
 2. Create a new reCAPTCHA v3 site key
 3. Add your domains:
    - `codeex-ai.netlify.app`
-   - `codeex-ai.vercel.app`
+   - `soham-ai.vercel.app`
    - `localhost` (for development)
 4. Update `.env.local`:
    ```

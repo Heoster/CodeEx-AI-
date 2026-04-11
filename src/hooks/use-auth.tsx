@@ -5,11 +5,12 @@ import {
   useContext,
   useState,
   useEffect,
+  Suspense,
   type ReactNode,
 } from 'react';
 import {type User, onAuthStateChanged, getAuth} from 'firebase/auth';
 import {app} from '@/lib/firebase';
-import {useRouter} from 'next/navigation';
+import {usePathname, useRouter, useSearchParams} from 'next/navigation';
 import { Skeleton } from '@/components/ui/skeleton';
 
 interface AuthContextType {
@@ -52,8 +53,21 @@ export const useAuth = () => {
 };
 
 // A wrapper for protected routes
-export function ProtectedRoute({children}: {children: ReactNode}) {
+function ProtectedRouteInner({children}: {children: ReactNode}) {
   const {user, loading} = useAuth();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (!loading || user) {
+      return;
+    }
+
+    const queryString = searchParams?.toString() || '';
+    const nextPath = `${pathname}${queryString ? `?${queryString}` : ''}`;
+    router.replace(`/login?next=${encodeURIComponent(nextPath)}`);
+  }, [loading, user, router, pathname, searchParams]);
 
   if (loading) {
     return (
@@ -70,19 +84,29 @@ export function ProtectedRoute({children}: {children: ReactNode}) {
   if (!user) {
     return (
       <div className="flex h-screen w-full flex-col items-center justify-center gap-4 p-4">
-        <div className="text-center space-y-4">
-          <h2 className="text-2xl font-bold">Authentication Required</h2>
-          <p className="text-muted-foreground">Please sign in to access this page.</p>
-          <a 
-            href="/login" 
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
-          >
-            Go to Login
-          </a>
-        </div>
+        <Skeleton className="h-12 w-[220px]" />
+        <Skeleton className="h-4 w-[180px]" />
       </div>
     );
   }
 
   return <>{children}</>;
+}
+
+export function ProtectedRoute({children}: {children: ReactNode}) {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex h-screen w-full flex-col items-center justify-center gap-4">
+          <Skeleton className="h-12 w-12 rounded-full" />
+          <div className="space-y-2">
+            <Skeleton className="h-4 w-[250px]" />
+            <Skeleton className="h-4 w-[200px]" />
+          </div>
+        </div>
+      }
+    >
+      <ProtectedRouteInner>{children}</ProtectedRouteInner>
+    </Suspense>
+  );
 }

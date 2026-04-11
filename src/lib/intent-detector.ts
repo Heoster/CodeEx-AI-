@@ -7,7 +7,6 @@
 export type IntentType = 
   | 'WEB_SEARCH'
   | 'IMAGE_GENERATION'
-  | 'VIDEO_GENERATION'
   | 'CHAT'
   | 'CODE_GENERATION'
   | 'EXPLANATION';
@@ -40,12 +39,6 @@ export class IntentDetector {
     const imageResult = this.detectImageGeneration(lowerMessage, message);
     if (imageResult.confidence > 0.7) {
       return imageResult;
-    }
-
-    // Check for video generation intent
-    const videoResult = this.detectVideoGeneration(lowerMessage, message);
-    if (videoResult.confidence > 0.7) {
-      return videoResult;
     }
 
     // Check for code generation intent
@@ -188,54 +181,6 @@ export class IntentDetector {
       confidence: maxConfidence,
       extractedQuery,
       reasoning: maxConfidence > 0 ? `Matched image generation pattern: ${matchedPattern}` : 'No image generation pattern matched',
-    };
-  }
-
-  /**
-   * Detect video generation intent
-   */
-  private detectVideoGeneration(lowerMessage: string, originalMessage: string): IntentResult {
-    const patterns = [
-      // Direct video commands
-      { regex: /^(generate|create|make|produce)\s+(a|an|the)?\s*(video|animation|clip|movie)\s+(of|showing|depicting|with)?\s*(.+)/i, weight: 1.0 },
-      { regex: /^(video|animation|clip)\s+(of|showing|depicting)\s+(.+)/i, weight: 0.95 },
-      
-      // Animation requests
-      { regex: /(animate|animated|animation)\s+(.+)/i, weight: 0.85 },
-      
-      // Motion requests
-      { regex: /(moving|motion|dynamic|flowing)\s+(video|animation|scene)/i, weight: 0.8 },
-    ];
-
-    let maxConfidence = 0;
-    let extractedQuery = originalMessage;
-    let matchedPattern = '';
-
-    for (const pattern of patterns) {
-      const match = originalMessage.match(pattern.regex);
-      if (match) {
-        const confidence = pattern.weight;
-        if (confidence > maxConfidence) {
-          maxConfidence = confidence;
-          matchedPattern = pattern.regex.source;
-          
-          // Extract the actual prompt
-          if (match[5]) {
-            extractedQuery = match[5].trim();
-          } else if (match[3]) {
-            extractedQuery = match[3].trim();
-          } else if (match[2]) {
-            extractedQuery = match[2].trim();
-          }
-        }
-      }
-    }
-
-    return {
-      intent: 'VIDEO_GENERATION',
-      confidence: maxConfidence,
-      extractedQuery,
-      reasoning: maxConfidence > 0 ? `Matched video generation pattern: ${matchedPattern}` : 'No video generation pattern matched',
     };
   }
 

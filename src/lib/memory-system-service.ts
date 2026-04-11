@@ -17,7 +17,7 @@
  */
 
 import { getFirestore, collection, doc, setDoc, getDoc, getDocs, query, where, orderBy, limit, deleteDoc, updateDoc, Timestamp } from 'firebase/firestore';
-import { app } from './firebase';
+import { getServerApp } from './firebase-server';
 
 // ============================================================================
 // Type Definitions
@@ -90,7 +90,7 @@ export class MemorySystemService {
   private embeddingModel = 'gemini-embedding-001';
 
   constructor() {
-    this.db = getFirestore(app);
+    this.db = getFirestore(getServerApp());
   }
 
   // ============================================================================

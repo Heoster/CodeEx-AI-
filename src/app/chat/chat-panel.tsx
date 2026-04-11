@@ -258,7 +258,7 @@ export function ChatPanel({
     ) : null;
 
   return (
-    <div className="flex h-[calc(100svh-3.5rem)] flex-col">
+    <div className="flex h-[calc(100svh-4rem)] min-h-0 flex-col bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.06),transparent_28%)]">
       <ChatMessages
         messages={messages}
         isLoading={isLoadingFromAI}
@@ -271,7 +271,7 @@ export function ChatPanel({
         <ExamplePrompts onSendMessage={handleSendMessage} />
       )}
 
-      <div className="border-t bg-background px-4 py-2 md:py-4">
+      <div className="border-t bg-background/95 px-3 py-3 backdrop-blur md:px-4 md:py-4">
         {isSpeaking && (
           <div className="mb-2 flex items-center justify-center gap-2 text-sm text-muted-foreground">
             <div className="flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2">
@@ -287,7 +287,7 @@ export function ChatPanel({
           </div>
         )}
         <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} userId={user?.uid} />
-        <div className="px-2 pt-2 text-center text-xs text-muted-foreground">
+        <div className="px-1 pt-2 text-center text-[11px] text-muted-foreground md:text-xs">
           <p>
             Try commands like{' '}
             <code className="rounded bg-muted px-1 py-0.5 font-semibold">
@@ -299,7 +299,7 @@ export function ChatPanel({
             </code>
             .
           </p>
-          <p>SOHAM by CODEEX-AI.</p>
+          <p className="mt-1">SOHAM by CODEEX-AI.</p>
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Made with Love](https://img.shields.io/badge/Made%20with-❤️-red.svg)](https://github.com/heoster)
 
-[Live Demo (Netlify)](https://codeex-ai.netlify.app) • [Live Demo (Vercel)](https://codeex-ai.vercel.app) • [Documentation](./docs) • [Report Bug](https://github.com/heoster/codeex-ai/issues) • [Request Feature](https://github.com/heoster/codeex-ai/issues)
+[Live Demo (Netlify)](https://codeex-ai.netlify.app) • [Live Demo (Vercel)](https://soham-ai.vercel.app) • [Documentation](./docs) • [Report Bug](https://github.com/heoster/codeex-ai/issues) • [Request Feature](https://github.com/heoster/codeex-ai/issues)
 
 </div>
 
@@ -26,7 +26,7 @@ SOHAM is a **100% free** AI chat platform featuring **35+ models** from leading 
 
 ### 📊 Platform Stats
 - 🤖 **35+ AI Models** across 4 providers
-- 👥 **1,000+ Daily Users** worldwide
+- 👥 **1,00+ Daily Users** worldwide
 - 🌍 **100+ Countries** reached
 - ⚡ **99.9% Uptime** reliability
 - 📝 **50,000+ Lines of Code**
@@ -495,10 +495,11 @@ We welcome contributions! Here's how:
 
 ## 👨‍💻 About the Developer
 
-### Heoster (Harsh)
+### Heoster 
+- **REAL NAME**: Harsh
 - **Age**: 16 years old
 - **Location**: Khatauli, Uttar Pradesh, India
-- **Education**: Class 11 PCM, Maples Academy
+- **Education**: Class 12 PCM with Computer science, Maples Academy Khatauli
 - **Role**: Founder & Lead Developer, SOHAM
 
 ### Vision
@@ -508,7 +509,7 @@ We welcome contributions! Here's how:
 - Built SOHAM with 35+ models at age 16
 - 50,000+ lines of code written
 - 200+ components developed
-- 1,000+ daily users worldwide
+- 1,00+ daily users worldwide
 - 100+ countries reached
 - 99.9% uptime maintained
 
@@ -673,7 +674,7 @@ If you find SOHAM useful, please consider giving it a star ⭐
 
 ### Built with ❤️ by a 16-year-old for the AI community
 
-**[Netlify](https://codeex-ai.netlify.app)** • **[Vercel](https://codeex-ai.vercel.app)** • **[GitHub](https://github.com/heoster/codeex-ai)** • **[LinkedIn](https://in.linkedin.com/in/codeex-heoster-4b60b8399)** • **[Twitter](https://twitter.com/The_Heoster_)**
+**[Netlify](https://codeex-ai.netlify.app)** • **[Vercel](https://soham-ai.vercel.app)** • **[GitHub](https://github.com/heoster/codeex-ai)** • **[LinkedIn](https://in.linkedin.com/in/codeex-heoster-4b60b8399)** • **[Twitter](https://twitter.com/The_Heoster_)**
 
 © 2024-2026 SOHAM. All rights reserved.
 

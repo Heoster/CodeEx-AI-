@@ -25,18 +25,27 @@ export interface SEOConfig {
 
 export const defaultSEO: SEOConfig = {
   title: {
-    default: 'SOHAM - Free AI Chat with 35+ Models | Groq, Gemini, Cerebras, DeepSeek',
+    default: 'SOHAM by CODEEX-AI | Human-Centered AI Workspace with 35+ Models',
     template: '%s | SOHAM'
   },
-  description: `SOHAM: Free AI chat platform with 35+ models including Groq Llama 3.3 70B, Google Gemini 2.5, Cerebras Qwen 3 235B, DeepSeek R1. Chat, code, solve math, analyze PDFs, web search. No signup required. Built by ${DEVELOPER_INFO.name}, ${DEVELOPER_INFO.age}-year-old developer from India. 100% free forever.`,
+  description:
+    'SOHAM by CODEEX-AI is a human-centered AI workspace built by Heoster. Explore 35+ AI models, PDF analysis, image math solving, voice tools, and the deeper Sanskrit meaning of Soham: "I am That."',
   keywords: [
     // Core Brand - PRIMARY KEYWORDS
     'SOHAM',
-    'SOHAM',
-    'SOHAM',
+    'Soham meaning',
+    'Soham Sanskrit meaning',
+    'So Hum mantra',
+    'I am That mantra',
+    'Soham Advaita',
+    'Soham meditation meaning',
     'SOHAM chat',
     'SOHAM free ai',
-    'code ex',
+    'SOHAM by CODEEX-AI',
+    'CODEEX-AI',
+    'CodeEx AI',
+    'Codeex AI',
+    'code ex ai',
     'codex ai',
     
     // Free AI Platform
@@ -69,8 +78,11 @@ export const defaultSEO: SEOConfig = {
     
     // Developer & Brand
     'Heoster',
+    'Heoster founder of CODEEX-AI',
+    'Heoster developer of SOHAM',
     'CODEEX Heoster',
     'Harsh developer',
+    'Harsh founder CODEEX-AI',
     '16 year old developer',
     'indian ai platform',
     
@@ -88,7 +100,7 @@ export const defaultSEO: SEOConfig = {
     'free chatgpt',
     'chatgpt free no login',
   ],
-  ogImage: '/Multi-Chat.png',
+  ogImage: 'https://soham-ai.vercel.app/Multi-Chat.png',
   ogType: 'website',
   twitterCard: 'summary_large_image',
   author: `${DEVELOPER_INFO.name} (${DEVELOPER_INFO.realName})`,
@@ -99,29 +111,30 @@ export const defaultSEO: SEOConfig = {
 // Page-specific SEO configurations
 export const pageSEO = {
   home: {
-    title: `SOHAM - Free AI Chat with 35+ Models | Groq, Gemini, Cerebras`,
-    description: `SOHAM: Free AI chat with 35+ models including Groq Llama 3.3 70B, Google Gemini 2.5, Cerebras Qwen 3 235B, DeepSeek R1. Chat, code, solve math, analyze PDFs, web search. No signup. 100% free forever.`,
-    keywords: ['SOHAM', 'free ai chat', 'groq llama 3.3', 'gemini 2.5', 'cerebras qwen', 'deepseek', 'free chatgpt alternative', 'ai chat no signup'],
+    title: 'SOHAM by CODEEX-AI | Human-Centered AI Workspace with 35+ Models',
+    description:
+      'Meet SOHAM, the flagship AI product by CODEEX-AI and Heoster. Use 35+ models for chat, PDFs, image math, and voice workflows, while learning the deeper meaning behind the name Soham.',
+    keywords: ['SOHAM', 'Soham meaning', 'CODEEX-AI', 'Heoster', 'SOHAM by CODEEX-AI', 'human-centered ai workspace', 'free ai chat', 'ai chat no signup'],
   },
   chat: {
-    title: 'AI Chat - 35+ Models Free | SOHAM',
-    description: `Chat with 35+ AI models free: Groq Llama 3.3 70B, Google Gemini 2.5, Cerebras Qwen 3 235B, DeepSeek R1, GPT-OSS. Instant answers, code help, problem-solving. No signup required.`,
-    keywords: ['ai chat', 'free chatbot', 'groq', 'gemini', 'cerebras', 'llama 3.3', 'qwen 3 235b', 'deepseek', 'SOHAM chat'],
+    title: 'AI Chat App | SOHAM - Free Chat, Coding Help, Smart Search',
+    description: 'Use SOHAM AI chat for coding help, smart search, reasoning, and multi-model responses with 35+ models and no signup required.',
+    keywords: ['ai chat', 'SOHAM chat', 'CODEEX-AI chat', 'free chatbot', 'groq', 'gemini', 'cerebras', 'llama 3.3', 'qwen 3 235b', 'deepseek'],
   },
   features: {
-    title: 'Features - 35+ AI Models, Voice, PDF Analysis | SOHAM',
-    description: `SOHAM features: 35+ AI models (Groq, Gemini, Cerebras), code assistance, math solving, PDF analysis (5MB), web search, voice synthesis, image solver. All free, no signup.`,
-    keywords: ['ai features', 'coding help', 'math solver', 'pdf analyzer', 'voice ai', 'web search ai', 'SOHAM features'],
+    title: 'AI Features | SOHAM - 35+ Models, Voice, PDF Analysis',
+    description: 'Explore SOHAM features including AI chat, PDF analysis, image math solving, voice interaction, multi-model routing, and smart search.',
+    keywords: ['ai features', 'SOHAM features', 'CODEEX-AI product', 'coding help', 'math solver', 'pdf analyzer', 'voice ai', 'web search ai'],
   },
   documentation: {
-    title: 'Documentation - Complete Guide to 35+ AI Models | SOHAM',
-    description: `Complete guide to SOHAM platform. Learn about 35+ models (Groq Llama, Gemini, Cerebras Qwen, DeepSeek), API integration, model selection, and advanced features.`,
+    title: 'AI Documentation | SOHAM - Chat, PDF Analysis, Math Solver',
+    description: 'Read SOHAM documentation for AI chat, model selection, PDF analysis, image math solving, commands, and product setup.',
     keywords: ['ai documentation', 'api docs', 'user guide', 'tutorial', 'model guide', 'SOHAM docs'],
   },
   about: {
     title: `About - Meet ${DEVELOPER_INFO.name}, ${DEVELOPER_INFO.age}-Year-Old Founder | SOHAM`,
-    description: `Meet ${DEVELOPER_INFO.name} (${DEVELOPER_INFO.realName}), ${DEVELOPER_INFO.age}-year-old founder of CODEEX-AI and creator of SOHAM from ${DEVELOPER_INFO.location.city}, India. Built a 35+ model AI platform with 50,000+ lines of code to democratize AI education.`,
-    keywords: ['Heoster', 'SOHAM founder', '16 year old developer', 'indian developer', 'ai startup founder'],
+    description: `Meet ${DEVELOPER_INFO.name} (${DEVELOPER_INFO.realName}), ${DEVELOPER_INFO.age}-year-old founder of CODEEX-AI and creator of SOHAM from ${DEVELOPER_INFO.location.city}, India. Learn the human story behind SOHAM, a 35+ model AI platform inspired by the Sanskrit idea of Soham: "I am That."`,
+    keywords: ['Heoster', 'founder of CODEEX-AI', 'creator of SOHAM', 'Soham meaning', '16 year old developer', 'indian developer', 'ai startup founder'],
   },
   contact: {
     title: `Contact - Get in Touch with SOHAM Team`,
@@ -151,10 +164,10 @@ export const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'CODEEX-AI',
-    alternateName: ['SOHAM', 'CodeEx-AI'],
-    url: 'https://codeex-ai.vercel.app',
-    logo: 'https://codeex-ai.vercel.app/FINALSOHAM.png',
-    description: `Free AI chat platform with 35+ models including Groq, Gemini, Cerebras. Chat, code, solve math, analyze PDFs. No signup required.`,
+    alternateName: ['SOHAM', 'CodeEx-AI', 'Codeex AI'],
+    url: 'https://soham-ai.vercel.app',
+    logo: 'https://soham-ai.vercel.app/FINALSOHAM.png',
+    description: `CODEEX-AI is the company behind SOHAM, a human-centered AI platform with 35+ models for coding, math solving, PDF analysis, voice workflows, and adaptive task support.`,
     foundingDate: DEVELOPER_INFO.company.founded,
     foundingLocation: {
       '@type': 'Place',
@@ -244,9 +257,9 @@ export const structuredData = {
       name: DEVELOPER_INFO.education.school,
     },
     email: DEVELOPER_INFO.contact.email,
-    url: 'https://codeex-ai.vercel.app',
-    image: 'https://codeex-ai.vercel.app/FINALSOHAM.png',
-    description: `${DEVELOPER_INFO.name} is a ${DEVELOPER_INFO.age}-year-old visionary developer and founder of ${DEVELOPER_INFO.company.name}. Currently studying ${DEVELOPER_INFO.education.class} ${DEVELOPER_INFO.education.stream} at ${DEVELOPER_INFO.education.school}, he has built a revolutionary AI platform with 35+ models, reaching 100+ countries with 1000+ daily users.`,
+    url: 'https://soham-ai.vercel.app',
+    image: 'https://soham-ai.vercel.app/FINALSOHAM.png',
+    description: `${DEVELOPER_INFO.name} is a ${DEVELOPER_INFO.age}-year-old founder-builder and the developer behind SOHAM. Currently studying ${DEVELOPER_INFO.education.class} ${DEVELOPER_INFO.education.stream} at ${DEVELOPER_INFO.education.school}, he is building a human-centered AI platform inspired by the Sanskrit meaning of Soham: "I am That."`,
     knowsAbout: DEVELOPER_INFO.skills.concat(DEVELOPER_INFO.aiTechnologies),
     knowsLanguage: ['English', 'Hindi'],
     hasCredential: DEVELOPER_INFO.achievements.map(achievement => ({
@@ -265,7 +278,7 @@ export const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: 'SOHAM',
-    alternateName: ['SOHAM', 'SOHAM'],
+    alternateName: ['SOHAM by CODEEX-AI', 'CODEEX-AI SOHAM'],
     applicationCategory: 'ProductivityApplication',
     applicationSubCategory: 'Artificial Intelligence Platform',
     operatingSystem: 'Web Browser, iOS, Android, Windows, macOS, Linux',
@@ -284,7 +297,8 @@ export const structuredData = {
       worstRating: '1',
       reviewCount: '500',
     },
-    description: `Free AI chat platform with 35+ models including Groq Llama 3.3 70B, Google Gemini 2.5, Cerebras Qwen 3 235B, DeepSeek R1. Chat, code, solve math, analyze PDFs, web search. No signup required. 100% free forever.`,
+    description: `SOHAM is the flagship AI product from CODEEX-AI. It offers a human-centered AI workspace with 35+ models for chat, coding, PDF analysis, image solving, and voice interaction. The name is inspired by the Sanskrit mantra Soham, meaning "I am That."`,
+    keywords: 'SOHAM, Soham meaning, So Hum mantra, CODEEX-AI, Heoster, AI chat, PDF analysis, math solver, image solver, coding assistant, Groq, Gemini, Cerebras, DeepSeek',
     featureList: [
       '35+ AI models (Groq, Gemini, Cerebras, Hugging Face)',
       'Llama 3.1 8B, Llama 3.3 70B, Qwen 3 235B Instruct, DeepSeek R1, GPT-OSS',
@@ -304,6 +318,7 @@ export const structuredData = {
       'Privacy-first design',
       '99.9% uptime',
       'Lighthouse score 95+',
+      'Human-centered product identity inspired by Sanskrit philosophy',
     ],
     author: {
       '@type': 'Person',
@@ -315,10 +330,20 @@ export const structuredData = {
       name: DEVELOPER_INFO.name,
       age: DEVELOPER_INFO.age,
     },
+    publisher: {
+      '@type': 'Organization',
+      name: 'CODEEX-AI',
+      url: 'https://soham-ai.vercel.app',
+    },
+    brand: {
+      '@type': 'Brand',
+      name: 'SOHAM',
+      slogan: 'Self Organising Hyper Adaptive Machine',
+    },
     datePublished: '2024-01-01',
     dateModified: new Date().toISOString().split('T')[0],
     inLanguage: ['en', 'hi'],
-    screenshot: 'https://codeex-ai.vercel.app/Multi-Chat.png',
+    screenshot: 'https://soham-ai.vercel.app/Multi-Chat.png',
     softwareVersion: DEVELOPER_INFO.projectStats.modelsIntegrated.toString(),
     releaseNotes: `Latest update includes ${DEVELOPER_INFO.projectStats.modelsIntegrated}+ AI models with enhanced performance and new features.`,
   },
@@ -326,13 +351,18 @@ export const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'SOHAM',
-    alternateName: ['SOHAM', 'SOHAM', 'SOHAM'],
-    url: 'https://codeex-ai.vercel.app',
-    description: `Free AI chat with 35+ models: Groq, Gemini, Cerebras, DeepSeek. No signup required.`,
+    alternateName: ['SOHAM by CODEEX-AI', 'CODEEX-AI SOHAM'],
+    url: 'https://soham-ai.vercel.app',
+    description: `SOHAM is the AI product from CODEEX-AI for chat, coding help, PDF analysis, image math solving, and voice workflows. The brand is inspired by the Sanskrit mantra Soham, meaning "I am That."`,
+    publisher: {
+      '@type': 'Organization',
+      name: 'CODEEX-AI',
+      url: 'https://soham-ai.vercel.app',
+    },
     inLanguage: ['en', 'hi'],
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://codeex-ai.vercel.app/chat?q={search_term_string}',
+      target: 'https://soham-ai.vercel.app/chat?q={search_term_string}',
       'query-input': 'required name=search_term_string',
     },
     creator: {
@@ -347,10 +377,18 @@ export const structuredData = {
     mainEntity: [
       {
         '@type': 'Question',
+        name: 'What does SOHAM mean?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `SOHAM has two connected meanings. In the product, it stands for "${DEVELOPER_INFO.product.expandedName}". The name is also inspired by the Sanskrit mantra Soham (So Hum), meaning "${DEVELOPER_INFO.product.sanskritMeaning}". In spiritual philosophy, it points to the unity of the individual self with universal consciousness and is often used in meditation with breath awareness.`,
+        },
+      },
+      {
+        '@type': 'Question',
         name: 'Who created SOHAM?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `SOHAM was created by ${DEVELOPER_INFO.name} (also known as ${DEVELOPER_INFO.realName}), a ${DEVELOPER_INFO.age}-year-old visionary developer from ${DEVELOPER_INFO.location.city}, ${DEVELOPER_INFO.location.state}, India. He is currently studying ${DEVELOPER_INFO.education.class} ${DEVELOPER_INFO.education.stream} at ${DEVELOPER_INFO.education.school}. He founded ${DEVELOPER_INFO.company.name} in ${DEVELOPER_INFO.company.founded} as an AI startup to democratize AI education and make advanced technology accessible to every student.`,
+          text: `SOHAM was created by ${DEVELOPER_INFO.name} (also known as ${DEVELOPER_INFO.realName}), a ${DEVELOPER_INFO.age}-year-old founder-builder from ${DEVELOPER_INFO.location.city}, ${DEVELOPER_INFO.location.state}, India. He is currently studying ${DEVELOPER_INFO.education.class} ${DEVELOPER_INFO.education.stream} at ${DEVELOPER_INFO.education.school}. He founded ${DEVELOPER_INFO.company.name} in ${DEVELOPER_INFO.company.founded} to build more accessible, human-centered AI tools.`,
         },
       },
       {
@@ -403,31 +441,31 @@ export const structuredData = {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://codeex-ai.vercel.app',
+        item: 'https://soham-ai.vercel.app',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Chat',
-        item: 'https://codeex-ai.vercel.app/chat',
+        item: 'https://soham-ai.vercel.app/chat',
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'Features',
-        item: 'https://codeex-ai.vercel.app/features',
+        item: 'https://soham-ai.vercel.app/features',
       },
       {
         '@type': 'ListItem',
         position: 4,
         name: 'Documentation',
-        item: 'https://codeex-ai.vercel.app/documentation',
+        item: 'https://soham-ai.vercel.app/documentation',
       },
       {
         '@type': 'ListItem',
         position: 5,
         name: 'About',
-        item: 'https://codeex-ai.vercel.app/about',
+        item: 'https://soham-ai.vercel.app/about',
       },
     ],
   },

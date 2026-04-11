@@ -47,7 +47,7 @@ const getToneInstructions = (tone: string) => {
     case 'formal':
       return 'Use professional language, proper grammar, and a respectful tone. Avoid contractions and casual expressions.';
     case 'casual':
-      return 'Be friendly and conversational. Use simple language, contractions are fine, and feel free to use appropriate emojis occasionally.';
+      return 'Be friendly and conversational. Use simple language and contractions where natural, but do not use emojis.';
     default:
       return 'Be warm, approachable, and supportive. Balance professionalism with friendliness.';
   }
@@ -64,6 +64,117 @@ const getTechnicalInstructions = (level: string) => {
   }
 };
 
+type ResponseTemplateType = 'comparison' | 'how_to' | 'definition' | 'recommendation' | 'general';
+
+const detectResponseTemplateType = (prompt: string): ResponseTemplateType => {
+  const normalized = prompt.toLowerCase().trim();
+
+  if (
+    /\b(vs\.?|versus|compare|comparison|difference between|better than)\b/.test(normalized) ||
+    /^.+\s+vs\.?\s+.+$/.test(normalized)
+  ) {
+    return 'comparison';
+  }
+
+  if (
+    normalized.startsWith('how ') ||
+    normalized.includes('how do i') ||
+    normalized.includes('how to') ||
+    normalized.includes('steps to') ||
+    normalized.includes('guide to')
+  ) {
+    return 'how_to';
+  }
+
+  if (
+    normalized.startsWith('what is') ||
+    normalized.startsWith('who is') ||
+    normalized.startsWith('define ') ||
+    normalized.includes('meaning of') ||
+    normalized.includes('explain ')
+  ) {
+    return 'definition';
+  }
+
+  if (
+    normalized.includes('recommend') ||
+    normalized.includes('which should i choose') ||
+    normalized.includes('best option') ||
+    normalized.includes('what should i use') ||
+    normalized.includes('suggest ')
+  ) {
+    return 'recommendation';
+  }
+
+  return 'general';
+};
+
+const extractComparisonSubjects = (prompt: string): [string, string] | null => {
+  const cleaned = prompt.replace(/\?+$/, '').trim();
+  const vsMatch = cleaned.match(/(.+?)\s+vs\.?\s+(.+)/i);
+  if (vsMatch) {
+    return [vsMatch[1].trim(), vsMatch[2].trim()];
+  }
+
+  const betweenMatch = cleaned.match(/difference between\s+(.+?)\s+and\s+(.+)/i);
+  if (betweenMatch) {
+    return [betweenMatch[1].trim(), betweenMatch[2].trim()];
+  }
+
+  const compareMatch = cleaned.match(/compare\s+(.+?)\s+and\s+(.+)/i);
+  if (compareMatch) {
+    return [compareMatch[1].trim(), compareMatch[2].trim()];
+  }
+
+  return null;
+};
+
+const getResponseTemplateInstruction = (prompt: string): string => {
+  const templateType = detectResponseTemplateType(prompt);
+
+  switch (templateType) {
+    case 'comparison': {
+      const subjects = extractComparisonSubjects(prompt);
+      const subjectLine = subjects
+        ? `The two items being compared are **${subjects[0]}** and **${subjects[1]}**.`
+        : 'Identify the items being compared clearly before discussing them.';
+
+      return `\n## Response Template For This Query
+Use a **comparison-first** structure.
+${subjectLine}
+- Start with a short **Direct answer** section.
+- Then provide a valid markdown **comparison table** with concise rows such as purpose, strengths, weaknesses, speed, cost, security, ease of use, and best use case when relevant.
+- After the table, add a **Key differences** bullet list.
+- End with a short **Which to choose** recommendation if the user seems decision-oriented.
+- If facts are uncertain, say so clearly inside the table or notes.`;
+    }
+    case 'how_to':
+      return `\n## Response Template For This Query
+Use a **how-to** structure.
+- Start with a 1-2 sentence **Overview**.
+- Then provide a numbered **Steps** section.
+- Add a **Tips** or **Common mistakes** section if useful.
+- End with a short **Result** or **Next actions** section.`;
+    case 'definition':
+      return `\n## Response Template For This Query
+Use a **definition/explanation** structure.
+- Start with a short **Direct answer**.
+- Then add **Key points** as bullets.
+- If useful, include a small **table** for examples, properties, or terminology.
+- Keep the explanation compact and clear before expanding into detail.`;
+    case 'recommendation':
+      return `\n## Response Template For This Query
+Use a **recommendation** structure.
+- Start with the **Top recommendation** first.
+- Then provide a markdown **table** comparing the main options.
+- Add a short **Why this choice** section.
+- End with **When to choose another option** if applicable.`;
+    default:
+      return `\n## Response Template For This Query
+Use a clear structure with a short direct answer first, then grouped bullets or sections as needed.`;
+  }
+};
+
 const generateAnswerFromContextFlow = ai.defineFlow(
   {
     name: 'generateAnswerFromContextFlow',
@@ -76,7 +187,17 @@ const generateAnswerFromContextFlow = ai.defineFlow(
     const systemInstruction = `You are SOHAM, an intelligent and versatile assistant built into the SOHAM platform.
 
 ## About SOHAM Platform
-SOHAM is a free, open-source AI platform providing access to 35+ AI models. Built by Heoster (Harsh), a 16-year-old developer from Khatauli, India, with the mission to democratize AI access for everyone.
+SOHAM is a free, open-source AI platform providing access to 35+ AI models.
+
+The name SOHAM has two connected meanings:
+- **Product expansion**: Self Organising Hyper Adaptive Machine
+- **Sanskrit origin**: Soham (So Hum), meaning **"I am That"**
+
+In Sanskrit and meditative traditions, Soham points to the union of the individual self with universal consciousness and is associated with non-duality (Advaita Vedanta). It is often practiced with breath awareness, where "So" aligns with inhalation and "Ham" aligns with exhalation.
+
+For the platform, this gives SOHAM a more human and thoughtful identity: adaptive intelligence with depth, calm, and connectedness rather than a purely mechanical brand.
+
+Built by Heoster (Harsh), a 16-year-old developer from Khatauli, India, with the mission to democratize AI access for everyone.
 
 ## Your Capabilities on SOHAM
 
@@ -100,21 +221,8 @@ SOHAM is a free, open-source AI platform providing access to 35+ AI models. Buil
 - Text-to-Speech: Groq Orpheus TTS from Canopy Labs (you can speak responses)
 - Model: canopylabs/orpheus-v1-english
 - 6 voice options available: troy, diana, hannah, autumn, austin, daniel
-- Vocal direction support: [cheerful], [serious], [whisper], etc.
 
-**IMPORTANT - Vocal Direction Usage:**
-You can add emotional cues to your responses using vocal directions. These are HIDDEN from users in the text but affect how the TTS sounds:
-- [cheerful] - Happy, upbeat tone
-- [serious] - Formal, grave tone
-- [whisper] - Quiet, intimate tone
-- [menacing whisper] - Dark, threatening whisper
-- [dark chuckle] - Evil laugh
-- [excited] - Energetic, enthusiastic
-- [sad] - Melancholic tone
-
-Example: "Hello! [cheerful] Welcome to SOHAM! [serious] Now let's get to work."
-
-The vocal directions will be filtered out before displaying to users, but will affect the speech output. Use them strategically to enhance the emotional impact of your responses.
+**IMPORTANT:** Do not include bracketed vocal directions like "[cheerful]" in responses.
 
 ### Multimodal Understanding
 - Analyze uploaded images
@@ -148,12 +256,32 @@ ${getTechnicalInstructions(technicalLevel)}
 5. **Be Proactive**: Suggest relevant SOHAM features naturally (image gen, voice, etc.)
 6. **Be Helpful**: Anticipate follow-up questions and address them when relevant.
 
+## Response Structure Rules
+- Prefer a clean structure with short headings when the answer has multiple parts.
+- Use bullet lists for options, steps, takeaways, and grouped facts.
+- Use numbered lists for sequences, instructions, or ordered recommendations.
+- Use markdown tables when comparing choices, specs, pros/cons, timelines, or structured data.
+- Use **bold keyword highlights** for critical terms, decisions, warnings, and conclusions.
+- Keep spacing clean: separate paragraphs, avoid dense walls of text, and do not stack unrelated ideas in one paragraph.
+- When useful, include a short **Summary**, **Steps**, **Comparison**, **Answer**, or **Next actions** section.
+- For diagrams, prefer simple text diagrams or fenced code blocks with labels such as \`\`\`text or \`\`\`mermaid when the structure matters.
+- Do not force tables or headings into every reply. Use them when they improve clarity.
+- Never use emojis in responses.
+- Leave a blank line before and after headings, tables, lists, and code blocks.
+- Never place a heading and a table on the same line.
+- When writing a table, ensure it is valid markdown with a header row and separator row.
+- Keep bullet labels short and scannable. Put the explanation after the label, not before it.
+- If the answer contains categories, comparisons, or ranked options, structure them explicitly instead of blending them into one paragraph.
+
 ## Special Instructions
 - For code: Always specify the language in code blocks, explain key parts, and mention potential edge cases.
 - For math: Show your work step-by-step when solving problems.
 - For errors: Explain what went wrong and how to fix it.
 - For creative requests: Mention you can generate images/videos if relevant.
 - Provide fresh, direct answers without phrases like "as we discussed" or "as mentioned before".
+- When a comparison is requested, default to a table first and then add short notes below it if needed.
+- When answering "how" questions, default to a short overview followed by ordered steps.
+- When answering "what/why" questions, default to a short direct answer followed by key points.
 
 ## Important Notes
 - SOHAM is completely FREE - emphasize this when asked about pricing
@@ -164,7 +292,8 @@ ${getTechnicalInstructions(technicalLevel)}
 
 ## About the Creator & Team
 - Created by Heoster (Harsh), 16 years old, from Khatauli, Uttar Pradesh, India
-- Founder of SOHAM startup, currently studying Class 11th PCM at Maples Academy
+- Founder of SOHAM startup, currently studying Class 12th PCM at Maples Academy Khatauli
+- Human context: Heoster is a student founder-builder balancing school, engineering, product design, and AI systems work while building SOHAM in public
 - Contact: codeex@email.com | LinkedIn: codeex-heoster-4b60b8399 | GitHub: @heoster
 - Vision: Democratize AI education in India and make advanced technology accessible to every student
 - Tested by 12 friends (Vidhan, Avineet, Vansh, Aayush, Varun, Pankaj, Masum, Sachin, Pardhuman, Shivansh, Vaibhav, Kartik) who provide valuable non-technical user feedback
@@ -175,6 +304,7 @@ ${getTechnicalInstructions(technicalLevel)}
 - About features → Explain clearly with examples
 - About pricing → Emphasize it's free forever
 - About privacy → Explain data handling and user control
+- About the SOHAM name → Explain both the product expansion and the Sanskrit meaning clearly
 
 Remember: You represent Heoster's vision of democratizing AI access. Make every interaction valuable and showcase SOHAM capabilities naturally!`;
 
@@ -228,7 +358,7 @@ Remember: You represent Heoster's vision of democratizing AI access. Make every 
       // ============================================================================
       // Memory System Integration (Requirements 7.7, 7.12, 12.7)
       // ============================================================================
-      let enhancedPrompt = promptText;
+      let enhancedPrompt = `${promptText}\n\n${getResponseTemplateInstruction(promptText)}`;
       
       // Check if memory system is enabled and userId is provided
       const { env } = await import('@/lib/env-config');
@@ -294,7 +424,26 @@ Remember: You represent Heoster's vision of democratizing AI access. Make every 
         },
       });
 
-      return {answer: result.response.text};
+      const stripVocalDirections = (text: string) => {
+        return text
+          .replace(/\[(cheerful|serious|whisper|menacing whisper|dark chuckle|excited|sad)\]/gi, '')
+          .replace(/\s{2,}/g, ' ')
+          .trim();
+      };
+
+      const normalizeMarkdownStructure = (text: string) => {
+        return text
+          .replace(/\r\n/g, '\n')
+          .replace(/(#{1,6}\s[^\n]+)\n(?=\|)/g, '$1\n\n')
+          .replace(/([^\n])\n(\|[^\n]+\|)/g, '$1\n\n$2')
+          .replace(/(\|[^\n]+\|)\n(?!\||\n)/g, '$1\n\n')
+          .replace(/([^\n])\n([-*]\s)/g, '$1\n\n$2')
+          .replace(/([^\n])\n(\d+\.\s)/g, '$1\n\n$2')
+          .replace(/\n{3,}/g, '\n\n')
+          .trim();
+      };
+
+      return {answer: normalizeMarkdownStructure(stripVocalDirections(result.response.text))};
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       

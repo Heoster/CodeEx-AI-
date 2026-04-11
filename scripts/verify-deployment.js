@@ -7,7 +7,7 @@
 
 const https = require('https');
 
-const SITE_URL = process.env.URL || process.env.DEPLOY_PRIME_URL || 'https://codeex-ai.vercel.app';
+const SITE_URL = process.env.URL || process.env.DEPLOY_PRIME_URL || 'https://soham-ai.vercel.app';
 
 console.log(`🔍 Verifying deployment at: ${SITE_URL}`);
 

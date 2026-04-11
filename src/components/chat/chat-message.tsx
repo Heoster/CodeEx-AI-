@@ -15,6 +15,8 @@ import {MessageShare} from './message-share';
 import {Button} from '@/components/ui/button';
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
 import {oneDark} from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import {hybridTTS} from '@/lib/hybrid-tts';
+import {VoiceFilter} from '@/lib/voice-filter';
 
 interface ChatMessageProps {
   message: Message;
@@ -28,10 +30,22 @@ export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
   const [copiedCode, setCopiedCode] = useState<{[key: string]: boolean}>({});
   const [isRegenerating, setIsRegenerating] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const isSpeakingRef = useRef(false);
 
   useEffect(() => {
     setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    isSpeakingRef.current = isSpeaking;
+  }, [isSpeaking]);
+
+  useEffect(() => {
+    return () => {
+      if (isSpeakingRef.current) {
+        hybridTTS.cancel();
+      }
+    };
   }, []);
 
   const isAssistant = message.role === 'assistant';
@@ -63,61 +77,40 @@ export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
 
   const handleSpeak = async () => {
     if (isSpeaking) {
-      // Stop speaking
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current.currentTime = 0;
-      }
+      hybridTTS.cancel();
       setIsSpeaking(false);
       return;
     }
 
     try {
-      setIsSpeaking(true);
-
-      // Call TTS API
-      const response = await fetch('/api/tts', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          text: message.content,
-          voice: 'alloy',
-          speed: 1.0,
-        }),
+      const filteredText = VoiceFilter.filterForTTS(message.content, {
+        removeRepetition: true,
+        normalizeText: true,
+        addPauses: true,
+        fixPronunciation: true,
       });
 
-      if (!response.ok) {
-        throw new Error('TTS failed');
+      if (filteredText.length < 3) {
+        return;
       }
 
-      const data = await response.json();
-      
-      // Convert base64 to audio
-      const audioBlob = new Blob(
-        [Uint8Array.from(atob(data.audio), c => c.charCodeAt(0))],
-        { type: 'audio/mp3' }
-      );
-      const audioUrl = URL.createObjectURL(audioBlob);
-
-      // Play audio
-      const audio = new Audio(audioUrl);
-      audioRef.current = audio;
-      
-      audio.onended = () => {
-        setIsSpeaking(false);
-        URL.revokeObjectURL(audioUrl);
-      };
-
-      audio.onerror = () => {
-        setIsSpeaking(false);
-        URL.revokeObjectURL(audioUrl);
-      };
-
-      await audio.play();
+      setIsSpeaking(true);
+      await hybridTTS.speak({
+        text: filteredText,
+        voice: 'troy',
+        rate: 1.0,
+        pitch: 1.0,
+        volume: 1.0,
+        onEnd: () => {
+          setIsSpeaking(false);
+        },
+        onError: () => {
+          setIsSpeaking(false);
+        },
+      });
     } catch (error) {
       console.error('TTS error:', error);
+      hybridTTS.cancel();
       setIsSpeaking(false);
     }
   };
@@ -129,6 +122,71 @@ export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
   const displayTimestamp = message.createdAt
   ? formatDistanceToNow(new Date(message.createdAt), {addSuffix: true})
   : '';
+
+  const renderMarkdownCode = ({inline, className, children, ...props}: any) => {
+    const match = /language-(\w+)/.exec(className || '');
+    const codeString = String(children).replace(/\n$/, '');
+    const codeIndex = `${message.id}-${codeString.substring(0, 20)}`;
+    const language = match?.[1]?.toLowerCase();
+
+    if (!inline && language === 'mermaid') {
+      return (
+        <div className="my-4 overflow-hidden rounded-xl border border-border/70 bg-background/70">
+          <div className="border-b border-border/70 bg-muted/50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+            Diagram
+          </div>
+          <pre className="overflow-x-auto p-4 text-sm leading-6 text-foreground">
+            <code {...props}>{codeString}</code>
+          </pre>
+        </div>
+      );
+    }
+    
+    return !inline && match ? (
+      <div className="relative group my-4 overflow-hidden rounded-xl border border-border/70 bg-background/70">
+        <div className="flex items-center justify-between border-b border-border/70 bg-muted/50 px-4 py-2">
+          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+            {match[1]}
+          </span>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-7 px-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity"
+            onClick={() => handleCodeCopy(codeString, codeIndex)}
+          >
+            {copiedCode[codeIndex] ? (
+              <>
+                <Check className="h-3 w-3 mr-1 text-green-500" />
+                <span className="text-xs">Copied</span>
+              </>
+            ) : (
+              <>
+                <Copy className="h-3 w-3 mr-1" />
+                <span className="text-xs">Copy</span>
+              </>
+            )}
+          </Button>
+        </div>
+        <SyntaxHighlighter
+          style={oneDark}
+          language={match[1]}
+          PreTag="div"
+          className="!mt-0 !rounded-none !border-0"
+          customStyle={{
+            margin: 0,
+            background: 'transparent',
+          }}
+          {...props}
+        >
+          {codeString}
+        </SyntaxHighlighter>
+      </div>
+    ) : (
+      <code className={cn('rounded bg-background/60 px-1.5 py-0.5 text-[0.92em]', className)} {...props}>
+        {children}
+      </code>
+    );
+  };
 
   return (
     <TooltipProvider delayDuration={100}>
@@ -175,10 +233,10 @@ export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
           </TooltipContent>
         </Tooltip>
 
-        <div className={cn('flex flex-col gap-2 max-w-[85%] md:max-w-[80%]', !isAssistant && 'items-end')}>
+        <div className={cn('flex min-w-0 flex-col gap-2 max-w-[90%] sm:max-w-[86%] lg:max-w-[78%]', !isAssistant && 'items-end')}>
           <div
             className={cn(
-              'relative rounded-2xl px-4 py-3 shadow-sm transition-all hover:shadow-md',
+              'relative w-full rounded-2xl px-3 py-3 shadow-sm transition-all hover:shadow-md md:px-4',
               isAssistant
                 ? 'bg-muted text-foreground rounded-tl-sm'
                 : 'bg-primary text-primary-foreground rounded-tr-sm'
@@ -186,12 +244,18 @@ export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
           >
             <div className={cn(
               'prose prose-sm dark:prose-invert max-w-none',
-              'prose-p:my-1 prose-p:leading-relaxed',
-              'prose-pre:my-2 prose-pre:p-0 prose-pre:bg-transparent',
-              'prose-code:text-sm prose-code:bg-background/50 prose-code:px-1 prose-code:py-0.5 prose-code:rounded',
+              'prose-p:my-3 prose-p:leading-7',
+              'prose-pre:my-4 prose-pre:p-0 prose-pre:bg-transparent',
+              'prose-code:text-sm prose-code:bg-transparent prose-code:px-0 prose-code:py-0 prose-code:rounded-none',
               'prose-a:text-primary prose-a:no-underline hover:prose-a:underline',
-              'prose-headings:mt-3 prose-headings:mb-2',
-              'prose-ul:my-2 prose-ol:my-2',
+              'prose-headings:mt-5 prose-headings:mb-3 prose-headings:scroll-mt-20',
+              'prose-headings:font-semibold',
+              'prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg',
+              'prose-ul:my-4 prose-ol:my-4',
+              'prose-li:my-1.5 prose-li:leading-7',
+              'prose-strong:font-semibold prose-strong:text-foreground',
+              'prose-blockquote:my-4 prose-blockquote:rounded-r-lg prose-blockquote:border-l-4 prose-blockquote:border-primary/60 prose-blockquote:bg-primary/5 prose-blockquote:px-4 prose-blockquote:py-3 prose-blockquote:text-foreground',
+              'prose-hr:my-6 prose-hr:border-border/70',
               !isAssistant && 'prose-invert'
             )}>
               <ReactMarkdown 
@@ -207,57 +271,48 @@ export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
                       loading="lazy"
                     />
                   ),
-                  code: ({node, inline, className, children, ...props}: any) => {
-                    const match = /language-(\w+)/.exec(className || '');
-                    const codeString = String(children).replace(/\n$/, '');
-                    const codeIndex = `${message.id}-${codeString.substring(0, 20)}`;
-                    
-                    return !inline && match ? (
-                      <div className="relative group my-2">
-                        <div className="flex items-center justify-between bg-muted/50 px-4 py-2 rounded-t-lg border border-b-0">
-                          <span className="text-xs font-medium text-muted-foreground">
-                            {match[1]}
-                          </span>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="h-7 px-2 opacity-0 group-hover:opacity-100 transition-opacity"
-                            onClick={() => handleCodeCopy(codeString, codeIndex)}
-                          >
-                            {copiedCode[codeIndex] ? (
-                              <>
-                                <Check className="h-3 w-3 mr-1 text-green-500" />
-                                <span className="text-xs">Copied!</span>
-                              </>
-                            ) : (
-                              <>
-                                <Copy className="h-3 w-3 mr-1" />
-                                <span className="text-xs">Copy</span>
-                              </>
-                            )}
-                          </Button>
-                        </div>
-                        <SyntaxHighlighter
-                          style={oneDark}
-                          language={match[1]}
-                          PreTag="div"
-                          className="!mt-0 !rounded-t-none !rounded-b-lg border"
-                          customStyle={{
-                            margin: 0,
-                            borderTopLeftRadius: 0,
-                            borderTopRightRadius: 0,
-                          }}
-                          {...props}
-                        >
-                          {codeString}
-                        </SyntaxHighlighter>
-                      </div>
-                    ) : (
-                      <code className={className} {...props}>
-                        {children}
-                      </code>
-                    );
-                  },
+                  code: ({node, inline, className, children, ...props}: any) =>
+                    renderMarkdownCode({inline, className, children, ...props}),
+                  table: ({node, ...props}) => (
+                    <div className="not-prose my-5 overflow-x-auto rounded-xl border border-border/60 shadow-sm">
+                      <table className="w-full border-collapse text-sm" {...props} />
+                    </div>
+                  ),
+                  thead: ({node, ...props}) => (
+                    <thead className="bg-primary/10 border-b-2 border-primary/20" {...props} />
+                  ),
+                  tbody: ({node, ...props}) => (
+                    <tbody className="divide-y divide-border/50" {...props} />
+                  ),
+                  tr: ({node, ...props}) => (
+                    <tr
+                      className="transition-colors even:bg-muted/30 hover:bg-primary/5"
+                      {...props}
+                    />
+                  ),
+                  th: ({node, ...props}) => (
+                    <th
+                      className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-primary/80 border-r border-primary/10 last:border-r-0 whitespace-nowrap"
+                      {...props}
+                    />
+                  ),
+                  td: ({node, ...props}) => (
+                    <td
+                      className="px-4 py-3 align-top leading-6 text-foreground/90 border-r border-border/30 last:border-r-0"
+                      {...props}
+                    />
+                  ),
+                  ul: ({node, ...props}) => <ul className="my-4 list-disc space-y-2 pl-6" {...props} />,
+                  ol: ({node, ...props}) => <ol className="my-4 list-decimal space-y-2 pl-6" {...props} />,
+                  li: ({node, ...props}) => <li className="pl-1 marker:text-primary" {...props} />,
+                  strong: ({node, ...props}) => <strong className="font-semibold text-foreground" {...props} />,
+                  p: ({node, ...props}) => <p className="my-3 leading-7" {...props} />,
+                  h1: ({node, ...props}) => <h1 className="mt-6 mb-3 text-2xl font-semibold tracking-tight" {...props} />,
+                  h2: ({node, ...props}) => <h2 className="mt-6 mb-3 text-xl font-semibold tracking-tight" {...props} />,
+                  h3: ({node, ...props}) => <h3 className="mt-5 mb-2 text-lg font-semibold tracking-tight" {...props} />,
+                  blockquote: ({node, ...props}) => (
+                    <blockquote className="my-4 border-l-4 border-primary/60 bg-primary/5 px-4 py-3 italic text-foreground/90" {...props} />
+                  ),
                 }}
               >
                 {message.content}
@@ -276,7 +331,7 @@ export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
           </div>
 
           <div className={cn(
-            'flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity',
+            'flex flex-wrap items-center gap-1.5 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity',
             !isAssistant && 'flex-row-reverse'
           )}>
             {displayTimestamp && (
@@ -314,7 +369,6 @@ export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
                       size="icon"
                       className="h-7 w-7"
                       onClick={handleSpeak}
-                      disabled={isSpeaking}
                     >
                       {isSpeaking ? (
                         <VolumeX className="h-3.5 w-3.5 text-primary animate-pulse" />
@@ -357,4 +411,3 @@ export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
     </TooltipProvider>
   );
 }
-

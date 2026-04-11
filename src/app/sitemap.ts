@@ -5,21 +5,39 @@ import { MetadataRoute } from 'next';
  * Lists all public pages for search engines
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://codeex-ai.vercel.app';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://soham-ai.vercel.app';
   const currentDate = new Date().toISOString();
 
   return [
     {
       url: baseUrl,
       lastModified: currentDate,
-      changeFrequency: 'daily',
+      changeFrequency: 'weekly',
       priority: 1.0,
     },
     {
       url: `${baseUrl}/chat`,
       lastModified: currentDate,
-      changeFrequency: 'always',
-      priority: 1.0,
+      changeFrequency: 'daily',
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/ai-services`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.92,
+    },
+    {
+      url: `${baseUrl}/visual-math`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/pdf-analyzer`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/features`,
@@ -34,6 +52,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/soham`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/models`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
@@ -43,7 +67,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/documentation`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
-      priority: 0.8,
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/documentation/quick-start`,

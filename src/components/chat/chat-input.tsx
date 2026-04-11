@@ -18,6 +18,7 @@ import {cn} from '@/lib/utils';
 import {ImageUpload} from './image-upload';
 import {CameraCapture} from './camera-capture';
 import {AudioRecorder} from './audio-recorder';
+import {useIsMobile} from '@/hooks/use-mobile';
 
 const chatSchema = z.object({
   message: z.string().min(1, 'Message cannot be empty.'),
@@ -32,6 +33,7 @@ interface ChatInputProps {
 }
 
 export function ChatInput({onSendMessage, isLoading, userId = 'anonymous'}: ChatInputProps) {
+  const isMobile = useIsMobile();
   const form = useForm<ChatFormValues>({
     resolver: zodResolver(chatSchema),
     defaultValues: {
@@ -223,17 +225,14 @@ export function ChatInput({onSendMessage, isLoading, userId = 'anonymous'}: Chat
       )}
 
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="relative flex w-full items-start gap-2"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
           <FormField
             control={form.control}
             name="message"
             render={({field}) => (
               <FormItem className="flex-1">
                 <FormControl>
-                  <div className="relative">
+                  <div className="rounded-3xl border bg-background shadow-sm">
                     <Textarea
                       placeholder={
                         isVoiceChatActive
@@ -242,8 +241,7 @@ export function ChatInput({onSendMessage, isLoading, userId = 'anonymous'}: Chat
                       }
                       rows={1}
                       className={cn(
-                        'max-h-36 resize-none pr-40 text-sm md:text-base py-3 md:py-4 pl-4 rounded-2xl',
-                        'border-2 focus-visible:ring-2 focus-visible:ring-primary/20',
+                        'min-h-[56px] max-h-36 resize-none border-0 bg-transparent text-sm md:text-base py-4 pl-4 pr-4 shadow-none focus-visible:ring-0',
                         'transition-all duration-200',
                         isVoiceChatActive && 'border-destructive'
                       )}
@@ -251,7 +249,11 @@ export function ChatInput({onSendMessage, isLoading, userId = 'anonymous'}: Chat
                       disabled={isLoading || isVoiceChatActive}
                       {...field}
                     />
-                    <div className="absolute right-2 top-2 flex gap-1">
+                    <div className={cn(
+                      'flex items-center justify-between gap-2 border-t px-2 pb-2 pt-2',
+                      isMobile ? 'flex-wrap' : 'flex-nowrap'
+                    )}>
+                      <div className="flex items-center gap-1">
                       {/* Image Upload Button */}
                       <Button
                         type="button"
@@ -313,17 +315,21 @@ export function ChatInput({onSendMessage, isLoading, userId = 'anonymous'}: Chat
                           {isVoiceChatActive ? 'Stop voice chat' : 'Start voice chat'}
                         </span>
                       </Button>
+                      </div>
 
-                      {/* Send Button */}
-                      <Button
-                        type="submit"
-                        size="icon"
-                        className="h-9 w-9 rounded-xl shadow-sm"
-                        disabled={isLoading || !form.formState.isValid || isVoiceChatActive}
-                      >
-                        <Send className="h-4 w-4" />
-                        <span className="sr-only">Send</span>
-                      </Button>
+                      <div className="flex items-center gap-2 ml-auto">
+                        <span className="hidden text-xs text-muted-foreground md:inline">
+                          Enter to send
+                        </span>
+                        <Button
+                          type="submit"
+                          className="h-9 rounded-xl px-4 shadow-sm"
+                          disabled={isLoading || !form.formState.isValid || isVoiceChatActive}
+                        >
+                          <Send className="mr-2 h-4 w-4" />
+                          Send
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </FormControl>

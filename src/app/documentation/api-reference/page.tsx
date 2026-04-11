@@ -65,13 +65,6 @@ export default function APIReferencePage() {
               icon={<MessageSquare className="h-4 w-4" />}
             />
             <URLCard
-              title="Smart Notes Pro"
-              description="AI-powered research notes with 18+ sources"
-              url={`${APP_CONFIG.BASE_URL}${APP_CONFIG.FEATURES.smartNotes}`}
-              icon={<FileText className="h-4 w-4" />}
-              badge="New"
-            />
-            <URLCard
               title="Math Solver"
               description="Visual equation solving with step-by-step explanations"
               url={`${APP_CONFIG.BASE_URL}${APP_CONFIG.FEATURES.mathSolver}`}
@@ -84,20 +77,20 @@ export default function APIReferencePage() {
               icon={<FileText className="h-4 w-4" />}
             />
             <URLCard
-              title="AI Image Generator"
-              description="Create AI art with multiple models"
-              url={`${APP_CONFIG.BASE_URL}${APP_CONFIG.FEATURES.imageGenerator}`}
+              title="AI Services"
+              description="Focused tools for PDF analysis, image workflows, and more"
+              url={`${APP_CONFIG.BASE_URL}${APP_CONFIG.FEATURES.aiServices}`}
               icon={<Image className="h-4 w-4" />}
             />
             <URLCard
-              title="Jarvis Mode"
-              description="Voice-enabled AI assistant"
+              title="Chat Workspace"
+              description="Chat interface with voice and message actions"
               url={`${APP_CONFIG.BASE_URL}${APP_CONFIG.FEATURES.jarvisMode}`}
               icon={<Sparkles className="h-4 w-4" />}
             />
             <URLCard
-              title="Memory Dashboard"
-              description="Smart contextual memory management"
+              title="Account"
+              description="Account settings and profile management"
               url={`${APP_CONFIG.BASE_URL}${APP_CONFIG.FEATURES.memoryDashboard}`}
               icon={<Brain className="h-4 w-4" />}
             />
@@ -133,7 +126,7 @@ export default function APIReferencePage() {
             />
             <URLCard
               title="AI Models Guide"
-              description="Learn about 21+ AI models"
+              description="Learn about the currently available AI models"
               url={`${APP_CONFIG.BASE_URL}${APP_CONFIG.DOCS.aiModels}`}
               icon={<Code className="h-4 w-4" />}
             />
@@ -168,21 +161,21 @@ export default function APIReferencePage() {
             />
             <APIEndpointCard
               method="POST"
-              endpoint="/api/smart-notes"
-              description="Generate smart notes from topics"
-              url={`${APP_CONFIG.API_BASE_URL}/smart-notes`}
-            />
-            <APIEndpointCard
-              method="POST"
-              endpoint="/api/ai-services/pdf-reader"
+              endpoint="/api/ai/pdf-analyzer"
               description="PDF analysis and extraction"
-              url={`${APP_CONFIG.API_BASE_URL}/ai-services/pdf-reader`}
+              url={`${APP_CONFIG.API_BASE_URL}/ai/pdf-analyzer`}
             />
             <APIEndpointCard
               method="POST"
-              endpoint="/api/ai-services/image-quiz"
-              description="Image analysis and quiz generation"
-              url={`${APP_CONFIG.API_BASE_URL}/ai-services/image-quiz`}
+              endpoint="/api/ai/image-solver"
+              description="Image and equation analysis"
+              url={`${APP_CONFIG.API_BASE_URL}/ai/image-solver`}
+            />
+            <APIEndpointCard
+              method="POST"
+              endpoint="/api/ai/search"
+              description="Search-backed AI answers"
+              url={`${APP_CONFIG.API_BASE_URL}/ai/search`}
             />
           </div>
         </CardContent>
@@ -208,7 +201,7 @@ export default function APIReferencePage() {
             </div>
             
             <div>
-              <h4 className="font-semibold mb-2">Embed Smart Notes</h4>
+              <h4 className="font-semibold mb-2">Link to AI Services</h4>
               <div className="bg-muted p-3 rounded-lg">
                 <code className="text-sm">
                   {`<iframe src="${APP_CONFIG.SHARE_URLS.smartNotes}" width="100%" height="600"></iframe>`}

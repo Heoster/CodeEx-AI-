@@ -31,7 +31,7 @@ export function generatePageMetadata(options: PageMetadataOptions): Metadata {
 
   const finalDescription = description || defaultSEO.description;
   const finalKeywords = [...(defaultSEO.keywords || []), ...keywords];
-  const canonicalUrl = `https://codeex-ai.vercel.app${path}`;
+  const canonicalUrl = `https://soham-ai.vercel.app${path}`;
 
   return {
     title: fullTitle,
