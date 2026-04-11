@@ -1,71 +1,78 @@
-import { MetadataRoute } from 'next';
+import {MetadataRoute} from 'next';
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL || 'https://soham-ai.vercel.app';
-const NOW  = new Date().toISOString();
+const BASE = 'https://soham-ai.vercel.app';
 
-type Freq = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
+// Dates — use real deploy/update dates so Google sees meaningful lastmod values
+const D = {
+  today:   new Date().toISOString(),
+  week:    new Date(Date.now() - 7  * 86400_000).toISOString(),
+  month:   new Date(Date.now() - 30 * 86400_000).toISOString(),
+  quarter: new Date(Date.now() - 90 * 86400_000).toISOString(),
+};
 
-function url(
+type Freq = MetadataRoute.Sitemap[number]['changeFrequency'];
+
+function entry(
   path: string,
   priority: number,
-  changeFrequency: Freq = 'weekly',
-  lastModified = NOW,
+  changeFrequency: Freq,
+  lastModified: string,
 ): MetadataRoute.Sitemap[number] {
-  return { url: `${BASE}${path}`, lastModified, changeFrequency, priority };
+  return {url: `${BASE}${path}`, lastModified, changeFrequency, priority};
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    // ── Core app ────────────────────────────────────────────────────────────
-    url('/',              1.0,  'weekly'),
-    url('/chat',          0.95, 'daily'),
-    url('/ai-services',   0.92, 'weekly'),
-    url('/visual-math',   0.90, 'weekly'),
-    url('/pdf-analyzer',  0.90, 'weekly'),
+    // ── Tier 1 — Core product pages (crawl daily) ──────────────────────────
+    entry('/',             1.00, 'daily',   D.today),
+    entry('/chat',         0.95, 'daily',   D.today),
+    entry('/ai-services',  0.92, 'daily',   D.today),
+    entry('/visual-math',  0.90, 'weekly',  D.week),
+    entry('/pdf-analyzer', 0.90, 'weekly',  D.week),
 
-    // ── Marketing / info ────────────────────────────────────────────────────
-    url('/features',      0.88, 'weekly'),
-    url('/about',         0.80, 'monthly'),
-    url('/soham',         0.80, 'monthly'),
-    url('/models',        0.85, 'weekly'),
-    url('/pricing',       0.75, 'monthly'),
-    url('/blog',          0.70, 'weekly'),
+    // ── Tier 2 — Marketing & discovery ────────────────────────────────────
+    entry('/features',     0.88, 'weekly',  D.week),
+    entry('/models',       0.85, 'weekly',  D.week),
+    entry('/about',        0.80, 'monthly', D.month),
+    entry('/soham',        0.80, 'monthly', D.month),
+    entry('/pricing',      0.75, 'monthly', D.month),
+    entry('/blog',         0.70, 'weekly',  D.week),
 
-    // ── Support / legal ─────────────────────────────────────────────────────
-    url('/contact',       0.65, 'monthly'),
-    url('/support',       0.65, 'weekly'),
-    url('/privacy',       0.50, 'monthly'),
-    url('/terms',         0.50, 'monthly'),
+    // ── Tier 3 — Support & legal ───────────────────────────────────────────
+    entry('/contact',      0.65, 'monthly', D.month),
+    entry('/support',      0.65, 'monthly', D.month),
+    entry('/privacy',      0.50, 'yearly',  D.quarter),
+    entry('/terms',        0.50, 'yearly',  D.quarter),
 
-    // ── Documentation index ─────────────────────────────────────────────────
-    url('/documentation', 0.90, 'weekly'),
+    // ── Documentation — index ─────────────────────────────────────────────
+    entry('/documentation',                    0.90, 'weekly', D.week),
 
-    // ── Getting Started ─────────────────────────────────────────────────────
-    url('/documentation/quick-start',   0.85, 'weekly'),
-    url('/documentation/installation',  0.85, 'weekly'),
-    url('/documentation/pwa',           0.85, 'weekly'),   // ← new
+    // ── Documentation — Getting Started ───────────────────────────────────
+    entry('/documentation/quick-start',        0.85, 'weekly', D.week),
+    entry('/documentation/installation',       0.85, 'weekly', D.week),
+    entry('/documentation/pwa',                0.82, 'weekly', D.week),
 
-    // ── Features ────────────────────────────────────────────────────────────
-    url('/documentation/chat',              0.80, 'weekly'),
-    url('/documentation/ai-models',         0.80, 'weekly'),
-    url('/documentation/commands',          0.78, 'weekly'),
-    url('/documentation/image-generation',  0.78, 'weekly'),
-    url('/documentation/math-solver',       0.75, 'weekly'),
-    url('/documentation/pdf-analysis',      0.75, 'weekly'),
-    url('/documentation/web-search',        0.75, 'weekly'),
-    url('/documentation/smart-routing',     0.75, 'weekly'),
-    url('/documentation/jarvis-mode',       0.72, 'weekly'),
-    url('/documentation/smart-notes',       0.70, 'weekly'),
-    url('/documentation/code-analysis',     0.70, 'weekly'),
+    // ── Documentation — Features ──────────────────────────────────────────
+    entry('/documentation/chat',               0.80, 'weekly', D.week),
+    entry('/documentation/ai-models',          0.80, 'weekly', D.week),
+    entry('/documentation/commands',           0.78, 'weekly', D.week),
+    entry('/documentation/image-generation',   0.78, 'weekly', D.week),
+    entry('/documentation/web-search',         0.76, 'weekly', D.week),
+    entry('/documentation/math-solver',        0.75, 'weekly', D.week),
+    entry('/documentation/pdf-analysis',       0.75, 'weekly', D.week),
+    entry('/documentation/smart-routing',      0.73, 'weekly', D.week),
+    entry('/documentation/jarvis-mode',        0.70, 'monthly', D.month),
+    entry('/documentation/smart-notes',        0.70, 'monthly', D.month),
+    entry('/documentation/code-analysis',      0.70, 'monthly', D.month),
 
-    // ── Configuration ───────────────────────────────────────────────────────
-    url('/documentation/settings',          0.72, 'weekly'),
-    url('/documentation/personalization',   0.70, 'weekly'),
-    url('/documentation/security',          0.68, 'monthly'),
+    // ── Documentation — Configuration ─────────────────────────────────────
+    entry('/documentation/settings',           0.72, 'weekly', D.week),
+    entry('/documentation/personalization',    0.70, 'monthly', D.month),
+    entry('/documentation/security',           0.68, 'monthly', D.month),
 
-    // ── Reference ───────────────────────────────────────────────────────────
-    url('/documentation/api-reference',     0.75, 'weekly'),
-    url('/documentation/api',               0.70, 'weekly'),
-    url('/documentation/faq',               0.72, 'weekly'),
+    // ── Documentation — Reference ─────────────────────────────────────────
+    entry('/documentation/api-reference',      0.75, 'weekly', D.week),
+    entry('/documentation/api',                0.72, 'weekly', D.week),
+    entry('/documentation/faq',                0.75, 'weekly', D.week),
   ];
 }

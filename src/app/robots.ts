@@ -1,36 +1,50 @@
-import { MetadataRoute } from 'next';
+import {MetadataRoute} from 'next';
 
-/**
- * Robots.txt configuration for SEO
- * Optimized for search engine crawling
- */
+const BASE = 'https://soham-ai.vercel.app';
+
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://soham-ai.vercel.app';
-
   return {
     rules: [
       {
+        // All crawlers — allow everything except private/internal paths
         userAgent: '*',
         allow: '/',
         disallow: [
           '/api/',
-          '/user-management',
           '/_next/',
-          '/test-*',
+          '/account',
+          '/account-settings',
+          '/user-management',
+          '/login',
+          '/test-',
+          '/debug',
         ],
       },
       {
+        // Give Googlebot explicit permission on key pages
         userAgent: 'Googlebot',
-        allow: '/',
-        disallow: ['/api/', '/user-management'],
-      },
-      {
-        userAgent: 'Bingbot',
-        allow: '/',
-        disallow: ['/api/', '/user-management'],
+        allow: [
+          '/',
+          '/chat',
+          '/ai-services',
+          '/visual-math',
+          '/pdf-analyzer',
+          '/features',
+          '/models',
+          '/about',
+          '/documentation',
+          '/documentation/',
+          '/pricing',
+          '/blog',
+          '/contact',
+          '/support',
+          '/privacy',
+          '/terms',
+        ],
+        disallow: ['/api/', '/_next/', '/account', '/account-settings', '/login'],
       },
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl,
+    sitemap: `${BASE}/sitemap.xml`,
+    host: BASE,
   };
 }
