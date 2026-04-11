@@ -31,8 +31,12 @@ export class LocalStorageService {
   private baseUrl: string;
 
   constructor() {
-    // Store in public/uploads for Next.js static serving
-    this.uploadsDir = path.join(process.cwd(), 'public', 'uploads');
+    // On Vercel/serverless: public/ is read-only, use /tmp instead
+    // On local dev: use public/uploads for static serving
+    const isVercel = process.env.VERCEL === '1';
+    this.uploadsDir = isVercel
+      ? '/tmp/uploads'
+      : path.join(process.cwd(), 'public', 'uploads');
     this.baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
     
     // Ensure uploads directory exists

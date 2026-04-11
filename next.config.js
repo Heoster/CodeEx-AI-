@@ -17,6 +17,23 @@ const withPWA = require('@ducanh2912/next-pwa').default({
     clientsClaim: true,
     runtimeCaching: [
       {
+        // Bypass SW for dynamically generated/uploaded images — these don't exist on serverless
+        urlPattern: /\/uploads\/.*/i,
+        handler: 'NetworkOnly',
+      },
+      {
+        // Cache Pollinations AI-generated images (external CDN)
+        urlPattern: /^https:\/\/image\.pollinations\.ai\/.*/i,
+        handler: 'CacheFirst',
+        options: {
+          cacheName: 'pollinations-images',
+          expiration: {
+            maxEntries: 50,
+            maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+          },
+        },
+      },
+      {
         urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,
         handler: 'CacheFirst',
         options: {
@@ -125,6 +142,11 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'images.unsplash.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'image.pollinations.ai',
         pathname: '/**',
       }
     ],

@@ -1,12 +1,12 @@
 'use server';
 
 import {analyzePdf} from '@/ai/flows/analyze-pdf';
-import {processUserMessage} from '@/ai/flows/process-user-message';
 import {sendWelcomeEmail} from '@/ai/flows/send-welcome-email';
 import {solveImageEquation} from '@/ai/flows/solve-image-equation';
 import {enhancedImageSolver} from '@/ai/flows/enhanced-image-solver';
 import {enhancedPdfAnalyzer} from '@/ai/flows/enhanced-pdf-analyzer';
-import {env, getApiUrl} from '@/lib/env-config';
+import {generateWithSmartFallback} from '@/ai/smart-fallback';
+import {buildSohamPromptContext, persistSohamMemory} from '@/lib/soham-agent-orchestrator';
 import type {
   AnalyzePdfInput,
   AnalyzePdfOutput,
@@ -15,60 +15,111 @@ import type {
   SolveImageEquationOutput,
 } from '@/lib/types';
 
-function handleGenkitError(error: unknown): {error: string} {
+function handleError(error: unknown): {error: string} {
   const message = error instanceof Error ? error.message : String(error);
-  console.error('Genkit flow failed:', error);
-
-  // Check for the specific API key error and provide a helpful message.
-  if (message.includes('API key') || message.includes('API_KEY')) {
+  if (message.includes('API key') || message.includes('API_KEY') || message.includes('Authentication')) {
     return {
-      error: `AI processing failed. Your Groq API key is missing. Please create a free key at https://console.groq.com/keys and add it to the GROQ_API_KEY variable in your .env file.`,
+      error: `AI processing failed. Please check your API key configuration.`,
     };
   }
-
   return {error: `AI processing failed: ${message}`};
 }
 
-// Type guard to check if response has error property
-function isErrorResponse(response: any): response is {error: string} {
-  return response && typeof response === 'object' && 'error' in response && typeof response.error === 'string';
-}
+const getToneInstructions = (tone: string) => {
+  switch (tone) {
+    case 'formal': return 'Use professional language, proper grammar, and a respectful tone.';
+    case 'casual': return 'Be friendly and conversational. Use simple language and contractions.';
+    default: return 'Be warm, approachable, and supportive. Balance professionalism with friendliness.';
+  }
+};
 
-// Type guard to ensure response is valid
-function isValidResponse(response: any): boolean {
-  return response && typeof response === 'object' && response !== null;
-}
+const getTechnicalInstructions = (level: string) => {
+  switch (level) {
+    case 'beginner': return 'Explain concepts in simple terms. Avoid jargon and use analogies.';
+    case 'expert': return 'Use technical terminology freely. Provide in-depth explanations.';
+    default: return 'Balance technical accuracy with accessibility. Define specialized terms when first used.';
+  }
+};
 
 export async function generateResponse(
   input: ProcessUserMessageInput
 ): Promise<{content: string; modelUsed?: string; autoRouted?: boolean; routingReasoning?: string} | {error: string}> {
   try {
-    // Use the new processUserMessage flow which includes:
-    // - Image generation (SOHAM pipeline)
-    // - Video generation (Veo 3.1)
-    // - Memory system integration
-    // - Auto-routing with smart fallback
-    const response = await processUserMessage(input);
-    
-    if (!response || typeof response !== 'object') {
-      throw new Error('Invalid response from processUserMessage');
-    }
-    
-    // Check if it's an error response
-    if ('error' in response) {
-      return {error: response.error as string};
-    }
-    
-    // Return the response with all metadata
+    const { message, history = [], settings = {} as any, userId } = input;
+
+    const systemPrompt = `You are SOHAM, an intelligent and versatile assistant created by Heoster. SOHAM stands for Self Organising Hyper Adaptive Machine, inspired by a Sanskrit word.
+
+PERSONALITY & COMMUNICATION STYLE:
+${getToneInstructions(settings.tone || 'helpful')}
+
+TECHNICAL DEPTH:
+${getTechnicalInstructions(settings.technicalLevel || 'intermediate')}
+
+RESPONSE FORMATTING RULES (IMPORTANT):
+- NEVER use # or ## or ### markdown headers in your responses. They look bad in chat.
+- Use **bold** for emphasis, bullet points for lists, and code blocks for code.
+- Keep responses conversational using paragraphs and bullets only — no headings.
+
+RESPONSE GUIDELINES:
+1. Be Accurate: If unsure, say so. Don't make up information.
+2. Be Concise: Get to the point without unnecessary filler.
+3. Stay Focused: Address the user's actual question directly.
+4. For code: Always specify the language in code blocks.
+5. For math: Show step-by-step working.
+
+ABOUT SOHAM:
+- Created by Heoster (Harsh), a 16-year-old developer from Khatauli, Uttar Pradesh, India
+- Built and operated by CODEEX-AI
+- Vision: Democratize AI education in India`;
+
+    const convertedHistory = history.map((msg: any) => ({
+      role: (msg.role === 'assistant' ? 'model' : 'user') as 'user' | 'model',
+      content: msg.content,
+    }));
+
+    const agentContext = await buildSohamPromptContext({
+      message,
+      history: convertedHistory,
+      userId,
+    });
+
+    const preferredModelId = settings.model && settings.model !== 'auto' ? settings.model : undefined;
+
+    const result = await generateWithSmartFallback({
+      prompt: agentContext.prompt,
+      systemPrompt,
+      history: convertedHistory,
+      preferredModelId,
+      category: 'general',
+      params: {
+        temperature: 0.7,
+        topP: 0.9,
+        topK: 40,
+        maxOutputTokens: 4096,
+      },
+    });
+
+    // Persist memory non-blocking
+    persistSohamMemory({
+      userId,
+      userMessage: message,
+      assistantMessage: result.response.text,
+      metadata: {
+        toolsUsed: agentContext.toolsUsed.map((t: any) => t.tool),
+        modelUsed: result.modelUsed,
+        classification: 'MEDIUM',
+      },
+    }).catch(() => {});
+
     return {
-      content: response.answer,
-      modelUsed: response.modelUsed,
-      autoRouted: response.autoRouted,
-      routingReasoning: response.routingReasoning,
+      content: result.response.text,
+      modelUsed: result.modelUsed,
+      autoRouted: result.fallbackTriggered,
+      routingReasoning: result.fallbackTriggered ? 'Fallback triggered' : 'Direct model usage',
     };
   } catch (error) {
     console.error('generateResponse error:', error);
-    return handleGenkitError(error);
+    return handleError(error);
   }
 }
 
@@ -76,7 +127,6 @@ export async function solveEquationFromImage(
   input: SolveImageEquationInput
 ): Promise<SolveImageEquationOutput | {error: string}> {
   try {
-    // Try enhanced solver first (with multi-provider fallback)
     const response = await enhancedImageSolver({
       imageDataUri: input.photoDataUri,
       problemType: 'math',
@@ -87,13 +137,10 @@ export async function solveEquationFromImage(
       isSolvable: response.isSolvable,
     };
   } catch (error) {
-    console.error('Enhanced image solver failed, using fallback:', error);
     try {
-      // Fallback to original solver
-      const response = await solveImageEquation(input);
-      return response;
+      return await solveImageEquation(input);
     } catch (fallbackError) {
-      return handleGenkitError(fallbackError);
+      return handleError(fallbackError);
     }
   }
 }
@@ -102,20 +149,15 @@ export async function analyzeDocumentFromPdf(
   input: AnalyzePdfInput
 ): Promise<AnalyzePdfOutput | {error: string}> {
   try {
-    // Try enhanced analyzer first (with multi-provider fallback)
-    const response = await enhancedPdfAnalyzer({
+    return await enhancedPdfAnalyzer({
       pdfDataUri: input.pdfDataUri,
       question: input.question,
     });
-    return response;
   } catch (error) {
-    console.error('Enhanced PDF analyzer failed, using fallback:', error);
     try {
-      // Fallback to original analyzer
-      const response = await analyzePdf(input);
-      return response;
+      return await analyzePdf(input);
     } catch (fallbackError) {
-      return handleGenkitError(fallbackError);
+      return handleError(fallbackError);
     }
   }
 }
@@ -127,6 +169,6 @@ export async function triggerWelcomeEmail(input: {
   try {
     await sendWelcomeEmail(input);
   } catch (error) {
-    return handleGenkitError(error);
+    return handleError(error);
   }
 }

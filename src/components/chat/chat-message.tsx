@@ -10,6 +10,7 @@ import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from '@/compon
 import {formatDistanceToNow} from 'date-fns';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkBreaks from 'remark-breaks';
 import rehypeRaw from 'rehype-raw';
 import {MessageAttribution} from './message-attribution';
 import {MessageShare} from './message-share';
@@ -218,6 +219,18 @@ function GeneratedImage({ src: rawSrc, alt }: { src: string; alt?: string }) {
       )}
     </>
   );
+}
+
+// ─── Strip AI artefacts (loading placeholders, stray ### markers) ─────────────
+function sanitizeAIContent(content: string): string {
+  return content
+    // Remove lines that are ONLY a heading marker + "loading" variants
+    .replace(/^#{1,6}\s*(loading|please wait|generating|thinking|processing)\.{0,3}\s*$/gim, '')
+    // Remove bare "###" / "##" / "#" lines with nothing after them
+    .replace(/^#{1,6}\s*$/gm, '')
+    // Collapse 3+ consecutive blank lines down to 2
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
 }
 
 export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
@@ -445,27 +458,51 @@ export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
             )}
           >
             <div className={cn(
-              'prose prose-sm dark:prose-invert max-w-none',
-              'prose-p:my-3 prose-p:leading-7',
+              'prose prose-sm max-w-none',
+              // Base prose resets
               'prose-pre:my-4 prose-pre:p-0 prose-pre:bg-transparent',
               'prose-code:text-sm prose-code:bg-transparent prose-code:px-0 prose-code:py-0 prose-code:rounded-none',
-              'prose-a:text-primary prose-a:no-underline hover:prose-a:underline',
-              'prose-headings:mt-5 prose-headings:mb-3 prose-headings:scroll-mt-20',
-              'prose-headings:font-semibold',
+              'prose-headings:mt-5 prose-headings:mb-3 prose-headings:scroll-mt-20 prose-headings:font-semibold',
               'prose-h1:text-2xl prose-h2:text-xl prose-h3:text-lg',
               'prose-ul:my-4 prose-ol:my-4',
               'prose-li:my-1.5 prose-li:leading-7',
-              'prose-strong:font-semibold prose-strong:text-foreground',
-              'prose-blockquote:my-4 prose-blockquote:rounded-r-lg prose-blockquote:border-l-4 prose-blockquote:border-primary/60 prose-blockquote:bg-primary/5 prose-blockquote:px-4 prose-blockquote:py-3 prose-blockquote:text-foreground',
-              'prose-hr:my-6 prose-hr:border-border/70',
-              !isAssistant && 'prose-invert'
+              'prose-hr:my-6',
+              // Assistant bubble — dark/light adaptive
+              isAssistant && [
+                'dark:prose-invert',
+                'prose-p:my-3 prose-p:leading-7 prose-p:text-foreground/95',
+                'prose-strong:font-bold prose-strong:text-foreground',
+                'prose-a:text-primary prose-a:no-underline hover:prose-a:underline',
+                'prose-blockquote:border-primary/60 prose-blockquote:bg-primary/5 prose-blockquote:text-foreground/90',
+                'prose-hr:border-border/70',
+              ],
+              // User bubble — always light text on primary bg
+              !isAssistant && [
+                'prose-invert',
+                'prose-p:my-2 prose-p:leading-7',
+                'prose-a:text-white/90 prose-a:underline',
+                'prose-strong:text-white',
+                'prose-code:text-white/90',
+                'prose-blockquote:border-white/40 prose-blockquote:text-white/80',
+                'prose-hr:border-white/20',
+              ],
             )}>
               <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
+                remarkPlugins={[remarkGfm, remarkBreaks]}
                 rehypePlugins={[rehypeRaw]}
                 components={{
                   a: ({node, ...props}) => (
-                    <a {...props} target="_blank" rel="noopener noreferrer" className="text-primary underline underline-offset-2 decoration-primary/40 hover:decoration-primary transition-colors" />
+                    <a
+                      {...props}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={cn(
+                        'underline underline-offset-2 transition-colors',
+                        isAssistant
+                          ? 'text-primary decoration-primary/40 hover:decoration-primary'
+                          : 'text-white/90 decoration-white/40 hover:decoration-white'
+                      )}
+                    />
                   ),
                   img: ({node: _node, src, alt}) => (
                     <GeneratedImage src={src || ''} alt={alt} />
@@ -484,49 +521,89 @@ export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
                     <tbody className="divide-y divide-border/50" {...props} />
                   ),
                   tr: ({node, ...props}) => (
-                    <tr
-                      className="transition-colors even:bg-muted/30 hover:bg-primary/5"
-                      {...props}
-                    />
+                    <tr className="transition-colors even:bg-muted/30 hover:bg-primary/5" {...props} />
                   ),
                   th: ({node, ...props}) => (
-                    <th
-                      className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-primary/80 border-r border-primary/10 last:border-r-0 whitespace-nowrap"
-                      {...props}
-                    />
+                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-widest text-primary/80 border-r border-primary/10 last:border-r-0 whitespace-nowrap" {...props} />
                   ),
                   td: ({node, ...props}) => (
-                    <td
-                      className="px-4 py-3 align-top leading-6 text-foreground/90 border-r border-border/30 last:border-r-0"
-                      {...props}
-                    />
+                    <td className="px-4 py-3 align-top leading-6 text-foreground/90 border-r border-border/30 last:border-r-0" {...props} />
                   ),
                   ul: ({node, ...props}) => <ul className="my-4 list-disc space-y-1.5 pl-6" {...props} />,
                   ol: ({node, ...props}) => <ol className="my-4 list-decimal space-y-1.5 pl-6" {...props} />,
-                  li: ({node, ...props}) => <li className="pl-1 leading-7 marker:text-primary" {...props} />,
-                  strong: ({node, ...props}) => <strong className="font-bold text-foreground" {...props} />,
-                  em: ({node, ...props}) => <em className="italic text-foreground/90" {...props} />,
-                  del: ({node, ...props}) => <del className="line-through text-muted-foreground/80 decoration-muted-foreground/60" {...props} />,
-                  u: ({node, ...props}: any) => <u className="underline underline-offset-2 decoration-foreground/60 not-italic" {...props} />,
-                  mark: ({node, ...props}: any) => <mark className="bg-yellow-200/80 dark:bg-yellow-500/30 text-foreground rounded px-0.5" {...props} />,
+                  li: ({node, ...props}) => (
+                    <li
+                      className={cn('pl-1 leading-7', isAssistant ? 'marker:text-primary' : 'marker:text-white/70')}
+                      {...props}
+                    />
+                  ),
+                  strong: ({node, ...props}) => (
+                    <strong className={cn('font-bold', isAssistant ? 'text-foreground' : 'text-white')} {...props} />
+                  ),
+                  em: ({node, ...props}) => (
+                    <em className={cn('italic', isAssistant ? 'text-foreground/90' : 'text-white/90')} {...props} />
+                  ),
+                  del: ({node, ...props}) => (
+                    <del className="line-through opacity-70" {...props} />
+                  ),
+                  u: ({node, ...props}: any) => (
+                    <u className="underline underline-offset-2 not-italic" {...props} />
+                  ),
+                  mark: ({node, ...props}: any) => (
+                    <mark className="bg-yellow-200/80 dark:bg-yellow-500/30 text-foreground rounded px-0.5" {...props} />
+                  ),
                   sup: ({node, ...props}: any) => <sup className="text-[0.75em] align-super" {...props} />,
                   sub: ({node, ...props}: any) => <sub className="text-[0.75em] align-sub" {...props} />,
-                  small: ({node, ...props}: any) => <small className="text-[0.85em] text-muted-foreground" {...props} />,
-                  kbd: ({node, ...props}: any) => <kbd className="rounded border border-border bg-muted px-1.5 py-0.5 text-[0.8em] font-mono shadow-sm" {...props} />,
-                  p: ({node, ...props}) => <p className="my-3 leading-7 text-foreground/95" {...props} />,
-                  hr: ({node, ...props}) => <hr className="my-6 border-border/60" {...props} />,
-                  h1: ({node, ...props}) => <h1 className="mt-7 mb-3 text-2xl font-bold tracking-tight text-foreground border-b border-border/50 pb-2" {...props} />,
-                  h2: ({node, ...props}) => <h2 className="mt-6 mb-3 text-xl font-semibold tracking-tight text-foreground" {...props} />,
-                  h3: ({node, ...props}) => <h3 className="mt-5 mb-2 text-lg font-semibold text-foreground" {...props} />,
-                  h4: ({node, ...props}) => <h4 className="mt-4 mb-2 text-base font-semibold text-foreground" {...props} />,
-                  h5: ({node, ...props}) => <h5 className="mt-4 mb-1 text-sm font-semibold uppercase tracking-wider text-muted-foreground" {...props} />,
-                  h6: ({node, ...props}) => <h6 className="mt-3 mb-1 text-xs font-semibold uppercase tracking-widest text-muted-foreground" {...props} />,
+                  small: ({node, ...props}: any) => <small className="text-[0.85em] opacity-70" {...props} />,
+                  kbd: ({node, ...props}: any) => (
+                    <kbd className={cn(
+                      'rounded border px-1.5 py-0.5 text-[0.8em] font-mono shadow-sm',
+                      isAssistant ? 'border-border bg-muted' : 'border-white/30 bg-white/10'
+                    )} {...props} />
+                  ),
+                  p: ({node, ...props}) => <p className="my-3 leading-7" {...props} />,
+                  br: () => <br className="block my-1" />,
+                  hr: ({node, ...props}) => (
+                    <hr className={cn('my-6 border-0 h-px', isAssistant ? 'bg-border/50' : 'bg-white/20')} {...props} />
+                  ),
+                  h1: ({node, ...props}) => (
+                    <h1 className={cn(
+                      'mt-8 mb-4 text-[1.6rem] font-bold tracking-tight leading-tight border-b-2 pb-2',
+                      isAssistant ? 'border-primary/30' : 'border-white/25'
+                    )} {...props} />
+                  ),
+                  h2: ({node, ...props}) => (
+                    <h2 className={cn(
+                      'mt-7 mb-3 text-[1.3rem] font-bold tracking-tight leading-snug',
+                      'pl-3 border-l-4',
+                      isAssistant ? 'border-primary/70' : 'border-white/50'
+                    )} {...props} />
+                  ),
+                  h3: ({node, ...props}) => (
+                    <h3 className={cn(
+                      'mt-6 mb-2 text-[1.1rem] font-semibold leading-snug',
+                      'pl-2.5 border-l-[3px]',
+                      isAssistant ? 'border-primary/40' : 'border-white/35'
+                    )} {...props} />
+                  ),
+                  h4: ({node, ...props}) => (
+                    <h4 className="mt-5 mb-2 text-base font-semibold leading-snug" {...props} />
+                  ),
+                  h5: ({node, ...props}) => (
+                    <h5 className="mt-4 mb-1 text-sm font-semibold uppercase tracking-widest opacity-75" {...props} />
+                  ),
+                  h6: ({node, ...props}) => (
+                    <h6 className="mt-3 mb-1 text-xs font-semibold uppercase tracking-widest opacity-55" {...props} />
+                  ),
                   blockquote: ({node, ...props}) => (
-                    <blockquote className="my-4 border-l-4 border-primary/60 bg-primary/5 px-4 py-3 italic text-foreground/90 rounded-r-lg" {...props} />
+                    <blockquote className={cn(
+                      'my-4 border-l-4 px-4 py-3 italic rounded-r-lg',
+                      isAssistant ? 'border-primary/60 bg-primary/5 text-foreground/90' : 'border-white/40 bg-white/10 text-white/90'
+                    )} {...props} />
                   ),
                 }}
               >
-                {message.content}
+                {sanitizeAIContent(message.content)}
               </ReactMarkdown>
             </div>
 
@@ -542,75 +619,50 @@ export function ChatMessage({message, onRegenerate}: ChatMessageProps) {
           </div>
 
           <div className={cn(
-            'flex flex-wrap items-center gap-1.5 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity',
+            'flex flex-wrap items-center gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-150',
             !isAssistant && 'flex-row-reverse'
           )}>
             {displayTimestamp && (
-              <span className="text-xs text-muted-foreground px-2">
+              <span className="text-[11px] text-muted-foreground px-1.5 select-none">
                 {displayTimestamp}
               </span>
             )}
-            
+
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-7 w-7"
-                  onClick={handleCopy}
-                >
-                  {copied ? (
-                    <Check className="h-3.5 w-3.5 text-green-500" />
-                  ) : (
-                    <Copy className="h-3.5 w-3.5" />
-                  )}
+                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={handleCopy}>
+                  {copied
+                    ? <Check className="h-3.5 w-3.5 text-green-500" />
+                    : <Copy className="h-3.5 w-3.5" />}
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>
-                <p>{copied ? 'Copied!' : 'Copy message'}</p>
-              </TooltipContent>
+              <TooltipContent><p>{copied ? 'Copied!' : 'Copy'}</p></TooltipContent>
             </Tooltip>
 
             {isAssistant && (
               <>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-7 w-7"
-                      onClick={handleSpeak}
-                    >
-                      {isSpeaking ? (
-                        <VolumeX className="h-3.5 w-3.5 text-primary animate-pulse" />
-                      ) : (
-                        <Volume2 className="h-3.5 w-3.5" />
-                      )}
+                    <Button variant="ghost" size="icon" className="h-7 w-7" onClick={handleSpeak}>
+                      {isSpeaking
+                        ? <VolumeX className="h-3.5 w-3.5 text-primary animate-pulse" />
+                        : <Volume2 className="h-3.5 w-3.5" />}
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{isSpeaking ? 'Stop speaking' : 'Speak message'}</p>
-                  </TooltipContent>
+                  <TooltipContent><p>{isSpeaking ? 'Stop' : 'Speak'}</p></TooltipContent>
                 </Tooltip>
 
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-7 w-7"
+                      variant="ghost" size="icon" className="h-7 w-7"
                       onClick={handleRegenerate}
                       disabled={isRegenerating || !onRegenerate}
                     >
-                      <RefreshCw className={cn(
-                        "h-3.5 w-3.5",
-                        isRegenerating && "animate-spin"
-                      )} />
+                      <RefreshCw className={cn('h-3.5 w-3.5', isRegenerating && 'animate-spin')} />
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{isRegenerating ? 'Regenerating...' : 'Regenerate response'}</p>
-                  </TooltipContent>
+                  <TooltipContent><p>{isRegenerating ? 'Regenerating…' : 'Regenerate'}</p></TooltipContent>
                 </Tooltip>
 
                 <MessageShare message={message} className="h-7 w-7" />

@@ -3,7 +3,7 @@
 ## Problem
 You're seeing errors like:
 ```
-GET https://codeex-ai.netlify.app/_next/static/chunks/fd37fa83-2fca480fd0fc6fa6.js net::ERR_ABORTED 404
+GET https://soham-ai.vercel.app/_next/static/chunks/fd37fa83-2fca480fd0fc6fa6.js net::ERR_ABORTED 404
 Refused to execute script because its MIME type ('text/html') is not executable
 ```
 
@@ -35,7 +35,7 @@ netlify deploy --prod
 After the new build is deployed, users need to clear their service worker cache:
 
 **For You (Developer):**
-1. Open https://codeex-ai.netlify.app in Chrome
+1. Open https://soham-ai.vercel.app in Chrome
 2. Press F12 to open DevTools
 3. Go to **Application** tab
 4. Click **Service Workers** in left sidebar
@@ -49,7 +49,7 @@ They'll need to do the same, or you can add a version check to force service wor
 
 ### Step 3: Verify the Fix
 
-1. Open https://codeex-ai.netlify.app in an incognito window
+1. Open https://soham-ai.vercel.app in an incognito window
 2. Open DevTools (F12) → Network tab
 3. Refresh the page
 4. Check that all JavaScript chunks load with 200 status (not 404)
@@ -135,7 +135,7 @@ Once you've cleared all caches and redeployed:
 
 ```bash
 # Test in incognito mode
-# 1. Open https://codeex-ai.netlify.app
+# 1. Open https://soham-ai.vercel.app
 # 2. Check console for errors
 # 3. Navigate to different pages
 # 4. Try AI chat

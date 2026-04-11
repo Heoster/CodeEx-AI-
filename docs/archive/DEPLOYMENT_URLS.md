@@ -3,7 +3,7 @@
 ## Production Deployments
 
 ### Primary Deployment (Netlify)
-- **URL**: https://codeex-ai.netlify.app
+- **URL**: https://soham-ai.vercel.app
 - **Status**: Active
 - **Platform**: Netlify
 - **Auto-deploy**: Yes (from main branch)
@@ -21,26 +21,26 @@
 ## Key URLs
 
 ### Main Application
-- Netlify: https://codeex-ai.netlify.app
+- Netlify: https://soham-ai.vercel.app
 - Vercel: https://soham-ai.vercel.app
 
 ### Chat Interface
-- Netlify: https://codeex-ai.netlify.app/chat
+- Netlify: https://soham-ai.vercel.app/chat
 - Vercel: https://soham-ai.vercel.app/chat
 
 ### Documentation
-- Netlify: https://codeex-ai.netlify.app/documentation
+- Netlify: https://soham-ai.vercel.app/documentation
 - Vercel: https://soham-ai.vercel.app/documentation
 
 ### API Endpoints
-- Netlify: https://codeex-ai.netlify.app/api
+- Netlify: https://soham-ai.vercel.app/api
 - Vercel: https://soham-ai.vercel.app/api
 
 ## Sitemaps
 
 ### Netlify
-- Sitemap: https://codeex-ai.netlify.app/sitemap.xml
-- Robots: https://codeex-ai.netlify.app/robots.txt
+- Sitemap: https://soham-ai.vercel.app/sitemap.xml
+- Robots: https://soham-ai.vercel.app/robots.txt
 
 ### Vercel
 - Sitemap: https://soham-ai.vercel.app/sitemap.xml
@@ -50,7 +50,7 @@
 
 Both URLs should be added to Google Search Console:
 
-1. **Netlify Property**: https://codeex-ai.netlify.app
+1. **Netlify Property**: https://soham-ai.vercel.app
    - Verification Code 1: `RY6Rmrn0nrzaZO8QXaazCfjsnLoEBKT8-oJxBc_l_9U`
    - Verification Code 2: `BOhoSA2Bv_SY0gWI4wdYE6gPRxqXimqYLLMrYQxVN4k`
    - Submit Sitemap: `sitemap.xml`
@@ -68,8 +68,8 @@ Both deployments use the same environment variables. Set these in:
 
 Required variables:
 ```env
-NEXT_PUBLIC_SITE_URL=https://codeex-ai.netlify.app  # or vercel.app
-NEXT_PUBLIC_APP_URL=https://codeex-ai.netlify.app   # or vercel.app
+NEXT_PUBLIC_SITE_URL=https://soham-ai.vercel.app  # or vercel.app
+NEXT_PUBLIC_APP_URL=https://soham-ai.vercel.app   # or vercel.app
 GROQ_API_KEY=your_key
 GOOGLE_API_KEY=your_key
 HUGGINGFACE_API_KEY=your_key

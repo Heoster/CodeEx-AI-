@@ -214,8 +214,8 @@ Node version: 18.x or higher
 
 ### Immediate Actions
 1. **Google Search Console**
-   - Add property: https://codeex-ai.netlify.app
-   - Submit sitemap: https://codeex-ai.netlify.app/sitemap.xml
+   - Add property: https://soham-ai.vercel.app
+   - Submit sitemap: https://soham-ai.vercel.appitemap.xml
    - Verify ownership
 
 2. **Bing Webmaster Tools**

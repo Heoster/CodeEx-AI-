@@ -6,7 +6,7 @@
 ## ✅ Solution (5 Minutes)
 
 ### Step 1: Check What's Missing
-Visit: **https://codeex-ai.netlify.app/api/health**
+Visit: **https://soham-ai.vercel.app/api/health**
 
 Look for warnings like:
 ```json
@@ -69,11 +69,11 @@ Look for warnings like:
 ### Step 4: Verify It Works
 
 1. **Check Health Endpoint Again**
-   - Visit: https://codeex-ai.netlify.app/api/health
+   - Visit: https://soham-ai.vercel.app/api/health
    - Should show: `"configured": true`
 
 2. **Test Chat**
-   - Go to: https://codeex-ai.netlify.app/chat
+   - Go to: https://soham-ai.vercel.app/chat
    - Send a message: "Hello, are you working?"
    - Should get AI response ✅
 
@@ -142,7 +142,7 @@ If one AI provider fails, automatically tries others:
 
 ### Test API Directly
 ```bash
-curl -X POST https://codeex-ai.netlify.app/api/chat-direct \
+curl -X POST https://soham-ai.vercel.app/api/chat-direct \
   -H "Content-Type: application/json" \
   -d '{"message":"Hello","history":[],"settings":{"tone":"friendly","technicalLevel":"intermediate"}}'
 ```

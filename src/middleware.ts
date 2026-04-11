@@ -17,6 +17,7 @@ export function middleware(request: NextRequest) {
       'https://codeex-ai.netlify.app',
       process.env.NEXT_PUBLIC_APP_URL,
       process.env.NEXT_PUBLIC_SITE_URL,
+      process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined,
     ].filter(Boolean) as string[];
 
     if (origin && allowedOrigins.includes(origin)) {

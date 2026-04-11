@@ -104,7 +104,7 @@ Scopes: All scopes
 #### 🔴 CRITICAL - App URL (Required)
 ```
 Key: NEXT_PUBLIC_APP_URL
-Value: https://codeex-ai.netlify.app
+Value: https://soham-ai.vercel.app
 Scopes: All scopes
 ```
 
@@ -170,7 +170,7 @@ git push origin main
 ### Step 7: Test Your Deployment
 
 1. Wait for deployment to finish (watch the progress in Netlify)
-2. Once deployed, visit: https://codeex-ai.netlify.app
+2. Once deployed, visit: https://soham-ai.vercel.app
 3. Try these tests:
    - ✅ Homepage loads
    - ✅ Sign in / Sign up works

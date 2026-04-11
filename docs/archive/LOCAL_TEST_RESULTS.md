@@ -69,7 +69,7 @@ const result = await generateWithSmartFallback({
    ```
 
 3. **Test Production**:
-   - Visit: https://codeex-ai.netlify.app
+   - Visit: https://soham-ai.vercel.app
    - Test AI chat
    - Should work without 404 errors
 

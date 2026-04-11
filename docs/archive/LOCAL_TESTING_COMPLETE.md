@@ -158,9 +158,9 @@ Visit: http://localhost:3000 (production mode)
    ```
 
 3. **Test Production Deployment**
-   - Visit: https://codeex-ai.netlify.app
+   - Visit: https://soham-ai.vercel.app
    - Test AI chat (should respond in 4-8 seconds)
-   - Check: https://codeex-ai.netlify.app/api/health
+   - Check: https://soham-ai.vercel.app/api/health
    - Monitor Netlify function logs
 
 4. **Monitor for Issues**
@@ -187,8 +187,8 @@ NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=123456789012
 NEXT_PUBLIC_FIREBASE_APP_ID=1:123456789012:web:abc123
 NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=G-XXXXXXXXXX
 
-NEXT_PUBLIC_SITE_URL=https://codeex-ai.netlify.app
-NEXT_PUBLIC_APP_URL=https://codeex-ai.netlify.app
+NEXT_PUBLIC_SITE_URL=https://soham-ai.vercel.app
+NEXT_PUBLIC_APP_URL=https://soham-ai.vercel.app
 
 NEXT_PUBLIC_EMAILJS_SERVICE_ID=service_xxx (optional)
 NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=template_xxx (optional)

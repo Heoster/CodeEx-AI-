@@ -2,7 +2,7 @@
 
 ## Problem
 ```
-GET https://codeex-ai.netlify.app/api/chat-direct 
+GET https://soham-ai.vercel.app/api/chat-direct 
 net::ERR_INVALID_RESPONSE 405 (Method Not Allowed)
 ```
 
@@ -122,13 +122,13 @@ After deployment:
 
 ```bash
 # Test OPTIONS
-curl -X OPTIONS https://codeex-ai.netlify.app/api/chat-direct
+curl -X OPTIONS https://soham-ai.vercel.app/api/chat-direct
 
 # Test GET
-curl -X GET https://codeex-ai.netlify.app/api/chat-direct
+curl -X GET https://soham-ai.vercel.app/api/chat-direct
 
 # Test POST
-curl -X POST https://codeex-ai.netlify.app/api/chat-direct \
+curl -X POST https://soham-ai.vercel.app/api/chat-direct \
   -H "Content-Type: application/json" \
   -d '{"message":"Hello","history":[],"settings":{"tone":"friendly","technicalLevel":"intermediate"}}'
 ```
@@ -147,7 +147,7 @@ curl -X POST https://codeex-ai.netlify.app/api/chat-direct \
 3. **Verify deployment:**
    - Check Netlify dashboard for build status
    - Test the endpoint with curl commands above
-   - Test in browser at https://codeex-ai.netlify.app
+   - Test in browser at https://soham-ai.vercel.app
 
 ## Expected Behavior
 
@@ -177,7 +177,7 @@ curl -X POST https://codeex-ai.netlify.app/api/chat-direct \
 
 ## Related Issues
 
-- Original error: `chrome-error://chromewebdata/:1 GET https://codeex-ai.netlify.app/api/chat-direct net::ERR_INVALID_RESPONSE 405`
+- Original error: `chrome-error://chromewebdata/:1 GET https://soham-ai.vercel.app/api/chat-direct net::ERR_INVALID_RESPONSE 405`
 - This was blocking all chat functionality in production
 - Local development worked because Next.js dev server handles CORS differently
 

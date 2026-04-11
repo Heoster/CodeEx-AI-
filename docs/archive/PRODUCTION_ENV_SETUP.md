@@ -46,7 +46,7 @@ NEXT_PUBLIC_EMAILJS_WELCOME_TEMPLATE_ID=your_welcome_template_id
 NEXT_PUBLIC_EMAILJS_USER_ID=your_user_id
 
 # Site URL
-NEXT_PUBLIC_SITE_URL=https://codeex-ai.netlify.app
+NEXT_PUBLIC_SITE_URL=https://soham-ai.vercel.app
 ```
 
 ## 🔧 How to Add Environment Variables
@@ -184,7 +184,7 @@ Deployments → ... → Redeploy
 ### 3. Test the Deployment
 
 1. Wait for deployment to complete (2-5 minutes)
-2. Visit your site: https://codeex-ai.netlify.app
+2. Visit your site: https://soham-ai.vercel.app
 3. Go to chat page
 4. Send a test message: "Hello, are you working?"
 5. You should get a response from the AI
@@ -210,7 +210,7 @@ If still not working:
 3. **Test API Endpoint**
    ```bash
    # Test if API is working
-   curl -X POST https://codeex-ai.netlify.app/api/chat-direct \
+   curl -X POST https://soham-ai.vercel.app/api/chat-direct \
      -H "Content-Type: application/json" \
      -d '{"message":"Hello","history":[],"settings":{"tone":"friendly","technicalLevel":"intermediate"}}'
    ```

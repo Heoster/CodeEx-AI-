@@ -76,10 +76,10 @@ git push origin main
 ```
 
 ### Post-Deploy Verification
-1. Visit: https://codeex-ai.netlify.app
+1. Visit: https://soham-ai.vercel.app
 2. Test AI chat
-3. Check sitemap: https://codeex-ai.netlify.app/sitemap.xml
-4. Check health: https://codeex-ai.netlify.app/api/health
+3. Check sitemap: https://soham-ai.vercel.app/sitemap.xml
+4. Check health: https://soham-ai.vercel.app/api/health
 
 ## Files Status
 

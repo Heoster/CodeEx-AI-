@@ -123,10 +123,10 @@ export default function AboutPage() {
                   I am HEOSTER.
                 </h1>
                 <p className="max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
-                  {DEVELOPER_INFO.name} {DEVELOPER_INFO.realName} is a {DEVELOPER_INFO.age} year old founder from{' '}
+                  <strong className="text-foreground">{DEVELOPER_INFO.name}</strong> (also known as {DEVELOPER_INFO.realName}) is a {DEVELOPER_INFO.age}-year-old founder from{' '}
                   {DEVELOPER_INFO.location.city}, India. He founded <strong className="text-foreground">CODEEX-AI</strong>{' '}
                   and created <strong className="text-foreground">SOHAM</strong> to make advanced AI tools accessible,
-                  practical, and free to use. He also Created CODEEX AI.
+                  practical, and free for everyone.
                 </p>
               </div>
               <div className="flex flex-wrap gap-3">

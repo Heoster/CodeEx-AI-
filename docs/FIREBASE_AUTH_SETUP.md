@@ -165,7 +165,7 @@ if (user && !user.emailVerified) {
 
 In email templates, set the action URL to:
 - Development: `http://localhost:3000`
-- Production: Your production URL (e.g., `https://codeex-ai.netlify.app`)
+- Production: Your production URL (e.g., `https://soham-ai.vercel.app`)
 
 ### 4. Configure Authorized Domains
 

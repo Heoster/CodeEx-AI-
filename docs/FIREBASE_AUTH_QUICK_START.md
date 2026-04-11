@@ -23,17 +23,17 @@ All code is implemented! You just need to configure Firebase.
 **Password Reset Template:**
 - Subject: `Reset your password for SOHAM`
 - Click **Customize action URL**
-- Set to: `https://codeex-ai.netlify.app` (or your domain)
+- Set to: `https://soham-ai.vercel.app` (or your domain)
 
 **Email Address Change Template:**
 - Subject: `Verify your new email for SOHAM`
 - Click **Customize action URL**
-- Set to: `https://codeex-ai.netlify.app`
+- Set to: `https://soham-ai.vercel.app`
 
 **Email Verification Template:**
 - Subject: `Verify your email for SOHAM`
 - Click **Customize action URL**
-- Set to: `https://codeex-ai.netlify.app`
+- Set to: `https://soham-ai.vercel.app`
 
 ### Step 3: Add Authorized Domains
 

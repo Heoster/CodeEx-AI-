@@ -32,7 +32,7 @@ NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=G-XXXXXXXXXX
 
 #### CRITICAL - Application URL (Required)
 ```
-NEXT_PUBLIC_APP_URL=https://codeex-ai.netlify.app
+NEXT_PUBLIC_APP_URL=https://soham-ai.vercel.app
 ```
 
 #### OPTIONAL - Fallback AI Providers (Recommended)
@@ -128,9 +128,9 @@ netlify deploy --prod
 ### 6. Verify Deployment
 
 1. Wait for deployment to complete (2-3 minutes)
-2. Visit: https://codeex-ai.netlify.app
+2. Visit: https://soham-ai.vercel.app
 3. Try sending a message to the AI
-4. Check health endpoint: https://codeex-ai.netlify.app/api/health
+4. Check health endpoint: https://soham-ai.vercel.apppi/health
 
 ### 7. Troubleshooting
 

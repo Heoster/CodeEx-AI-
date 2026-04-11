@@ -96,7 +96,7 @@ Added comprehensive Person schema with:
     "name": "Maples Academy Khatauli"
   },
   "email": "codeex@email.com",
-  "url": "https://codeex-ai.netlify.app",
+  "url": "https://soham-ai.vercel.app",
   "image": "https://2024wallepals.netlify.app/assets/friends/harsh.png",
   "description": "16-year-old developer and founder of SOHAM...",
   "knowsAbout": ["React", "Next.js", "TypeScript", ...],

@@ -303,7 +303,7 @@ export function getContextualDeveloperResponse(message: string): string {
   const lowercaseMsg = message.toLowerCase();
 
   // Basic intro response
-  let response = `I was created by **${DEVELOPER_INFO.name}** (also known as **${DEVELOPER_INFO.realName}**), a ${DEVELOPER_INFO.age}-year-old visionary developer from ${DEVELOPER_INFO.location.city}, India. He is the founder of **${DEVELOPER_INFO.company.name}** and currently studies in ${DEVELOPER_INFO.education.class}.`;
+  let response = `I was created by **${DEVELOPER_INFO.name}** (also known as **${DEVELOPER_INFO.realName}**), a ${DEVELOPER_INFO.age}-year-old developer from ${DEVELOPER_INFO.location.city}, India. He is the founder of **${DEVELOPER_INFO.company.name}** and currently studies ${DEVELOPER_INFO.education.class} ${DEVELOPER_INFO.education.stream} at ${DEVELOPER_INFO.education.school}.`;
 
   // Customization based on specific questions
   if (lowercaseMsg.includes('age') || lowercaseMsg.includes('old')) {

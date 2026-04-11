@@ -15,7 +15,7 @@ Additionally, a TTS "interrupted" error was being logged.
 The URL configuration had malformed string concatenation:
 ```typescript
 // BROKEN
-url: `${process.env.NEXT_PUBLIC_APP_URL ||'https://codeex-ai.netlify.app','http://localhost:3000'}/login`
+url: `${process.env.NEXT_PUBLIC_APP_URL ||'https://soham-ai.vercel.app','http://localhost:3000'}/login`
 ```
 
 This caused the module to fail loading, which prevented the API route from being registered.

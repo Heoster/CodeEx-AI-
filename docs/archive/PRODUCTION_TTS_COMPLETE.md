@@ -64,7 +64,7 @@ RATE_LIMIT_WINDOW=60
 
 ```env
 TTS_API_KEY=your_secret_key
-ALLOWED_ORIGINS=https://codeex-ai.netlify.app
+ALLOWED_ORIGINS=https://soham-ai.vercel.app
 MAX_TEXT_LENGTH=5000
 ```
 
@@ -160,7 +160,7 @@ curl -H "X-API-Key: your_key" http://localhost:8765/tts
 ### CORS Protection
 ```env
 # Allow specific origins only
-ALLOWED_ORIGINS=https://codeex-ai.netlify.app,https://soham-ai.vercel.app
+ALLOWED_ORIGINS=https://soham-ai.vercel.appttps://soham-ai.vercel.app
 ```
 
 ### Rate Limiting
@@ -243,7 +243,7 @@ TTS_API_KEY=your_secret_key_here
 MAX_TEXT_LENGTH=5000
 
 # CORS
-ALLOWED_ORIGINS=https://codeex-ai.netlify.app,https://soham-ai.vercel.app
+ALLOWED_ORIGINS=https://soham-ai.vercel.appttps://soham-ai.vercel.app
 ```
 
 ### Nginx Configuration

@@ -41,7 +41,7 @@ All API routes are now properly configured:
 **Before:**
 ```typescript
 await sendPasswordResetEmail(auth, email, {
-  url: `${process.env.NEXT_PUBLIC_APP_URL ||'https://codeex-ai.netlify.app','http://localhost:3000'}/login`,
+  url: `${process.env.NEXT_PUBLIC_APP_URL ||'https://soham-ai.vercel.app','http://localhost:3000'}/login`,
   handleCodeInApp: true,
 });
 ```

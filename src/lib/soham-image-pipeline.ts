@@ -27,6 +27,11 @@ export interface SOHAMImageResult {
   generationTime: number;
 }
 
+// Internal result — Pollinations returns a direct URL, HuggingFace returns a blob
+type PaintResult =
+  | { kind: 'url';  url: string;  provider: 'pollinations'; model: string }
+  | { kind: 'blob'; blob: Blob;   provider: 'huggingface';  model: string };
+
 export class SOHAMImagePipeline {
   // ─── STEP 1: THE POET ────────────────────────────────────────────────────────
 
@@ -105,78 +110,55 @@ Rules: no intro/outro text, just the prompt. Be specific about lighting, composi
 
   // ─── STEP 2: THE PAINTER ─────────────────────────────────────────────────────
 
-  private async paintImage(prompt: string): Promise<{
-    blob: Blob;
-    provider: 'pollinations' | 'huggingface';
-    model: string;
-  }> {
+  private async paintImage(prompt: string): Promise<PaintResult> {
     const errors: string[] = [];
 
-    // 1. Pollinations.ai — free, no key needed
+    // 1. Pollinations.ai — returns a stable CDN URL directly, no blob needed
     try {
-      const blob = await this.paintWithPollinations(prompt, 'flux');
-      return { blob, provider: 'pollinations', model: 'flux' };
+      const url = this.buildPollinationsUrl(prompt, 'flux');
+      // Quick HEAD check to confirm the URL resolves (10s timeout)
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), 10_000);
+      const check = await fetch(url, { method: 'HEAD', signal: ctrl.signal });
+      clearTimeout(t);
+      if (!check.ok) throw new Error(`Pollinations HEAD ${check.status}`);
+      return { kind: 'url', url, provider: 'pollinations', model: 'flux' };
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);
+      console.warn('[SOHAM] Pollinations failed:', msg);
       errors.push(`Pollinations/flux: ${msg}`);
     }
 
     // 2. HuggingFace FLUX.1-schnell via Together AI (free tier)
     try {
       const blob = await this.paintWithHuggingFaceTogether(prompt, 'black-forest-labs/FLUX.1-schnell');
-      return { blob, provider: 'huggingface', model: 'FLUX.1-schnell' };
+      return { kind: 'blob', blob, provider: 'huggingface', model: 'FLUX.1-schnell' };
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);
+      console.warn('[SOHAM] FLUX.1-schnell failed:', msg);
       errors.push(`HuggingFace/FLUX.1-schnell: ${msg}`);
     }
 
     // 3. HuggingFace Wavespeed turbo-lora
     try {
       const blob = await this.paintWithHuggingFaceWavespeed(prompt);
-      return { blob, provider: 'huggingface', model: 'wavespeed-turbo-lora' };
+      return { kind: 'blob', blob, provider: 'huggingface', model: 'wavespeed-turbo-lora' };
     } catch (error) {
       const msg = error instanceof Error ? error.message : String(error);
+      console.warn('[SOHAM] Wavespeed failed:', msg);
       errors.push(`HuggingFace/Wavespeed: ${msg}`);
     }
 
     throw new Error(`All image providers failed:\n${errors.join('\n')}`);
   }
 
-  /**
-   * Pollinations.ai — completely free, no API key required.
-   * Supported models: flux, flux-realism, flux-anime, flux-3d, turbo
-   */
-  private async paintWithPollinations(prompt: string, model: string = 'flux'): Promise<Blob> {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 90_000);
-
-    try {
-      const encodedPrompt = encodeURIComponent(prompt);
-      const width = 1024;
-      const height = 1024;
-      const seed = Math.floor(Math.random() * 1_000_000);
-
-      const url = `https://image.pollinations.ai/prompt/${encodedPrompt}?model=${model}&width=${width}&height=${height}&seed=${seed}&nologo=true&enhance=true`;
-
-      const response = await fetch(url, { signal: controller.signal });
-      clearTimeout(timeout);
-
-      if (!response.ok) {
-        throw new Error(`Pollinations API error: ${response.status} ${response.statusText}`);
-      }
-
-      const blob = await response.blob();
-      if (!blob.type.startsWith('image/')) {
-        throw new Error(`Unexpected content type: ${blob.type}`);
-      }
-      return blob;
-    } catch (error) {
-      clearTimeout(timeout);
-      if (error instanceof Error && error.name === 'AbortError') {
-        throw new Error('Pollinations request timed out after 90s');
-      }
-      throw error;
-    }
+  /** Build a Pollinations.ai image URL — the URL itself IS the image, no download needed. */
+  private buildPollinationsUrl(prompt: string, model: string = 'flux'): string {
+    const seed = Math.floor(Math.random() * 1_000_000);
+    return (
+      `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}` +
+      `?model=${model}&width=1024&height=1024&seed=${seed}&nologo=true&enhance=true`
+    );
   }
 
   private async paintWithHuggingFaceTogether(prompt: string, model: string): Promise<Blob> {
@@ -248,6 +230,15 @@ Rules: no intro/outro text, just the prompt. Be specific about lighting, composi
   // ─── STEP 3: THE TEMPLE ──────────────────────────────────────────────────────
 
   private async saveImage(blob: Blob, userId: string): Promise<{ url: string; path: string }> {
+    // On Vercel serverless, filesystem is read-only — return a data URL instead
+    if (process.env.VERCEL === '1') {
+      const arrayBuffer = await blob.arrayBuffer();
+      const base64 = Buffer.from(arrayBuffer).toString('base64');
+      const mimeType = blob.type || 'image/png';
+      const dataUrl = `data:${mimeType};base64,${base64}`;
+      return { url: dataUrl, path: 'data-url' };
+    }
+
     const buffer = Buffer.from(await blob.arrayBuffer());
     const storageService = getStorageService();
     const result = await storageService.uploadFile(buffer, {
@@ -276,15 +267,28 @@ Rules: no intro/outro text, just the prompt. Be specific about lighting, composi
     const startTime = Date.now();
 
     const enhancedPrompt = await this.enhancePrompt(request.userPrompt, request.style);
-    const { blob, provider, model } = await this.paintImage(enhancedPrompt);
-    const { url, path } = await this.saveImage(blob, request.userId);
+    const paintResult = await this.paintImage(enhancedPrompt);
+
+    let url: string;
+    let path: string;
+
+    if (paintResult.kind === 'url') {
+      // Pollinations: URL is the image — no local save (works on serverless/Netlify)
+      url = paintResult.url;
+      path = url;
+    } else {
+      // HuggingFace: save blob to local storage
+      const saved = await this.saveImage(paintResult.blob, request.userId);
+      url = saved.url;
+      path = saved.path;
+    }
 
     return {
       url,
       path,
       enhancedPrompt,
-      provider,
-      model,
+      provider: paintResult.provider,
+      model: paintResult.model,
       generationTime: Date.now() - startTime,
     };
   }

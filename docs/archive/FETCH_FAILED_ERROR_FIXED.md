@@ -102,7 +102,7 @@ Created diagnostic endpoint to check configuration status:
 **Usage:**
 ```bash
 # Check if environment variables are configured
-curl https://codeex-ai.netlify.app/api/health
+curl https://soham-ai.vercel.app/api/health
 ```
 
 **Response:**
@@ -146,7 +146,7 @@ If API keys are missing:
 ## How to Fix in Production
 
 ### Step 1: Check Configuration Status
-Visit: `https://codeex-ai.netlify.app/api/health`
+Visit: `https://soham-ai.vercel.app/api/health`
 
 If you see warnings about missing API keys, proceed to Step 2.
 
@@ -221,10 +221,10 @@ npm run dev
 ### Production Testing
 ```bash
 # 1. Check health endpoint
-curl https://codeex-ai.netlify.app/api/health
+curl https://soham-ai.vercel.app/api/health
 
 # 2. Test chat API
-curl -X POST https://codeex-ai.netlify.app/api/chat-direct \
+curl -X POST https://soham-ai.vercel.app/api/chat-direct \
   -H "Content-Type: application/json" \
   -d '{"message":"Hello","history":[],"settings":{"tone":"friendly","technicalLevel":"intermediate"}}'
 

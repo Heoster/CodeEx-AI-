@@ -130,7 +130,7 @@ NEXT_PUBLIC_EMAILJS_USER_ID=your_public_key_here
 - `{{user_name}}` - Sender's name
 - `{{user_email}}` - Sender's email
 - `{{message}}` - Message content
-- `{{app_url}}` - App URL (https://codeex-ai.netlify.app)
+- `{{app_url}}` - App URL (https://soham-ai.vercel.app)
 
 ### Welcome Email Template
 - `{{to_name}}` - User's display name

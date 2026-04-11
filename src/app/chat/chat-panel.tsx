@@ -21,6 +21,19 @@ interface ChatPanelProps {
   ) => void;
 }
 
+/**
+ * Strip markdown heading syntax (# ## ###) from AI responses.
+ * Models sometimes ignore the system prompt instruction, so we clean it here.
+ */
+function cleanResponseHeaders(text: string): string {
+  return text
+    // Replace ## Heading → **Heading** (bold instead of heading)
+    .replace(/^#{1,6}\s+(.+)$/gm, '**$1**')
+    // Collapse 3+ consecutive blank lines to 2
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
 export function ChatPanel({
   chat,
   settings,
@@ -89,7 +102,7 @@ export function ChatPanel({
       } else if ('error' in response) {
         assistantContent = response.error;
       } else {
-        assistantContent = response.content;
+        assistantContent = cleanResponseHeaders(response.content);
         modelUsed = response.modelUsed;
         autoRouted = response.autoRouted;
       }
@@ -217,9 +230,9 @@ export function ChatPanel({
         let autoRouted: boolean | undefined;
         
         if (typeof response === 'string') {
-          assistantContent = response;
+          assistantContent = cleanResponseHeaders(response);
         } else if (response && typeof response === 'object' && 'content' in response) {
-          assistantContent = response.content;
+          assistantContent = cleanResponseHeaders(response.content);
           if ('modelUsed' in response) modelUsed = response.modelUsed;
           if ('autoRouted' in response) autoRouted = response.autoRouted;
         }

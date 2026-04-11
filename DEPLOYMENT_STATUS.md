@@ -62,7 +62,7 @@ NEXT_PUBLIC_FIREBASE_PROJECT_ID=...
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=...
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=...
 NEXT_PUBLIC_FIREBASE_APP_ID=...
-NEXT_PUBLIC_APP_URL=https://codeex-ai.netlify.app
+NEXT_PUBLIC_APP_URL=https://soham-ai.vercel.app
 ```
 
 **Optional but Recommended:**
@@ -96,9 +96,9 @@ Or use Netlify UI: **Deploys** → **Trigger deploy** → **Deploy site**
 
 ### 4. Verify
 1. Wait 2-3 minutes for deployment
-2. Visit: https://codeex-ai.netlify.app
+2. Visit: https://soham-ai.vercel.app
 3. Test AI chat
-4. Check: https://codeex-ai.netlify.app/api/health
+4. Check: https://soham-ai.vercel.app/api/health
 
 ## Testing Checklist (After Env Vars Configured)
 
@@ -154,5 +154,5 @@ Or use Netlify UI: **Deploys** → **Trigger deploy** → **Deploy site**
 ---
 
 **Last Updated:** February 27, 2026
-**Deployment URL:** https://codeex-ai.netlify.app
+**Deployment URL:** https://soham-ai.vercel.app
 **Repository:** GitHub (main branch)

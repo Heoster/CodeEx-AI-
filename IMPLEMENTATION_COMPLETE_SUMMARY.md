@@ -174,7 +174,7 @@ Follow the quick guide to configure environment variables in Netlify dashboard.
 3. Navigate to: **Site settings** → **Environment variables**
 4. Add all required variables (see guides below)
 5. Trigger new deployment
-6. Test at: https://codeex-ai.netlify.app
+6. Test at: https://soham-ai.vercel.app
 
 ### Detailed Guides
 - **Quick Visual Guide:** `NETLIFY_QUICK_GUIDE.md` (recommended - step by step with screenshots descriptions)
@@ -190,7 +190,7 @@ NEXT_PUBLIC_FIREBASE_PROJECT_ID=...
 NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=...
 NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=...
 NEXT_PUBLIC_FIREBASE_APP_ID=...
-NEXT_PUBLIC_APP_URL=https://codeex-ai.netlify.app
+NEXT_PUBLIC_APP_URL=https://soham-ai.vercel.app
 ```
 
 ### Recommended Variables (For Fallback)
@@ -313,8 +313,8 @@ git push origin main
 
 ## 🚀 Production URLs
 
-- **Live Site:** https://codeex-ai.netlify.app
-- **Health Check:** https://codeex-ai.netlify.app/api/health
+- **Live Site:** https://soham-ai.vercel.app
+- **Health Check:** https://soham-ai.vercel.apppi/health
 - **Netlify Dashboard:** https://app.netlify.com/
 - **GitHub Repository:** (your repo URL)
 

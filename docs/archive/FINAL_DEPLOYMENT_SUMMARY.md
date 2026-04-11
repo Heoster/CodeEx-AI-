@@ -82,11 +82,11 @@ git push origin main
 - Logs will show build progress
 
 ### Step 4: Test Production
-1. Visit: https://codeex-ai.netlify.app
+1. Visit: https://soham-ai.vercel.app
 2. Test AI chat: "Hello, test message"
 3. Should respond in 4-8 seconds
-4. Check: https://codeex-ai.netlify.app/api/health
-5. Check: https://codeex-ai.netlify.app/sitemap.xml
+4. Check: https://soham-ai.vercel.app/api/health
+5. Check: https://soham-ai.vercel.app/sitemap.xml
 
 ## Expected Performance
 
@@ -133,7 +133,7 @@ User → Server Action → Smart Fallback (Direct)
 
 ### 3. Health Endpoint
 ```bash
-curl https://codeex-ai.netlify.app/api/health
+curl https://soham-ai.vercel.app/api/health
 ```
 Should return:
 ```json
@@ -148,7 +148,7 @@ Should return:
 
 ### 4. Sitemap
 ```bash
-curl https://codeex-ai.netlify.app/sitemap.xml
+curl https://soham-ai.vercel.app/sitemap.xml
 ```
 Should return valid XML sitemap
 
@@ -205,10 +205,10 @@ git commit -m "Fix: Production ready - all issues resolved"
 git push origin main
 
 # Check production health
-curl https://codeex-ai.netlify.app/api/health
+curl https://soham-ai.vercel.app/api/health
 
 # Check sitemap
-curl https://codeex-ai.netlify.app/sitemap.xml
+curl https://soham-ai.vercel.app/sitemap.xml
 ```
 
 ## What's Fixed

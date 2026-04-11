@@ -59,6 +59,13 @@ function isCriticalFailure(error: unknown): boolean {
     'Network error',
     'Model.*is currently loading',
     'estimated_time',
+    // Token/payload limits — fall back to a model with higher limits
+    '413',
+    'Payload Too Large',
+    'Request too large',
+    'tokens per minute',
+    'rate_limit_exceeded',
+    'TPM',
   ];
   
   return criticalPatterns.some(pattern => 

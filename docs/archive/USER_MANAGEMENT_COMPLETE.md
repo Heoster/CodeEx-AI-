@@ -254,7 +254,7 @@ http://localhost:3000/user-management
 
 ### Production URL
 ```
-https://codeex-ai.netlify.app/user-management
+https://soham-ai.vercel.app/user-management
 ```
 
 ### Navigation

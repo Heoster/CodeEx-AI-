@@ -124,17 +124,17 @@ This happens when Google's automated system detects potential trademark, brandin
    
    **Application Home Page:**
    ```
-   https://codeex-ai.netlify.app
+   https://soham-ai.vercel.app
    ```
    
    **Application Privacy Policy:**
    ```
-   https://codeex-ai.netlify.app/privacy
+   https://soham-ai.vercel.apprivacy
    ```
    
    **Application Terms of Service:**
    ```
-   https://codeex-ai.netlify.app/terms
+   https://soham-ai.vercel.apperms
    ```
    
    **Authorized Domains:**
@@ -430,9 +430,9 @@ Application Name: SOHAM
 Application Logo: [Your original logo - 120x120px]
 Support Email: codeex@email.com
 
-Application Home Page: https://codeex-ai.netlify.app
-Application Privacy Policy: https://codeex-ai.netlify.app/privacy
-Application Terms of Service: https://codeex-ai.netlify.app/terms
+Application Home Page: https://soham-ai.vercel.app
+Application Privacy Policy: https://soham-ai.vercel.apprivacy
+Application Terms of Service: https://soham-ai.vercel.apperms
 
 Authorized Domains:
   - codeex-ai.netlify.app
@@ -619,7 +619,7 @@ Based on Google's official verification requirements, here's a complete checklis
 ### 1. Homepage Requirements ✅
 
 - [x] **Homepage hosted on verified domain**
-  - Your homepage: `https://codeex-ai.netlify.app`
+  - Your homepage: `https://soham-ai.vercel.app
   - Domain is verified through Netlify
 
 - [x] **Homepage accurately represents app/brand**
@@ -631,14 +631,14 @@ Based on Google's official verification requirements, here's a complete checklis
   - Not just a login page
 
 - [x] **Privacy Policy link on homepage**
-  - Link: `https://codeex-ai.netlify.app/privacy`
+  - Link: `https://soham-ai.vercel.apprivacy`
   - Accessible from footer and navigation
   - Must match OAuth consent screen link
 
 ### 2. Privacy Policy Requirements ✅
 
 - [x] **Hosted on same domain as homepage**
-  - Privacy Policy: `https://codeex-ai.netlify.app/privacy`
+  - Privacy Policy: `https://soham-ai.vercel.apprivacy`
   - Same domain as homepage ✓
 
 - [x] **Linked from homepage**
@@ -793,9 +793,9 @@ Before submitting for verification:
 ### OAuth Consent Screen
 - [ ] App name is "SOHAM" (not "SOHAM")
 - [ ] App logo is uploaded (your own, not Google's)
-- [ ] Homepage URL: `https://codeex-ai.netlify.app`
-- [ ] Privacy Policy URL: `https://codeex-ai.netlify.app/privacy`
-- [ ] Terms URL: `https://codeex-ai.netlify.app/terms`
+- [ ] Homepage URL: `https://soham-ai.vercel.app
+- [ ] Privacy Policy URL: `https://soham-ai.vercel.apprivacy`
+- [ ] Terms URL: `https://soham-ai.vercel.apperms`
 - [ ] Authorized domains include: `codeex-ai.netlify.app`
 - [ ] Authorized domains include: `firebaseapp.com`
 - [ ] Only basic scopes requested (email, profile, openid)

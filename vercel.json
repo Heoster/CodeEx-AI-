@@ -5,8 +5,20 @@
   "framework": "nextjs",
   "regions": ["iad1"],
   "functions": {
-    "src/app/api/**/*.ts": {
+    "src/app/api/chat-direct/route.ts": {
       "maxDuration": 60
+    },
+    "src/app/api/chat-direct-personality/route.ts": {
+      "maxDuration": 60
+    },
+    "src/app/api/tts/route.ts": {
+      "maxDuration": 30
+    },
+    "src/app/api/generate-image/route.ts": {
+      "maxDuration": 60
+    },
+    "src/app/api/**/*.ts": {
+      "maxDuration": 30
     }
   },
   "headers": [

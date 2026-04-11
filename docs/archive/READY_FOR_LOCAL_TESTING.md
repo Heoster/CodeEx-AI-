@@ -81,7 +81,7 @@ After all tests pass:
    git commit -m "Fix: Netlify timeout + local testing setup"
    git push origin main
    ```
-3. Test production: https://codeex-ai.netlify.app
+3. Test production: https://soham-ai.vercel.app
 
 ## Current Environment Status
 

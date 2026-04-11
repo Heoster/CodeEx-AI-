@@ -11,7 +11,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Made with Love](https://img.shields.io/badge/Made%20with-❤️-red.svg)](https://github.com/heoster)
 
-[Live Demo (Netlify)](https://codeex-ai.netlify.app) • [Live Demo (Vercel)](https://soham-ai.vercel.app) • [Documentation](./docs) • [Report Bug](https://github.com/heoster/codeex-ai/issues) • [Request Feature](https://github.com/heoster/codeex-ai/issues)
+[Live Demo (Netlify)](https://soham-ai.vercel.app) • [Live Demo (Vercel)](https://soham-ai.vercel.app) • [Documentation](./docs) • [Report Bug](https://github.com/heoster/codeex-ai/issues) • [Request Feature](https://github.com/heoster/codeex-ai/issues)
 
 </div>
 
@@ -674,7 +674,7 @@ If you find SOHAM useful, please consider giving it a star ⭐
 
 ### Built with ❤️ by a 16-year-old for the AI community
 
-**[Netlify](https://codeex-ai.netlify.app)** • **[Vercel](https://soham-ai.vercel.app)** • **[GitHub](https://github.com/heoster/codeex-ai)** • **[LinkedIn](https://in.linkedin.com/in/codeex-heoster-4b60b8399)** • **[Twitter](https://twitter.com/The_Heoster_)**
+**[Netlify](https://soham-ai.vercel.app)** • **[Vercel](https://soham-ai.vercel.app)** • **[GitHub](https://github.com/heoster/codeex-ai)** • **[LinkedIn](https://in.linkedin.com/in/codeex-heoster-4b60b8399)** • **[Twitter](https://twitter.com/The_Heoster_)**
 
 © 2024-2026 SOHAM. All rights reserved.
 
