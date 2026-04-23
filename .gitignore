@@ -152,6 +152,16 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# PWA generated files (regenerated on each build by next-pwa)
+public/sw.js
+public/sw.js.map
+public/workbox-*.js
+public/workbox-*.js.map
+public/swe-worker-*.js
+public/swe-worker-*.js.map
+public/fallback-*.js
+public/fallback-*.js.map
+
 # Local Storage Uploads
 public/uploads/
 
